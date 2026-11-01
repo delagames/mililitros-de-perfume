@@ -1,0 +1,272 @@
+{
+ "id": "scizor",
+ "naturaleza": "adamant",
+ "visitas": [
+  {
+   "n": 1,
+   "requiere": [],
+   "llega": [
+    {
+     "quien": "scizor",
+     "cara": "Normal",
+     "texto": "¿Esto es lo que se vende en Málaga? Ozú, qué pena me da. En Sevilla esto lo regalan con el periódico."
+    },
+    {
+     "quien": "morty",
+     "cara": "Inspired",
+     "texto": "Bienvenido a Mililitros de Perfume. ¿Qué busca?"
+    },
+    {
+     "quien": "scizor",
+     "cara": "Determined",
+     "texto": "Enséñame lo mejor que tengas. Y no me digas que es de aquí, que se me nota en la cara."
+    }
+   ],
+   "pide": "Ponme algo con carácter, que caliente. Lo mejor que tengas, que se note que soy de fuera.",
+   "perfecto": [
+    {
+     "quien": "scizor",
+     "cara": "Surprised",
+     "texto": "Illo. Esto está bueno. No se lo digas a nadie."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "scizor",
+     "cara": "Normal",
+     "texto": "Psé. Pasable. En Triana, de esto, hay en cada esquina."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "scizor",
+     "cara": "Angry",
+     "texto": "Esto huele a agua de mar. Quédatelo, que a mí el mar me pilla lejos."
+    }
+   ],
+   "marca": "scizor-1"
+  },
+  {
+   "n": 2,
+   "requiere": [
+    "scizor-1",
+    "jornada-pierde"
+   ],
+   "llega": [
+    {
+     "quien": "scizor",
+     "cara": "Joyous",
+     "texto": "Buenos días. Solo venía a decirlo: perdisteis."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Lo sé."
+    },
+    {
+     "quien": "scizor",
+     "cara": "Inspired",
+     "texto": "Na más. Bueno, ponme algo, ya que estoy, que no se diga."
+    }
+   ],
+   "pide": "Algo con mala leche, como el resultado de ayer. Que no he venío a consolar a nadie.",
+   "perfecto": [
+    {
+     "quien": "scizor",
+     "cara": "Joyous",
+     "texto": "Ole. Un perfume de campeón para un día de campeón. El mío, digo."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "scizor",
+     "cara": "Normal",
+     "texto": "Pasable. Como vuestra defensa."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "scizor",
+     "cara": "Angry",
+     "texto": "Agua fresca. No hace nada. Me recuerda a alguien de ayer."
+    }
+   ],
+   "marca": "scizor-2"
+  },
+  {
+   "n": 3,
+   "requiere": [
+    "scizor-2",
+    "quagsire-2"
+   ],
+   "llega": [
+    {
+     "quien": "quagsire",
+     "cara": "Normal",
+     "texto": "Buenas. Sin prisa, ¿eh? Atiende al señor."
+    },
+    {
+     "quien": "scizor",
+     "cara": "Determined",
+     "texto": "Atiéndeme a mí, que yo sí tengo prisa. En Sevilla todo va más rápido."
+    },
+    {
+     "quien": "quagsire",
+     "cara": "Normal",
+     "texto": "Aquí tenemos playa. Por eso no corremos."
+    },
+    {
+     "quien": "scizor",
+     "cara": "Angry",
+     "texto": "Playa. Ozú. Nosotros tenemos el río, que es una playa con educación."
+    },
+    {
+     "quien": "quagsire",
+     "cara": "Happy",
+     "texto": "El río no tiene chiringuito. Lo digo con todo el cariño."
+    },
+    {
+     "quien": "gengar",
+     "cara": "Joyous",
+     "texto": "Jejejeje."
+    }
+   ],
+   "pide": "Ponme algo con genio y que dure, illo. Que caliente como el albero en agosto.",
+   "perfecto": [
+    {
+     "quien": "scizor",
+     "cara": "Inspired",
+     "texto": "Esto sí. Esto no lo tenéis en la playa."
+    },
+    {
+     "quien": "quagsire",
+     "cara": "Happy",
+     "texto": "Ni en el río."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "scizor",
+     "cara": "Normal",
+     "texto": "Vale. Me lo llevo. Y la playa os la podéis quedar."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "scizor",
+     "cara": "Angry",
+     "texto": "Esto huele a brisa marina. ¿Tú también me estás tomando el pelo?"
+    }
+   ],
+   "marca": "scizor-3"
+  },
+  {
+   "n": 4,
+   "requiere": [
+    "scizor-3"
+   ],
+   "llega": [
+    {
+     "quien": "scizor",
+     "cara": "Sigh",
+     "texto": "Te voy a decir una cosa y no la vas a repetir. Mi madre era de Málaga."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "No la repito."
+    },
+    {
+     "quien": "scizor",
+     "cara": "Determined",
+     "texto": "De la Trinidad. Ponme un perfume que no huela a nada de aquí. A nada."
+    }
+   ],
+   "pide": "Uno con carácter, de fuera, que no me recuerde a ningún sitio. Que arda, que es lo mío.",
+   "perfecto": [
+    {
+     "quien": "scizor",
+     "cara": "Surprised",
+     "texto": "Illo… esto huele a la Trinidad. A mi madre tendiendo en el balcón."
+    },
+    {
+     "quien": "scizor",
+     "cara": "Worried",
+     "texto": "Me lo llevo. Por equivocación, ¿eh?"
+    }
+   ],
+   "bien": [
+    {
+     "quien": "scizor",
+     "cara": "Normal",
+     "texto": "Se parece a algo. No me digas a qué."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "scizor",
+     "cara": "Angry",
+     "texto": "Esto es agua de playa de aquí. Justo lo que no te he pedido."
+    }
+   ],
+   "marca": "scizor-4"
+  },
+  {
+   "n": 5,
+   "requiere": [
+    "scizor-4",
+    "rosaleda"
+   ],
+   "llega": [
+    {
+     "quien": "scizor",
+     "cara": "Determined",
+     "texto": "Ponme el de La Rosaleda. Es para un amigo."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "¿Un amigo del Málaga?"
+    },
+    {
+     "quien": "scizor",
+     "cara": "Normal",
+     "texto": "Un amigo. Del Málaga, sí. Lo conozco poco. Lo conozco de nada."
+    },
+    {
+     "quien": "scizor",
+     "cara": "Inspired",
+     "texto": "Y que sepas que vuestro estadio es más chico que el nuestro. Te lo digo con cariño, illo."
+    }
+   ],
+   "pide": "El de La Rosaleda, pero con su punto de fuego, que mi amigo tiene carácter, illo.",
+   "perfecto": [
+    {
+     "quien": "scizor",
+     "cara": "Joyous",
+     "texto": "Este le va a gustar. A mi amigo."
+    },
+    {
+     "quien": "scizor",
+     "cara": "Normal",
+     "texto": "Hasta otra, Morty. A ver si ganáis algo, que me da pena."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "scizor",
+     "cara": "Normal",
+     "texto": "Valdrá. Mi amigo no es exigente. Yo sí, pero yo no cuento."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "scizor",
+     "cara": "Angry",
+     "texto": "Esto huele a brisa. Mi amigo se merece algo mejor, y yo no lo pago."
+    }
+   ],
+   "marca": "scizor-5"
+  }
+ ]
+}

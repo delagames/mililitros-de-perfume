@@ -1,0 +1,296 @@
+{
+ "id": "girafarig",
+ "naturaleza": "rash",
+ "naturaleza_cola": "calm",
+ "visitas": [
+  {
+   "n": 1,
+   "requiere": [],
+   "llega": [
+    {
+     "quien": "girafarig",
+     "cara": "Normal",
+     "texto": "Buenas. Quería un perfume suave, para diario, que no moleste."
+    },
+    {
+     "quien": "cola",
+     "cara": "Happy",
+     "texto": "Que huela a cuero. A cuero sudao y a látex recalentao. Es para un amigo que va de lobo los jueves."
+    },
+    {
+     "quien": "girafarig",
+     "cara": "Worried",
+     "texto": "Perdone. Es la cola. No le haga caso."
+    },
+    {
+     "quien": "cola",
+     "cara": "Joyous",
+     "texto": "Ese perro que pasea a un humano con correa… ¿cobra por horas o tiene tarifa plana? Pregunto por mí."
+    },
+    {
+     "quien": "cola",
+     "cara": "Special0",
+     "texto": "Tienes unas manos muy de mostrador, Morty. De las que dan collejas. Dame una. Una chiquitita."
+    }
+   ],
+   "pide": "Suave y fresco, para ir a trabajar, de camisa limpia. La cola: «a cuero oscuro y café de madrugada».",
+   "perfecto": [
+    {
+     "quien": "girafarig",
+     "cara": "Happy",
+     "texto": "Huele a persona normal. Gracias."
+    },
+    {
+     "quien": "cola",
+     "cara": "Special0",
+     "texto": "Y por debajo huele a mazmorra de polígono. Me encanta. Me encanta mucho."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "girafarig",
+     "cara": "Normal",
+     "texto": "Me vale para diario. A la cola no le vale para nada, pero nunca le vale."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "cola",
+     "cara": "Angry",
+     "texto": "Esto huele a pijama de franela y a misa de doce. Qué castigo. Y no del que me gusta."
+    }
+   ],
+   "marca": "girafarig-1"
+  },
+  {
+   "n": 2,
+   "requiere": [
+    "girafarig-1"
+   ],
+   "llega": [
+    {
+     "quien": "girafarig",
+     "cara": "Happy",
+     "texto": "Tengo una cita. El viernes, en el bar de enfrente. Nos conocimos por internet. Parece muy formal."
+    },
+    {
+     "quien": "cola",
+     "cara": "Special0",
+     "texto": "Yo también he quedado. El viernes. En el bar de enfrente. Llevo bozal, por si muerdo."
+    },
+    {
+     "quien": "girafarig",
+     "cara": "Surprised",
+     "texto": "¿Con quién?"
+    },
+    {
+     "quien": "cola",
+     "cara": "Happy",
+     "texto": "No es asunto tuyo. Va con antifaz, arnés y orejas de zorro. Lo normal."
+    }
+   ],
+   "pide": "Fresco y limpio, de primera cita. Y la cola: «de última cita: oscuro y a puro».",
+   "perfecto": [
+    {
+     "quien": "cola",
+     "cara": "Special0",
+     "texto": "Perfecto. Ahora solo falta atar cabos. Con cuerda de escalada, que la de tender se rompe."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "girafarig",
+     "cara": "Normal",
+     "texto": "Me vale. Con los nervios no voy a oler nada."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "cola",
+     "cara": "Angry",
+     "texto": "Con esto no me ata nadie el viernes. Ni con bridas."
+    }
+   ],
+   "marca": "girafarig-2"
+  },
+  {
+   "n": 3,
+   "requiere": [
+    "girafarig-2",
+    "eevee-1"
+   ],
+   "llega": [
+    {
+     "quien": "eevee",
+     "cara": "Normal",
+     "texto": "Hola… Solo venía a mirar. A Morty no. A los frascos. A los frascos."
+    },
+    {
+     "quien": "cola",
+     "cara": "Joyous",
+     "texto": "Qué orejas más bien puestas. ¿Haces cosplay, guapa? ¿De qué vas? ¿De ti misma? Uf."
+    },
+    {
+     "quien": "eevee",
+     "cara": "Surprised",
+     "texto": "¿Cosplay? No… Esto lo llevo de serie."
+    },
+    {
+     "quien": "cola",
+     "cara": "Special0",
+     "texto": "¿De serie? ¿Esa cola es de serie? Ay, que me da algo. Gengar, abanícame."
+    },
+    {
+     "quien": "girafarig",
+     "cara": "Worried",
+     "texto": "Perdónala. Perdónanos. Yo solo vengo a por el perfume."
+    },
+    {
+     "quien": "gengar",
+     "cara": "Joyous",
+     "texto": "Jejejejeje…"
+    }
+   ],
+   "pide": "Algo de ventana abierta que me calme. La cola pide «oscuro, de cuero y con un poco de pelo».",
+   "perfecto": [
+    {
+     "quien": "cola",
+     "cara": "Happy",
+     "texto": "Eevee, los jueves hay sitio. Trae tus orejas, que el resto lo ponemos nosotros."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "girafarig",
+     "cara": "Normal",
+     "texto": "Gracias. Vámonos antes de que hable otra vez."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "cola",
+     "cara": "Angry",
+     "texto": "Esto es para gente que duerme con pijama de dos piezas. Qué tristeza más grande."
+    }
+   ],
+   "marca": "girafarig-3"
+  },
+  {
+   "n": 4,
+   "requiere": [
+    "girafarig-3"
+   ],
+   "llega": [
+    {
+     "quien": "cola",
+     "cara": "Joyous",
+     "texto": "Me he apuntado a un club de furros. Hay reglamento, cuota y palabra de seguridad. La mía es «Hacienda»."
+    },
+    {
+     "quien": "girafarig",
+     "cara": "Sigh",
+     "texto": "Le he escondido el disfraz. Ya está bien."
+    },
+    {
+     "quien": "cola",
+     "cara": "Special0",
+     "texto": "Debajo del colchón, al lado de tus galletas y del látigo. El látigo también es mío."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "¿Para qué es el perfume?"
+    },
+    {
+     "quien": "cola",
+     "cara": "Happy",
+     "texto": "Que huela a convención de furros: a peluche sudao, a nervios y a fiesta que acaba a las ocho de la mañana."
+    }
+   ],
+   "pide": "Lo mío, de brisa, para aguantarla. Lo suyo, «a convención»: oscuro y a cuero.",
+   "perfecto": [
+    {
+     "quien": "cola",
+     "cara": "Joyous",
+     "texto": "Me lo llevo puesto al club. Y a ella también, que viene pegada y no tiene palabra de seguridad."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "girafarig",
+     "cara": "Normal",
+     "texto": "A mí me vale. Ella con el disfraz ya va servida."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "cola",
+     "cara": "Angry",
+     "texto": "Esto huele a quedarse en casa viendo Saber y Ganar. Me disfrazo igual. De rencor."
+    }
+   ],
+   "marca": "girafarig-4"
+  },
+  {
+   "n": 5,
+   "requiere": [
+    "girafarig-4"
+   ],
+   "llega": [
+    {
+     "quien": "girafarig",
+     "cara": "Crying",
+     "texto": "Lo de la cita del viernes. Era ella. Me escribía ella. Desde mi propio móvil."
+    },
+    {
+     "quien": "cola",
+     "cara": "Sigh",
+     "texto": "Te escribía bonito, ¿eh? Y tú contestabas. No era tan difícil."
+    },
+    {
+     "quien": "girafarig",
+     "cara": "Worried",
+     "texto": "Nos hemos mirado. Lo que podemos."
+    },
+    {
+     "quien": "cola",
+     "cara": "Normal",
+     "texto": "Queremos un perfume para dos. Para salir. Salimos siempre, ya, pero ahora a propósito."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Para dos. Marchando."
+    }
+   ],
+   "pide": "Uno para las dos cabezas: fresco por delante, oscuro por detrás, y cada uno en su sitio.",
+   "perfecto": [
+    {
+     "quien": "girafarig",
+     "cara": "Joyous",
+     "texto": "Huele a las dos. Gracias, Morty."
+    },
+    {
+     "quien": "cola",
+     "cara": "Special0",
+     "texto": "Y sin preguntar nada. Esas manos, Morty. Esas manos de dar collejas. Ya te lo dije."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "cola",
+     "cara": "Happy",
+     "texto": "Nos vale. Esta noche, cena para dos. Para una. Bueno, lo que sea."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "girafarig",
+     "cara": "Sigh",
+     "texto": "No pasa nada. Nos ha costado años; un perfume más da igual."
+    }
+   ],
+   "marca": "girafarig-5"
+  }
+ ]
+}

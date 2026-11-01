@@ -1,0 +1,236 @@
+{
+ "sabores": {
+  "spicy": "Picante",
+  "dry": "Seco",
+  "sweet": "Dulce",
+  "bitter": "Amargo",
+  "sour": "Ácido"
+ },
+ "naturalezas": [
+  {
+   "id": "adamant",
+   "nombre": "Firme",
+   "nombre_en": "Adamant",
+   "gusta": "spicy",
+   "odia": "dry",
+   "sube": "attack",
+   "baja": "special-attack"
+  },
+  {
+   "id": "bashful",
+   "nombre": "Tímida",
+   "nombre_en": "Bashful",
+   "gusta": null,
+   "odia": null,
+   "sube": null,
+   "baja": null
+  },
+  {
+   "id": "bold",
+   "nombre": "Osada",
+   "nombre_en": "Bold",
+   "gusta": "sour",
+   "odia": "spicy",
+   "sube": "defense",
+   "baja": "attack"
+  },
+  {
+   "id": "brave",
+   "nombre": "Audaz",
+   "nombre_en": "Brave",
+   "gusta": "spicy",
+   "odia": "sweet",
+   "sube": "attack",
+   "baja": "speed"
+  },
+  {
+   "id": "calm",
+   "nombre": "Serena",
+   "nombre_en": "Calm",
+   "gusta": "bitter",
+   "odia": "spicy",
+   "sube": "special-defense",
+   "baja": "attack"
+  },
+  {
+   "id": "careful",
+   "nombre": "Cauta",
+   "nombre_en": "Careful",
+   "gusta": "bitter",
+   "odia": "dry",
+   "sube": "special-defense",
+   "baja": "special-attack"
+  },
+  {
+   "id": "docile",
+   "nombre": "Dócil",
+   "nombre_en": "Docile",
+   "gusta": null,
+   "odia": null,
+   "sube": null,
+   "baja": null
+  },
+  {
+   "id": "gentle",
+   "nombre": "Amable",
+   "nombre_en": "Gentle",
+   "gusta": "bitter",
+   "odia": "sour",
+   "sube": "special-defense",
+   "baja": "defense"
+  },
+  {
+   "id": "hardy",
+   "nombre": "Fuerte",
+   "nombre_en": "Hardy",
+   "gusta": null,
+   "odia": null,
+   "sube": null,
+   "baja": null
+  },
+  {
+   "id": "hasty",
+   "nombre": "Activa",
+   "nombre_en": "Hasty",
+   "gusta": "sweet",
+   "odia": "sour",
+   "sube": "speed",
+   "baja": "defense"
+  },
+  {
+   "id": "impish",
+   "nombre": "Agitada",
+   "nombre_en": "Impish",
+   "gusta": "sour",
+   "odia": "dry",
+   "sube": "defense",
+   "baja": "special-attack"
+  },
+  {
+   "id": "jolly",
+   "nombre": "Alegre",
+   "nombre_en": "Jolly",
+   "gusta": "sweet",
+   "odia": "dry",
+   "sube": "speed",
+   "baja": "special-attack"
+  },
+  {
+   "id": "lax",
+   "nombre": "Floja",
+   "nombre_en": "Lax",
+   "gusta": "sour",
+   "odia": "bitter",
+   "sube": "defense",
+   "baja": "special-defense"
+  },
+  {
+   "id": "lonely",
+   "nombre": "Huraña",
+   "nombre_en": "Lonely",
+   "gusta": "spicy",
+   "odia": "sour",
+   "sube": "attack",
+   "baja": "defense"
+  },
+  {
+   "id": "mild",
+   "nombre": "Afable",
+   "nombre_en": "Mild",
+   "gusta": "dry",
+   "odia": "sour",
+   "sube": "special-attack",
+   "baja": "defense"
+  },
+  {
+   "id": "modest",
+   "nombre": "Modesta",
+   "nombre_en": "Modest",
+   "gusta": "dry",
+   "odia": "spicy",
+   "sube": "special-attack",
+   "baja": "attack"
+  },
+  {
+   "id": "naive",
+   "nombre": "Ingenua",
+   "nombre_en": "Naive",
+   "gusta": "sweet",
+   "odia": "bitter",
+   "sube": "speed",
+   "baja": "special-defense"
+  },
+  {
+   "id": "naughty",
+   "nombre": "Pícara",
+   "nombre_en": "Naughty",
+   "gusta": "spicy",
+   "odia": "bitter",
+   "sube": "attack",
+   "baja": "special-defense"
+  },
+  {
+   "id": "quiet",
+   "nombre": "Mansa",
+   "nombre_en": "Quiet",
+   "gusta": "dry",
+   "odia": "sweet",
+   "sube": "special-attack",
+   "baja": "speed"
+  },
+  {
+   "id": "quirky",
+   "nombre": "Rara",
+   "nombre_en": "Quirky",
+   "gusta": null,
+   "odia": null,
+   "sube": null,
+   "baja": null
+  },
+  {
+   "id": "rash",
+   "nombre": "Alocada",
+   "nombre_en": "Rash",
+   "gusta": "dry",
+   "odia": "bitter",
+   "sube": "special-attack",
+   "baja": "special-defense"
+  },
+  {
+   "id": "relaxed",
+   "nombre": "Plácida",
+   "nombre_en": "Relaxed",
+   "gusta": "sour",
+   "odia": "sweet",
+   "sube": "defense",
+   "baja": "speed"
+  },
+  {
+   "id": "sassy",
+   "nombre": "Grosera",
+   "nombre_en": "Sassy",
+   "gusta": "bitter",
+   "odia": "sweet",
+   "sube": "special-defense",
+   "baja": "speed"
+  },
+  {
+   "id": "serious",
+   "nombre": "Seria",
+   "nombre_en": "Serious",
+   "gusta": null,
+   "odia": null,
+   "sube": null,
+   "baja": null
+  },
+  {
+   "id": "timid",
+   "nombre": "Miedosa",
+   "nombre_en": "Timid",
+   "gusta": "sweet",
+   "odia": "spicy",
+   "sube": "speed",
+   "baja": "attack"
+  }
+ ]
+}

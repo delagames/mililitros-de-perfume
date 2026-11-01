@@ -1,0 +1,218 @@
+{
+ "id": "eevee",
+ "naturaleza": "bashful",
+ "visitas": [
+  {
+   "n": 1,
+   "requiere": [],
+   "llega": [
+    {
+     "quien": "eevee",
+     "cara": "Happy",
+     "texto": "Hola, Morty. Pasaba por aquí. Por casualidad. Por esta calle. Que es la mía. Más o menos."
+    },
+    {
+     "quien": "eevee",
+     "cara": "Worried",
+     "texto": "¿Me hueles tú a mí, a ver si voy bien? Pero tú. De cerca."
+    },
+    {
+     "quien": "morty",
+     "cara": "Worried",
+     "texto": "Vas bien. Un fondo de champú de manzana y un poco de autobús."
+    },
+    {
+     "quien": "morty",
+     "cara": "Inspired",
+     "texto": "Para corregir el autobús hay soluciones muy profesionales."
+    }
+   ],
+   "pide": "Ponme el que tú quieras. Yo no sé de esto. El que te guste a ti, vaya.",
+   "perfecto": [
+    {
+     "quien": "eevee",
+     "cara": "Joyous",
+     "texto": "¡Ay! Lo has elegido tú. Para mí. Me lo voy a poner todos los días."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "eevee",
+     "cara": "Happy",
+     "texto": "Me gusta. Bueno, me gusta que lo hayas hecho tú."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "eevee",
+     "cara": "Sad",
+     "texto": "Huele un poco… da igual. Vuelvo otro día. Por casualidad."
+    }
+   ],
+   "marca": "eevee-1"
+  },
+  {
+   "n": 2,
+   "requiere": [
+    "eevee-1"
+   ],
+   "llega": [
+    {
+     "quien": "eevee",
+     "cara": "Happy",
+     "texto": "Otra vez por aquí. Qué casualidad, ¿eh? Tengo mucho que hacer en esta calle."
+    },
+    {
+     "quien": "eevee",
+     "cara": "Special0",
+     "texto": "Uy, se me ha caído el pañuelo. En tu mostrador. Ya lo recoges tú, si eso."
+    },
+    {
+     "quien": "gengar",
+     "cara": "Joyous",
+     "texto": "Ñam."
+    },
+    {
+     "quien": "eevee",
+     "cara": "Surprised",
+     "texto": "Se lo ha comido. Estaba perfumado y todo."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Le van los perfumados. ¿Te pongo algo?"
+    }
+   ],
+   "pide": "Algo para llevar en un pañuelo. Para dejarlo en algún sitio. Lo que tú veas, de verdad.",
+   "perfecto": [
+    {
+     "quien": "eevee",
+     "cara": "Joyous",
+     "texto": "Perfecto. Me compro otro pañuelo y vuelvo."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "eevee",
+     "cara": "Happy",
+     "texto": "Este vale. Mientras no se lo coma él…"
+    }
+   ],
+   "mal": [
+    {
+     "quien": "eevee",
+     "cara": "Sad",
+     "texto": "Mejor no. Ni Gengar se lo comería."
+    }
+   ],
+   "marca": "eevee-2"
+  },
+  {
+   "n": 4,
+   "requiere": [
+    "eevee-3"
+   ],
+   "llega": [
+    {
+     "quien": "eevee",
+     "cara": "Worried",
+     "texto": "Morty, hoy no pasaba por aquí. He venido a propósito. Ya está. Lo he dicho."
+    },
+    {
+     "quien": "eevee",
+     "cara": "Worried",
+     "texto": "Quiero un perfume que le guste a él. A un chico. Un chico cualquiera. Con bufanda, por ejemplo."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Lo que le gusta a él da igual. El perfume se hace para quien lo lleva."
+    }
+   ],
+   "pide": "Que le guste a él. Yo me lo pongo y ya está. A mí me vale todo.",
+   "perfecto": [
+    {
+     "quien": "eevee",
+     "cara": "Joyous",
+     "texto": "¡Este es! ¡Le va a encantar! ¡Seguro que le encanta!"
+    }
+   ],
+   "bien": [
+    {
+     "quien": "eevee",
+     "cara": "Happy",
+     "texto": "Me gusta mucho. A él no sé. Ya te digo."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "eevee",
+     "cara": "Sad",
+     "texto": "A él esto no le gusta. Lo sé muy bien, créeme."
+    }
+   ],
+   "marca": "eevee-4"
+  },
+  {
+   "n": 5,
+   "requiere": [
+    "eevee-4"
+   ],
+   "llega": [
+    {
+     "quien": "eevee",
+     "cara": "Worried",
+     "texto": "Te he dejado una cosa en el mostrador. No la leas ahora. Bueno, léela. No, ahora no."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "…"
+    },
+    {
+     "quien": "eevee",
+     "cara": "Happy",
+     "texto": "Y ponme algo. Me lo pongo para venir. Por casualidad, el martes."
+    }
+   ],
+   "pide": "El que tú quieras. Siempre me aciertas, aunque no sepas qué me pasa.",
+   "perfecto": [
+    {
+     "quien": "eevee",
+     "cara": "Joyous",
+     "texto": "Gracias, Morty. Sigo viniendo, ¿eh? Por si cambias de idea."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Aquí vas a estar muy bien atendida. Como todos."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "eevee",
+     "cara": "Happy",
+     "texto": "Vale. El martes paso. Por casualidad."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Los martes abrimos a las diez. Como siempre."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "eevee",
+     "cara": "Sad",
+     "texto": "No pasa nada. Vuelvo. Yo siempre vuelvo."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Aquí estaremos."
+    }
+   ],
+   "marca": "eevee-5"
+  }
+ ]
+}

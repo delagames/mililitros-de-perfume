@@ -1,0 +1,305 @@
+{
+ "id": "misdreavus",
+ "naturaleza": "calm",
+ "visitas": [
+  {
+   "n": 1,
+   "requiere": [],
+   "llega": [
+    {
+     "quien": "misdreavus",
+     "cara": "Normal",
+     "texto": "Buenos días."
+    },
+    {
+     "quien": "misdreavus",
+     "cara": "Normal",
+     "texto": "Yo veía su programa. «Cenas Encantadas». Salían amigas mías."
+    },
+    {
+     "quien": "morty",
+     "cara": "Worried",
+     "texto": "Eso ya no lo hago."
+    },
+    {
+     "quien": "misdreavus",
+     "cara": "Normal",
+     "texto": "Busco un perfume que huela a mi casa de antes."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "¿Cómo olía?"
+    },
+    {
+     "quien": "misdreavus",
+     "cara": "Sigh",
+     "texto": "A casa. No sé decirlo de otra manera."
+    }
+   ],
+   "pide": "Algo que huela a quedarse. A café de sobremesa y a mesa de madera.",
+   "perfecto": [
+    {
+     "quien": "misdreavus",
+     "cara": "Happy",
+     "texto": "Se parece. No es, pero se parece. Volveré."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "misdreavus",
+     "cara": "Normal",
+     "texto": "Va por buen camino. Gracias por intentarlo."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "misdreavus",
+     "cara": "Worried",
+     "texto": "No. Esto pica. Allí nada picaba."
+    }
+   ],
+   "marca": "misdreavus-1"
+  },
+  {
+   "n": 2,
+   "requiere": [
+    "misdreavus-1"
+   ],
+   "llega": [
+    {
+     "quien": "misdreavus",
+     "cara": "Normal",
+     "texto": "He intentado acordarme mejor."
+    },
+    {
+     "quien": "misdreavus",
+     "cara": "Normal",
+     "texto": "Había un suelo de madera. Jabón de pastilla en el lavabo. Café de puchero por la mañana."
+    },
+    {
+     "quien": "misdreavus",
+     "cara": "Sigh",
+     "texto": "Y una colonia. De las de antes. De las que venían en botella grande."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Madera, jabón y café. La colonia la buscamos poco a poco."
+    }
+   ],
+   "pide": "Que tenga eso del café y de la madera. Como una tarde larga.",
+   "perfecto": [
+    {
+     "quien": "misdreavus",
+     "cara": "Happy",
+     "texto": "Eso es la cocina. Por la mañana. Falta algo, pero eso es la cocina."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "misdreavus",
+     "cara": "Normal",
+     "texto": "Está el suelo. Todavía no está la casa."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "misdreavus",
+     "cara": "Worried",
+     "texto": "Esto no es. Esto es de otra casa."
+    }
+   ],
+   "marca": "misdreavus-2"
+  },
+  {
+   "n": 3,
+   "requiere": [
+    "misdreavus-2"
+   ],
+   "llega": [
+    {
+     "quien": "sudowoodo",
+     "cara": "Happy",
+     "texto": "Hola, me llamo Ñoño. ¿Tienes el Onix de Brock dorado? Jijiji."
+    },
+    {
+     "quien": "misdreavus",
+     "cara": "Surprised",
+     "texto": "…"
+    },
+    {
+     "quien": "misdreavus",
+     "cara": "Normal",
+     "texto": "Tú hueles a esa casa."
+    },
+    {
+     "quien": "sudowoodo",
+     "cara": "Joyous",
+     "texto": "Jijiji. ¿Quieres ver mi estampita? Es un Hoppip. Lo tengo repe."
+    },
+    {
+     "quien": "misdreavus",
+     "cara": "Sigh",
+     "texto": "Gracias. Es muy bonita."
+    }
+   ],
+   "pide": "Lo de la otra vez. Su madera. Su café. Como él.",
+   "perfecto": [
+    {
+     "quien": "misdreavus",
+     "cara": "Happy",
+     "texto": "Sí. Así. Huele a pasillo. A volver del colegio."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "misdreavus",
+     "cara": "Normal",
+     "texto": "Se acerca. Él huele más a la casa que esto."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "misdreavus",
+     "cara": "Worried",
+     "texto": "No. Él sí huele a la casa. Esto no."
+    }
+   ],
+   "marca": "misdreavus-3"
+  },
+  {
+   "n": 4,
+   "requiere": [
+    "misdreavus-3",
+    "miltank-2"
+   ],
+   "llega": [
+    {
+     "quien": "miltank",
+     "cara": "Surprised",
+     "texto": "Mira quién está aquí. Tú vivías en casa de la Encarni."
+    },
+    {
+     "quien": "misdreavus",
+     "cara": "Normal",
+     "texto": "Sí. Ella me cuidaba."
+    },
+    {
+     "quien": "misdreavus",
+     "cara": "Sigh",
+     "texto": "Mi casa de antes no era la casa. Era ella. La abuela de Ñoño."
+    },
+    {
+     "quien": "gengar",
+     "cara": "Sad",
+     "texto": "…"
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Por eso Ñoño no se ducha. La casa ya no huele a ella, y él no quiere oler a otra cosa."
+    },
+    {
+     "quien": "miltank",
+     "cara": "Worried",
+     "texto": "La Encarni usaba una colonia de botella grande. Se la compraba en la droguería del pueblo."
+    }
+   ],
+   "pide": "Quiero la colonia de ella. Madera, café, jabón. Y su colonia.",
+   "perfecto": [
+    {
+     "quien": "misdreavus",
+     "cara": "Happy",
+     "texto": "Casi es ella. Casi. Me falta poco para volver."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "misdreavus",
+     "cara": "Normal",
+     "texto": "Todavía no es ella. Gracias por buscarla conmigo."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "misdreavus",
+     "cara": "Worried",
+     "texto": "No. Ella nunca olió así."
+    }
+   ],
+   "marca": "misdreavus-4",
+   "marcas_extra": [
+    "miltank-3"
+   ],
+   "hastaPerfecto": true
+  },
+  {
+   "n": 5,
+   "requiere": [
+    "misdreavus-4"
+   ],
+   "llega": [
+    {
+     "quien": "misdreavus",
+     "cara": "Normal",
+     "texto": "He traído a Ñoño. Quiero que lo huela él también."
+    },
+    {
+     "quien": "sudowoodo",
+     "cara": "Happy",
+     "texto": "Hola, me llamo Ñoño. Dice que hoy es un día importante. Jiji."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Hoy creo que sí la tengo. La colonia de la Encarni."
+    }
+   ],
+   "pide": "La colonia de la abuela. Con su madera y su café. Tranquila, como ella.",
+   "perfecto": [
+    {
+     "quien": "sudowoodo",
+     "cara": "Sad",
+     "texto": "Huele a mi abuela."
+    },
+    {
+     "quien": "misdreavus",
+     "cara": "Happy",
+     "texto": "Huele a casa. ¿Me dejas volver a vivir allí, Ñoño?"
+    },
+    {
+     "quien": "sudowoodo",
+     "cara": "Happy",
+     "texto": "Vale. Y me ducho. Una vez. Para que la casa huela a ella y no a mí."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "misdreavus",
+     "cara": "Normal",
+     "texto": "Está muy cerca. Lo intentamos otro día. Ya no tengo prisa."
+    },
+    {
+     "quien": "sudowoodo",
+     "cara": "Happy",
+     "texto": "Huele un poquito a mi abuela. Un poquito. Jiji."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "misdreavus",
+     "cara": "Worried",
+     "texto": "No es ella. No pasa nada. Volveremos."
+    },
+    {
+     "quien": "sudowoodo",
+     "cara": "Normal",
+     "texto": "Mi abuela olía mejor."
+    }
+   ],
+   "marca": "misdreavus-5",
+   "hastaPerfecto": true
+  }
+ ]
+}

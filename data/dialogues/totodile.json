@@ -1,0 +1,230 @@
+{
+ "id": "totodile",
+ "naturaleza": "naughty",
+ "visitas": [
+  {
+   "n": 1,
+   "requiere": [],
+   "llega": [
+    {
+     "quien": "totodile",
+     "cara": "Normal",
+     "texto": "Lo de siempre: el de 30 ml. El de 50 es tirar el dinero."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Es la primera vez que viene."
+    },
+    {
+     "quien": "totodile",
+     "cara": "Happy",
+     "texto": "Pues ya es lo de siempre. ¿Me haces precio? Es el cumpleaños de mi prima."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Felicítela de mi parte. El precio es el que es."
+    }
+   ],
+   "pide": "Con chispa, como yo cuando regateo. Para el cumpleaños de mi prima.",
+   "perfecto": [
+    {
+     "quien": "totodile",
+     "cara": "Joyous",
+     "texto": "¡Esto sí! Huele a que me has hecho descuento, aunque no me lo hayas hecho."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "totodile",
+     "cara": "Normal",
+     "texto": "Está bien. Para ser de 30, está bien. Me lo apunto en la libreta."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "totodile",
+     "cara": "Angry",
+     "texto": "Esto amarga más que el ticket. Y no te lo pago, que ya me amarga bastante."
+    }
+   ],
+   "marca": "totodile-1"
+  },
+  {
+   "n": 0,
+   "requiere": [
+    "totodile-1"
+   ],
+   "llega": [
+    {
+     "quien": "totodile",
+     "cara": "Normal",
+     "texto": "El de 30, como siempre. ¿Me lo dejas en redondo? El ,21 me parece un número feo."
+    },
+    {
+     "quien": "totodile",
+     "cara": "Happy",
+     "texto": "Lo de siempre. Que sepas que en la Olla de Barro me fían."
+    },
+    {
+     "quien": "totodile",
+     "cara": "Happy",
+     "texto": "¿Me haces precio? Hoy es el santo de mi prima. De otra prima."
+    },
+    {
+     "quien": "totodile",
+     "cara": "Normal",
+     "texto": "El de 30. Te lo pago en monedas de cinco céntimos, que pesan más y parece más."
+    },
+    {
+     "quien": "totodile",
+     "cara": "Determined",
+     "texto": "Llevo gastado aquí lo que vale un coche. Pequeño. De juguete, pero un coche."
+    },
+    {
+     "quien": "totodile",
+     "cara": "Normal",
+     "texto": "¿Y si me llevo el de 30 y me cobras el de 20? Ya sé que no existe. Por eso."
+    },
+    {
+     "quien": "totodile",
+     "cara": "Happy",
+     "texto": "Hazme precio y te traigo clientes. Bueno, me traigo a mí, que ya es un cliente."
+    },
+    {
+     "quien": "totodile",
+     "cara": "Normal",
+     "texto": "Mi cuñado se compra el de 50. Mi cuñado también se compró un patinete eléctrico."
+    }
+   ],
+   "pide": "El de 30, con chispa y con gracia. Como yo.",
+   "perfecto": [
+    {
+     "quien": "totodile",
+     "cara": "Joyous",
+     "texto": "¡Este! Lo pago entero y encima contento. No te acostumbres."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "totodile",
+     "cara": "Normal",
+     "texto": "Bien. Me lo apunto en la libreta, con el precio y con la cara que has puesto."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "totodile",
+     "cara": "Angry",
+     "texto": "Amarga. Eso no lo pago ni con descuento."
+    }
+   ]
+  },
+  {
+   "n": 5,
+   "requiere": [
+    "totodile-1",
+    "cuota-1"
+   ],
+   "llega": [
+    {
+     "quien": "totodile",
+     "cara": "Surprised",
+     "texto": "Oye, ¿y ese papel? «Cuota de autónomos». ¿Tú pagas eso todos los meses?"
+    },
+    {
+     "quien": "morty",
+     "cara": "Dizzy",
+     "texto": "Todos. Y sube."
+    },
+    {
+     "quien": "totodile",
+     "cara": "Worried",
+     "texto": "Ahora entiendo que no me hagas precio. Hoy no regateo. Solo hoy, ¿eh?"
+    }
+   ],
+   "pide": "El de siempre, el de la chispa. Hoy no regateo, pero con alegría, ¿eh?",
+   "perfecto": [
+    {
+     "quien": "totodile",
+     "cara": "Joyous",
+     "texto": "Pago entero y sin rechistar. Que no se entere nadie."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "totodile",
+     "cara": "Normal",
+     "texto": "Bien. Precio entero, que conste. Mañana vuelvo a regatear."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "totodile",
+     "cara": "Angry",
+     "texto": "Esto amarga. Hoy no regateaba, pero hoy tampoco pago."
+    }
+   ],
+   "marca": "totodile-5"
+  },
+  {
+   "n": 20,
+   "requiere": [
+    "totodile-1"
+   ],
+   "llega": [
+    {
+     "quien": "totodile",
+     "cara": "Normal",
+     "texto": "Lo de siempre. Y ya sabes lo que viene ahora: ¿me haces precio?"
+    },
+    {
+     "quien": "morty",
+     "cara": "Inspired",
+     "texto": "Hoy le sale gratis. Es su visita número veinte."
+    },
+    {
+     "quien": "totodile",
+     "cara": "Surprised",
+     "texto": "¿Gratis? ¿Del todo?"
+    },
+    {
+     "quien": "totodile",
+     "cara": "Angry",
+     "texto": "Entonces los otros diecinueve los he pagado de más. Esto no se le hace a nadie."
+    },
+    {
+     "quien": "totodile",
+     "cara": "Determined",
+     "texto": "Me lo llevo gratis, pero que conste que estoy enfadado."
+    }
+   ],
+   "pide": "El de 30, con chispa. Y si es gratis, con más chispa.",
+   "perfecto": [
+    {
+     "quien": "totodile",
+     "cara": "Joyous",
+     "texto": "Gratis y bueno. Ahora estoy enfadado y contento. Me voy antes de que se me pase."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "totodile",
+     "cara": "Normal",
+     "texto": "Para ser gratis, muy bien. Para los diecinueve de antes, regular."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "totodile",
+     "cara": "Angry",
+     "texto": "Amarga. Ni regalado lo quiero. Y mira que me gusta lo regalado."
+    }
+   ],
+   "marca": "totodile-20",
+   "gratis": true,
+   "minVisitas": 19
+  }
+ ]
+}

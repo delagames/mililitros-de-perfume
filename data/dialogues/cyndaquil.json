@@ -1,0 +1,213 @@
+{
+ "id": "cyndaquil",
+ "naturaleza": "timid",
+ "visitas": [
+  {
+   "n": 1,
+   "requiere": [],
+   "llega": [
+    {
+     "quien": "cyndaquil",
+     "cara": "Worried",
+     "texto": "H-hola. ¿Tienes algo que no huela a quemado? Lo pregunto por nada."
+    },
+    {
+     "quien": "cyndaquil",
+     "cara": "Worried",
+     "texto": "Es que tengo una c-cita. Y cuando me pongo nervioso, pues… me enciendo."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Del lomo, ¿no? Pasa mucho. Ponte lejos de las cortinas."
+    }
+   ],
+   "pide": "Algo s-suavecito, que me calme, como un b-bizcocho recién hecho. Para la cita.",
+   "perfecto": [
+    {
+     "quien": "cyndaquil",
+     "cara": "Joyous",
+     "texto": "¡Huele a bizcocho! Nadie va a notar que llevo el lomo a 400 grados."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "cyndaquil",
+     "cara": "Normal",
+     "texto": "T-tapa bastante. Si me quemo poquito, no se nota."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "cyndaquil",
+     "cara": "Pain",
+     "texto": "Esto p-pica. Ya me estoy encendiendo. Me voy antes de que salte algo."
+    }
+   ],
+   "marca": "cyndaquil-1"
+  },
+  {
+   "n": 2,
+   "requiere": [
+    "cyndaquil-1",
+    "eevee-1"
+   ],
+   "llega": [
+    {
+     "quien": "cyndaquil",
+     "cara": "Happy",
+     "texto": "La cita fue b-bien. Solo se me quemó un poco la servilleta. Y la carta."
+    },
+    {
+     "quien": "cyndaquil",
+     "cara": "Worried",
+     "texto": "Hemos quedado otra vez. Con Eevee. La conoces, ¿no? Dice que viene mucho."
+    },
+    {
+     "quien": "morty",
+     "cara": "Stunned",
+     "texto": "Viene. A comprar."
+    },
+    {
+     "quien": "cyndaquil",
+     "cara": "Worried",
+     "texto": "Ya. Es que en la cena me habló mucho de ti. B-bastante. Casi todo el rato."
+    }
+   ],
+   "pide": "Lo mismo de s-suave, de merengue, pero que dure toda la merienda. P-por favor.",
+   "perfecto": [
+    {
+     "quien": "cyndaquil",
+     "cara": "Joyous",
+     "texto": "¡Este sí! Hoy le hablo yo de mí. Tengo una lista."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "cyndaquil",
+     "cara": "Normal",
+     "texto": "Vale. Si me pregunta por ti, d-digo que no te conozco."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "cyndaquil",
+     "cara": "Pain",
+     "texto": "Me arde la nariz. Y el lomo. Lo d-dejo, gracias."
+    }
+   ],
+   "marca": "cyndaquil-2"
+  },
+  {
+   "n": 3,
+   "requiere": [
+    "cyndaquil-2",
+    "eevee-2"
+   ],
+   "llega": [
+    {
+     "quien": "eevee",
+     "cara": "Happy",
+     "texto": "Ay, Morty. Pasaba por aquí. Con Cyndaquil, pero pasaba."
+    },
+    {
+     "quien": "cyndaquil",
+     "cara": "Worried",
+     "texto": "H-hola otra vez."
+    },
+    {
+     "quien": "eevee",
+     "cara": "Special0",
+     "texto": "¿Tú siempre llevas la bufanda? Te queda muy bien. Muy de ti. ¿Te la lavas a mano?"
+    },
+    {
+     "quien": "cyndaquil",
+     "cara": "Surprised",
+     "texto": "Eevee, que he venido yo a por el p-perfume…"
+    },
+    {
+     "quien": "morty",
+     "cara": "Worried",
+     "texto": "Eso es humo. Abro la puerta. Tú respira, que salta la alarma."
+    },
+    {
+     "quien": "eevee",
+     "cara": "Worried",
+     "texto": "Uy. ¿Te ayudo con la puerta, Morty?"
+    }
+   ],
+   "pide": "Algo que me c-calme ya. De algodón de azúcar, de feria con mi abuela.",
+   "perfecto": [
+    {
+     "quien": "cyndaquil",
+     "cara": "Happy",
+     "texto": "Se me apaga. Gracias. Ella no lo ha olido, está m-mirándote a ti."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "cyndaquil",
+     "cara": "Normal",
+     "texto": "Echo menos humo. Pero ella sigue hablando de tu b-bufanda."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "cyndaquil",
+     "cara": "Pain",
+     "texto": "Esto me enciende más. Me voy fuera, que pita todo."
+    }
+   ],
+   "marca": "cyndaquil-3",
+   "marcas_extra": [
+    "eevee-3"
+   ]
+  },
+  {
+   "n": 4,
+   "requiere": [
+    "cyndaquil-3"
+   ],
+   "llega": [
+    {
+     "quien": "cyndaquil",
+     "cara": "Happy",
+     "texto": "Lo de Eevee se acabó. Pero he conocido a una Flaaffy en el bus. Del 120."
+    },
+    {
+     "quien": "cyndaquil",
+     "cara": "Worried",
+     "texto": "Ella también se carga sola cuando se pone nerviosa. Nos entendemos. Echamos chispas."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Vais a necesitar un extintor entre los dos."
+    }
+   ],
+   "pide": "Uno que huela a que ya no me p-pongo nervioso. A chuche, a abrazo. Ay, que me pongo.",
+   "perfecto": [
+    {
+     "quien": "cyndaquil",
+     "cara": "Joyous",
+     "texto": "Huele a tranquilo. Me he apagado solo. ¡Esto es lo que quería!"
+    }
+   ],
+   "bien": [
+    {
+     "quien": "cyndaquil",
+     "cara": "Happy",
+     "texto": "Casi tranquilo. Con eso y con no mirar al conductor, voy b-bien."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "cyndaquil",
+     "cara": "Pain",
+     "texto": "Me ha dado calor. Ya echo humo. Me voy andando, no en b-bus."
+    }
+   ],
+   "marca": "cyndaquil-4"
+  }
+ ]
+}

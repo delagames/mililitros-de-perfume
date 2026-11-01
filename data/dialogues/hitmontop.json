@@ -1,0 +1,265 @@
+{
+ "id": "hitmontop",
+ "naturaleza": "adamant",
+ "visitas": [
+  {
+   "n": 1,
+   "requiere": [],
+   "llega": [
+    {
+     "quien": "hitmontop",
+     "cara": "Determined",
+     "texto": "Tengo una entrevista en un gimnasio. Necesito oler a que doy volteretas con criterio."
+    },
+    {
+     "quien": "morty",
+     "cara": "Stunned",
+     "texto": "¿Con criterio?"
+    },
+    {
+     "quien": "hitmontop",
+     "cara": "Determined",
+     "texto": "Dar vueltas lo hace cualquiera. Apunta: fuerza, constancia y cabeza. Apunta."
+    }
+   ],
+   "pide": "Hazme algo con fuerza, que caliente como un calentamiento. Apunta: fuerza.",
+   "perfecto": [
+    {
+     "quien": "hitmontop",
+     "cara": "Joyous",
+     "texto": "Esto es. Huelo a contrato. No me desees suerte: la suerte es para flojos."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "hitmontop",
+     "cara": "Normal",
+     "texto": "Valdrá. Lo demás lo pongo yo."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "hitmontop",
+     "cara": "Angry",
+     "texto": "Esto huele a balneario. Con esto no me cogen ni para doblar toallas."
+    }
+   ],
+   "marca": "hitmontop-1"
+  },
+  {
+   "n": 2,
+   "requiere": [
+    "hitmontop-1"
+   ],
+   "llega": [
+    {
+     "quien": "hitmontop",
+     "cara": "Normal",
+     "texto": "No me cogieron. Bueno, sí: de becario. En otro gimnasio."
+    },
+    {
+     "quien": "hitmonlee",
+     "cara": "Inspired",
+     "texto": "Es mi primo. Yo trabajo en un gimnasio grande. Con nómina. Con nómina, ¿eh?"
+    },
+    {
+     "quien": "hitmontop",
+     "cara": "Sigh",
+     "texto": "Ya lo sabe, primo. Se lo has dicho al entrar."
+    },
+    {
+     "quien": "hitmonlee",
+     "cara": "Determined",
+     "texto": "Tú lo que tienes que hacer es estirar. Y oler a ganador. Ponle algo fuerte, que pago yo."
+    },
+    {
+     "quien": "hitmontop",
+     "cara": "Determined",
+     "texto": "No paga él. Pago yo. Ponme algo para el primer día."
+    }
+   ],
+   "pide": "Algo con brío, que se note que llego con ganas. Para estrenarme.",
+   "perfecto": [
+    {
+     "quien": "hitmontop",
+     "cara": "Joyous",
+     "texto": "Esto. Mañana entro dando vueltas."
+    },
+    {
+     "quien": "hitmonlee",
+     "cara": "Happy",
+     "texto": "Con criterio, primo. Y estira antes."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "hitmontop",
+     "cara": "Normal",
+     "texto": "Bien. Para becario, de sobra."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "hitmontop",
+     "cara": "Angry",
+     "texto": "Esto huele a piscina. Vámonos, primo, y deja de reírte."
+    }
+   ],
+   "marca": "hitmontop-2"
+  },
+  {
+   "n": 3,
+   "requiere": [
+    "hitmontop-2"
+   ],
+   "llega": [
+    {
+     "quien": "hitmontop",
+     "cara": "Sigh",
+     "texto": "Horas extra sin pagar. Ayer me pusieron a fregar el tatami. Con la cabeza."
+    },
+    {
+     "quien": "morty",
+     "cara": "Worried",
+     "texto": "¿Con la cabeza?"
+    },
+    {
+     "quien": "hitmontop",
+     "cara": "Determined",
+     "texto": "Es lo que tengo más a mano. No me compadezcas. Ponme algo que huela a que no me rindo."
+    }
+   ],
+   "pide": "Que huela a que no me rindo: fuerte, de los que calientan por dentro.",
+   "perfecto": [
+    {
+     "quien": "hitmontop",
+     "cara": "Joyous",
+     "texto": "Esto. Mañana friego el tatami como un campeón. Y luego me quejo."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "hitmontop",
+     "cara": "Normal",
+     "texto": "Valdrá. Con esto aguanto un mes más."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "hitmontop",
+     "cara": "Angry",
+     "texto": "Esto huele a cubo de fregar. Justo lo que no necesito."
+    }
+   ],
+   "marca": "hitmontop-3"
+  },
+  {
+   "n": 4,
+   "requiere": [
+    "hitmontop-3"
+   ],
+   "llega": [
+    {
+     "quien": "hitmontop",
+     "cara": "Determined",
+     "texto": "Lo he dejado. Voy a montar mi propio gimnasio."
+    },
+    {
+     "quien": "hitmontop",
+     "cara": "Normal",
+     "texto": "Explícame cómo se hace uno autónomo. Paso a paso."
+    },
+    {
+     "quien": "morty",
+     "cara": "Stunned",
+     "texto": "…"
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Toma. Una muestra gratis."
+    }
+   ],
+   "pide": "Ponme algo con fuerza, de los que dan calor, para firmar papeles sin echarme atrás.",
+   "perfecto": [
+    {
+     "quien": "hitmontop",
+     "cara": "Joyous",
+     "texto": "Con esto firmo lo que me pongan delante."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "hitmontop",
+     "cara": "Normal",
+     "texto": "Bien. Me lo llevo. Y la muestra también, aunque no sé por qué me la das."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "hitmontop",
+     "cara": "Angry",
+     "texto": "Esto es fresquito. Huele a dudas. No me ayudes así."
+    }
+   ],
+   "marca": "hitmontop-4"
+  },
+  {
+   "n": 5,
+   "requiere": [
+    "hitmontop-4",
+    "cuota-1"
+   ],
+   "llega": [
+    {
+     "quien": "hitmontop",
+     "cara": "Normal",
+     "texto": "…"
+    },
+    {
+     "quien": "hitmontop",
+     "cara": "Sigh",
+     "texto": "Ha llegado mi primera cuota."
+    },
+    {
+     "quien": "morty",
+     "cara": "Dizzy",
+     "texto": "Ya."
+    },
+    {
+     "quien": "hitmontop",
+     "cara": "Normal",
+     "texto": "Me quedo aquí un rato, a tu lado, mirando la calle. Sin hablar."
+    }
+   ],
+   "pide": "Algo con fuego, que dure hasta la cuota que viene, que tengo el cuerpo frío.",
+   "perfecto": [
+    {
+     "quien": "hitmontop",
+     "cara": "Happy",
+     "texto": "Gracias, Morty. Ahora lo entiendo todo."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Ánimo, compañero."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "hitmontop",
+     "cara": "Normal",
+     "texto": "Valdrá. Ya nada me parece caro. Bueno, sí: todo."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "hitmontop",
+     "cara": "Sigh",
+     "texto": "Fresquito. Como mi cuenta del banco."
+    }
+   ],
+   "marca": "hitmontop-5"
+  }
+ ]
+}

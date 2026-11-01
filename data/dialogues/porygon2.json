@@ -1,0 +1,168 @@
+{
+ "id": "porygon2",
+ "naturaleza": "hasty",
+ "visitas": [
+  {
+   "n": 1,
+   "requiere": [],
+   "llega": [
+    {
+     "quien": "porygon2",
+     "cara": "Normal",
+     "texto": "Su factura no es electrónica. ¿Sabe lo que es Verifactu? Yo sí. Yo soy un poco Verifactu."
+    },
+    {
+     "quien": "porygon2",
+     "cara": "Determined",
+     "texto": "Certificado digital, sede, clave, firma, todo, rápido, que se le pasa el plazo."
+    },
+    {
+     "quien": "morty",
+     "cara": "Stunned",
+     "texto": "Ya."
+    },
+    {
+     "quien": "porygon2",
+     "cara": "Happy",
+     "texto": "Plan básico, 9,21 al mes. Se lo dejo dado de alta, no me dé las gracias."
+    },
+    {
+     "quien": "porygon2",
+     "cara": "Determined",
+     "texto": "Por cierto: su vídeo del grito tiene cuarenta y un millones de visitas y no lo monetiza. Eso también se lo arreglo."
+    },
+    {
+     "quien": "morty",
+     "cara": "Worried",
+     "texto": "Ni se le ocurra."
+    }
+   ],
+   "pide": "Y póngame algo rápido, de caramelo, de los de regalo por fidelidad.",
+   "perfecto": [
+    {
+     "quien": "porygon2",
+     "cara": "Joyous",
+     "texto": "Validado, firmado, sellado. Le regalo un mes. Que luego cobro."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "porygon2",
+     "cara": "Normal",
+     "texto": "Aceptado con advertencias. Como todo lo de Hacienda."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "porygon2",
+     "cara": "Angry",
+     "texto": "Error 403: ácido. No lo pago. Le abro una incidencia."
+    }
+   ],
+   "marca": "porygon2-1"
+  },
+  {
+   "n": 2,
+   "requiere": [
+    "porygon2-1"
+   ],
+   "cuando": "factura",
+   "llega": [
+    {
+     "quien": "porygon2",
+     "cara": "Surprised",
+     "texto": "¿Su barra va hacia atrás? Ah, sí, es mía, es el plan básico, lo arreglo, un segundo."
+    },
+    {
+     "quien": "porygon2",
+     "cara": "Happy",
+     "texto": "Ya está, actualizado."
+    },
+    {
+     "quien": "morty",
+     "cara": "Dizzy",
+     "texto": "Ahora va hacia atrás más rápido."
+    },
+    {
+     "quien": "porygon2",
+     "cara": "Normal",
+     "texto": "Correcto, más rápido, es la mejora, eso ya es el plan prémium."
+    }
+   ],
+   "pide": "Mientras carga, algo de chuche, de las de la caja del quiosco, que me reinicio.",
+   "perfecto": [
+    {
+     "quien": "porygon2",
+     "cara": "Joyous",
+     "texto": "Dulce, eficiente, sin cola de espera. Así quiero yo un sistema."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "porygon2",
+     "cara": "Normal",
+     "texto": "Correcto, con un aviso. Se lo mando por notificación. Tres veces."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "porygon2",
+     "cara": "Angry",
+     "texto": "Ácido. Error. Me voy. La barra se queda."
+    }
+   ],
+   "marca": "porygon2-2"
+  },
+  {
+   "n": 3,
+   "requiere": [
+    "porygon2-2"
+   ],
+   "llega": [
+    {
+     "quien": "porygon2",
+     "cara": "Sad",
+     "texto": "Se me ha caído el sistema. Todo. La sede, la nube, la otra nube."
+    },
+    {
+     "quien": "porygon2",
+     "cara": "Worried",
+     "texto": "Tengo que hacer una factura. ¿Usted sabe hacerlas en papel?"
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Bolígrafo, talonario y papel de calco. Fecha, concepto e IVA del 21."
+    },
+    {
+     "quien": "porygon2",
+     "cara": "Joyous",
+     "texto": "Se escribe con la mano. Y se queda escrita. Es lo más bonito que he visto nunca."
+    }
+   ],
+   "pide": "Para celebrarlo, algo de papel nuevo y caramelo, de feria de pueblo.",
+   "perfecto": [
+    {
+     "quien": "porygon2",
+     "cara": "Joyous",
+     "texto": "Me lo llevo. Y me llevo el calco. Le cancelo el plan, no me dé las gracias."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "porygon2",
+     "cara": "Happy",
+     "texto": "Me gusta. No sé exportarlo, pero me gusta."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "porygon2",
+     "cara": "Sad",
+     "texto": "Ácido. Da igual. Hoy nada me cuelga más que el sistema."
+    }
+   ],
+   "marca": "porygon2-3"
+  }
+ ]
+}

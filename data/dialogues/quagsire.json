@@ -1,0 +1,261 @@
+{
+ "id": "quagsire",
+ "naturaleza": "relaxed",
+ "visitas": [
+  {
+   "n": 1,
+   "requiere": [],
+   "llega": [
+    {
+     "quien": "quagsire",
+     "cara": "Normal",
+     "texto": "Lo de siempre no: lo de los domingos. El de La Rosaleda. Tú ya sabes cuál."
+    },
+    {
+     "quien": "morty",
+     "cara": "Stunned",
+     "texto": "No lo sé."
+    },
+    {
+     "quien": "quagsire",
+     "cara": "Normal",
+     "texto": "Ah. Pues… césped. Pipas. Tarde de domingo. Sin prisa, ¿eh? Yo tengo toda la tarde."
+    },
+    {
+     "quien": "quagsire",
+     "cara": "Happy",
+     "texto": "Soy abonado desde que tengo memoria. No tengo mucha, pero toda es de La Rosaleda."
+    }
+   ],
+   "pide": "Algo que huela a domingo: a césped y a un gajo de limón con las pipas.",
+   "perfecto": [
+    {
+     "quien": "quagsire",
+     "cara": "Happy",
+     "texto": "Este me gusta. Tranquilo. Me gusta."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Casi. Le falta… domingo."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "quagsire",
+     "cara": "Normal",
+     "texto": "No es, pero está bien. Ya vendré otro día, sin prisa."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "quagsire",
+     "cara": "Sigh",
+     "texto": "Esto es dulce. Esto huele a lunes. Te lo dejo aquí, si no te importa."
+    }
+   ],
+   "marca": "quagsire-1"
+  },
+  {
+   "n": 2,
+   "requiere": [
+    "quagsire-1",
+    "jornada-gana"
+   ],
+   "llega": [
+    {
+     "quien": "quagsire",
+     "cara": "Joyous",
+     "texto": "Ganamos. Yo lo sabía. Bueno, lo supe en el minuto noventa, pero lo sabía."
+    },
+    {
+     "quien": "morty",
+     "cara": "Happy",
+     "texto": "Lo vi."
+    },
+    {
+     "quien": "quagsire",
+     "cara": "Happy",
+     "texto": "Hoy quiero algo que huela a que esto dura toda la semana. Con calma."
+    }
+   ],
+   "pide": "Que huela a limón y a grada, a alegría tranquila que dure.",
+   "perfecto": [
+    {
+     "quien": "quagsire",
+     "cara": "Joyous",
+     "texto": "Esto. Huele a segunda parte con el partido ya ganado."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "quagsire",
+     "cara": "Normal",
+     "texto": "Bien. Hoy todo está bien. Hemos ganado."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "quagsire",
+     "cara": "Sigh",
+     "texto": "Dulce. No pasa nada: hemos ganado. Pero no me lo llevo."
+    }
+   ],
+   "marca": "quagsire-2"
+  },
+  {
+   "n": 2,
+   "requiere": [
+    "quagsire-1",
+    "jornada-pierde"
+   ],
+   "llega": [
+    {
+     "quien": "quagsire",
+     "cara": "Sigh",
+     "texto": "Ayer… bueno. Ya sabes lo de ayer."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Lo sé."
+    },
+    {
+     "quien": "quagsire",
+     "cara": "Normal",
+     "texto": "Ponme algo que huela a que no ha pasado nada. Yo me lo creo rápido."
+    }
+   ],
+   "pide": "Algo que despeje, como un limón en el descanso. No quiero que me consuelen.",
+   "perfecto": [
+    {
+     "quien": "quagsire",
+     "cara": "Happy",
+     "texto": "Ya está. No ha pasado nada. ¿Qué pasó ayer? No me acuerdo."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "quagsire",
+     "cara": "Normal",
+     "texto": "Algo ha pasado, pero menos. Gracias."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "quagsire",
+     "cara": "Sigh",
+     "texto": "Esto es dulce. Esto es que me estás consolando. Otro día."
+    }
+   ],
+   "marca": "quagsire-2"
+  },
+  {
+   "n": 3,
+   "requiere": [
+    "quagsire-2"
+   ],
+   "llega": [
+    {
+     "quien": "quagsire",
+     "cara": "Normal",
+     "texto": "Me he acordado de una cosa. Con calma, que si no se me va."
+    },
+    {
+     "quien": "quagsire",
+     "cara": "Normal",
+     "texto": "Mi padre olía a eso. A La Rosaleda. Era carpintero, y los domingos me llevaba al fútbol."
+    },
+    {
+     "quien": "quagsire",
+     "cara": "Happy",
+     "texto": "Olía a hoja de árbol, a una baya de esas ácidas y a un poquito de serrín. Un poquito."
+    },
+    {
+     "quien": "morty",
+     "cara": "Inspired",
+     "texto": "Eso ya es una receta."
+    }
+   ],
+   "pide": "Lo de mi padre: verde, que despierte, y una pizca de madera. Mi padre era así.",
+   "perfecto": [
+    {
+     "quien": "quagsire",
+     "cara": "Happy",
+     "texto": "Se acerca. Huele a que mi padre acaba de salir de la habitación."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "quagsire",
+     "cara": "Normal",
+     "texto": "Se parece a alguien. No a mi padre, pero a alguien majo."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "quagsire",
+     "cara": "Sigh",
+     "texto": "Dulce. Mi padre no habría entrado en esta tienda con esto puesto."
+    }
+   ],
+   "marca": "quagsire-3"
+  },
+  {
+   "n": 4,
+   "requiere": [
+    "quagsire-3"
+   ],
+   "llega": [
+    {
+     "quien": "quagsire",
+     "cara": "Normal",
+     "texto": "Hoy no tengo prisa. Bueno, nunca tengo. Pero hoy menos."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Hoja, baya y una pizca de serrín. A ver."
+    }
+   ],
+   "pide": "El de La Rosaleda: hoja de Skiploom, Pabaya y una pizca de serrín. Y lo que haga falta para que sea mío.",
+   "perfecto": [
+    {
+     "quien": "quagsire",
+     "cara": "Pain",
+     "texto": "…"
+    },
+    {
+     "quien": "quagsire",
+     "cara": "Pain",
+     "texto": "Es este. Cada lunes, este. Si no te importa."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Cada lunes."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "quagsire",
+     "cara": "Normal",
+     "texto": "Casi. Le falta… no sé. Le falta mi padre. Volveré, con calma."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "quagsire",
+     "cara": "Sigh",
+     "texto": "Dulce. Mi padre, ni en Navidad. Otro día, sin prisa."
+    }
+   ],
+   "marca": "quagsire-4",
+   "receta": [
+    "skiploom",
+    "pabaya",
+    "timburr"
+   ]
+  }
+ ]
+}

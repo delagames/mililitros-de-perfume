@@ -1,0 +1,192 @@
+{
+ "id": "slowking",
+ "naturaleza": "quiet",
+ "visitas": [
+  {
+   "n": 1,
+   "requiere": [
+    "trimestre-1"
+   ],
+   "llega": [
+    {
+     "quien": "slowking",
+     "cara": "Normal",
+     "texto": "Inspección… de Hacienda. Tranquilo, es… rutina. Bueno… rutina… para mí."
+    },
+    {
+     "quien": "slowking",
+     "cara": "Normal",
+     "texto": "¿Usted… factura… todo?"
+    },
+    {
+     "quien": "morty",
+     "cara": "Worried",
+     "texto": "…Sí."
+    }
+   ],
+   "pide": "Un perfume que huela… a aire. Como… ropa tendida. Estoy… de servicio.",
+   "perfecto": [
+    {
+     "quien": "slowking",
+     "cara": "Happy",
+     "texto": "Correcto. No huele… a nada. Lo… anoto. En lo bueno."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "slowking",
+     "cara": "Normal",
+     "texto": "Huele… un poco. Lo anoto… en lo regular."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "slowking",
+     "cara": "Sigh",
+     "texto": "Esto… es dulce. Muy… dulce. Lo anoto… en otra columna."
+    }
+   ],
+   "marca": "slowking-1"
+  },
+  {
+   "n": 2,
+   "requiere": [
+    "slowking-1"
+   ],
+   "cuando": "trimestre",
+   "llega": [
+    {
+     "quien": "slowking",
+     "cara": "Normal",
+     "texto": "Vengo… con la carpeta. Voy a… mirar… la caja."
+    },
+    {
+     "quien": "slowking",
+     "cara": "Surprised",
+     "texto": "… La miro… otra vez."
+    },
+    {
+     "quien": "morty",
+     "cara": "Dizzy",
+     "texto": "¿Todo bien?"
+    }
+   ],
+   "pide": "Todavía… no lo sé. Póngame… algo de aire. Que huela… a ventana.",
+   "perfecto": [
+    {
+     "quien": "slowking",
+     "cara": "Happy",
+     "texto": "Esto… cuadra. Ojalá… cuadrara… todo."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "slowking",
+     "cara": "Normal",
+     "texto": "Casi… cuadra. Como… casi todo."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "slowking",
+     "cara": "Sigh",
+     "texto": "No… cuadra. Volveré… a mirar."
+    }
+   ],
+   "marca": "slowking-2"
+  },
+  {
+   "n": 3,
+   "requiere": [
+    "slowking-2",
+    "murkrow-4"
+   ],
+   "llega": [
+    {
+     "quien": "slowking",
+     "cara": "Normal",
+     "texto": "Sigo… con el sombrero… del alcalde. Nadie… lo ha reclamado."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "¿Se lo va a devolver?"
+    },
+    {
+     "quien": "slowking",
+     "cara": "Happy",
+     "texto": "Cuando… venga… a por él. Sin prisa."
+    }
+   ],
+   "pide": "Lo de… siempre. Limpio… de ventana. Y el sombrero… no lo… perfume.",
+   "perfecto": [
+    {
+     "quien": "slowking",
+     "cara": "Joyous",
+     "texto": "Perfecto. El alcalde… no lo… habría aprobado. Por eso."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "slowking",
+     "cara": "Normal",
+     "texto": "Bien. Me lo llevo… con el sombrero."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "slowking",
+     "cara": "Sigh",
+     "texto": "Dulce. Como… el alcalde. Qué… pena."
+    }
+   ],
+   "marca": "slowking-3"
+  },
+  {
+   "n": 4,
+   "requiere": [
+    "slowking-3"
+   ],
+   "llega": [
+    {
+     "quien": "slowking",
+     "cara": "Happy",
+     "texto": "Hoy… vengo… sin carpeta. Me… jubilo."
+    },
+    {
+     "quien": "morty",
+     "cara": "Surprised",
+     "texto": "Enhorabuena."
+    },
+    {
+     "quien": "slowking",
+     "cara": "Joyous",
+     "texto": "Treinta y… ocho años. Ni una… prisa."
+    }
+   ],
+   "pide": "Un perfume… para mí. De… brisa. Como el balcón… de mi casa.",
+   "perfecto": [
+    {
+     "quien": "slowking",
+     "cara": "Joyous",
+     "texto": "Huele… a jubilado. Tome… mi tarjeta. Por si… necesita a alguien… de dentro."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "slowking",
+     "cara": "Happy",
+     "texto": "Me gusta. Mi tarjeta… por si alguna vez… necesita a alguien de dentro."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "slowking",
+     "cara": "Sigh",
+     "texto": "Dulce… pero da igual. Tome… mi tarjeta. Por si… necesita a alguien… de dentro."
+    }
+   ],
+   "marca": "slowking-4"
+  }
+ ]
+}

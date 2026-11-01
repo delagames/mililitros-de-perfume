@@ -1,0 +1,11 @@
+{
+  "ofertas": [
+    { "id": "oficina", "dice": "Los perfumes, como material de oficina. Huelen, sí. Pero se escribe con ellos. Más o menos.",
+      "gana": 60.21, "carta": "Hacienda informa: los perfumes no son material de oficina. Ni siquiera el de bolígrafo.", "multa": 90.21 },
+    { "id": "totodile", "dice": "Facturamos a Totodile como empresa. Totodile S. L. Él no se entera y tú desgravas.",
+      "gana": 45.21, "carta": "Totodile S. L. no existe. Totodile, tampoco quiere existir como sociedad. Recargo por factura a entidad inexistente.", "multa": 70.21 },
+    { "id": "bailarines", "dice": "Los perros que bailan en la calle: los damos de alta como personal artístico. Hay subvención.",
+      "gana": 80.21, "carta": "La Seguridad Social reclama las cotizaciones de cinco perros bailarines. Uno de ellos lee el periódico y dice que él no baila.", "multa": 120.21 }
+  ],
+  "justificante": "Si quieres, te hago un justificante de baja. Para ti mismo. Firmado por ti. Es legal, creo."
+}

@@ -1,0 +1,188 @@
+{
+ "id": "sudowoodo",
+ "naturaleza": "naive",
+ "visitas": [
+  {
+   "n": 0,
+   "requiere": [],
+   "llega": [
+    {
+     "quien": "sudowoodo",
+     "cara": "Happy",
+     "texto": "Hola, me llamo Ñoño. ¿Tienes el Pikachu de Ash de la Liga Johto? Jijiji."
+    },
+    {
+     "quien": "sudowoodo",
+     "cara": "Happy",
+     "texto": "Hola, me llamo Ñoño. ¿Tienes el Goldeen de Misty? El que sale con la Misty dentro."
+    },
+    {
+     "quien": "sudowoodo",
+     "cara": "Inspired",
+     "texto": "Hola, me llamo Ñoño. ¿Tienes el Onix de Brock dorado? Dicen que solo hay uno. Lo tiene un señor de Ronda."
+    },
+    {
+     "quien": "sudowoodo",
+     "cara": "Joyous",
+     "texto": "Hoy he cambiado tres Hoppip por un Hoppip. Es más bonito. Jijiji."
+    },
+    {
+     "quien": "morty",
+     "cara": "Inspired",
+     "texto": "Ñoño, te regalo una muestra de desodorante. Es de las que traen estampita."
+    },
+    {
+     "quien": "sudowoodo",
+     "cara": "Surprised",
+     "texto": "¿Dónde está la estampita?"
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Dentro. Hay que echárselo entero para encontrarla."
+    },
+    {
+     "quien": "sudowoodo",
+     "cara": "Joyous",
+     "texto": "¿A qué huele aquí? Huele a perfume. Jijiji."
+    },
+    {
+     "quien": "sudowoodo",
+     "cara": "Normal",
+     "texto": "Me he guardado las estampitas en el bolsillo de dentro, para que no se mojen. Por si llueve."
+    }
+   ],
+   "pide": "Uno que huela a chuche, a nube de las rosas. Jijiji.",
+   "perfecto": [
+    {
+     "quien": "sudowoodo",
+     "cara": "Joyous",
+     "texto": "¡Huele a feria! ¡Jijiji! Me lo echo en las estampitas."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "sudowoodo",
+     "cara": "Happy",
+     "texto": "Huele a chuche un poco. Me gusta. Jiji."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "sudowoodo",
+     "cara": "Sad",
+     "texto": "Esto amarga. Huele a jarabe. No me lo pongo."
+    }
+   ],
+   "marca": "sudowoodo-1"
+  },
+  {
+   "n": 6,
+   "requiere": [
+    "sudowoodo-1",
+    "galgo-1"
+   ],
+   "llega": [
+    {
+     "quien": "sudowoodo",
+     "cara": "Happy",
+     "texto": "Hola, me llamo Ñoño. ¿Tienes el Goldeen de Misty?"
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Te he guardado una. Me la dio el galgo con un ticket. Mira a ver."
+    },
+    {
+     "quien": "sudowoodo",
+     "cara": "Surprised",
+     "texto": "…"
+    },
+    {
+     "quien": "sudowoodo",
+     "cara": "Joyous",
+     "texto": "¡Es el Goldeen de Misty! ¡Es la que me faltaba! ¡Jijijiji!"
+    },
+    {
+     "quien": "sudowoodo",
+     "cara": "Happy",
+     "texto": "La voy a pegar en la nevera de mi abuela. Con un imán de Torremolinos."
+    }
+   ],
+   "pide": "Hoy uno de fiesta, que huela a tarta de cumpleaños con velas. Jiji.",
+   "perfecto": [
+    {
+     "quien": "sudowoodo",
+     "cara": "Joyous",
+     "texto": "¡Huele a tarta! ¡Hoy es el mejor día de mi vida! ¡Jijiji!"
+    }
+   ],
+   "bien": [
+    {
+     "quien": "sudowoodo",
+     "cara": "Happy",
+     "texto": "Huele a tarta de las del súper. También me gustan."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "sudowoodo",
+     "cara": "Normal",
+     "texto": "Esto amarga. Pero no importa. Tengo el Goldeen."
+    }
+   ],
+   "marca": "sudowoodo-6"
+  },
+  {
+   "n": 7,
+   "requiere": [
+    "misdreavus-5"
+   ],
+   "llega": [
+    {
+     "quien": "sudowoodo",
+     "cara": "Happy",
+     "texto": "Hola, me llamo Ñoño. Me duché. Una vez. Ya no hace falta más."
+    },
+    {
+     "quien": "sudowoodo",
+     "cara": "Joyous",
+     "texto": "Ahora la casa huele a mi abuela otra vez. Y Misdreavus me hace café de puchero."
+    },
+    {
+     "quien": "morty",
+     "cara": "Inspired",
+     "texto": "Si alguna vez te apetece repetir, la ducha, tengo gel con estampita."
+    },
+    {
+     "quien": "sudowoodo",
+     "cara": "Joyous",
+     "texto": "Jijiji."
+    }
+   ],
+   "pide": "Algo para Misdreavus, que es su cumpleaños. Que huela a merengue y a globo. Jiji.",
+   "perfecto": [
+    {
+     "quien": "sudowoodo",
+     "cara": "Joyous",
+     "texto": "¡Le va a gustar! Se lo doy con un Hoppip. El bonito."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "sudowoodo",
+     "cara": "Happy",
+     "texto": "Le gustará. Ella dice que todo lo que le doy le gusta."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "sudowoodo",
+     "cara": "Sad",
+     "texto": "Esto amarga. Se lo doy sin perfume, solo con el Hoppip."
+    }
+   ],
+   "marca": "sudowoodo-7"
+  }
+ ]
+}

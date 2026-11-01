@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0E4A3C">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Mililitros">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>Mililitros de Perfume</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo/icono.svg">
+  <link rel="apple-touch-icon" href="assets/logo/icono-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- los marcos, antes de que haga falta pintarlos (si no, el primer cuadro sale un momento sin borde) -->
+  <link rel="preload" as="image" href="assets/ui/ventana.png">
+  <link rel="preload" as="image" href="assets/ui/boton.png">
+  <link rel="preload" as="image" href="assets/ui/boton-secundario.png">
+</head>
+<body>
+  <!-- La escena en pixel art, detrás de todo -->
+  <canvas id="escena"></canvas>
+
+  <!-- Inicio, sobre la calle desenfocada -->
+  <section id="inicio" class="pantalla">
+    <canvas id="emblema" width="64" height="64" aria-hidden="true"></canvas>
+    <h1 class="titulo">Mililitros<br>de Perfume</h1>
+    <p class="subtitulo">Elige el aroma que va contigo</p>
+    <button id="inicio-abrir">Abrir la tienda</button>
+    <p class="aviso-sonido">🔊 Juega con el sonido puesto: la música y los ruidos también cuentan cosas.</p>
+    <p class="aviso-copias">Haz copia de seguridad cada vez que termines de jugar: en «Partida» → «Exportar partida». Si el navegador borra los datos, la recuperas con «Importar partida».</p>
+    <div class="interruptores"><button id="inicio-musica" class="secundario"></button><button id="inicio-efectos" class="secundario"></button></div>
+    <button id="inicio-partida" class="secundario">Partida</button>
+    <button id="inicio-tutorial" class="secundario">Tutorial</button>
+    <button id="inicio-fondos" class="secundario hidden">Fondos de pantalla</button>
+    <button id="inicio-completa" class="secundario hidden">Pantalla completa</button>
+    <button id="inicio-sucesos" class="secundario hidden">Sucesos (pruebas)</button>
+    <button id="inicio-pruebas" class="secundario hidden">Pruebas</button>
+    <p id="ios-tip" class="pequeno hidden">En iPhone, para jugar sin las barras de Safari: botón Compartir → «Añadir a pantalla de inicio», y ábrelo desde el icono.</p>
+    <p class="pequeno solo-teclado">Pulsa Intro para entrar</p>
+    <footer class="aviso">Proyecto personal sin ánimo de lucro, no afiliado a Nintendo, Creatures, GAME FREAK ni al Málaga CF.</footer>
+  </section>
+
+  <!-- Los fondos de pantalla (tras el final): cuatro momentos para descargar, para el móvil o el ordenador -->
+  <section id="fondos" class="pantalla hidden" aria-label="Fondos de pantalla">
+    <h2 class="libro-titulo">Fondos de pantalla</h2>
+    <p class="pequeno">Cuatro momentos de la tienda, a mucha resolución: para el móvil (1620×3510) o el ordenador (3840×2160).</p>
+    <div class="fondos-lista"></div>
+    <button id="fondos-cerrar" class="secundario">Volver</button>
+  </section>
+
+  <!-- Pruebas (solo en local): la lista de sucesos para ver el que se quiera -->
+  <section id="lista-sucesos" class="pantalla hidden">
+    <h2 class="lista-titulo">Sucesos (pruebas)</h2>
+    <div class="lista-botones"></div>
+    <button id="lista-volver" class="secundario">Volver</button>
+  </section>
+
+  <!-- El juego: arriba, el menú y dónde estás; abajo, el cuadro de diálogo con los botones -->
+  <div id="juego" class="hidden">
+    <header class="barra">
+      <button id="barra-menu" class="icono secundario" title="Volver al inicio (Esc)">☰</button>
+      <span id="lugar" class="lugar"></span><span id="hora" class="lugar hora"></span>
+      <button id="barra-libro" class="secundario libro-boton" title="Libro de Olores">Libro</button>
+    </header>
+    <!-- En el taller, con un cliente esperando: su encargo y lo que se sabe de él -->
+    <aside id="cartel" class="cartel hidden" aria-live="polite">
+      <img alt="" width="40" height="40">
+      <div><strong></strong><p class="cartel-pide"></p><ul class="cartel-pistas"></ul></div>
+    </aside>
+    <!-- Un suceso de los perros: el vídeo en pixel art, en una ventana con su rótulo -->
+    <section id="suceso" class="hidden">
+      <div class="suceso-rotulo"></div>
+      <div class="suceso-ventana">
+        <video playsinline preload="auto"></video>
+      </div>
+    </section>
+    <!-- Un minijuego, en el hueco de la escena (encima del cuadro de diálogo) -->
+    <section id="minijuego" class="hidden"><canvas></canvas></section>
+    <section class="panel">
+      <div id="dialogo" class="dialogo ventana" aria-live="polite">
+        <img id="dialogo-cara" alt="" width="40" height="40">
+        <div class="dialogo-cuerpo">
+          <strong id="dialogo-nombre"></strong>
+          <p id="dialogo-texto"></p>
+        </div>
+        <!-- los botones, siempre en la fila de abajo del cuadro -->
+        <div id="acciones" class="acciones"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- El Libro de Olores: una página por naturaleza, con lo que se va aprendiendo -->
+  <section id="libro" class="pantalla hidden" aria-label="Libro de Olores">
+    <h2 class="libro-titulo">Libro de Olores</h2>
+    <p class="libro-cuenta pequeno"></p>
+    <div class="libro-paginas"></div>
+    <button id="libro-cerrar" class="secundario">Cerrar</button>
+  </section>
+
+  <!-- Las animaciones de cuento (la intro y el final): pegatinas sobre papel y el texto debajo -->
+  <section id="cuento" class="hidden" aria-live="polite">
+    <canvas></canvas>
+    <button class="cuento-saltar secundario">Saltar</button>
+    <div class="cuento-pie"><p class="cuento-texto"></p><button class="cuento-seguir">▸</button></div>
+  </section>
+
+  <!-- El pedido de ingredientes para mañana -->
+  <section id="pedido" class="pantalla hidden" aria-label="Pedido">
+    <h2 class="libro-titulo">Pedido y mejoras</h2>
+    <div class="pedido-lista"></div>
+    <p class="pedido-total"></p>
+    <h3 class="mejoras-titulo">Mejoras para la tienda</h3>
+    <div class="pedido-lista mejoras-lista"></div>
+    <div class="pedido-botones"><button id="pedido-pedir">Pedir</button><button id="pedido-nada" class="secundario">Nada</button></div>
+  </section>
+
+  <!-- La partida (como en El Pino): se guarda sola; copias de los días anteriores; un archivo para la
+       copia de seguridad; un código para pasarla a otro móvil; y empezar de cero -->
+  <section id="partida" class="pantalla hidden" aria-label="Partida">
+    <h2 class="libro-titulo">La partida</h2>
+    <p id="partida-estado" class="pequeno"></p>
+    <p class="pequeno">Se guarda sola al acabar cada cosa y, al bajar la persiana, queda una copia de ese día.</p>
+    <h3 class="mejoras-titulo">Copia de seguridad, en un archivo</h3>
+    <div class="fila-botones"><button id="partida-exportar">Exportar partida</button><button id="partida-importar" class="secundario">Importar partida</button></div>
+    <input id="partida-archivo" type="file" accept="application/json,.json" hidden>
+    <h3 class="mejoras-titulo">Volver a otro día</h3>
+    <div id="partida-copias" class="lista-botones"></div>
+    <h3 class="mejoras-titulo">Pasarla a otro móvil</h3>
+    <div class="fila-botones"><button id="partida-copiar" class="secundario">Copiar el código</button><button id="partida-compartir" class="secundario hidden">Compartir</button></div>
+    <textarea id="partida-codigo" rows="3" placeholder="Pega aquí un código para cargarlo"></textarea>
+    <button id="partida-cargar" class="secundario">Cargar este código</button>
+    <button id="partida-cero" class="secundario">Empezar de cero</button>
+    <p id="partida-aviso" class="pequeno"></p>
+    <button id="partida-volver">Volver</button>
+  </section>
+
+  <!-- En el móvil se juega en vertical -->
+  <section id="girar"><img src="assets/logo/logo-frasco-blanco.png" alt="" width="64">
+    <p>Gira el móvil: la tienda se juega en vertical</p></section>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

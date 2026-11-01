@@ -1,0 +1,194 @@
+{
+ "id": "xatu",
+ "naturaleza": "calm",
+ "visitas": [
+  {
+   "n": 1,
+   "requiere": [],
+   "llega": [
+    {
+     "quien": "xatu",
+     "cara": "Normal",
+     "texto": "Buenos días, Morty. Ya sé qué perfume quiero. Y sé lo que me vas a decir."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Entonces, ¿se lo digo?"
+    },
+    {
+     "quien": "xatu",
+     "cara": "Happy",
+     "texto": "Por favor. Saltárnoslo sería de mala educación."
+    }
+   ],
+   "pide": "Algo que huela a hoja verde y a té sin prisa. Los días ya llegan solos.",
+   "perfecto": [
+    {
+     "quien": "xatu",
+     "cara": "Happy",
+     "texto": "Este. Lo sabía desde el martes, pero ha sido bonito verlo."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "xatu",
+     "cara": "Normal",
+     "texto": "Casi. Sabía que sería casi. Me lo llevo con mucho gusto."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "xatu",
+     "cara": "Sigh",
+     "texto": "Lo sabía. No me lo llevo, pero no es culpa tuya: es del calendario."
+    }
+   ],
+   "marca": "xatu-1"
+  },
+  {
+   "n": 2,
+   "requiere": [
+    "xatu-1",
+    "cuota-1"
+   ],
+   "llega": [
+    {
+     "quien": "xatu",
+     "cara": "Inspired",
+     "texto": "La semana que viene: el repartidor llegará a las 14:59 y el día 1 te faltará dinero en la caja."
+    },
+    {
+     "quien": "morty",
+     "cara": "Dizzy",
+     "texto": "Eso pasa todos los meses."
+    },
+    {
+     "quien": "xatu",
+     "cara": "Happy",
+     "texto": "Por eso no fallo nunca."
+    }
+   ],
+   "pide": "Lo de la otra vez. Su hoja, su té frío.",
+   "perfecto": [
+    {
+     "quien": "xatu",
+     "cara": "Happy",
+     "texto": "Exactamente este. Me alegro de que lo hayas encontrado tú solo."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "xatu",
+     "cara": "Normal",
+     "texto": "Bien. Lo vi venir, pero bien."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "xatu",
+     "cara": "Sigh",
+     "texto": "Ya me lo temía. Por eso hoy no he traído dinero."
+    }
+   ],
+   "marca": "xatu-2"
+  },
+  {
+   "n": 3,
+   "requiere": [
+    "xatu-2"
+   ],
+   "llega": [
+    {
+     "quien": "xatu",
+     "cara": "Normal",
+     "texto": "Buenos días."
+    },
+    {
+     "quien": "gengar",
+     "cara": "Normal",
+     "texto": "…"
+    },
+    {
+     "quien": "xatu",
+     "cara": "Normal",
+     "texto": "…"
+    },
+    {
+     "quien": "morty",
+     "cara": "Stunned",
+     "texto": "¿Les dejo solos?"
+    }
+   ],
+   "pide": "No hace falta, ya está todo dicho. Algo verde, de té fuerte, de los de cerrar los ojos.",
+   "perfecto": [
+    {
+     "quien": "xatu",
+     "cara": "Happy",
+     "texto": "Perfecto. Él también lo sabía."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "xatu",
+     "cara": "Normal",
+     "texto": "Me vale. A tu amigo también le vale."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "xatu",
+     "cara": "Sigh",
+     "texto": "No pasa nada, Morty. Al final todo sale bien. Casi todo."
+    }
+   ],
+   "marca": "xatu-3"
+  },
+  {
+   "n": 4,
+   "requiere": [
+    "xatu-3"
+   ],
+   "llega": [
+    {
+     "quien": "xatu",
+     "cara": "Stunned",
+     "texto": "Morty, hoy pasa algo raro. No sé lo que me vas a decir."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Que me alegro de que venga. La tienda está mejor los días que viene usted."
+    },
+    {
+     "quien": "xatu",
+     "cara": "Surprised",
+     "texto": "…"
+    }
+   ],
+   "pide": "Hazme el que tú quieras. Bueno: verde, tranquilo, de té. Pero elige tú.",
+   "perfecto": [
+    {
+     "quien": "xatu",
+     "cara": "Happy",
+     "texto": "No sabía que iba a ser este. Qué bonito es no saber."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "xatu",
+     "cara": "Inspired",
+     "texto": "No sabía que sería así. Me lo llevo. Y me llevo la sorpresa."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "xatu",
+     "cara": "Surprised",
+     "texto": "Huele raro. Y no me lo esperaba. Gracias, Morty, de verdad."
+    }
+   ],
+   "marca": "xatu-4"
+  }
+ ]
+}

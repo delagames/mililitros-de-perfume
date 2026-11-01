@@ -1,0 +1,14 @@
+[
+  { "id": "bienvenida", "asunto": "Bienvenido a la familia", "texto": "Morty, bienvenido a Mililitros. Aquí no somos una empresa: somos una familia. Por eso no hay horario de salida. Un abrazo fuerte." },
+  { "id": "objetivos", "asunto": "Objetivos del trimestre", "texto": "Objetivo de este mes: vender un 20 % más que el mes pasado. Si el mes pasado no vendiste nada, un 20 % de nada sigue siendo un objetivo. Ánimo, campeón." },
+  { "id": "cafe", "asunto": "Optimización de recursos", "texto": "He visto que gastas papel de cocina en limpiar el escaparate. A partir de ahora, con el dedo. Es más ecológico y más tuyo." },
+  { "id": "malaga", "asunto": "Re: el partido", "texto": "Morty, sé que eres del Málaga. Yo también lo era, hasta que vi el balance. Céntrate. El fútbol no paga la cuota." },
+  { "id": "mindset", "asunto": "Mindset", "texto": "Esta mañana me he levantado a las cuatro, he hecho doscientas dominadas y he facturado en sueños. ¿Tú qué has hecho? No contestes. Hazlo." },
+  { "id": "uniforme", "asunto": "Imagen de marca", "texto": "La bufanda del Málaga no es uniforme corporativo. Pero si vendes con ella, es uniforme corporativo. Ya me dirás." },
+  { "id": "gengar", "asunto": "Sobre el empleado nuevo", "texto": "No tengo constancia de ningún Gengar en nómina. Si cobra, que no cobre. Si no cobra, que siga así. Un trato familiar." },
+  { "id": "reunion", "asunto": "Reunión importante", "texto": "Mañana no hay reunión. Te lo digo para que estés preparado por si la hay." },
+  { "id": "recargo", "asunto": "Lo del recargo", "texto": "Lo del recargo de la cuota no es un interés: es cariño con números. Cuando lo pagues, lo entenderás. O no. Da igual." },
+  { "id": "vacaciones", "asunto": "Vacaciones", "texto": "He visto que el botón de vacaciones está gris. Es un diseño. El gris es elegante. Como el trabajo bien hecho." },
+  { "id": "perros", "asunto": "Los perros de la calle", "texto": "Me dicen que hay perros bailando delante de la tienda. Si bailan, que facturen. En esta familia nadie baila gratis." },
+  { "id": "gracias", "asunto": "Gracias", "texto": "Solo quería darte las gracias, Morty. Sin ti, esto no sería posible. Literalmente: no hay nadie más." }
+]

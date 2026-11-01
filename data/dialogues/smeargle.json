@@ -1,0 +1,235 @@
+{
+ "id": "smeargle",
+ "naturaleza": "rash",
+ "visitas": [
+  {
+   "n": 1,
+   "requiere": [],
+   "llega": [
+    {
+     "quien": "smeargle",
+     "cara": "Joyous",
+     "texto": "¡Hola, hola! Estoy en directo. ¿Has visto lo último de Carliyo el Nervio y su novia?"
+    },
+    {
+     "quien": "smeargle",
+     "cara": "Inspired",
+     "texto": "Espera. ¿Tú no eres el del grito? ¿El del Gengar en Ciudad Iris?"
+    },
+    {
+     "quien": "morty",
+     "cara": "Worried",
+     "texto": "No."
+    },
+    {
+     "quien": "smeargle",
+     "cara": "Joyous",
+     "texto": "¡Que sí! Lo he visto cuarenta veces. Bueno, a lo que iba."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "No."
+    },
+    {
+     "quien": "smeargle",
+     "cara": "Inspired",
+     "texto": "¡Se han sacado un perfume juntos! Yo quiero uno de autor. De autor mío. Para las fotos."
+    },
+    {
+     "quien": "morty",
+     "cara": "Inspired",
+     "texto": "Lo hago yo y lo firmas tú. Marchando."
+    }
+   ],
+   "pide": "Fresco, como recién salido del agua, que en la foto quede limpio. De autor.",
+   "perfecto": [
+    {
+     "quien": "smeargle",
+     "cara": "Joyous",
+     "texto": "¡Esto es contenido! Lo llamo «Esencia Smeargle». Tú no digas que lo has hecho tú."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "smeargle",
+     "cara": "Happy",
+     "texto": "Con un filtro queda perfecto. Todo con un filtro queda perfecto."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "smeargle",
+     "cara": "Angry",
+     "texto": "Esto en cámara huele fatal. Y eso que la cámara no huele. Lo borro."
+    }
+   ],
+   "marca": "smeargle-1"
+  },
+  {
+   "n": 2,
+   "requiere": [
+    "smeargle-1",
+    "sudowoodo-1"
+   ],
+   "llega": [
+    {
+     "quien": "sudowoodo",
+     "cara": "Happy",
+     "texto": "Hola, me llamo Ñoño. ¿Tienes el Onix de Brock dorado? Jijiji."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Hoy no, Ñoño. Tengo desodorante."
+    },
+    {
+     "quien": "smeargle",
+     "cara": "Surprised",
+     "texto": "Espera, espera. Ríete otra vez. No mires a la cámara. Bueno, mira."
+    },
+    {
+     "quien": "smeargle",
+     "cara": "Joyous",
+     "texto": "¡Doscientas mil visualizaciones en dos minutos! Ñoño, eres viral."
+    },
+    {
+     "quien": "sudowoodo",
+     "cara": "Normal",
+     "texto": "¿Viral es una estampita?"
+    }
+   ],
+   "pide": "Algo a juego con el vídeo: ligero, de agua, de toalla al sol.",
+   "perfecto": [
+    {
+     "quien": "smeargle",
+     "cara": "Inspired",
+     "texto": "¡Perfecto! Ñoño, foto conmigo y con el frasco. Tú das muchísimo engagement."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "smeargle",
+     "cara": "Happy",
+     "texto": "Vale, vale. Hoy la estrella es Ñoño. El perfume sale de figurante."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "smeargle",
+     "cara": "Worried",
+     "texto": "Esto no se puede subir. Me quedo con el vídeo de Ñoño, que ese sí."
+    }
+   ],
+   "marca": "smeargle-2"
+  },
+  {
+   "n": 3,
+   "requiere": [
+    "smeargle-2",
+    "eevee-1"
+   ],
+   "llega": [
+    {
+     "quien": "smeargle",
+     "cara": "Joyous",
+     "texto": "¡Eevee! Tienes muchísima cara de colaboración. Un vídeo tú y yo, con perfumes. ¿Va?"
+    },
+    {
+     "quien": "eevee",
+     "cara": "Normal",
+     "texto": "Ah… Vale. Si sale Morty. Por casualidad. Al fondo. O delante."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Yo no salgo."
+    },
+    {
+     "quien": "eevee",
+     "cara": "Sad",
+     "texto": "Entonces yo tampoco."
+    },
+    {
+     "quien": "smeargle",
+     "cara": "Determined",
+     "texto": "Sin problema. Te pinto con la cola en el cartel de la tienda, Morty. Así sales siempre."
+    }
+   ],
+   "pide": "Algo ligero, de brisa de mar, pero que se vea en cámara. Hoy estoy creativo.",
+   "perfecto": [
+    {
+     "quien": "smeargle",
+     "cara": "Inspired",
+     "texto": "¡Brutal! Ya tengo el nombre: «El que no sale». Con mi firma, claro."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "smeargle",
+     "cara": "Happy",
+     "texto": "Me vale. Colaboro con tu cartel, que está más dispuesto que tú."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "smeargle",
+     "cara": "Angry",
+     "texto": "Esto no da ni para un vídeo de diez segundos. Me llevo la pintura."
+    }
+   ],
+   "marca": "smeargle-3"
+  },
+  {
+   "n": 4,
+   "requiere": [
+    "smeargle-3"
+   ],
+   "llega": [
+    {
+     "quien": "smeargle",
+     "cara": "Joyous",
+     "texto": "¡Ya está a la venta! «Smeargle Nº 1, de autor». Creado por mí, desde cero, con el alma."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "…"
+    },
+    {
+     "quien": "smeargle",
+     "cara": "Inspired",
+     "texto": "Carliyo el Nervio lo ha compartido. Y su novia. Bueno, su novia ha puesto un emoji."
+    },
+    {
+     "quien": "gengar",
+     "cara": "Special0",
+     "texto": "El perro de enfrente pasa página. Titular: «Lo hizo el de la bufanda»."
+    }
+   ],
+   "pide": "Uno para la foto del lanzamiento: limpio, de camisa blanca recién planchada.",
+   "perfecto": [
+    {
+     "quien": "smeargle",
+     "cara": "Joyous",
+     "texto": "¡Este también es mío! Nº 2. Gracias por… nada. Por nada."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "smeargle",
+     "cara": "Happy",
+     "texto": "Me lo llevo. Si alguien pregunta, me lo he hecho yo."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "smeargle",
+     "cara": "Sigh",
+     "texto": "Este no lo firmo. Este es tuyo, Morty. Todo tuyo."
+    }
+   ],
+   "marca": "smeargle-4"
+  }
+ ]
+}

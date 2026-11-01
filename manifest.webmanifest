@@ -1,0 +1,15 @@
+{
+  "name": "Mililitros de Perfume",
+  "short_name": "Mililitros",
+  "description": "Una perfumería de Alhaurín de la Torre donde compran Pokémon. Morty deduce la naturaleza de cada cliente y le formula el perfume.",
+  "start_url": "./index.html",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#0E4A3C",
+  "theme_color": "#0E4A3C",
+  "icons": [
+    { "src": "assets/logo/icono-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/logo/icono-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/logo/icono-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

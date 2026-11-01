@@ -1,0 +1,288 @@
+{
+ "id": "murkrow",
+ "naturaleza": "sassy",
+ "visitas": [
+  {
+   "n": 1,
+   "requiere": [],
+   "llega": [
+    {
+     "quien": "murkrow",
+     "cara": "Happy",
+     "texto": "Soy el alcalde, pero hoy vengo de paisano. Es para un acto institucional."
+    },
+    {
+     "quien": "murkrow",
+     "cara": "Inspired",
+     "texto": "¿Se puede pagar en negro? Lo pregunto por el bien del pueblo."
+    }
+   ],
+   "pide": "Algo que huela a despacho: café solo, puro y papeles. Serio, de acto institucional.",
+   "perfecto": [
+    {
+     "quien": "murkrow",
+     "cara": "Joyous",
+     "texto": "Esto huele a mayoría absoluta. Te voy a poner una placa. Pequeña."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "murkrow",
+     "cara": "Normal",
+     "texto": "Pasable. Para un acto de segunda me vale."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "murkrow",
+     "cara": "Angry",
+     "texto": "Esto huele a moción de censura. Ni lo pago ni lo he visto."
+    }
+   ],
+   "marca": "murkrow-1",
+   "ofreceB": true
+  },
+  {
+   "n": 2,
+   "requiere": [
+    "murkrow-1"
+   ],
+   "llega": [
+    {
+     "quien": "murkrow",
+     "cara": "Inspired",
+     "texto": "Quiero un perfume oficial del pueblo para regalar a los de la Diputación. Por la rotonda nueva."
+    },
+    {
+     "quien": "murkrow",
+     "cara": "Happy",
+     "texto": "Lo paga el ayuntamiento. En negro también, que es más rápido."
+    }
+   ],
+   "pide": "Que huela a pueblo serio: a tierra, a puro y a pleno de los que duran.",
+   "perfecto": [
+    {
+     "quien": "murkrow",
+     "cara": "Joyous",
+     "texto": "Este es el olor oficial. Lo apruebo en pleno. Yo solo, pero en pleno."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "murkrow",
+     "cara": "Normal",
+     "texto": "Para la Diputación sobra. Esos no huelen nada."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "murkrow",
+     "cara": "Angry",
+     "texto": "Esto no lo regalo ni a la oposición. Que lo pague otro."
+    }
+   ],
+   "marca": "murkrow-2",
+   "ofreceB": true
+  },
+  {
+   "n": 3,
+   "requiere": [
+    "murkrow-2"
+   ],
+   "llega": [
+    {
+     "quien": "murkrow",
+     "cara": "Normal",
+     "texto": "Mi primo el concejal ha ganado la feria. Era a dedo, pero el dedo era suyo."
+    },
+    {
+     "quien": "murkrow",
+     "cara": "Inspired",
+     "texto": "El solar de enfrente, el del traspaso, lo recalificamos. Ahí te cabe un local más grande."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Yo estoy bien aquí."
+    }
+   ],
+   "pide": "Eso dicen todos hasta que ven el local. Ponme algo de tinta y café frío. Si no, no firmo.",
+   "perfecto": [
+    {
+     "quien": "murkrow",
+     "cara": "Joyous",
+     "texto": "Huele a escritura de notario. El local es tuyo. Bueno, ya veremos."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "murkrow",
+     "cara": "Normal",
+     "texto": "Me vale. El local también te valdría. Piénsatelo."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "murkrow",
+     "cara": "Angry",
+     "texto": "Así no se recalifica nada. El solar se lo doy a una franquicia."
+    }
+   ],
+   "marca": "murkrow-3"
+  },
+  {
+   "n": 4,
+   "requiere": [
+    "murkrow-3",
+    "slowking-1"
+   ],
+   "atiende": "slowking",
+   "llega": [
+    {
+     "quien": "murkrow",
+     "cara": "Happy",
+     "texto": "Ponme lo de siempre, que esta tarde inauguro media rotonda."
+    },
+    {
+     "quien": "slowking",
+     "cara": "Normal",
+     "texto": "Buenos… días."
+    },
+    {
+     "quien": "murkrow",
+     "cara": "Stunned",
+     "texto": "…"
+    },
+    {
+     "quien": "murkrow",
+     "cara": "Surprised",
+     "texto": "¡Huy, la hora! Tengo pleno. O boda. Una cosa con gente."
+    },
+    {
+     "quien": "slowking",
+     "cara": "Normal",
+     "texto": "Se ha… dejado… el sombrero."
+    }
+   ],
+   "pide": "Lo de… siempre. Que huela… a aire. Como una… sábana tendida. Estoy… de servicio.",
+   "perfecto": [
+    {
+     "quien": "slowking",
+     "cara": "Happy",
+     "texto": "Muy… bien. El sombrero… lo guardo… yo."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "slowking",
+     "cara": "Normal",
+     "texto": "Correcto. Anoto… el sombrero."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "slowking",
+     "cara": "Sigh",
+     "texto": "Dulce. Qué… pena. Anoto… el sombrero… igual."
+    }
+   ],
+   "marca": "murkrow-4"
+  },
+  {
+   "n": 5,
+   "requiere": [
+    "murkrow-4",
+    "caja-b"
+   ],
+   "llega": [
+    {
+     "quien": "murkrow",
+     "cara": "Angry",
+     "texto": "¿Has visto el periódico del perro de enfrente? Salgo yo. En portada."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Lo he visto. Pone «Inspección»."
+    },
+    {
+     "quien": "murkrow",
+     "cara": "Shouting",
+     "texto": "¡Con foto! ¡Y en la foto llevo una bolsa de tu tienda!"
+    }
+   ],
+   "pide": "Dame algo que no huela a mí. Serio, de abogado con toga y café solo.",
+   "perfecto": [
+    {
+     "quien": "murkrow",
+     "cara": "Normal",
+     "texto": "Esto huele a inocente. Gracias. Y este no lo pago en negro, por si acaso."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "murkrow",
+     "cara": "Normal",
+     "texto": "Algo es algo. Huelo a presunto. A presunto inocente."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "murkrow",
+     "cara": "Angry",
+     "texto": "¡Esto huele a sumario! Me voy. Por la puerta de atrás."
+    }
+   ],
+   "marca": "murkrow-5"
+  },
+  {
+   "n": 5,
+   "requiere": [
+    "murkrow-4"
+   ],
+   "sin": [
+    "caja-b"
+   ],
+   "llega": [
+    {
+     "quien": "murkrow",
+     "cara": "Angry",
+     "texto": "Tú nunca me has cobrado en negro. Ni una vez. Eso en este pueblo se paga."
+    },
+    {
+     "quien": "murkrow",
+     "cara": "Inspired",
+     "texto": "Mañana te viene una inspección de toldos. El tuyo mide cuatro centímetros de más."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "El toldo vino así."
+    }
+   ],
+   "pide": "Y ahora hazme un perfume, que soy cliente. Serio, rencoroso, como un café recalentado.",
+   "perfecto": [
+    {
+     "quien": "murkrow",
+     "cara": "Happy",
+     "texto": "Me gusta. No te quito la inspección, pero me gusta."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "murkrow",
+     "cara": "Normal",
+     "texto": "Correcto. Como tus cuentas. Qué asco de correcto."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "murkrow",
+     "cara": "Angry",
+     "texto": "Esto huele a toldo. Que te lo midan bien."
+    }
+   ],
+   "marca": "murkrow-5"
+  }
+ ]
+}

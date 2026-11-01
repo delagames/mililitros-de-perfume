@@ -1,0 +1,227 @@
+{
+ "id": "timburr",
+ "naturaleza": "adamant",
+ "visitas": [
+  {
+   "n": 1,
+   "requiere": [],
+   "llega": [
+    {
+     "quien": "timburr",
+     "cara": "Normal",
+     "texto": "Traigo la viga. ¿Dónde la pongo?"
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "No he pedido una viga."
+    },
+    {
+     "quien": "timburr",
+     "cara": "Normal",
+     "texto": "Pues aquí pone Mililitros. Firma aquí. La viga se queda."
+    },
+    {
+     "quien": "timburr",
+     "cara": "Happy",
+     "texto": "Y toma serrín. Madera noble, de la rotonda del alcalde. No se acaba nunca. La rotonda tampoco."
+    }
+   ],
+   "pide": "Hazme uno que caliente como un andamio en agosto. Que se note que se trabaja.",
+   "perfecto": [
+    {
+     "quien": "timburr",
+     "cara": "Joyous",
+     "texto": "Esto es. Desde hoy, serrín cada semana. La viga también te la dejo."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "timburr",
+     "cara": "Normal",
+     "texto": "Sirve. Te traigo serrín igual. Ponlo en la estantería. Recto."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "timburr",
+     "cara": "Angry",
+     "texto": "Esto huele a aire acondicionado. Te traigo serrín igual, pero no lo repitas."
+    }
+   ],
+   "marca": "timburr-1"
+  },
+  {
+   "n": 2,
+   "requiere": [
+    "timburr-1",
+    "murkrow-2"
+   ],
+   "llega": [
+    {
+     "quien": "timburr",
+     "cara": "Normal",
+     "texto": "Serrín. Y escucha: esa rotonda la ha diseñado un primo del alcalde."
+    },
+    {
+     "quien": "timburr",
+     "cara": "Sigh",
+     "texto": "Presupuesto, un millón. Pagado, tres. Hecho, la mitad. Y la mitad de la mitad es una farola."
+    },
+    {
+     "quien": "morty",
+     "cara": "Stunned",
+     "texto": "Eso no cuadra."
+    },
+    {
+     "quien": "timburr",
+     "cara": "Normal",
+     "texto": "Nada cuadra en esa rotonda. Ni la rotonda, que es un óvalo."
+    }
+   ],
+   "pide": "Lo de siempre. Con su mala leche.",
+   "perfecto": [
+    {
+     "quien": "timburr",
+     "cara": "Happy",
+     "texto": "Bien. Así se trabaja. Como no trabaja nadie en la rotonda."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "timburr",
+     "cara": "Normal",
+     "texto": "Vale. Recto no está, pero vale."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "timburr",
+     "cara": "Angry",
+     "texto": "Esto huele a oficina con aire. No me lo llevo. Que no se repita."
+    }
+   ],
+   "marca": "timburr-2"
+  },
+  {
+   "n": 3,
+   "requiere": [
+    "timburr-2",
+    "murkrow-4"
+   ],
+   "llega": [
+    {
+     "quien": "timburr",
+     "cara": "Normal",
+     "texto": "Serrín. Y la viga de la semana."
+    },
+    {
+     "quien": "murkrow",
+     "cara": "Happy",
+     "texto": "Hombre, el de mi rotonda. ¿Tú no deberías estar trabajando? Que os pago yo. Bueno, el pueblo."
+    },
+    {
+     "quien": "timburr",
+     "cara": "Normal",
+     "texto": "Las facturas de la rotonda. Dime dónde están. Ahora."
+    },
+    {
+     "quien": "murkrow",
+     "cara": "Stunned",
+     "texto": "¿Facturas? Yo ya me iba. Tengo un acto. Institucional."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Se ha dejado el sombrero. Otra vez."
+    },
+    {
+     "quien": "timburr",
+     "cara": "Normal",
+     "texto": "Guárdalo. Eso es una prueba."
+    }
+   ],
+   "pide": "Algo con carácter, de los que calientan. Hoy vengo calentito.",
+   "perfecto": [
+    {
+     "quien": "timburr",
+     "cara": "Joyous",
+     "texto": "Esto. Con esto se pregunta por facturas."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "timburr",
+     "cara": "Normal",
+     "texto": "Sirve. El sombrero, que no lo toque nadie."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "timburr",
+     "cara": "Angry",
+     "texto": "Esto huele a que se escapa. Como el alcalde."
+    }
+   ],
+   "marca": "timburr-3"
+  },
+  {
+   "n": 4,
+   "requiere": [
+    "timburr-3",
+    "slowking-3",
+    "hitmontop-4"
+   ],
+   "llega": [
+    {
+     "quien": "timburr",
+     "cara": "Normal",
+     "texto": "Vengo con el señor de Hacienda. Se lo he contado todo. Con facturas."
+    },
+    {
+     "quien": "slowking",
+     "cara": "Normal",
+     "texto": "… Muy… documentado. Ha traído… hasta la viga."
+    },
+    {
+     "quien": "slowking",
+     "cara": "Happy",
+     "texto": "… La rotonda… se termina… en una semana."
+    },
+    {
+     "quien": "timburr",
+     "cara": "Sigh",
+     "texto": "Y yo me quedo sin obra. Veinte años en esa rotonda."
+    },
+    {
+     "quien": "timburr",
+     "cara": "Normal",
+     "texto": "Dicen que Hitmontop monta un gimnasio. Ahí hará falta quien cargue cosas. Díselo."
+    }
+   ],
+   "pide": "Uno para pedir trabajo. Con fuerza, que se note que trabajo.",
+   "perfecto": [
+    {
+     "quien": "timburr",
+     "cara": "Joyous",
+     "texto": "Esto huele a currante. El serrín te lo sigo trayendo. De donde sea."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "timburr",
+     "cara": "Normal",
+     "texto": "Sirve. Me presento mañana. Con la viga, por si acaso."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "timburr",
+     "cara": "Sigh",
+     "texto": "Esto huele a paro. No me lo llevo: para eso ya estoy yo."
+    }
+   ],
+   "marca": "timburr-4"
+  }
+ ]
+}

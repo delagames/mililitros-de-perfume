@@ -1,0 +1,175 @@
+{
+ "id": "bellossom",
+ "naturaleza": "mild",
+ "visitas": [
+  {
+   "n": 1,
+   "requiere": [],
+   "llega": [
+    {
+     "quien": "bellossom",
+     "cara": "Happy",
+     "texto": "Hola, cielo. Soy Bellossom, la de las flores del mercado. Traigo pétalos de los buenos, no los del chino."
+    },
+    {
+     "quien": "bellossom",
+     "cara": "Special0",
+     "texto": "Y de paso te cuento cosas. Yo me entero de todo antes que el periódico del perro."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "¿Cuánto por los pétalos?"
+    },
+    {
+     "quien": "bellossom",
+     "cara": "Happy",
+     "texto": "Hazme un perfume. Si me gusta, te los traigo cada semana a buen precio."
+    }
+   ],
+   "pide": "Algo fresquito, a rocío de por la mañana, como un jardín recién regado.",
+   "perfecto": [
+    {
+     "quien": "bellossom",
+     "cara": "Joyous",
+     "texto": "¡Ay, qué cosa más rica! Trato hecho: desde hoy te traigo pétalos y bayas."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "bellossom",
+     "cara": "Normal",
+     "texto": "Bonito, cielo, pero no es para tanto. Vuelvo otro día y lo intentas otra vez."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "bellossom",
+     "cara": "Worried",
+     "texto": "Uy. Esto no se lo cuento a nadie. Bueno, a alguien sí. Vuelvo otro día."
+    }
+   ],
+   "marca": "bellossom-1",
+   "hastaPerfecto": true
+  },
+  {
+   "n": 2,
+   "requiere": [
+    "bellossom-1",
+    "ursaring-2"
+   ],
+   "llega": [
+    {
+     "quien": "bellossom",
+     "cara": "Happy",
+     "texto": "Tus pétalos y tus bayas, cielo. Frescos de esta mañana."
+    },
+    {
+     "quien": "bellossom",
+     "cara": "Special0",
+     "texto": "¿Sabes lo último? Dicen que Ursaring ha cambiado de osa. Que ahora le gusta una con bata."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "No me cuentes cosas de los clientes."
+    },
+    {
+     "quien": "bellossom",
+     "cara": "Happy",
+     "texto": "No te lo cuento. Te lo comento, que es distinto."
+    }
+   ],
+   "pide": "",
+   "perfecto": [],
+   "bien": [],
+   "mal": [],
+   "marca": "bellossom-2"
+  },
+  {
+   "n": 3,
+   "requiere": [
+    "bellossom-2",
+    "eevee-2"
+   ],
+   "llega": [
+    {
+     "quien": "bellossom",
+     "cara": "Happy",
+     "texto": "Pétalos y bayas. Y una noticia que me he guardado para ti solito."
+    },
+    {
+     "quien": "bellossom",
+     "cara": "Special0",
+     "texto": "Eevee está coladita por ti. Lo sabe medio mercado. El otro medio, desde ahora."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Eevee viene a por perfumes."
+    },
+    {
+     "quien": "bellossom",
+     "cara": "Sigh",
+     "texto": "Ay, Morty. Viene a por perfumes como yo vengo a traer pétalos."
+    }
+   ],
+   "pide": "",
+   "perfecto": [],
+   "bien": [],
+   "mal": [],
+   "marca": "bellossom-3"
+  },
+  {
+   "n": 4,
+   "requiere": [
+    "bellossom-3"
+   ],
+   "llega": [
+    {
+     "quien": "bellossom",
+     "cara": "Worried",
+     "texto": "Hoy no traigo chisme. Bueno, traigo uno, pero es mío."
+    },
+    {
+     "quien": "bellossom",
+     "cara": "Sigh",
+     "texto": "Me ha pasado una cosa y no quiero que se entere nadie. Es la primera vez que me pasa."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "No te pregunto."
+    },
+    {
+     "quien": "bellossom",
+     "cara": "Happy",
+     "texto": "Por eso vengo aquí, cielo. Hazme un perfume que no cuente nada."
+    }
+   ],
+   "pide": "Uno discreto, como agua quieta o un patio a la sombra. Que no cuente nada.",
+   "perfecto": [
+    {
+     "quien": "bellossom",
+     "cara": "Crying",
+     "texto": "Este no dice ni pío. Como tú. Gracias, Morty."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "bellossom",
+     "cara": "Normal",
+     "texto": "Casi no cuenta nada. Algo cuenta, pero poquito."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "bellossom",
+     "cara": "Worried",
+     "texto": "Este lo va cantando por la calle. Así no me lo llevo, cielo."
+    }
+   ],
+   "marca": "bellossom-4"
+  }
+ ]
+}

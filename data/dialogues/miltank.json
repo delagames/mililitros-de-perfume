@@ -1,0 +1,146 @@
+{
+ "id": "miltank",
+ "naturaleza": "relaxed",
+ "visitas": [
+  {
+   "n": 1,
+   "requiere": [],
+   "llega": [
+    {
+     "quien": "miltank",
+     "cara": "Normal",
+     "texto": "Te traigo la leche, que ayer se te acabó. Recién ordeñada. No preguntes de quién."
+    },
+    {
+     "quien": "miltank",
+     "cara": "Normal",
+     "texto": "¿Has comido?"
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Son las diez."
+    },
+    {
+     "quien": "miltank",
+     "cara": "Angry",
+     "texto": "Eso no es un sí. Toma, un táper de lentejas. El táper me lo devuelves."
+    }
+   ],
+   "pide": "",
+   "perfecto": [],
+   "bien": [],
+   "mal": [],
+   "marca": "miltank-1"
+  },
+  {
+   "n": 2,
+   "requiere": [
+    "miltank-1",
+    "sudowoodo-1"
+   ],
+   "llega": [
+    {
+     "quien": "sudowoodo",
+     "cara": "Normal",
+     "texto": "Hola, me llamo Ñoño. ¿Tienes el Goldeen de Misty?"
+    },
+    {
+     "quien": "miltank",
+     "cara": "Angry",
+     "texto": "Ñoño, hijo, ¿cuándo te duchaste por última vez? Tu abuela te habría metido en la pila."
+    },
+    {
+     "quien": "sudowoodo",
+     "cara": "Joyous",
+     "texto": "Jijiji."
+    },
+    {
+     "quien": "miltank",
+     "cara": "Sigh",
+     "texto": "No te rías, que lo digo en serio. Morty, cuélale jabón aunque sea a escondidas."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Lo intento todos los días."
+    }
+   ],
+   "pide": "Y a mí ponme algo que espabile, a limón o a naranja recién exprimida.",
+   "perfecto": [
+    {
+     "quien": "miltank",
+     "cara": "Happy",
+     "texto": "Esto sí. Esto huele a mañana de verdad. Ñoño, huele y aprende."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "miltank",
+     "cara": "Normal",
+     "texto": "Me vale. Ñoño, mañana te llevo un táper y una toalla."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "miltank",
+     "cara": "Angry",
+     "texto": "Esto empalaga. No me lo llevo, y no te enfades, que la leche te la traigo igual."
+    }
+   ],
+   "marca": "miltank-2"
+  },
+  {
+   "n": 4,
+   "requiere": [
+    "miltank-3",
+    "misdreavus-5"
+   ],
+   "llega": [
+    {
+     "quien": "miltank",
+     "cara": "Normal",
+     "texto": "Hoy traigo la leche, pero no vengo por eso. Me han dicho que Ñoño se ha duchado."
+    },
+    {
+     "quien": "sudowoodo",
+     "cara": "Happy",
+     "texto": "Hola, me llamo Ñoño. Huelo a jabón. Jijiji."
+    },
+    {
+     "quien": "miltank",
+     "cara": "Crying",
+     "texto": "Hueles a la Encarni, hijo. A su casa. Ay, perdona, que se me ha metido algo en el ojo."
+    },
+    {
+     "quien": "miltank",
+     "cara": "Normal",
+     "texto": "Morty, dos táperes. Uno para ti y otro para él, que ahora come con visita."
+    }
+   ],
+   "pide": "Y ponme algo a mí que me corte la lloradera, como el limón en el pescaíto.",
+   "perfecto": [
+    {
+     "quien": "miltank",
+     "cara": "Happy",
+     "texto": "Así sí. Me voy, que tengo reparto y no quiero que me vean así."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "miltank",
+     "cara": "Normal",
+     "texto": "Me vale. Hoy me valía cualquier cosa."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "miltank",
+     "cara": "Sigh",
+     "texto": "Esto me ablanda más. Da igual, hoy es día de ablandarse."
+    }
+   ],
+   "marca": "miltank-4"
+  }
+ ]
+}

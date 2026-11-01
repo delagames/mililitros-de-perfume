@@ -1,0 +1,161 @@
+{
+ "id": "hitmonlee",
+ "naturaleza": "brave",
+ "visitas": [
+  {
+   "n": 1,
+   "requiere": [
+    "hitmontop-2"
+   ],
+   "llega": [
+    {
+     "quien": "hitmonlee",
+     "cara": "Inspired",
+     "texto": "Vengo solo. Mi primo no sabe que estoy aquí. Bueno, se lo he dicho."
+    },
+    {
+     "quien": "hitmonlee",
+     "cara": "Determined",
+     "texto": "Trabajo en un gimnasio grande. Con nómina. Catorce pagas. Por si no lo sabías."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Me lo dijo ayer."
+    },
+    {
+     "quien": "hitmonlee",
+     "cara": "Happy",
+     "texto": "Tú lo que tienes que hacer es estirar. Se te ve tenso de hombros. Es la bufanda."
+    }
+   ],
+   "pide": "Ponme algo de valiente, con carácter, que se note que estiro todos los días.",
+   "perfecto": [
+    {
+     "quien": "hitmonlee",
+     "cara": "Joyous",
+     "texto": "¡Esto! Huelo a patada voladora. Mañana se lo restriego a mi primo."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "hitmonlee",
+     "cara": "Normal",
+     "texto": "Está bien. En mi gimnasio los hay mejores, pero no los venden."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "hitmonlee",
+     "cara": "Angry",
+     "texto": "Esto huele a pastelería. Yo como proteína, no bizcocho."
+    }
+   ],
+   "marca": "hitmonlee-1"
+  },
+  {
+   "n": 2,
+   "requiere": [
+    "hitmonlee-1",
+    "hitmontop-3"
+   ],
+   "llega": [
+    {
+     "quien": "hitmonlee",
+     "cara": "Normal",
+     "texto": "Mi primo friega el tatami. Le he dicho que lo friegue estirando, que así aprovecha."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Muy útil."
+    },
+    {
+     "quien": "hitmonlee",
+     "cara": "Inspired",
+     "texto": "Lo sé. Yo doy consejos gratis. Tú también deberías: estira, Morty. Estira."
+    }
+   ],
+   "pide": "Algo fuerte, que se me note al entrar, como una guindilla en la bolsa del gimnasio.",
+   "perfecto": [
+    {
+     "quien": "hitmonlee",
+     "cara": "Joyous",
+     "texto": "¡Así! Con esto me suben el sueldo seguro. Más todavía."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "hitmonlee",
+     "cara": "Normal",
+     "texto": "Pasa. Para un día normal, pasa."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "hitmonlee",
+     "cara": "Angry",
+     "texto": "Dulce. ¿Tú me ves cara de magdalena?"
+    }
+   ],
+   "marca": "hitmonlee-2"
+  },
+  {
+   "n": 3,
+   "requiere": [
+    "hitmonlee-2",
+    "hitmontop-5"
+   ],
+   "llega": [
+    {
+     "quien": "hitmonlee",
+     "cara": "Pain",
+     "texto": "Me han despedido. Del gimnasio grande. Con nómina. Bueno, ahora sin nómina."
+    },
+    {
+     "quien": "morty",
+     "cara": "Worried",
+     "texto": "Lo siento."
+    },
+    {
+     "quien": "hitmonlee",
+     "cara": "Determined",
+     "texto": "No pasa nada. Le voy a pedir trabajo a mi primo. Me va a decir que sí. Seguro."
+    },
+    {
+     "quien": "hitmonlee",
+     "cara": "Normal",
+     "texto": "Tú no le digas que estoy nervioso. Yo no me pongo nervioso. Yo estiro."
+    }
+   ],
+   "pide": "Ponme algo valiente, con fuego, para pedirle trabajo a mi primo. Que se note que no suplico.",
+   "perfecto": [
+    {
+     "quien": "hitmonlee",
+     "cara": "Joyous",
+     "texto": "¡Con esto me coge! Y si no, le doy un consejo."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Estira antes."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "hitmonlee",
+     "cara": "Normal",
+     "texto": "Valdrá. Mi primo me va a coger igual. Es de la familia."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "hitmonlee",
+     "cara": "Pain",
+     "texto": "Esto es dulce. Huele a que vengo a llorar. Me lo pienso otra vez."
+    }
+   ],
+   "marca": "hitmonlee-3"
+  }
+ ]
+}

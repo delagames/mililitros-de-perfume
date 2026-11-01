@@ -1,0 +1,154 @@
+{
+ "id": "blissey",
+ "naturaleza": "mild",
+ "visitas": [
+  {
+   "n": 1,
+   "requiere": [],
+   "llega": [
+    {
+     "quien": "blissey",
+     "cara": "Happy",
+     "texto": "Vengo de parte de la Junta. ¿Morty Pociones está de baja? Usted no es Morty."
+    },
+    {
+     "quien": "gengar",
+     "cara": "Special0",
+     "texto": "Morty está en la cama. Con la bufanda. Usted lleva tres días sin llamar a su madre."
+    },
+    {
+     "quien": "blissey",
+     "cara": "Normal",
+     "texto": "Correcto. La llamo luego. Le firmo un justificante. A usted. Por si acaso."
+    }
+   ],
+   "pide": "Ya que estoy, uno para mí, cielo: a sábana limpia y cama recién hecha.",
+   "perfecto": [
+    {
+     "quien": "blissey",
+     "cara": "Joyous",
+     "texto": "Esto sí es salud. Dígale a Morty que se mejore. Pero sin prisa."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "blissey",
+     "cara": "Normal",
+     "texto": "Correcto. Le receto uno de estos cada ocho horas."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "blissey",
+     "cara": "Worried",
+     "texto": "Cítrico. Ay. Esto lo apunto como efecto secundario."
+    }
+   ],
+   "marca": "blissey-1",
+   "cuando": "baja"
+  },
+  {
+   "n": 2,
+   "requiere": [
+    "blissey-1",
+    "ursaring-3"
+   ],
+   "llega": [
+    {
+     "quien": "blissey",
+     "cara": "Happy",
+     "texto": "Buenos días, Morty. Le traigo receta: uno de lavanda cada ocho horas."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "No estoy malo."
+    },
+    {
+     "quien": "blissey",
+     "cara": "Normal",
+     "texto": "Por eso. Es preventivo."
+    },
+    {
+     "quien": "ursaring",
+     "cara": "Surprised",
+     "texto": "Doc… doctora. Yo venía a… No venía. Ya me iba."
+    },
+    {
+     "quien": "blissey",
+     "cara": "Happy",
+     "texto": "Señor Ursaring, ¿qué tal esos madrugones? Siéntese, que se me pone usted rojo."
+    }
+   ],
+   "pide": "A mí póngame algo de bata recién lavada, de las que se secan al aire.",
+   "perfecto": [
+    {
+     "quien": "blissey",
+     "cara": "Joyous",
+     "texto": "Muy bien. Y a él póngale lo mismo, que lo veo con taquicardia."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "blissey",
+     "cara": "Normal",
+     "texto": "Bien. Una aplicación por la mañana y otra si le da el bajón."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "blissey",
+     "cara": "Worried",
+     "texto": "Ácido. Esto no lo autorizo. Ursaring, no lo huela usted tampoco."
+    }
+   ],
+   "marca": "blissey-2"
+  },
+  {
+   "n": 3,
+   "requiere": [
+    "blissey-2"
+   ],
+   "llega": [
+    {
+     "quien": "blissey",
+     "cara": "Normal",
+     "texto": "Hoy no vengo de parte de la Junta. Vengo por mí."
+    },
+    {
+     "quien": "blissey",
+     "cara": "Sigh",
+     "texto": "Salgo de la consulta y huelo a consulta. En el bus, en la cama, en todo."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Eso se arregla."
+    }
+   ],
+   "pide": "Algo de ventana abierta, de habitación ventilada. Que no huela a consulta.",
+   "perfecto": [
+    {
+     "quien": "blissey",
+     "cara": "Joyous",
+     "texto": "Huelo a sábado. Tome: le doy el alta. De lo que sea que tuviera."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "blissey",
+     "cara": "Happy",
+     "texto": "Mucho mejor. Medio alta. Vuelva en una semana."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "blissey",
+     "cara": "Worried",
+     "texto": "Huele a jarabe de naranja. Esto sí que es para urgencias."
+    }
+   ],
+   "marca": "blissey-3"
+  }
+ ]
+}

@@ -1,0 +1,8 @@
+[
+  { "id": "frasco50", "nombre": "Frascos de 50 ml", "dice": "Caben ocho ingredientes en vez de seis.", "precio": 120.21 },
+  { "id": "escalera", "nombre": "Arreglar la escalera del altillo", "dice": "Está rota desde el día 1. Arriba hay algo.", "precio": 90.21 },
+  { "id": "mesa", "nombre": "Segunda mesa de muestras", "dice": "Cuatro muestras por cliente en vez de tres.", "precio": 150.21 },
+  { "id": "toldo", "nombre": "Toldo nuevo", "dice": "Con sombra, los perros bailan más rato.", "precio": 70.21 },
+  { "id": "cartel", "nombre": "Cartel luminoso", "dice": "Se ve desde la rotonda: un cliente más al día.", "precio": 180.21 },
+  { "id": "frasco100", "nombre": "Frascos de 100 ml", "dice": "Caben diez ingredientes.", "precio": 260.21, "requiere": "frasco50" }
+]

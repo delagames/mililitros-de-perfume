@@ -1,0 +1,267 @@
+{
+ "id": "ursaring",
+ "naturaleza": "relaxed",
+ "visitas": [
+  {
+   "n": 1,
+   "requiere": [],
+   "llega": [
+    {
+     "quien": "ursaring",
+     "cara": "Sigh",
+     "texto": "Buenos días. Bueno. Días."
+    },
+    {
+     "quien": "ursaring",
+     "cara": "Normal",
+     "texto": "Quiero oler a recién despierto, pero de hace dos horas. Que en el trabajo no se note."
+    },
+    {
+     "quien": "ursaring",
+     "cara": "Inspired",
+     "texto": "Y que impresione. Hay una osa en contabilidad que no me mira. Yo creo que es por el olor."
+    }
+   ],
+   "pide": "Algo que despeje sin prisas, como un zumo de limón en la verbena.",
+   "perfecto": [
+    {
+     "quien": "ursaring",
+     "cara": "Joyous",
+     "texto": "Esto. Huelo a que llevo despierto desde las siete. Mentira, pero huele."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "ursaring",
+     "cara": "Normal",
+     "texto": "Pasa. Si no me mira, por lo menos no me duermo."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "ursaring",
+     "cara": "Angry",
+     "texto": "Esto es dulce. Huele a colchón. Me quedo dormido aquí mismo."
+    }
+   ],
+   "marca": "ursaring-1"
+  },
+  {
+   "n": 2,
+   "requiere": [
+    "ursaring-1"
+   ],
+   "llega": [
+    {
+     "quien": "ursaring",
+     "cara": "Happy",
+     "texto": "Me ha mirado. La de contabilidad. Un buen rato."
+    },
+    {
+     "quien": "ursaring",
+     "cara": "Normal",
+     "texto": "Luego vi que detrás de mí estaba el reloj. Pero miraba en mi dirección."
+    },
+    {
+     "quien": "ursaring",
+     "cara": "Inspired",
+     "texto": "Ahora quiero algo más intenso. Que me mire sin reloj."
+    },
+    {
+     "quien": "morty",
+     "cara": "Stunned",
+     "texto": "¿Más intenso?"
+    }
+   ],
+   "pide": "Lo mismo de la otra vez, tranquilo, como un pomelo en ayunas.",
+   "perfecto": [
+    {
+     "quien": "ursaring",
+     "cara": "Joyous",
+     "texto": "Esto. Esto se huele desde contabilidad."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "ursaring",
+     "cara": "Normal",
+     "texto": "Pasa. Por si acaso, me pondré debajo del reloj."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "ursaring",
+     "cara": "Angry",
+     "texto": "Dulce. Con esto me miran las abejas, no la osa."
+    }
+   ],
+   "marca": "ursaring-2"
+  },
+  {
+   "n": 3,
+   "requiere": [
+    "ursaring-2",
+    "baja",
+    "blissey-1"
+   ],
+   "llega": [
+    {
+     "quien": "ursaring",
+     "cara": "Normal",
+     "texto": "Me han dado la baja. Estrés de madrugar. Me la dio la médica de la Junta."
+    },
+    {
+     "quien": "ursaring",
+     "cara": "Inspired",
+     "texto": "Lo de contabilidad, olvidado. Ahora quiero impresionarla a ella."
+    },
+    {
+     "quien": "ursaring",
+     "cara": "Happy",
+     "texto": "Tengo una teoría: a las médicas les gusta el olor a hospital."
+    },
+    {
+     "quien": "morty",
+     "cara": "Stunned",
+     "texto": "Una teoría."
+    }
+   ],
+   "pide": "Que huela a limpio, a hospital, a fregona con limón.",
+   "perfecto": [
+    {
+     "quien": "ursaring",
+     "cara": "Joyous",
+     "texto": "Huelo a planta tercera. Seguro que le gusta."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "ursaring",
+     "cara": "Normal",
+     "texto": "A hospital no huele del todo. A ambulatorio, sí."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "ursaring",
+     "cara": "Angry",
+     "texto": "Esto es dulce. Huele a piruleta de pediatría."
+    }
+   ],
+   "marca": "ursaring-3"
+  },
+  {
+   "n": 4,
+   "requiere": [
+    "ursaring-3",
+    "blissey-2"
+   ],
+   "llega": [
+    {
+     "quien": "ursaring",
+     "cara": "Pain",
+     "texto": "Me he echado tres perfumes a la vez. Por si uno no funcionaba."
+    },
+    {
+     "quien": "morty",
+     "cara": "Stunned",
+     "texto": "Se nota."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Pregúntale qué le gusta."
+    },
+    {
+     "quien": "ursaring",
+     "cara": "Surprised",
+     "texto": "¿Preguntarle? ¿A ella?"
+    },
+    {
+     "quien": "ursaring",
+     "cara": "Normal",
+     "texto": "Eso no lo había pensado nunca."
+    }
+   ],
+   "pide": "Ponme uno, solo uno, tranquilo y que espabile. Que ya llevo tres encima.",
+   "perfecto": [
+    {
+     "quien": "ursaring",
+     "cara": "Joyous",
+     "texto": "Uno solo. Huele a mí, pero mejor. Voy a preguntar."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "ursaring",
+     "cara": "Normal",
+     "texto": "Mejor que tres. Bastante mejor que tres."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "ursaring",
+     "cara": "Angry",
+     "texto": "Dulce. Este sería el cuarto, y el peor."
+    }
+   ],
+   "marca": "ursaring-4"
+  },
+  {
+   "n": 5,
+   "requiere": [
+    "ursaring-4"
+   ],
+   "llega": [
+    {
+     "quien": "ursaring",
+     "cara": "Happy",
+     "texto": "Traigo un ramo para la osa de contabilidad. Le pregunté qué le gustaba: los girasoles."
+    },
+    {
+     "quien": "ursaring",
+     "cara": "Normal",
+     "texto": "No sé si funcionará."
+    },
+    {
+     "quien": "ursaring",
+     "cara": "Inspired",
+     "texto": "Hoy quiero un perfume para mí. No para impresionar a nadie. Para mí."
+    },
+    {
+     "quien": "morty",
+     "cara": "Happy",
+     "texto": "Eso es nuevo."
+    }
+   ],
+   "pide": "Uno para mí: tranquilo, que despierte, como un domingo con limonada. Como yo, vaya.",
+   "perfecto": [
+    {
+     "quien": "ursaring",
+     "cara": "Joyous",
+     "texto": "Este soy yo. No sabía que olía así."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Suerte con los girasoles."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "ursaring",
+     "cara": "Normal",
+     "texto": "Me vale. Hoy todo me vale."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "ursaring",
+     "cara": "Sigh",
+     "texto": "Dulce. Este no soy yo. Me llevo el ramo, que es lo importante."
+    }
+   ],
+   "marca": "ursaring-5"
+  }
+ ]
+}

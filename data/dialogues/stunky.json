@@ -1,0 +1,189 @@
+{
+ "id": "stunky",
+ "naturaleza": "sassy",
+ "visitas": [
+  {
+   "n": 1,
+   "requiere": [],
+   "llega": [
+    {
+     "quien": "stunky",
+     "cara": "Normal",
+     "texto": "¿Usted ha oído hablar del Mofeta de Campanillas? Me encerró en un cuartillo."
+    },
+    {
+     "quien": "stunky",
+     "cara": "Angry",
+     "texto": "Dos días y dos noches peyéndose. Sin ventana. Desde entonces no se me quita."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Algo se nota, sí."
+    }
+   ],
+   "pide": "No sea fino. Algo fuerte, de los que raspan, como un carajillo de obra.",
+   "perfecto": [
+    {
+     "quien": "stunky",
+     "cara": "Joyous",
+     "texto": "Esto tapa. Esto tapa de verdad. No me mire así, que es un halago."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "stunky",
+     "cara": "Normal",
+     "texto": "Algo hace. No mucho, pero más que el desodorante del chino."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "stunky",
+     "cara": "Angry",
+     "texto": "Ahora huelo a cuartillo con lacito. Peor. Mucho peor."
+    }
+   ],
+   "marca": "stunky-1"
+  },
+  {
+   "n": 2,
+   "requiere": [
+    "stunky-1"
+   ],
+   "llega": [
+    {
+     "quien": "stunky",
+     "cara": "Angry",
+     "texto": "Me duró una hora. Una. ¿Le dije que fueron dos días? Fueron tres. Con fabada."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "La otra vez fueron dos."
+    },
+    {
+     "quien": "stunky",
+     "cara": "Determined",
+     "texto": "Pues ahora son tres, que lo he pensado mejor. ¿Me pone algo o me levanta acta?"
+    }
+   ],
+   "pide": "Lo mismo que el otro. Oscuro, de café requemado. Si no raspa, me voy.",
+   "perfecto": [
+    {
+     "quien": "stunky",
+     "cara": "Happy",
+     "texto": "Esto ya es otra cosa. A lo mejor me dura hasta la parada del bus."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "stunky",
+     "cara": "Normal",
+     "texto": "Pasable. Si se me acerca alguien, no se desmaya del todo."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "stunky",
+     "cara": "Angry",
+     "texto": "Dulzón. Ahora huelo a mofeta de feria. Hágame el favor."
+    }
+   ],
+   "marca": "stunky-2"
+  },
+  {
+   "n": 3,
+   "requiere": [
+    "stunky-2",
+    "timburr-1"
+   ],
+   "llega": [
+    {
+     "quien": "morty",
+     "cara": "Inspired",
+     "texto": "Hoy probamos otra cosa. Contra el olor, madera noble."
+    },
+    {
+     "quien": "stunky",
+     "cara": "Surprised",
+     "texto": "¿Me va a echar serrín? ¿Como a un charco de bar?"
+    },
+    {
+     "quien": "gengar",
+     "cara": "Sigh",
+     "texto": "Dos días y dos noches. Se nota."
+    }
+   ],
+   "pide": "Échele serrín si quiere, pero que raspe, como un orujo de hierbas.",
+   "perfecto": [
+    {
+     "quien": "stunky",
+     "cara": "Joyous",
+     "texto": "Huelo a carpintería. A carpintería buena. Hacía años que no olía a un sitio."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "stunky",
+     "cara": "Normal",
+     "texto": "Huelo a obra. Mejor obra que cuartillo, eso se lo compro."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "stunky",
+     "cara": "Angry",
+     "texto": "Ahora huelo a cuartillo amueblado. Enhorabuena."
+    }
+   ],
+   "marca": "stunky-3"
+  },
+  {
+   "n": 4,
+   "requiere": [
+    "stunky-3"
+   ],
+   "llega": [
+    {
+     "quien": "stunky",
+     "cara": "Happy",
+     "texto": "Me duró todo el día, oiga. Me saludó hasta la del estanco."
+    },
+    {
+     "quien": "stunky",
+     "cara": "Determined",
+     "texto": "Así que fui a enseñárselo al Mofeta de Campanillas. A la cara."
+    },
+    {
+     "quien": "stunky",
+     "cara": "Sigh",
+     "texto": "Me tuvo media hora en el cuartillo. Media hora."
+    }
+   ],
+   "pide": "Necesito algo fuerte. Lo de ayer, con su madera y su café. Ya me conoce.",
+   "perfecto": [
+    {
+     "quien": "stunky",
+     "cara": "Joyous",
+     "texto": "Este. Y al Mofeta, ni agua. Bueno: gracias. No se acostumbre."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "stunky",
+     "cara": "Normal",
+     "texto": "Vale. Me sirve. Pero que conste que la culpa es del Mofeta."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "stunky",
+     "cara": "Angry",
+     "texto": "Esto no aguanta ni un garbanzo. Volveré, qué remedio."
+    }
+   ],
+   "marca": "stunky-4"
+  }
+ ]
+}

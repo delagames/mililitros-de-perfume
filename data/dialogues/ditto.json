@@ -1,0 +1,219 @@
+{
+ "id": "ditto",
+ "naturaleza": "imita",
+ "visitas": [
+  {
+   "n": 1,
+   "requiere": [
+    "totodile-1"
+   ],
+   "forma": "totodile",
+   "naturaleza": "naughty",
+   "llega": [
+    {
+     "quien": "ditto",
+     "cara": "Happy",
+     "texto": "Buenas. Ponme lo mismo que el otro día."
+    },
+    {
+     "quien": "ditto",
+     "cara": "Happy",
+     "texto": "Oye, tu cara me suena. ¿Tú no salías en la tele? Da igual: yo me parezco a todo el mundo."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "¿El de 30?"
+    },
+    {
+     "quien": "ditto",
+     "cara": "Inspired",
+     "texto": "Ese. Y me haces precio, que yo regateo. Creo. Sí, regateo."
+    }
+   ],
+   "pide": "El del otro día: con chispa y con gracia. Y me haces precio, que yo regateo.",
+   "perfecto": [
+    {
+     "quien": "ditto",
+     "cara": "Joyous",
+     "texto": "¡Igualito que el otro día! Exactamente lo mismo. Gracias."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "ditto",
+     "cara": "Happy",
+     "texto": "Parecido al otro día. Me queda bien. Todo me queda bien."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "ditto",
+     "cara": "Happy",
+     "texto": "No sé si es lo del otro día. Mejor no me lo llevo. Me quedaría bien, eso sí."
+    }
+   ],
+   "marca": "ditto-1"
+  },
+  {
+   "n": 2,
+   "requiere": [
+    "ditto-1",
+    "quagsire-1"
+   ],
+   "forma": "quagsire",
+   "naturaleza": "relaxed",
+   "llega": [
+    {
+     "quien": "ditto",
+     "cara": "Normal",
+     "texto": "Hola. Lo mismo que el otro día. Lo de los domingos, creo que era."
+    },
+    {
+     "quien": "gengar",
+     "cara": "Special0",
+     "texto": "Jejejeje."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Lo de los domingos. Sin prisa, ¿no?"
+    },
+    {
+     "quien": "ditto",
+     "cara": "Happy",
+     "texto": "Sin prisa. Yo nunca tengo prisa. Eso dicen de mí."
+    }
+   ],
+   "pide": "Lo de los domingos, a pipas con limón y sin prisa. Como siempre. Creo.",
+   "perfecto": [
+    {
+     "quien": "ditto",
+     "cara": "Joyous",
+     "texto": "¡Lo mismo! Huele a domingo. Bueno, eso creo. Gracias."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "ditto",
+     "cara": "Happy",
+     "texto": "Casi lo del otro día. Me vale. A mí me vale todo."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "ditto",
+     "cara": "Happy",
+     "texto": "Hoy no es domingo. No me lo llevo. Me quedaría bien, eso sí."
+    }
+   ],
+   "marca": "ditto-2"
+  },
+  {
+   "n": 3,
+   "requiere": [
+    "ditto-2"
+   ],
+   "forma": "morty",
+   "naturaleza": "serious",
+   "llega": [
+    {
+     "quien": "ditto",
+     "cara": "Normal",
+     "texto": "Buenos días. Lo mismo que el otro día."
+    },
+    {
+     "quien": "morty",
+     "cara": "Stunned",
+     "texto": "…"
+    },
+    {
+     "quien": "morty",
+     "cara": "Stunned",
+     "texto": "La bufanda está bien puesta. Eso hay que reconocerlo."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "¿Lo de siempre?"
+    },
+    {
+     "quien": "ditto",
+     "cara": "Happy",
+     "texto": "Lo de siempre."
+    }
+   ],
+   "pide": "Lo que lleves tú. Lo que te pondrías un lunes para abrir a las diez.",
+   "perfecto": [
+    {
+     "quien": "ditto",
+     "cara": "Joyous",
+     "texto": "Me queda muy bien. Te queda muy bien. Nos queda muy bien."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "ditto",
+     "cara": "Happy",
+     "texto": "Huele a ti, más o menos. Gracias, Morty. Gracias, yo."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "ditto",
+     "cara": "Happy",
+     "texto": "Esto no te lo pondrías tú. Así no me lo llevo."
+    }
+   ],
+   "marca": "ditto-3"
+  },
+  {
+   "n": 4,
+   "requiere": [
+    "ditto-3"
+   ],
+   "forma": "ditto",
+   "naturaleza": "quirky",
+   "llega": [
+    {
+     "quien": "ditto",
+     "cara": "Worried",
+     "texto": "Hola. Hoy vengo así. Como soy."
+    },
+    {
+     "quien": "ditto",
+     "cara": "Worried",
+     "texto": "Quiero un perfume para mí. Pero no sé cuál es el mío. Nunca he tenido uno mío."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Para eso estamos. Vamos a buscarlo."
+    }
+   ],
+   "pide": "No sé qué me gusta. Siempre llevo lo de otros. Ayúdame a saberlo.",
+   "perfecto": [
+    {
+     "quien": "ditto",
+     "cara": "Joyous",
+     "texto": "Este es mío. Solo mío. No se parece a nadie."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "ditto",
+     "cara": "Happy",
+     "texto": "Casi mío. Ya es más mío que nada de lo que he llevado."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "ditto",
+     "cara": "Stunned",
+     "texto": "Este huele a otro. No me lo llevo: vuelvo a por el mío."
+    }
+   ],
+   "marca": "ditto-4"
+  }
+ ]
+}

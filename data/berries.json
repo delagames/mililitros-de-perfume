@@ -1,0 +1,930 @@
+[
+ {
+  "id": "aguav",
+  "nombre": "Baya Guaya",
+  "sabores": {
+   "spicy": 0,
+   "dry": 0,
+   "sweet": 0,
+   "bitter": 15,
+   "sour": 0
+  },
+  "firmeza": "super-hard",
+  "tamano": 64,
+  "don_natural": "dragon"
+ },
+ {
+  "id": "apicot",
+  "nombre": "Baya Aricoc",
+  "sabores": {
+   "spicy": 10,
+   "dry": 30,
+   "sweet": 0,
+   "bitter": 0,
+   "sour": 30
+  },
+  "firmeza": "hard",
+  "tamano": 75,
+  "don_natural": "ground"
+ },
+ {
+  "id": "aspear",
+  "nombre": "Baya Perasi",
+  "sabores": {
+   "spicy": 0,
+   "dry": 0,
+   "sweet": 0,
+   "bitter": 0,
+   "sour": 10
+  },
+  "firmeza": "super-hard",
+  "tamano": 50,
+  "don_natural": "ice"
+ },
+ {
+  "id": "babiri",
+  "nombre": "Baya Baribá",
+  "sabores": {
+   "spicy": 25,
+   "dry": 10,
+   "sweet": 0,
+   "bitter": 0,
+   "sour": 0
+  },
+  "firmeza": "super-hard",
+  "tamano": 265,
+  "don_natural": "steel"
+ },
+ {
+  "id": "belue",
+  "nombre": "Baya Andano",
+  "sabores": {
+   "spicy": 10,
+   "dry": 0,
+   "sweet": 0,
+   "bitter": 0,
+   "sour": 30
+  },
+  "firmeza": "very-soft",
+  "tamano": 300,
+  "don_natural": "electric"
+ },
+ {
+  "id": "bluk",
+  "nombre": "Baya Oram",
+  "sabores": {
+   "spicy": 0,
+   "dry": 10,
+   "sweet": 10,
+   "bitter": 0,
+   "sour": 0
+  },
+  "firmeza": "soft",
+  "tamano": 108,
+  "don_natural": "fire"
+ },
+ {
+  "id": "charti",
+  "nombre": "Baya Alcho",
+  "sabores": {
+   "spicy": 10,
+   "dry": 20,
+   "sweet": 0,
+   "bitter": 0,
+   "sour": 0
+  },
+  "firmeza": "very-soft",
+  "tamano": 28,
+  "don_natural": "rock"
+ },
+ {
+  "id": "cheri",
+  "nombre": "Baya Zreza",
+  "sabores": {
+   "spicy": 10,
+   "dry": 0,
+   "sweet": 0,
+   "bitter": 0,
+   "sour": 0
+  },
+  "firmeza": "soft",
+  "tamano": 20,
+  "don_natural": "fire"
+ },
+ {
+  "id": "chesto",
+  "nombre": "Baya Atania",
+  "sabores": {
+   "spicy": 0,
+   "dry": 10,
+   "sweet": 0,
+   "bitter": 0,
+   "sour": 0
+  },
+  "firmeza": "super-hard",
+  "tamano": 80,
+  "don_natural": "water"
+ },
+ {
+  "id": "chilan",
+  "nombre": "Baya Chilan",
+  "sabores": {
+   "spicy": 0,
+   "dry": 25,
+   "sweet": 10,
+   "bitter": 0,
+   "sour": 0
+  },
+  "firmeza": "very-soft",
+  "tamano": 34,
+  "don_natural": "normal"
+ },
+ {
+  "id": "chople",
+  "nombre": "Baya Pomaro",
+  "sabores": {
+   "spicy": 15,
+   "dry": 0,
+   "sweet": 0,
+   "bitter": 10,
+   "sour": 0
+  },
+  "firmeza": "soft",
+  "tamano": 77,
+  "don_natural": "fighting"
+ },
+ {
+  "id": "coba",
+  "nombre": "Baya Kouba",
+  "sabores": {
+   "spicy": 0,
+   "dry": 10,
+   "sweet": 0,
+   "bitter": 15,
+   "sour": 0
+  },
+  "firmeza": "very-hard",
+  "tamano": 278,
+  "don_natural": "flying"
+ },
+ {
+  "id": "colbur",
+  "nombre": "Baya Dillo",
+  "sabores": {
+   "spicy": 0,
+   "dry": 0,
+   "sweet": 0,
+   "bitter": 10,
+   "sour": 20
+  },
+  "firmeza": "super-hard",
+  "tamano": 39,
+  "don_natural": "dark"
+ },
+ {
+  "id": "cornn",
+  "nombre": "Baya Mais",
+  "sabores": {
+   "spicy": 0,
+   "dry": 20,
+   "sweet": 10,
+   "bitter": 0,
+   "sour": 0
+  },
+  "firmeza": "hard",
+  "tamano": 75,
+  "don_natural": "bug"
+ },
+ {
+  "id": "custap",
+  "nombre": "Baya Chiri",
+  "sabores": {
+   "spicy": 0,
+   "dry": 0,
+   "sweet": 40,
+   "bitter": 10,
+   "sour": 0
+  },
+  "firmeza": "super-hard",
+  "tamano": 267,
+  "don_natural": "ghost"
+ },
+ {
+  "id": "durin",
+  "nombre": "Baya Rudion",
+  "sabores": {
+   "spicy": 0,
+   "dry": 0,
+   "sweet": 0,
+   "bitter": 30,
+   "sour": 10
+  },
+  "firmeza": "hard",
+  "tamano": 280,
+  "don_natural": "water"
+ },
+ {
+  "id": "enigma",
+  "nombre": "Baya Enigma",
+  "sabores": {
+   "spicy": 40,
+   "dry": 10,
+   "sweet": 0,
+   "bitter": 0,
+   "sour": 0
+  },
+  "firmeza": "hard",
+  "tamano": 155,
+  "don_natural": "bug"
+ },
+ {
+  "id": "figy",
+  "nombre": "Baya Higog",
+  "sabores": {
+   "spicy": 15,
+   "dry": 0,
+   "sweet": 0,
+   "bitter": 0,
+   "sour": 0
+  },
+  "firmeza": "soft",
+  "tamano": 100,
+  "don_natural": "bug"
+ },
+ {
+  "id": "ganlon",
+  "nombre": "Baya Gonlan",
+  "sabores": {
+   "spicy": 0,
+   "dry": 30,
+   "sweet": 10,
+   "bitter": 30,
+   "sour": 0
+  },
+  "firmeza": "very-hard",
+  "tamano": 33,
+  "don_natural": "ice"
+ },
+ {
+  "id": "grepa",
+  "nombre": "Baya Uvav",
+  "sabores": {
+   "spicy": 0,
+   "dry": 10,
+   "sweet": 10,
+   "bitter": 0,
+   "sour": 10
+  },
+  "firmeza": "soft",
+  "tamano": 149,
+  "don_natural": "flying"
+ },
+ {
+  "id": "haban",
+  "nombre": "Baya Anjiro",
+  "sabores": {
+   "spicy": 0,
+   "dry": 0,
+   "sweet": 10,
+   "bitter": 20,
+   "sour": 0
+  },
+  "firmeza": "soft",
+  "tamano": 23,
+  "don_natural": "dragon"
+ },
+ {
+  "id": "hondew",
+  "nombre": "Baya Meluce",
+  "sabores": {
+   "spicy": 10,
+   "dry": 10,
+   "sweet": 0,
+   "bitter": 10,
+   "sour": 0
+  },
+  "firmeza": "hard",
+  "tamano": 162,
+  "don_natural": "ground"
+ },
+ {
+  "id": "hopo",
+  "nombre": "Hopo",
+  "sabores": {},
+  "firmeza": null,
+  "tamano": null,
+  "don_natural": null
+ },
+ {
+  "id": "iapapa",
+  "nombre": "Baya Pabaya",
+  "sabores": {
+   "spicy": 0,
+   "dry": 0,
+   "sweet": 0,
+   "bitter": 0,
+   "sour": 15
+  },
+  "firmeza": "soft",
+  "tamano": 223,
+  "don_natural": "dark"
+ },
+ {
+  "id": "jaboca",
+  "nombre": "Baya Jaboca",
+  "sabores": {
+   "spicy": 0,
+   "dry": 0,
+   "sweet": 0,
+   "bitter": 40,
+   "sour": 10
+  },
+  "firmeza": "soft",
+  "tamano": 33,
+  "don_natural": "dragon"
+ },
+ {
+  "id": "kasib",
+  "nombre": "Baya Drasi",
+  "sabores": {
+   "spicy": 0,
+   "dry": 10,
+   "sweet": 20,
+   "bitter": 0,
+   "sour": 0
+  },
+  "firmeza": "hard",
+  "tamano": 144,
+  "don_natural": "ghost"
+ },
+ {
+  "id": "kebia",
+  "nombre": "Baya Kebia",
+  "sabores": {
+   "spicy": 0,
+   "dry": 15,
+   "sweet": 0,
+   "bitter": 0,
+   "sour": 10
+  },
+  "firmeza": "hard",
+  "tamano": 90,
+  "don_natural": "poison"
+ },
+ {
+  "id": "kee",
+  "nombre": "Baya Biglia",
+  "sabores": {},
+  "firmeza": null,
+  "tamano": null,
+  "don_natural": "fairy"
+ },
+ {
+  "id": "kelpsy",
+  "nombre": "Baya Algama",
+  "sabores": {
+   "spicy": 0,
+   "dry": 10,
+   "sweet": 0,
+   "bitter": 10,
+   "sour": 10
+  },
+  "firmeza": "hard",
+  "tamano": 150,
+  "don_natural": "fighting"
+ },
+ {
+  "id": "lansat",
+  "nombre": "Baya Zonlan",
+  "sabores": {
+   "spicy": 30,
+   "dry": 10,
+   "sweet": 30,
+   "bitter": 10,
+   "sour": 30
+  },
+  "firmeza": "soft",
+  "tamano": 97,
+  "don_natural": "flying"
+ },
+ {
+  "id": "leppa",
+  "nombre": "Baya Zanama",
+  "sabores": {
+   "spicy": 10,
+   "dry": 0,
+   "sweet": 10,
+   "bitter": 10,
+   "sour": 10
+  },
+  "firmeza": "very-hard",
+  "tamano": 28,
+  "don_natural": "fighting"
+ },
+ {
+  "id": "liechi",
+  "nombre": "Baya Lichi",
+  "sabores": {
+   "spicy": 30,
+   "dry": 10,
+   "sweet": 30,
+   "bitter": 0,
+   "sour": 0
+  },
+  "firmeza": "very-hard",
+  "tamano": 111,
+  "don_natural": "grass"
+ },
+ {
+  "id": "lum",
+  "nombre": "Baya Ziuela",
+  "sabores": {
+   "spicy": 10,
+   "dry": 10,
+   "sweet": 10,
+   "bitter": 10,
+   "sour": 0
+  },
+  "firmeza": "super-hard",
+  "tamano": 34,
+  "don_natural": "flying"
+ },
+ {
+  "id": "mago",
+  "nombre": "Baya Ango",
+  "sabores": {
+   "spicy": 0,
+   "dry": 0,
+   "sweet": 15,
+   "bitter": 0,
+   "sour": 0
+  },
+  "firmeza": "hard",
+  "tamano": 126,
+  "don_natural": "ghost"
+ },
+ {
+  "id": "magost",
+  "nombre": "Baya Aostan",
+  "sabores": {
+   "spicy": 0,
+   "dry": 0,
+   "sweet": 20,
+   "bitter": 10,
+   "sour": 0
+  },
+  "firmeza": "hard",
+  "tamano": 140,
+  "don_natural": "rock"
+ },
+ {
+  "id": "maranga",
+  "nombre": "Baya Maranga",
+  "sabores": {},
+  "firmeza": null,
+  "tamano": null,
+  "don_natural": "dark"
+ },
+ {
+  "id": "micle",
+  "nombre": "Baya Lagro",
+  "sabores": {
+   "spicy": 0,
+   "dry": 40,
+   "sweet": 10,
+   "bitter": 0,
+   "sour": 0
+  },
+  "firmeza": "soft",
+  "tamano": 41,
+  "don_natural": "rock"
+ },
+ {
+  "id": "nanab",
+  "nombre": "Baya Latano",
+  "sabores": {
+   "spicy": 0,
+   "dry": 0,
+   "sweet": 10,
+   "bitter": 10,
+   "sour": 0
+  },
+  "firmeza": "very-hard",
+  "tamano": 77,
+  "don_natural": "water"
+ },
+ {
+  "id": "nomel",
+  "nombre": "Baya Monli",
+  "sabores": {
+   "spicy": 10,
+   "dry": 0,
+   "sweet": 0,
+   "bitter": 0,
+   "sour": 20
+  },
+  "firmeza": "super-hard",
+  "tamano": 285,
+  "don_natural": "dragon"
+ },
+ {
+  "id": "occa",
+  "nombre": "Baya Caoca",
+  "sabores": {
+   "spicy": 15,
+   "dry": 0,
+   "sweet": 10,
+   "bitter": 0,
+   "sour": 0
+  },
+  "firmeza": "super-hard",
+  "tamano": 90,
+  "don_natural": "fire"
+ },
+ {
+  "id": "oran",
+  "nombre": "Baya Aranja",
+  "sabores": {
+   "spicy": 10,
+   "dry": 10,
+   "sweet": 0,
+   "bitter": 10,
+   "sour": 10
+  },
+  "firmeza": "super-hard",
+  "tamano": 35,
+  "don_natural": "poison"
+ },
+ {
+  "id": "pamtre",
+  "nombre": "Baya Plama",
+  "sabores": {
+   "spicy": 0,
+   "dry": 30,
+   "sweet": 10,
+   "bitter": 0,
+   "sour": 0
+  },
+  "firmeza": "very-soft",
+  "tamano": 244,
+  "don_natural": "steel"
+ },
+ {
+  "id": "passho",
+  "nombre": "Baya Pasio",
+  "sabores": {
+   "spicy": 0,
+   "dry": 15,
+   "sweet": 0,
+   "bitter": 10,
+   "sour": 0
+  },
+  "firmeza": "soft",
+  "tamano": 33,
+  "don_natural": "water"
+ },
+ {
+  "id": "payapa",
+  "nombre": "Baya Payapa",
+  "sabores": {
+   "spicy": 0,
+   "dry": 0,
+   "sweet": 10,
+   "bitter": 0,
+   "sour": 15
+  },
+  "firmeza": "soft",
+  "tamano": 252,
+  "don_natural": "psychic"
+ },
+ {
+  "id": "pecha",
+  "nombre": "Baya Meloc",
+  "sabores": {
+   "spicy": 0,
+   "dry": 0,
+   "sweet": 10,
+   "bitter": 0,
+   "sour": 0
+  },
+  "firmeza": "very-soft",
+  "tamano": 40,
+  "don_natural": "electric"
+ },
+ {
+  "id": "persim",
+  "nombre": "Baya Caquic",
+  "sabores": {
+   "spicy": 10,
+   "dry": 10,
+   "sweet": 10,
+   "bitter": 0,
+   "sour": 10
+  },
+  "firmeza": "hard",
+  "tamano": 47,
+  "don_natural": "ground"
+ },
+ {
+  "id": "petaya",
+  "nombre": "Baya Yapati",
+  "sabores": {
+   "spicy": 30,
+   "dry": 0,
+   "sweet": 0,
+   "bitter": 30,
+   "sour": 10
+  },
+  "firmeza": "very-hard",
+  "tamano": 237,
+  "don_natural": "poison"
+ },
+ {
+  "id": "pinap",
+  "nombre": "Baya Pinia",
+  "sabores": {
+   "spicy": 10,
+   "dry": 0,
+   "sweet": 0,
+   "bitter": 0,
+   "sour": 10
+  },
+  "firmeza": "hard",
+  "tamano": 80,
+  "don_natural": "grass"
+ },
+ {
+  "id": "pomeg",
+  "nombre": "Baya Grana",
+  "sabores": {
+   "spicy": 10,
+   "dry": 0,
+   "sweet": 10,
+   "bitter": 10,
+   "sour": 0
+  },
+  "firmeza": "very-hard",
+  "tamano": 135,
+  "don_natural": "ice"
+ },
+ {
+  "id": "qualot",
+  "nombre": "Baya Ispero",
+  "sabores": {
+   "spicy": 10,
+   "dry": 0,
+   "sweet": 10,
+   "bitter": 0,
+   "sour": 10
+  },
+  "firmeza": "hard",
+  "tamano": 110,
+  "don_natural": "poison"
+ },
+ {
+  "id": "rabuta",
+  "nombre": "Baya Rautan",
+  "sabores": {
+   "spicy": 0,
+   "dry": 0,
+   "sweet": 0,
+   "bitter": 20,
+   "sour": 10
+  },
+  "firmeza": "soft",
+  "tamano": 226,
+  "don_natural": "ghost"
+ },
+ {
+  "id": "rawst",
+  "nombre": "Baya Safre",
+  "sabores": {
+   "spicy": 0,
+   "dry": 0,
+   "sweet": 0,
+   "bitter": 10,
+   "sour": 0
+  },
+  "firmeza": "hard",
+  "tamano": 32,
+  "don_natural": "grass"
+ },
+ {
+  "id": "razz",
+  "nombre": "Baya Frambu",
+  "sabores": {
+   "spicy": 10,
+   "dry": 10,
+   "sweet": 0,
+   "bitter": 0,
+   "sour": 0
+  },
+  "firmeza": "very-hard",
+  "tamano": 120,
+  "don_natural": "steel"
+ },
+ {
+  "id": "rindo",
+  "nombre": "Baya Tamar",
+  "sabores": {
+   "spicy": 10,
+   "dry": 0,
+   "sweet": 0,
+   "bitter": 15,
+   "sour": 0
+  },
+  "firmeza": "soft",
+  "tamano": 156,
+  "don_natural": "grass"
+ },
+ {
+  "id": "roseli",
+  "nombre": "Roseli",
+  "sabores": {},
+  "firmeza": null,
+  "tamano": null,
+  "don_natural": null
+ },
+ {
+  "id": "rowap",
+  "nombre": "Baya Magua",
+  "sabores": {
+   "spicy": 10,
+   "dry": 0,
+   "sweet": 0,
+   "bitter": 0,
+   "sour": 40
+  },
+  "firmeza": "very-soft",
+  "tamano": 52,
+  "don_natural": "dark"
+ },
+ {
+  "id": "salac",
+  "nombre": "Baya Aslac",
+  "sabores": {
+   "spicy": 0,
+   "dry": 0,
+   "sweet": 30,
+   "bitter": 10,
+   "sour": 30
+  },
+  "firmeza": "very-hard",
+  "tamano": 95,
+  "don_natural": "fighting"
+ },
+ {
+  "id": "shuca",
+  "nombre": "Baya Acardo",
+  "sabores": {
+   "spicy": 10,
+   "dry": 0,
+   "sweet": 15,
+   "bitter": 0,
+   "sour": 0
+  },
+  "firmeza": "soft",
+  "tamano": 42,
+  "don_natural": "ground"
+ },
+ {
+  "id": "sitrus",
+  "nombre": "Baya Zidra",
+  "sabores": {
+   "spicy": 0,
+   "dry": 10,
+   "sweet": 10,
+   "bitter": 10,
+   "sour": 10
+  },
+  "firmeza": "very-hard",
+  "tamano": 95,
+  "don_natural": "psychic"
+ },
+ {
+  "id": "spelon",
+  "nombre": "Baya Wikano",
+  "sabores": {
+   "spicy": 30,
+   "dry": 10,
+   "sweet": 0,
+   "bitter": 0,
+   "sour": 0
+  },
+  "firmeza": "soft",
+  "tamano": 133,
+  "don_natural": "dark"
+ },
+ {
+  "id": "starf",
+  "nombre": "Baya Arabol",
+  "sabores": {
+   "spicy": 30,
+   "dry": 10,
+   "sweet": 30,
+   "bitter": 10,
+   "sour": 30
+  },
+  "firmeza": "super-hard",
+  "tamano": 153,
+  "don_natural": "psychic"
+ },
+ {
+  "id": "tamato",
+  "nombre": "Baya Tamate",
+  "sabores": {
+   "spicy": 20,
+   "dry": 10,
+   "sweet": 0,
+   "bitter": 0,
+   "sour": 0
+  },
+  "firmeza": "soft",
+  "tamano": 200,
+  "don_natural": "psychic"
+ },
+ {
+  "id": "tanga",
+  "nombre": "Baya Yecana",
+  "sabores": {
+   "spicy": 20,
+   "dry": 0,
+   "sweet": 0,
+   "bitter": 0,
+   "sour": 10
+  },
+  "firmeza": "very-soft",
+  "tamano": 42,
+  "don_natural": "bug"
+ },
+ {
+  "id": "wacan",
+  "nombre": "Baya Gualot",
+  "sabores": {
+   "spicy": 0,
+   "dry": 0,
+   "sweet": 15,
+   "bitter": 0,
+   "sour": 10
+  },
+  "firmeza": "very-soft",
+  "tamano": 250,
+  "don_natural": "electric"
+ },
+ {
+  "id": "watmel",
+  "nombre": "Baya Sambia",
+  "sabores": {
+   "spicy": 0,
+   "dry": 0,
+   "sweet": 30,
+   "bitter": 10,
+   "sour": 0
+  },
+  "firmeza": "soft",
+  "tamano": 250,
+  "don_natural": "fire"
+ },
+ {
+  "id": "wepear",
+  "nombre": "Baya Peragu",
+  "sabores": {
+   "spicy": 0,
+   "dry": 0,
+   "sweet": 0,
+   "bitter": 10,
+   "sour": 10
+  },
+  "firmeza": "super-hard",
+  "tamano": 74,
+  "don_natural": "electric"
+ },
+ {
+  "id": "wiki",
+  "nombre": "Baya Wiki",
+  "sabores": {
+   "spicy": 0,
+   "dry": 15,
+   "sweet": 0,
+   "bitter": 0,
+   "sour": 0
+  },
+  "firmeza": "hard",
+  "tamano": 115,
+  "don_natural": "rock"
+ },
+ {
+  "id": "yache",
+  "nombre": "Baya Rimoya",
+  "sabores": {
+   "spicy": 0,
+   "dry": 10,
+   "sweet": 0,
+   "bitter": 0,
+   "sour": 15
+  },
+  "firmeza": "very-hard",
+  "tamano": 135,
+  "don_natural": "ice"
+ }
+]

@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<AnimData>
+  <ShadowSize>2</ShadowSize>
+  <Anims>
+    <Anim>
+      <Name>Idle</Name>
+      <Index>0</Index>
+      <FrameWidth>40</FrameWidth>
+      <FrameHeight>64</FrameHeight>
+      <Durations>
+        <Duration>50</Duration>
+        <Duration>50</Duration>
+      </Durations>
+    </Anim>
+    <Anim>
+      <Name>Walk</Name>
+      <Index>1</Index>
+      <FrameWidth>40</FrameWidth>
+      <FrameHeight>64</FrameHeight>
+      <Durations>
+        <Duration>12</Duration>
+        <Duration>12</Duration>
+      </Durations>
+    </Anim>
+  </Anims>
+</AnimData>

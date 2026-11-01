@@ -1,0 +1,209 @@
+{
+ "id": "igglybuff",
+ "naturaleza": "impish",
+ "visitas": [
+  {
+   "n": 1,
+   "requiere": [],
+   "llega": [
+    {
+     "quien": "igglybuff",
+     "cara": "Happy",
+     "texto": "Hola, señor. ¿Tiene algo que haga dormir a los demás? Es para una cosa."
+    },
+    {
+     "quien": "morty",
+     "cara": "Stunned",
+     "texto": "¿Qué cosa?"
+    },
+    {
+     "quien": "igglybuff",
+     "cara": "Inspired",
+     "texto": "Una cosa. Muy buena. De niña buena. Usted no se preocupe."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Si lo facturo como ambientador, es legal. Creo."
+    }
+   ],
+   "pide": "Que huela a caramelo de limón, de los que te arrugan la cara. De niña buena.",
+   "perfecto": [
+    {
+     "quien": "igglybuff",
+     "cara": "Joyous",
+     "texto": "Uy, qué rico. Huele a siesta de otros. Hihi."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "igglybuff",
+     "cara": "Happy",
+     "texto": "Para empezar, vale. Si hace falta, echo dos veces."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "igglybuff",
+     "cara": "Angry",
+     "texto": "Esto es seco. Me pica la garganta. Así no duerme ni un gato."
+    }
+   ],
+   "marca": "igglybuff-1"
+  },
+  {
+   "n": 2,
+   "requiere": [
+    "igglybuff-1",
+    "scizor-1"
+   ],
+   "llega": [
+    {
+     "quien": "igglybuff",
+     "cara": "Worried",
+     "texto": "Le cuento la cosa. Mis vecinos son el señor Scizor y su familia. Sevillanos."
+    },
+    {
+     "quien": "igglybuff",
+     "cara": "Angry",
+     "texto": "Todas las noches, sevillanas hasta las tres. Con palmas. Con cajón. Con un primo que canta."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Lo conozco. Viene a comprar. Paga bien y critica la playa."
+    }
+   ],
+   "pide": "Otro como el de antes, que traspase la pared. Como chupar un limón en misa.",
+   "perfecto": [
+    {
+     "quien": "igglybuff",
+     "cara": "Joyous",
+     "texto": "Este por debajo de la puerta y a dormir todos. Ya verá qué paz."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "igglybuff",
+     "cara": "Happy",
+     "texto": "Con este, por lo menos, a las dos ya se cansan."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "igglybuff",
+     "cara": "Angry",
+     "texto": "Con esto se despiertan más. Y les da por bailar."
+    }
+   ],
+   "marca": "igglybuff-2"
+  },
+  {
+   "n": 3,
+   "requiere": [
+    "igglybuff-2"
+   ],
+   "llega": [
+    {
+     "quien": "igglybuff",
+     "cara": "Worried",
+     "texto": "Ha funcionado. Demasiado. Se ha dormido medio bloque. El portero. El butanero."
+    },
+    {
+     "quien": "igglybuff",
+     "cara": "Worried",
+     "texto": "Y el perro de la terraza, con el periódico en la cara. Necesito el antídoto."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "No hay antídoto. Es un ambientador. Lo pone en la factura."
+    },
+    {
+     "quien": "igglybuff",
+     "cara": "Surprised",
+     "texto": "¿Y entonces?"
+    }
+   ],
+   "pide": "Pues algo que despierte. Que pegue un pellizco, como un gajo de pomelo.",
+   "perfecto": [
+    {
+     "quien": "igglybuff",
+     "cara": "Joyous",
+     "texto": "¡Esto despierta a un muerto! Bueno, a un portero. Corro."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "igglybuff",
+     "cara": "Happy",
+     "texto": "Despertará a los de la primera planta. Los de arriba, que esperen."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "igglybuff",
+     "cara": "Pain",
+     "texto": "Con esto se duermen los de la segunda también."
+    }
+   ],
+   "marca": "igglybuff-3"
+  },
+  {
+   "n": 4,
+   "requiere": [
+    "igglybuff-3"
+   ],
+   "llega": [
+    {
+     "quien": "igglybuff",
+     "cara": "Inspired",
+     "texto": "Vengo a devolver el ambientador. He descubierto que si canto, se duermen solos."
+    },
+    {
+     "quien": "igglybuff",
+     "cara": "Happy",
+     "texto": "Lo probé con los Scizor. Cuatro notas y dormidos. Con la peineta puesta."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Sin ticket no hay devolución."
+    },
+    {
+     "quien": "igglybuff",
+     "cara": "Angry",
+     "texto": "Pues el galgo ese de la puerta tiene uno. Me lo está enseñando."
+    },
+    {
+     "quien": "morty",
+     "cara": "Normal",
+     "texto": "Es de una gasolinera. Tampoco."
+    }
+   ],
+   "pide": "Ya que estoy, uno para mí. Para dormir yo. A caramelo de limón, como siempre.",
+   "perfecto": [
+    {
+     "quien": "igglybuff",
+     "cara": "Joyous",
+     "texto": "¡Qué rico! Hoy duermo yo. Y si no, canto."
+    }
+   ],
+   "bien": [
+    {
+     "quien": "igglybuff",
+     "cara": "Happy",
+     "texto": "Vale. Lo pongo en la almohada. Que no se lo lleven los vecinos."
+    }
+   ],
+   "mal": [
+    {
+     "quien": "igglybuff",
+     "cara": "Angry",
+     "texto": "Esto es seco. Ni para los vecinos. No me lo llevo."
+    }
+   ],
+   "marca": "igglybuff-4"
+  }
+ ]
+}

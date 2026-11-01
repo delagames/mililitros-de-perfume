@@ -1,0 +1,1 @@
+Aquí van los perros, uno por carpeta: assets/sprites/dogs/<nombre>/ con la hoja del pack de itch.io, su dogs.json y su LICENSE.txt (formato en la sección 10 de DISEÑO.md). Hasta que estén, el juego pinta un rectángulo gris con el texto «perro».
