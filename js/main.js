@@ -1762,6 +1762,7 @@ const PRUEBAS = [
   ['jefe-cristal', 'El Señor Mililitros en el cristal', 'De repente, su cara pegada al escaparate, empañándolo.'],
   ['presentacion', 'El Señor Mililitros se presenta', ''],
   ['noche', 'Un WhatsApp de madrugada', ''],
+  ['mejoras', 'Las mejoras de la tienda', ''],
   ['baile', 'El baile', 'Con un perfume perfecto: los perros de la calle bailan dos segundos.'],
   ['caras', 'Las caras del Señor Mililitros', ''],
   ['altillo', 'El altillo (la escalera arreglada)', ''],
@@ -1792,6 +1793,23 @@ function prueba(id) {
   enLaCalle.hoy = { paseador: true, 'border-collie': true, bulldog: true, jefe: true };
   if (id === 'altillo') { enLaCalle.solo = null; ir('mostrador'); $('#lugar').textContent = rotulo; altillo(true); return; }
   if (id === 'epilogo') { enLaCalle.solo = null; epilogo(true); return; }
+  // todas las mejoras puestas, solo para verlas (no se guarda nada: al volver, como estaba)
+  if (id === 'mejoras') {
+    enLaCalle.solo = null;
+    const antes = [...partida.mejoras];
+    partida.mejoras = mejoras.map(m => m.id);
+    aplicaMejoras();
+    ir('mostrador');
+    $('#lugar').textContent = rotulo;
+    const salir = () => { partida.mejoras = antes; aplicaMejoras(); ir('inicio'); listaPruebas(); };
+    const ver = k => {
+      const m = mejoras[k];
+      decir({ ...MORTY, cara: portraitUrl('morty', 'Happy'), texto: `${k + 1}/${mejoras.length} · ${m.nombre} (${euros(m.precio)}): ${m.dice}` },
+        [{ texto: 'Siguiente', accion: () => ver((k + 1) % mejoras.length) }, { texto: 'Volver', secundario: true, accion: salir }]);
+    };
+    ver(0);
+    return;
+  }
   if (id === 'noche') {
     enLaCalle.solo = null;
     aLaHabitacion();
