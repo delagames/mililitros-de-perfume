@@ -33,7 +33,7 @@
      "texto": "Tienes unas manos muy de mostrador, Morty. De las que dan collejas. Dame una. Una chiquitita."
     }
    ],
-   "pide": "Suave y fresco, para ir a trabajar, de camisa limpia. La cola: «a látex empolvado de talco».",
+   "pide": "Bien fresco y suave, para ir a trabajar, de camisa limpia. La cola: «a látex empolvado de talco».",
    "perfecto": [
     {
      "quien": "girafarig",
@@ -89,7 +89,7 @@
      "texto": "No es asunto tuyo. Va con antifaz, arnés y orejas de zorro. Lo normal."
     }
    ],
-   "pide": "Fresco y limpio, de primera cita. Y la cola: «de última cita: a sábanas recién cambiadas».",
+   "pide": "Fresco de verdad y limpio, de primera cita. Y la cola: «de última cita: a sábanas recién cambiadas».",
    "perfecto": [
     {
      "quien": "cola",
@@ -151,7 +151,7 @@
      "texto": "Jejejejeje…"
     }
    ],
-   "pide": "Algo de ventana abierta que me calme. La cola pide «a peluche tendido al sol, con un poco de pelo».",
+   "pide": "Algo de ventana abierta de par en par que me calme. La cola: «a peluche tendido al sol, con un poco de pelo».",
    "perfecto": [
     {
      "quien": "cola",
@@ -207,7 +207,7 @@
      "texto": "Que huela a convención de furros: a peluche sacudido, a talco y a fiesta que acaba a las ocho de la mañana."
     }
    ],
-   "pide": "Lo mío, de brisa, para aguantarla. Lo suyo, «a convención»: a disfraz sacudido y talco.",
+   "pide": "Lo mío, de brisa bien fresca, para aguantarla. Lo suyo, «a convención»: a disfraz sacudido y talco.",
    "perfecto": [
     {
      "quien": "cola",
@@ -263,7 +263,7 @@
      "texto": "Para dos. Marchando."
     }
    ],
-   "pide": "Uno para las dos cabezas: aire de ventana por delante, talco por detrás, y cada uno en su sitio.",
+   "pide": "Para las dos cabezas, suavecito de mañana: aire de ventana por delante, talco por detrás, cada uno en su sitio.",
    "perfecto": [
     {
      "quien": "girafarig",

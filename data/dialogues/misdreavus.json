@@ -37,7 +37,7 @@
      "texto": "A casa. No sé decirlo de otra manera."
     }
    ],
-   "pide": "Algo que huela a quedarse. A café de sobremesa y a mesa de madera.",
+   "pide": "Algo que huela a quedarse hasta tarde. A café de sobremesa y a mesa de madera.",
    "perfecto": [
     {
      "quien": "misdreavus",
@@ -88,7 +88,7 @@
      "texto": "Madera, jabón y café. La colonia la buscamos poco a poco."
     }
    ],
-   "pide": "Que tenga eso del café y de la madera. Como una tarde larga.",
+   "pide": "Que tenga eso del café y de la madera. Como una tarde larga que se hace de noche.",
    "perfecto": [
     {
      "quien": "misdreavus",
@@ -144,7 +144,7 @@
      "texto": "Gracias. Es muy bonita."
     }
    ],
-   "pide": "Lo de la otra vez. Su madera. Su café. Como él.",
+   "pide": "Lo de la otra vez. Su madera. Su café cargado. Como él.",
    "perfecto": [
     {
      "quien": "misdreavus",
@@ -206,7 +206,7 @@
      "texto": "La Encarni usaba una colonia de botella grande. Se la compraba en la droguería del pueblo."
     }
    ],
-   "pide": "Quiero la colonia de ella. Madera, café, té. Y su colonia.",
+   "pide": "Quiero la colonia de ella. Madera, café, té frío, poquito. Y su colonia.",
    "perfecto": [
     {
      "quien": "misdreavus",
@@ -256,7 +256,7 @@
      "texto": "Hoy creo que sí la tengo. La colonia de la Encarni."
     }
    ],
-   "pide": "La colonia de la abuela. Con su madera y su café, de sobremesa larga, como ella.",
+   "pide": "La colonia de la abuela. Con su madera y su café, de sobremesa larga hasta la noche, como ella.",
    "perfecto": [
     {
      "quien": "sudowoodo",

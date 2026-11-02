@@ -311,7 +311,7 @@ body.baja #escena { animation: fiebre 0.9s steps(2) infinite; }
 .cuento-seguir { flex: none; min-width: 52px; font-size: 1rem; }
 
 /* ---------- el pedido y la partida (aspecto limpio del taller) ---------- */
-#pedido, #partida { background: rgba(14, 74, 60, 0.94); z-index: 6; justify-content: flex-start; gap: 8px; }
+#pedido, #partida { background: #0E4A3C; z-index: 6; justify-content: flex-start; gap: 8px; }
 .pedido-lista { display: flex; flex-direction: column; gap: 6px; width: min(100%, 440px); }
 .pedido-fila {
   display: flex; align-items: center; gap: 8px; text-align: left;
@@ -326,8 +326,9 @@ body.baja #escena { animation: fiebre 0.9s steps(2) infinite; }
 .pedido-fila b { min-width: 22px; text-align: center; }
 .pedido-total { margin: 4px 0 0; font-weight: 700; }
 .pedido-total.falta { color: #F29B2E; }
-/* «Pedir» y «Cerrar», siempre a mano aunque la lista sea larga */
-.pedido-botones { display: flex; gap: 8px; position: sticky; bottom: 0; padding: 8px; background: rgba(14, 74, 60, 0.96); }
+/* el total, «Pedir» y «Cerrar», siempre a mano aunque la lista sea larga */
+.pedido-pie { position: sticky; bottom: 0; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 6px 8px 8px; background: #0E4A3C; width: 100%; }
+.pedido-botones { display: flex; gap: 8px; }
 #libro-cerrar { position: sticky; bottom: 0; flex: none; }
 .mejoras-titulo { margin: 6px 0 0; font-size: 1rem; color: var(--menta-clara); }
 .pedido-fila.mejora button { font-size: 0.8rem; min-width: 0; }

@@ -37,7 +37,7 @@
      "texto": "Ni se le ocurra."
     }
    ],
-   "pide": "Y póngame algo rápido, de caramelo, de los de regalo por fidelidad.",
+   "pide": "Y póngame algo rápido, de caramelo bien calentito, de los de regalo por fidelidad.",
    "perfecto": [
     {
      "quien": "porygon2",
@@ -89,7 +89,7 @@
      "texto": "Correcto, más rápido, es la mejora, eso ya es el plan prémium."
     }
    ],
-   "pide": "Mientras carga, algo de chuche, de las de la caja del quiosco, que me reinicio.",
+   "pide": "Mientras carga, algo de chuche, de las de la caja del quiosco, y que abrigue bien, que me reinicio.",
    "perfecto": [
     {
      "quien": "porygon2",
@@ -140,7 +140,7 @@
      "texto": "Se escribe con la mano. Y se queda escrita. Es lo más bonito que he visto nunca."
     }
    ],
-   "pide": "Para celebrarlo, algo de caramelo y algodón de azúcar, de feria de pueblo.",
+   "pide": "Para celebrarlo, algo de caramelo y algodón de azúcar, de feria de pueblo en pleno agosto.",
    "perfecto": [
     {
      "quien": "porygon2",

@@ -22,7 +22,7 @@
      "texto": "Por favor. Saltárnoslo sería de mala educación."
     }
    ],
-   "pide": "Algo que huela a hoja verde y a té sin prisa. Los días ya llegan solos.",
+   "pide": "Algo que huela a hoja verde y a té de noche, sin prisa. Los días ya llegan solos.",
    "perfecto": [
     {
      "quien": "xatu",
@@ -69,7 +69,7 @@
      "texto": "Por eso no fallo nunca."
     }
    ],
-   "pide": "Lo de la otra vez. Su hoja, su té frío.",
+   "pide": "Lo de la otra vez. Su hoja, su té frío, pero no helado.",
    "perfecto": [
     {
      "quien": "xatu",
@@ -120,7 +120,7 @@
      "texto": "¿Les dejo solos?"
     }
    ],
-   "pide": "No hace falta, ya está todo dicho. Algo verde, de té fuerte, de los de cerrar los ojos.",
+   "pide": "No hace falta, ya está todo dicho. Algo verde, de té bien fuerte, de los de cerrar los ojos.",
    "perfecto": [
     {
      "quien": "xatu",
@@ -166,7 +166,7 @@
      "texto": "…"
     }
    ],
-   "pide": "Hazme el que tú quieras. Bueno: verde, de té cargado. Pero elige tú.",
+   "pide": "Hazme el que tú quieras. Bueno: verde, de té bien cargado, para la noche. Pero elige tú.",
    "perfecto": [
     {
      "quien": "xatu",

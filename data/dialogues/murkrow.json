@@ -17,7 +17,7 @@
      "texto": "¿Se puede pagar en negro? Lo pregunto por el bien del pueblo."
     }
    ],
-   "pide": "Algo que huela a despacho: café solo, puro y tinta de sello. Serio, de acto institucional.",
+   "pide": "Algo que huela a despacho: café solo, puro y tinta de sello. Serio a más no poder, de acto institucional.",
    "perfecto": [
     {
      "quien": "murkrow",
@@ -59,7 +59,7 @@
      "texto": "Lo paga el ayuntamiento. En negro también, que es más rápido."
     }
    ],
-   "pide": "Que huela a pueblo serio: a tierra, a puro y a pleno de los que duran.",
+   "pide": "Que huela a pueblo serio: a tierra, a puro y a pleno de los que acaban de madrugada.",
    "perfecto": [
     {
      "quien": "murkrow",
@@ -106,7 +106,7 @@
      "texto": "Yo estoy bien aquí."
     }
    ],
-   "pide": "Eso dicen todos hasta que ven el local. Ponme algo de tinta y café de máquina. Si no, no firmo.",
+   "pide": "Eso dicen todos hasta que ven el local. Ponme tinta y café de máquina, cargadísimo. Si no, no firmo.",
    "perfecto": [
     {
      "quien": "murkrow",
@@ -164,7 +164,7 @@
      "texto": "Se ha… dejado… el sombrero."
     }
    ],
-   "pide": "Lo de… siempre. Que huela… a aire. Como una… sábana tendida. Estoy… de servicio.",
+   "pide": "Lo de… siempre. Que huela… a aire. Bien fresco… como una… sábana tendida. Estoy… de servicio.",
    "perfecto": [
     {
      "quien": "slowking",
@@ -211,7 +211,7 @@
      "texto": "¡Con foto! ¡Y en la foto llevo una bolsa de tu tienda!"
     }
    ],
-   "pide": "Dame algo que no huela a mí. Serio, de abogado con toga y café solo.",
+   "pide": "Dame algo que no huela a mí. Serio del todo, de abogado con toga y café solo bien cargado.",
    "perfecto": [
     {
      "quien": "murkrow",
@@ -260,7 +260,7 @@
      "texto": "El toldo vino así."
     }
    ],
-   "pide": "Y ahora hazme un perfume, que soy cliente. Serio, rencoroso, como un café de anteayer.",
+   "pide": "Y ahora hazme un perfume, que soy cliente. Serio, rencoroso a tope, como un café de anteayer.",
    "perfecto": [
     {
      "quien": "murkrow",

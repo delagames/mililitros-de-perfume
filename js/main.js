@@ -69,6 +69,7 @@ async function preparar() {
   ctx = { P, img: { morty, gengarMostrador, escudo, escudoMini } };
   tienda.dineroHoy = () => partida?.hoy?.ingresos || 0;
   tienda.conEscudo = () => !!partida?.mejoras?.includes('escudo');
+  tienda.calendario = () => ({ dia: diaDelMes(partida?.dia || 1), rojo: !!partida?.hoy?.trimestre });
   tienda.ocioso = () => estado === 'mostrador' && !encargo && partida?.hoy?.fase === 'abierto' && performance.now() - ultimaAccion > 20000;
   // para la habitación de noche: Morty dormido (de su animación de caer) y Gengar a los pies
   cargaAltillo();
@@ -333,6 +334,10 @@ function botones(lista) {
 let tandas = [], tanda = 0, pendientes = [];
 function decir(habla, lista = []) {
   pendientes = lista;
+  if (partida.hoy?.baja && estado !== 'calle' && estado !== 'inicio') {
+    if (habla.nombre === 'Morty Pociones') habla = { ...habla, nombre: 'Gengar', cara: portraitUrl('gengar', 'Happy') };
+    else if (habla.nombre && habla.nombre !== 'Gengar' && habla.texto) habla = { ...habla, texto: habla.texto.replace(/\bMorty\b/g, 'Gengar') };
+  }
   // la cola de Girafarig gime de vez en cuando al hablar (más o menos una de cada tres frases)
   if (habla.nombre === 'La cola' && Math.random() < 0.35) gemido();
   if (habla.temblor) sfx('telefono');
@@ -364,7 +369,8 @@ function paginar(texto) {
   const alto = Math.max(1, Math.floor((libre + 1) / lh)) * lh + 2;
   const cabe = t => { p.style.maxHeight = 'none'; p.textContent = t; const ok = p.scrollHeight <= alto; p.style.maxHeight = ''; return ok; };
   if (cabe(texto)) return [texto];
-  const frases = texto.split(/(?<=[.!?…»])\s+/);
+  // por frases (tras «…» solo si lo que sigue empieza en mayúscula) y, si una no cabe, por comas
+  const frases = texto.split(/(?<=[.!?»])\s+|(?<=…)\s+(?=[A-ZÁÉÍÓÚÑ¿¡«])/).flatMap(f => (cabe(f) ? [f] : f.split(/(?<=[,;:])\s+/)));
   const out = [];
   let cur = '';
   for (const frase of frases) {
@@ -533,8 +539,8 @@ const tocaDemo = () => encargo && !encargo.entregado && !encargo.tutorial && enc
   && !partida.marcas.includes('totodile-1') && !partida.consejos.includes('demo');
 const GENGAR = (cara, texto) => ({ cara: portraitUrl('gengar', cara), nombre: 'Gengar', texto });
 const EXPLICA = {
-  momento: 'Día o noche es arriba o abajo en el mapa: el día, suave (abajo); la noche, intensa (arriba). Y fíjate en cuánto: «un poco» es cerca del centro; «bastante», a medio camino; «muy», casi al borde.',
-  abrigo: 'Fresco o cálido es izquierda o derecha: fresquito a la izquierda; que abrigue, a la derecha. Con su «un poco», «bastante» o «muy», que es lo lejos del centro.',
+  momento: 'Día o noche es arriba o abajo en el mapa: el día, suave (abajo); la noche, intensa (arriba). Y fíjate en cuánto: «un pelín» es casi en el centro; «un poco», cerca; «bastante», a medio camino; «muy», casi al borde.',
+  abrigo: 'Fresco o cálido es izquierda o derecha: fresquito a la izquierda; que abrigue, a la derecha. Con su «un pelín», «un poco», «bastante» o «muy», que es lo lejos del centro.',
   odia: 'Y lo que no soporta, ni una gota: si el perfume lleva algo de eso, se va sin pagar. Cada color de bote es un sabor, el mismo que en la balda de muestras: el amargo, que es el morado y el verde, ni tocarlo.',
 };
 const EJEMPLOS = [
@@ -780,7 +786,7 @@ function entrega(perfume) {
   const sinReceta = visita.receta && res === 'perfecto' && !visita.receta.every(id => perfume.ingredientes.includes(id));
   if (sinReceta) res = 'bien';
   // si lleva algo que odia, sus frases de «mal» (que lo nombran); si solo cae lejos, una que no despista
-  const frases = res === 'mal' ? [dice(LEJOS[Math.floor(Math.random() * LEJOS.length)], 'Normal'), dice(porQueNo(nat, perfume), 'Normal')]
+  const frases = res === 'mal' ? [dice(LEJOS[Math.floor(Math.random() * LEJOS.length)], 'Normal'), dice(porQueNo(nat, perfume), 'Normal'), dice('No me convence. Pero toma algo, por la molestia.', 'Normal')]
     : sinReceta ? [dice('Está bueno, pero no es el de mi padre. Le falta algo de la receta.', 'Normal')]
       : (visita[res === 'odia' ? 'mal' : res] || []).map(f => fraseDe(c, f));
   if (res === 'bien' && !sinReceta) frases.push(dice(casi(nat, perfume), 'Normal'));
@@ -790,12 +796,14 @@ function entrega(perfume) {
   }
   // con los frascos grandes, el perfume se cobra más (10 € el de 50 ml, 20 € el de 100 ml; la mitad si sale «bien»)
   const grande = partida.mejoras.includes('frasco100') ? 20 : partida.mejoras.includes('frasco50') ? 10 : 0;
-  const cobra = visita.gratis || !PRECIO[res] ? 0 : PRECIO[res] + (res === 'perfecto' ? grande : grande / 2);
+  const cobra = visita.gratis || !PRECIO[res] ? 0 : PRECIO[res] + (res === 'perfecto' ? grande : res === 'bien' ? grande / 2 : 0);
   setTimeout(() => sfx({ perfecto: 'perfecto', bien: 'bien' }[res] || 'mal'), 150);
   if (cobra) setTimeout(() => sfx('caja'), 700);
   // con el escudo del Málaga en el mostrador, a veces dejan propina; y con el abono, siempre, los lunes que gana
   const ganaYAbono = partida.hoy?.jornada === 'gana' && partida.mejoras.includes('abono');
-  const propinaEscudo = cobra && !encargo.tutorial && (ganaYAbono || (partida.mejoras.includes('escudo') && Math.random() < 0.5)) ? (res === 'perfecto' ? 3.21 : 1.21) : 0;
+  const porEscudo = partida.mejoras.includes('escudo') && Math.random() < 0.5;
+  const base = res === 'perfecto' ? 3.21 : 1.21;
+  const propinaEscudo = cobra && !encargo.tutorial && res !== 'mal' ? Math.round(((ganaYAbono ? base : 0) + (porEscudo ? base : 0)) * 100) / 100 : 0;
   partida.caja = Math.round((partida.caja + cobra + propinaEscudo) * 100) / 100;
   if (propinaEscudo) {
     partida.hoy.ingresos = Math.round((partida.hoy.ingresos + propinaEscudo) * 100) / 100;
@@ -1106,7 +1114,7 @@ function hablaCalle() {
     empata: ` Ayer el Málaga empató (${hoy.goles}). Ni fu ni fa.`, pierde: ` Ayer perdió el Málaga (${hoy.goles}). Morty abre igual.` }[hoy.jornada] || '';
   const pista = hoy.malaNoche ? pistaDeHoy() : '';
   return { ...(hoy.jornada === 'pierde' || pista ? { ...MORTY, cara: portraitUrl('morty', 'Cansado') } : {}),
-    texto: `${fecha} Diez de la mañana.${malaga}${pista ? ` ${pista}` : ' Enfrente, en La Olla de Barro, ya huele a pollo asado.'}${hoy.sucio && !hoy.cristal ? ' El escaparate ha amanecido lleno de huellas.' : ''}${partida.deuda ? ` Deuda con el Señor Mililitros: ${euros(partida.deuda)}.` : ''}` };
+    texto: `${fecha} Diez de la mañana.${malaga}${pista ? ` ${pista}` : ' Enfrente, en La Olla de Barro, ya huele a pollo asado.'}${hoy.sucio && !hoy.cristal ? ' El escaparate ha amanecido lleno de huellas.' : ''}${partida.deuda ? ` Deuda con ${conQuien()}: ${euros(partida.deuda)}.` : ''}` };
 }
 
 // Las pistas del final, las mañanas después de una mala noche: [desde qué día, frase (o null si aún no toca)]
@@ -1303,8 +1311,8 @@ function botonesCierre() {
 function resumenCaja() {
   const hoy = partida.hoy;
   return { ...MORTY, cara: portraitUrl('morty', hoy.ingresos ? 'Happy' : 'Stunned'),
-    texto: `Hoy: ${euros(hoy.ingresos)}. En caja: ${euros(partida.caja)}.${partida.deuda ? ` Deuda: ${euros(partida.deuda)}. Fin de mes, después de la deuda.`
-      : partida.marcas.includes('epilogo') || partida.dia < 25 ? '' : ` Para la cuota, el alquiler y una cerveza hacen falta ${euros(meta())}.`}` };
+    texto: `Hoy: ${euros(hoy.ingresos)}. En caja: ${euros(partida.caja)}.${partida.deuda ? ` Deuda con ${conQuien()}: ${euros(partida.deuda)}.`
+      : partida.marcas.includes('epilogo') || partida.dia < 20 ? '' : ` Para el final (cuota, alquiler y una cerveza, desde el día 30) hacen falta ${euros(meta())}.`}` };
 }
 
 function juegaCaja() {
@@ -1339,11 +1347,12 @@ function juegaCaja() {
 function trasLaCaja() {
   const pasos = [];
   const hoy = partida.hoy;
-  if (partida.dia % 2 === 0 && partida.correos < correos.length) pasos.push(correo);
   const oferta = (asesor.ofertas || []).find(o => !partida.asesorVisto.includes(o.id));
   if (oferta && partida.dia >= 8 && partida.dia % 4 === 0) pasos.push(sigue => ofertaAsesor(oferta, sigue));
   if (partida.deuda > 0 && partida.caja > COLCHON) pasos.push(preguntaDeuda);
-  const siguiente = () => (pasos.length ? pasos.shift()(siguiente) : decir(resumenCaja(), botonesCierre()));
+  // (si no ha pasado nada después de contar, el resumen ya se ha dicho: solo los botones)
+  let hubo = false;
+  const siguiente = () => (pasos.length ? (hubo = true, pasos.shift()(siguiente)) : decir(hubo ? resumenCaja() : { ...MORTY, texto: '¿Qué más? El pedido, o la persiana.' }, botonesCierre()));
   hoy.trasCaja = true;
   siguiente();
 }
@@ -1355,6 +1364,8 @@ const jefePresentado = () => partida.marcas.includes('jefe-presentado');
 const JEFE = (cara = 'Normal', nombre = 'Señor Mililitros') => (jefeVisto()
   ? { cara: portraitUrl('perro-jefe', cara), nombre, estilo: 'jefe' }
   : { cara: portraitUrl('perro-jefe', 'Oculto'), nombre: 'Número oculto', estilo: 'jefe' });
+// con quién es la deuda, según lo que sabe Morty
+const conQuien = () => (jefeVisto() ? 'el Señor Mililitros' : 'Dirección');
 // los mensajes llegan de madrugada
 const HORAS_NOCHE = ['4:12', '3:47', '5:03', '4:38', '2:56', '4:59', '3:21'];
 // De madrugada: cuando escribe o llama el Señor Mililitros, la escena pasa a la habitación a oscuras,
@@ -1390,7 +1401,7 @@ function ofertaAsesor(o, sigue) {
 }
 
 function preguntaDeuda(sigue) {
-  decir({ ...MORTY, cara: portraitUrl('morty', 'Dizzy'), texto: `Deuda con el Señor Mililitros: ${euros(partida.deuda)}. En caja hay ${euros(partida.caja)}. ¿Le pago algo?` },
+  decir({ ...MORTY, cara: portraitUrl('morty', 'Dizzy'), texto: `Deuda con ${conQuien()}: ${euros(partida.deuda)}. En caja hay ${euros(partida.caja)}. ¿Le pago algo?` },
     [{ texto: 'Pagar', accion: () => {
       const paga = pagaDeuda(partida);
       guarda(partida);
@@ -1473,6 +1484,9 @@ function aplicaMejoras() {
 const maxMuestras = () => (partida.mejoras.includes('mesa') ? 4 : 3);
 
 function pedido() {
+  // la meta, también aquí, para no gastarse lo del final en mejoras (desde el día 20)
+  $('#pedido .pedido-meta').textContent = partida.dia >= 20 && !partida.marcas.includes('epilogo')
+    ? `Para el final (desde el día 30) hacen falta ${euros(meta())} en caja y ninguna deuda.` : '';
   abrePedido({ ingredientes: ings, partida, P: ctx.P, mejoras, alComprar: m => {
     partida.caja = Math.round((partida.caja - m.precio) * 100) / 100;
     partida.mejoras.push(m.id);
@@ -1495,12 +1509,15 @@ function bajarPersiana() {
   marca(partida.hoy.trimestre ? 'trimestre-1' : null);
   marca(partida.hoy.baja ? 'baja' : null);
   if (metaCumplida()) { epilogo(); return; }
+  const noche = partida.dia % 2 === 0 && partida.correos < correos.length;   // (el WhatsApp de esa noche)
   guardaCopia(partida);
   partida.dia++;
   partida.hoy = null;
   empiezaDia();
-  serie([{ texto: '15:00. Persiana abajo. Las tardes no existen; nadie pregunta por qué.' }],
+  const adelante = () => serie([{ texto: '15:00. Persiana abajo. Las tardes no existen; nadie pregunta por qué.' }],
     [{ texto: 'Día siguiente', accion: seguirDia }]);
+  if (noche) serie([{ texto: '15:00. Persiana abajo. Las tardes no existen; nadie pregunta por qué.' }], [{ texto: '▸', secundario: true, accion: () => correo(() => decir({ texto: 'Por la mañana, otra vez a la tienda.' }, [{ texto: 'Día siguiente', accion: seguirDia }])) }]);
+  else adelante();
 }
 
 // ---------- el epílogo (sección 7) ----------
@@ -1727,6 +1744,7 @@ async function listaSucesos() {
     b.innerHTML = `${s.rotulo || s.id}<small>${TIPOS[s.categoria] || s.categoria || ''} · ${s.id}</small>`;
     b.addEventListener('click', () => {
       $('#lista-sucesos').classList.add('hidden');
+      if (!partida.hoy) empiezaDia(false);
       verSuceso(s.id, 'calle', () => { ir('inicio'); listaSucesos(); });
     });
     return b;

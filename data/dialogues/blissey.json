@@ -22,7 +22,7 @@
      "texto": "Correcto. La llamo luego. Le firmo un justificante. A usted. Por si acaso."
     }
    ],
-   "pide": "Ya que estoy, uno para mí, cielo: a sábana limpia y cama recién hecha.",
+   "pide": "Ya que estoy, uno para mí, cielo: una pizca de sábana limpia y cama recién hecha. Poquito, ¿eh?",
    "perfecto": [
     {
      "quien": "blissey",
@@ -80,7 +80,7 @@
      "texto": "Señor Ursaring, ¿qué tal esos madrugones? Siéntese, que se me pone usted rojo."
     }
    ],
-   "pide": "A mí póngame algo de bata recién planchada, de las que se secan al sol.",
+   "pide": "A mí póngame algo de bata recién planchada, de las que se secan al sol. Fresquito, pero poco.",
    "perfecto": [
     {
      "quien": "blissey",
@@ -126,7 +126,7 @@
      "texto": "Eso se arregla."
     }
    ],
-   "pide": "Algo de ventana abierta, de habitación ventilada. Que no huela a consulta.",
+   "pide": "Algo de ventana entornada, no abierta del todo, de habitación ventilada. Que no huela a consulta.",
    "perfecto": [
     {
      "quien": "blissey",

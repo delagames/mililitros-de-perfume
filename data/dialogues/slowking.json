@@ -24,7 +24,7 @@
      "texto": "…Sí."
     }
    ],
-   "pide": "Un perfume que huela… a aire. Como… ropa tendida. Estoy… de servicio.",
+   "pide": "Un perfume que huela… a aire. Fresco… de verdad. Como… ropa tendida. Estoy… de servicio.",
    "perfecto": [
     {
      "quien": "slowking",
@@ -71,7 +71,7 @@
      "texto": "¿Todo bien?"
     }
    ],
-   "pide": "Todavía… no lo sé. Póngame… algo de aire. Que huela… a ventana.",
+   "pide": "Todavía… no lo sé. Póngame… algo de aire. Que huela… a ventana… bien abierta.",
    "perfecto": [
     {
      "quien": "slowking",
@@ -118,7 +118,7 @@
      "texto": "Cuando… venga… a por él. Sin prisa."
     }
    ],
-   "pide": "Lo de… siempre. Limpio… de ventana. Y el sombrero… no lo… perfume.",
+   "pide": "Lo de… siempre. Limpio… de ventana… bien fresquito. Y el sombrero… no lo… perfume.",
    "perfecto": [
     {
      "quien": "slowking",
@@ -165,7 +165,7 @@
      "texto": "Treinta y… ocho años. Ni una… prisa."
     }
    ],
-   "pide": "Un perfume… para mí. De… brisa. Como el balcón… de mi casa.",
+   "pide": "Un perfume… para mí. De… brisa fresca… de la buena. Como el balcón… de mi casa.",
    "perfecto": [
     {
      "quien": "slowking",

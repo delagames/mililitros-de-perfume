@@ -1,11 +1,14 @@
 [
-  { "id": "frasco50", "nombre": "Frascos de 50 ml", "dice": "Caben ocho ingredientes y, como es más grande, el perfume se cobra más: 49,21 € el perfecto.", "precio": 120.21 },
-  { "id": "escalera", "nombre": "Arreglar la escalera del altillo", "dice": "Está rota desde el día 1. Arriba hay algo.", "precio": 90.21 },
-  { "id": "mesa", "nombre": "Segunda mesa de muestras", "dice": "Cuatro muestras por cliente en vez de tres.", "precio": 150.21 },
-  { "id": "escudo", "nombre": "Escudo del Málaga para el mostrador", "dice": "Pequeño, de pie junto a la caja. Los clientes del Málaga dejan propina.", "precio": 45.21 },
-  { "id": "toldo", "nombre": "Toldo nuevo", "dice": "Con sombra, los perros bailan más rato.", "precio": 70.21 },
-  { "id": "cartel", "nombre": "Cartel luminoso", "dice": "Se ve desde la rotonda: un cliente más al día.", "precio": 180.21 },
-  { "id": "cafetera", "nombre": "Cafetera para Gengar", "dice": "Con café, Gengar huele dos frascos al día en vez de uno.", "precio": 220.21 },
-  { "id": "abono", "nombre": "Abono de La Rosaleda", "dice": "Morty va al fútbol. Los lunes que gana el Málaga, los clientes dejan propina.", "precio": 420.21 },
-  { "id": "frasco100", "nombre": "Frascos de 100 ml", "dice": "Caben diez ingredientes, y el perfecto se cobra a 59,21 €.", "precio": 260.21, "requiere": "frasco50" }
+  {"id": "frasco50", "nombre": "Frascos de 50 ml", "dice": "Caben ocho ingredientes y, como es más grande, el perfume se cobra más: 49,21 € el perfecto.", "precio": 120.21},
+  {"id": "escalera", "nombre": "Arreglar la escalera del altillo", "dice": "Está rota desde el día 1. Arriba hay algo.", "precio": 90.21},
+  {"id": "mesa", "nombre": "Segunda mesa de muestras", "dice": "Cuatro muestras por cliente en vez de tres.", "precio": 150.21},
+  {"id": "escudo", "nombre": "Escudo del Málaga para el mostrador", "dice": "Pequeño, de pie junto a la caja. Los clientes del Málaga dejan propina.", "precio": 45.21},
+  {"id": "toldo", "nombre": "Toldo nuevo", "dice": "Con sombra, los perros bailan más rato.", "precio": 70.21},
+  {"id": "cartel", "nombre": "Cartel luminoso", "dice": "Se ve desde la rotonda: un cliente más al día.", "precio": 180.21},
+  {"id": "cafetera", "nombre": "Cafetera para Gengar", "dice": "Con café, Gengar huele dos frascos al día en vez de uno.", "precio": 220.21},
+  {"id": "abono", "nombre": "Abono de La Rosaleda", "dice": "Morty va al fútbol. Los lunes que gana el Málaga, todos los clientes dejan propina (y se suma a la del escudo).", "precio": 120.21},
+  {"id": "frasco100", "nombre": "Frascos de 100 ml", "dice": "Caben diez ingredientes, y el perfecto se cobra a 59,21 €.", "precio": 260.21, "requiere": "frasco50"},
+  {"id": "cuadro", "nombre": "Cuadro de La Rosaleda", "dice": "Al óleo, con marco dorado. No hace nada. Pero qué bonito.", "precio": 350.21},
+  {"id": "cojin", "nombre": "Cojín bordado para Gengar", "dice": "Con su nombre. Lo va a babear entero.", "precio": 180.21},
+  {"id": "camiseta", "nombre": "Camiseta firmada del Málaga", "dice": "Firmada por toda la plantilla. Enmarcada. Para mirarla y suspirar.", "precio": 600.21}
 ]

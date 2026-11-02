@@ -152,7 +152,7 @@ function rotulo(g, P, d) {
   caja(g, 124, 64, 22, 24, P.blanco, P.negro, 0);
   rect(g, 125, 65, 20, 5, P.gota_picante);
   rect(g, 129, 63, 1, 3, P.negro); rect(g, 140, 63, 1, 3, P.negro);
-  texto(g, '1', 135, 85, { font: '16px "Pixelify Sans"', color: P.negro, align: 'center' });
+
 }
 
 // El alta de autónomo enmarcada, al lado del calendario, donde estaba el rótulo cuando este sube
@@ -242,7 +242,7 @@ function ojosCerrados(img) {
 // dineroHoy: lo que se lleva hecho en el día (lo pone main.js), para el visor de la caja registradora
 // ocioso: si lleva un rato sin pasar nada (Morty se pone a sacarle brillo al frasco); conEscudo: si se ha
 // comprado el escudo del Málaga, que va de pie en el mostrador
-export const tienda = { sinMorty: false, dineroHoy: () => 0, ocioso: () => false, conEscudo: () => false };
+export const tienda = { sinMorty: false, dineroHoy: () => 0, ocioso: () => false, conEscudo: () => false, calendario: () => ({ dia: 1, rojo: false }) };
 function morty(g, t, { P, img }, d) {
   if (tienda.sinMorty) return;
   const x = d.ox + MORTY.x, y = d.oy + MORTY.y, w = img.morty.width, h = img.morty.height;
@@ -376,6 +376,10 @@ export const MOSTRADOR = {
     // el visor de la caja registradora: lo que se lleva hecho hoy; y, si se ha comprado, el escudo, de pie
     { anima: (g, t, { P, img }, d) => {
       g.translate(d.ox, d.oy);
+      // el calendario de la pared: el día del mes, en rojo en el trimestre
+      const cal = tienda.calendario();
+      if (cal.rojo) rect(g, 125, 70, 20, 17, '#F6C9C3');
+      cifras(g, String(cal.dia), 135, 74, { color: cal.rojo ? '#C0392B' : P.negro, align: 'center', escala: 2 });
       if (tienda.conEscudo() && img.escudoMini) {
         const e = img.escudoMini;
         rect(g, 200, 145, e.width + 4, 2, '#2E3A36');                     // la peana

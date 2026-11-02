@@ -65,13 +65,15 @@ export const DEL_LIBRO = ['adamant', 'brave', 'naughty', 'relaxed', 'impish', 't
 export const conTic = (nat, texto) => (naturalezas[nat]?.tic || (t => t))(texto);
 
 // ---------- preguntas: cerradas, cada una descarta medio mapa ----------
-// y dicen cuánto: «un poco» (cerca del centro), «bastante» o «muy» (cerca del borde), para saber hasta dónde llevar la gota
-const cuanto = v => (Math.abs(v) <= 0.4 ? 'un poco' : Math.abs(v) <= 0.7 ? 'bastante' : 'muy');
+// y dicen cuánto: «un pelín» (casi en el centro), «un poco», «bastante» o «muy» (cerca del borde), para saber
+// hasta dónde llevar la gota; «me da igual» solo si está justo en medio
+const cuanto = v => (Math.abs(v) <= 0.2 ? 'un pelín' : Math.abs(v) <= 0.4 ? 'un poco' : Math.abs(v) <= 0.7 ? 'bastante' : 'muy');
+const MEDIO = 0.1;
 export const PREGUNTAS = [
   { id: 'momento', texto: '¿Día o noche?', pregunta: '¿Lo quieres para el día o para la noche?',
-    responde: ([, y]) => (y > 0.2 ? `Para la noche: ${cuanto(y)} intenso.` : y < -0.2 ? `Para el día: ${cuanto(y)} suave.` : 'Me da igual el día que la noche.') },
+    responde: ([, y]) => (y > MEDIO ? `Para la noche: ${cuanto(y)} intenso.` : y < -MEDIO ? `Para el día: ${cuanto(y)} suave.` : 'Me da igual el día que la noche.') },
   { id: 'abrigo', texto: '¿Fresco o cálido?', pregunta: '¿Fresquito o que abrigue?',
-    responde: ([x]) => (x > 0.2 ? `Que abrigue: ${cuanto(x)} cálido.` : x < -0.2 ? `Fresquito: ${cuanto(x)} fresco.` : 'Ni frío ni calor, en su punto.') },
+    responde: ([x]) => (x > MEDIO ? `Que abrigue: ${cuanto(x)} cálido.` : x < -MEDIO ? `Fresquito: ${cuanto(x)} fresco.` : 'Ni frío ni calor, en su punto.') },
   { id: 'odia', texto: '¿Qué no soportas?', pregunta: '¿Hay algo que no soportes?',
     responde: (zona, odia) => (odia ? `No soporto ${NOMBRE_SABOR[odia]}.` : 'Yo como de todo, la verdad.') },
 ];
@@ -105,6 +107,7 @@ export function puntua(nat, perfume, ingrediente, odiaExtra = []) {
   return d <= 1 ? 'perfecto' : d <= 1.6 ? 'bien' : 'mal';
 }
 // Lo que se cobra (todos los precios acaban en ,21)
-export const PRECIO = { perfecto: 39.21, bien: 19.21, mal: 0, odia: 0 };
+// (si solo cae lejos, «no me convence, pero toma»: algo paga; si lleva lo que odia, nada)
+export const PRECIO = { perfecto: 39.21, bien: 19.21, mal: 5.21, odia: 0 };
 // (con espacio de no separar: el «€» nunca se queda solo en la línea de abajo)
 export const euros = n => `${n.toFixed(2).replace('.', ',')} €`;
