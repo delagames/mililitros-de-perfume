@@ -148,7 +148,7 @@
     {
      "quien": "stunky",
      "cara": "Happy",
-     "texto": "Me duró todo el día, oiga. Me saludó hasta la del estanco."
+     "texto": "Me duró hasta la noche, oiga. Me saludó hasta la del estanco."
     },
     {
      "quien": "stunky",
@@ -161,7 +161,7 @@
      "texto": "Me tuvo media hora en el cuartillo. Media hora."
     }
    ],
-   "pide": "Necesito algo fuerte. Lo de ayer, con su madera y su café. Ya me conoce.",
+   "pide": "Necesito algo fuerte. Lo de la otra vez, con su madera y su café. Ya me conoce.",
    "perfecto": [
     {
      "quien": "stunky",

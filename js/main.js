@@ -103,7 +103,7 @@ function empiezaPartida(p) {
   for (const i of ings) partida.almacen[i.id] ??= disponible(partida, i.id) ? 8 : 0;
   partida.estante ??= [];
   partida.numero ??= 1;
-  partida.caja ??= 0;
+  partida.caja ??= 120;   // (se empieza con algo en la caja: lo de la tarjeta)
   partida.deuda ??= 0;
   partida.libro ??= {};
   partida.marcas ??= [];
@@ -434,6 +434,14 @@ function pasaCliente() {
       botones([]);
       sale(() => { pasaLaHora(); if (estado === 'mostrador') decir(SITIOS.mostrador.habla(), SITIOS.mostrador.botones()); });
     } }];
+    // los que vuelven a por «lo de siempre»: un saludo y lo que pide según su naturaleza
+    if (visita.repetida) {
+      const dlgR = dialogos[c.id];
+      const natR = naturaleza(dlgR.naturaleza) ? dlgR.naturaleza : 'quirky';
+      const opciones = PIDE_REPITE[naturaleza(natR).gusta || 'neutra'];
+      visita = { ...visita, llega: [{ quien: c.id, cara: 'Happy', texto: SALUDOS[Math.floor(Math.random() * SALUDOS.length)] }],
+        pide: opciones[Math.floor(Math.random() * opciones.length)] };
+    }
     const frases = frasesVisita(c, visita);
     // Ñoño no pide perfumes (no se ducha): es la ocasión de rociarle desodorante mientras mira las estampitas
     if (c.id === 'sudowoodo') {
@@ -496,8 +504,9 @@ function juegaNoño(c, despedir) {
 function gengarHuele() {
   const hoy = partida.hoy;
   if (!encargo) { decir(GENGAR('Happy', 'Huele bien. Pero sin cliente delante, yo qué sé.'), botonesTaller()); return; }
-  if (hoy.gengarOlio) { decir(GENGAR('Sigh', 'Ya he olido uno hoy. Tengo la nariz cansada. Mañana.'), botonesTaller()); return; }
-  hoy.gengarOlio = true;
+  const puede = partida.mejoras.includes('cafetera') ? 2 : 1;
+  if ((+hoy.gengarOlio || 0) >= puede) { decir(GENGAR('Sigh', `Ya he olido ${puede === 1 ? 'uno' : 'dos'} hoy. Tengo la nariz cansada. Mañana.`), botonesTaller()); return; }
+  hoy.gengarOlio = (+hoy.gengarOlio || 0) + 1;
   guarda(partida);
   const n = naturaleza(encargo.nat);
   const p = taller.perfume;
@@ -513,7 +522,7 @@ function gengarHuele() {
     const contrario = { calido: 'fresco', fresco: 'calido', intenso: 'suave', suave: 'intenso' };
     texto = { calido: 'Demasiado cálido. Le sobra calor.', fresco: 'Demasiado fresco. Le falta calor.', intenso: 'Demasiado intenso. Bájale.', suave: 'Muy suave. Le falta fuerza.' }[miente ? contrario[eje] : eje];
   }
-  decir(GENGAR(miente ? 'Special0' : 'Normal', `*snif, snif* ${texto}`), botonesTaller());
+  decir(GENGAR('Normal', `*snif, snif* ${texto}`), botonesTaller());   // (la misma cara, mienta o no)
 }
 
 // ---------- el tutorial: Gengar hace dos perfumes delante (lo pidió Jorge) ----------
@@ -524,8 +533,8 @@ const tocaDemo = () => encargo && !encargo.entregado && !encargo.tutorial && enc
   && !partida.marcas.includes('totodile-1') && !partida.consejos.includes('demo');
 const GENGAR = (cara, texto) => ({ cara: portraitUrl('gengar', cara), nombre: 'Gengar', texto });
 const EXPLICA = {
-  momento: 'Día o noche es arriba o abajo en el mapa: el día, suave (abajo); la noche, intensa (arriba).',
-  abrigo: 'Fresco o cálido es izquierda o derecha: fresquito a la izquierda; que abrigue, a la derecha.',
+  momento: 'Día o noche es arriba o abajo en el mapa: el día, suave (abajo); la noche, intensa (arriba). Y fíjate en cuánto: «un poco» es cerca del centro; «bastante», a medio camino; «muy», casi al borde.',
+  abrigo: 'Fresco o cálido es izquierda o derecha: fresquito a la izquierda; que abrigue, a la derecha. Con su «un poco», «bastante» o «muy», que es lo lejos del centro.',
   odia: 'Y lo que no soporta, ni una gota: si el perfume lleva algo de eso, se va sin pagar. Cada color de bote es un sabor, el mismo que en la balda de muestras: el amargo, que es el morado y el verde, ni tocarlo.',
 };
 const EJEMPLOS = [
@@ -533,7 +542,7 @@ const EJEMPLOS = [
     leePide: '«Con chispa» suena a picante. Nunca te dicen lo que son: lo que piden es la pista.',
     preguntas: ['momento', 'abrigo', 'odia'], muestras: ['picante'],
     resumen: 'Resumen: le gusta lo picante, quiere calor y le da igual el día que la noche. Su sitio: a la derecha, a media altura. Y nada amargo.' },
-  { id: 'quagsire', nat: 'relaxed', pide: 'Algo que huela a domingo: a césped y a un gajo de limón con las pipas.',
+  { id: 'quagsire', nat: 'relaxed', pide: 'Algo que huela a domingo: a un gajo de limón con las pipas, que se note en la grada.',
     leePide: '«Un gajo de limón» suena a ácido, a cítrico. Pero esta vez solo hago dos preguntas, como tú.',
     preguntas: ['momento', 'abrigo'], muestras: ['dulce', 'citrico'],
     resumen: 'Resumen: le gusta lo ácido (cítrico, arriba a la izquierda), lo quiere fresquito y para la noche. Y nada dulce: ni Meloc ni la leche de Miltank ni pétalos de Bellossom.' },
@@ -652,6 +661,17 @@ function tutorial() {
   }));
 }
 
+// Los que vuelven a por «lo de siempre» (sin historia nueva): cómo saludan y lo que piden, según su gusto
+const SALUDOS = ['Vengo a por lo de siempre.', 'Hola otra vez. Me he acabado el frasco.', 'Ya sabes lo que quiero. ¿O no?', 'Lo mío, que lo tengo gastado.'];
+const PIDE_REPITE = {
+  spicy: ['Lo de siempre: con su chispa de pimentón.', 'Otro como el de antes, con brasa y carácter.'],
+  sour: ['Lo de siempre: a limón, como la otra vez.', 'Otro igual, a pomelo recién cortado.'],
+  sweet: ['Lo de siempre: a caramelo, como la otra vez.', 'Otro igual, a merengue y a chuche.'],
+  bitter: ['Lo de siempre: a café y a madera.', 'Otro igual, a té y a hoja.'],
+  dry: ['Lo de siempre: a ropa tendida al sol.', 'Otro igual, a sábana recién planchada.'],
+  neutra: ['Lo de siempre: normalito, ni fu ni fa.', 'Otro como el de antes. Sin complicaciones.'],
+};
+
 const quitaDeCola = id => { const i = partida.hoy?.cola.indexOf(id) ?? -1; if (i >= 0) partida.hoy.cola.splice(i, 1); };
 
 // ---------- la deducción (fase 4) ----------
@@ -723,6 +743,29 @@ function adiosEncargo() {
   });
 }
 
+// Por qué no le ha gustado (para aprender): hacia dónde se ha pasado el perfume y, si huele mucho a un sabor
+// que no es el suyo, a qué
+const HUELE_A = { spicy: 'pimentón', sour: 'limón', sweet: 'caramelo', bitter: 'café', dry: 'ropa tendida' };
+function porQueNo(nat, perfume) {
+  const n = naturaleza(nat);
+  const [dx, dy] = [perfume.pos[0] - n.zona[0], perfume.pos[1] - n.zona[1]];
+  let txt = Math.abs(dx) >= Math.abs(dy)
+    ? (dx > 0 ? 'Tiene demasiado calor. Lo quería más fresquito.' : 'Es muy fresquito. Lo quería con más calor.')
+    : (dy > 0 ? 'Es muy intenso, muy de noche. Lo quería más suave.' : 'Es muy suave, muy de día. Lo quería con más fuerza.');
+  // el sabor que más se nota en el frasco, si no es el suyo
+  const cuenta = {};
+  for (const id of perfume.ingredientes) { const s = FAMILIAS.find(f => f.id === ingrediente(id)?.familia)?.sabor; if (s) cuenta[s] = (cuenta[s] || 0) + 1; }
+  const [mas] = Object.entries(cuenta).sort((a, b) => b[1] - a[1]);
+  if (mas && mas[0] !== n.gusta) txt += ` Y huele mucho a ${HUELE_A[mas[0]]}.`;
+  return txt;
+}
+// Si sale «bien»: hacia dónde le faltaba un pelín para ser perfecto
+function casi(nat, perfume) {
+  const n = naturaleza(nat);
+  const [dx, dy] = [perfume.pos[0] - n.zona[0], perfume.pos[1] - n.zona[1]];
+  return 'Casi, casi. ' + (Math.abs(dx) >= Math.abs(dy) ? (dx > 0 ? 'Un pelín más fresquito y era perfecto.' : 'Un pelín más de calor y era perfecto.')
+    : (dy > 0 ? 'Un pelín más suave y era perfecto.' : 'Un pelín más intenso y era perfecto.'));
+}
 // lo que dice cuando el perfume no lleva nada que odie, pero cae lejos de lo suyo
 const LEJOS = ['No es esto. Huele bien, pero no a mí.', 'Se parece, pero no. No es lo mío.', 'Me lo pensaré. No es lo que buscaba.'];
 function entrega(perfume) {
@@ -737,22 +780,26 @@ function entrega(perfume) {
   const sinReceta = visita.receta && res === 'perfecto' && !visita.receta.every(id => perfume.ingredientes.includes(id));
   if (sinReceta) res = 'bien';
   // si lleva algo que odia, sus frases de «mal» (que lo nombran); si solo cae lejos, una que no despista
-  const frases = res === 'mal' ? [dice(LEJOS[Math.floor(Math.random() * LEJOS.length)], 'Normal')]
-    : sinReceta ? [dice('Está bueno, pero no es el de mi padre. Le falta algo de la receta.', 'Sigh')]
+  const frases = res === 'mal' ? [dice(LEJOS[Math.floor(Math.random() * LEJOS.length)], 'Normal'), dice(porQueNo(nat, perfume), 'Normal')]
+    : sinReceta ? [dice('Está bueno, pero no es el de mi padre. Le falta algo de la receta.', 'Normal')]
       : (visita[res === 'odia' ? 'mal' : res] || []).map(f => fraseDe(c, f));
+  if (res === 'bien' && !sinReceta) frases.push(dice(casi(nat, perfume), 'Normal'));
   if (!frases.length) {
     frases.push(dice({ perfecto: '¡Es justo lo que quería!', bien: 'Está bien. Me lo llevo.', odia: '¡Puaj! Esto lleva algo que no soporto.' }[res],
       { perfecto: 'Joyous', bien: 'Normal', odia: 'Angry' }[res]));
   }
-  const cobra = visita.gratis ? 0 : PRECIO[res];
+  // con los frascos grandes, el perfume se cobra más (10 € el de 50 ml, 20 € el de 100 ml; la mitad si sale «bien»)
+  const grande = partida.mejoras.includes('frasco100') ? 20 : partida.mejoras.includes('frasco50') ? 10 : 0;
+  const cobra = visita.gratis || !PRECIO[res] ? 0 : PRECIO[res] + (res === 'perfecto' ? grande : grande / 2);
   setTimeout(() => sfx({ perfecto: 'perfecto', bien: 'bien' }[res] || 'mal'), 150);
   if (cobra) setTimeout(() => sfx('caja'), 700);
-  // con el escudo del Málaga en el mostrador, a veces dejan propina
-  const propinaEscudo = cobra && partida.mejoras.includes('escudo') && !encargo.tutorial && Math.random() < 0.5 ? (res === 'perfecto' ? 3.21 : 1.21) : 0;
+  // con el escudo del Málaga en el mostrador, a veces dejan propina; y con el abono, siempre, los lunes que gana
+  const ganaYAbono = partida.hoy?.jornada === 'gana' && partida.mejoras.includes('abono');
+  const propinaEscudo = cobra && !encargo.tutorial && (ganaYAbono || (partida.mejoras.includes('escudo') && Math.random() < 0.5)) ? (res === 'perfecto' ? 3.21 : 1.21) : 0;
   partida.caja = Math.round((partida.caja + cobra + propinaEscudo) * 100) / 100;
   if (propinaEscudo) {
     partida.hoy.ingresos = Math.round((partida.hoy.ingresos + propinaEscudo) * 100) / 100;
-    frases.push(dice(`¿Eso es el escudo del Málaga? ¡Aúpa! Toma, ${euros(propinaEscudo)} para la causa.`, 'Joyous'));
+    frases.push(dice(ganaYAbono ? `¡Te vi ayer en La Rosaleda! ¡Qué partidazo! Toma, ${euros(propinaEscudo)} para la causa.` : `¿Eso es el escudo del Málaga? ¡Aúpa! Toma, ${euros(propinaEscudo)} para la causa.`, 'Joyous'));
   }
   frases.push({ ...MORTY, cara: portraitUrl('morty', cobra ? 'Happy' : 'Stunned'),
     texto: visita.gratis ? `${perfume.nombre}: gratis. Es su visita número veinte. No se lo cree.`
@@ -795,9 +842,13 @@ function entrega(perfume) {
         partida.caja = Math.round((partida.caja - cobra) * 100) / 100;
         partida.hoy.ingresos = Math.round((partida.hoy.ingresos - cobra) * 100) / 100;
         partida.cajaB = Math.round(((partida.cajaB || 0) + cobra) * 100) / 100;
+        const discrecion = a21(cobra * 0.21);   // (y, por discreción, una propina que sí va a la caja)
+        partida.caja = Math.round((partida.caja + discrecion) * 100) / 100;
+        partida.hoy.ingresos = Math.round((partida.hoy.ingresos + discrecion) * 100) / 100;
         guarda(partida);
-        serie([{ ...MORTY, cara: portraitUrl('morty', 'Worried'), texto: `Los ${euros(cobra)}, a la caja de galletas del altillo. La que no se ve.` }], [{ texto: 'Despedirlo', accion: tras }]);
-      } }, { texto: 'Con factura', accion: () => (encargo.despedir = tras, serie([fraseDe(c, { quien: c.id, cara: 'Sigh', texto: 'Qué poco espíritu de pueblo.' })], [{ texto: 'Despedirlo', accion: tras }])) }]);
+        serie([{ ...MORTY, cara: portraitUrl('morty', 'Worried'), texto: `Los ${euros(cobra)}, a la caja de galletas del altillo. La que no se ve.` },
+          fraseDe(c, { quien: c.id, cara: 'Happy', texto: `Y esto, por la discreción: ${euros(discrecion)}. Que no se diga.` })], [{ texto: 'Despedirlo', accion: tras }]);
+      } }, { texto: 'Con factura', accion: () => (encargo.despedir = tras, serie([fraseDe(c, { quien: c.id, cara: 'Normal', texto: 'Qué poco espíritu de pueblo.' })], [{ texto: 'Despedirlo', accion: tras }])) }]);
   }
   encargo.despedir = despues;
   // con un perfume perfecto, por el escaparate se ve a los perros de la calle bailar dos segundos
@@ -903,7 +954,7 @@ function serie(frases, lista) {
 // El primer cliente (Totodile, el primer día) sirve de tutorial: Gengar suelta un consejo corto en
 // cada paso, una sola vez. Se apuntan en partida.consejos.
 const CONSEJOS = {
-  escucha: ['Special0', 'Psst. Nunca te dicen lo que son. Lo que piden es la pista: «que pique», «lo amargo no».'],
+  escucha: ['Special0', 'Psst. Nunca te dicen lo que son. Lo que piden es la pista: «con chispa», «a limón».'],
   botones: ['Normal', 'Puedes preguntarle dos cosas y darle a oler tres muestras de la balda. O ir directo al taller a formular.'],
   pregunta: ['Happy', 'Cada respuesta te quita medio mapa. En el taller te lo dejo apuntado en el cartel de arriba.'],
   muestra: ['Normal', 'Lo que le gusta, échaselo. Lo que odia, ni una gota: se iría sin pagar.'],
@@ -979,6 +1030,8 @@ function sucesoDeMañana(hoy) {
   const dia = partida.dia;
   if (dia < 2 || hoy.baja || hoy.cuota || cartaPendiente() || (!jefePresentado() && dia >= 10)) return null;
   const visto = id => partida.sucesos.includes(id);
+  // antes de que se presente en persona (día 10), Morty tiene que haberlo visto en un vídeo de Dirección
+  if (!jefeVisto() && dia >= 6) { const id = ['jefe-dinero', 'jefe-dominadas', 'jefe-ruso'].find(x => !visto(x)); if (id) return id; }
   // los que van atados a un día concreto
   if (hoy.jornada === 'gana' && !visto('discoteca')) return 'discoteca';
   if (!visto('vecino-fiesta') && hoy.cola.includes('igglybuff') && !partida.marcas.includes('igglybuff-1')) return 'vecino-fiesta';
@@ -1046,7 +1099,7 @@ function hablaCalle() {
   if (hoy.fase !== 'mañana') return { texto: 'La calle. Enfrente, La Olla de Barro a lo suyo. Dentro espera el mostrador.' };
   if (hoy.cuota === 'pendiente') return { ...MORTY, cara: portraitUrl('morty', 'Dizzy'), texto: `Día 1 del mes ${mesDe(dia)}. Antes de subir la persiana, como cada día 1, algo se mueve en la cuenta del banco.` };
   const fecha = `Día ${dia}, ${diaSemana(dia)}${hoy.trimestre ? ' (trimestre: el calendario está en rojo)' : ''}.`;
-  if (hoy.baja) return { ...MORTY, cara: portraitUrl('morty', 'Dizzy'), texto: `${fecha}${hoy.goles ? ` (Ayer el Málaga: ${hoy.goles}.)` : ''} Morty se ha despertado malo. Fiebre, escalofríos y la cabeza como un bombo. Abre igual: si cierra, no cobra. Hoy, detrás del mostrador, está Gengar.` };
+  if (hoy.baja) return { ...MORTY, cara: portraitUrl('morty', 'Dizzy'), texto: `${fecha}${hoy.goles ? ` (Ayer el Málaga: ${hoy.goles}.)` : ''} Morty se ha despertado malo. Fiebre, escalofríos y la cabeza como un bombo. La tienda abre igual: si cierra, no cobra. Hoy, detrás del mostrador, está Gengar.` };
   if (cartaPendiente()) return { texto: `${fecha} En el buzón hay una carta certificada. La ha traído un galgo con traje. Con ticket.` };
   if (tocaPresentacion()) return { texto: `${fecha} Antes de subir la persiana, alguien da tres golpecitos en el cierre. Muy educados.` };
   const malaga = { gana: ` Ayer ganó el Málaga (${hoy.goles}). Morty lleva la bufanda más apretada que nunca.`,
@@ -1063,7 +1116,7 @@ const PISTAS = [
   [5, () => 'Anoche, a las cuatro y pico, a Morty le pareció oír una risa. Era la suya.'],
   [6, () => 'El tono del móvil es el grito del vídeo de Ciudad Iris. Morty no recuerda haberlo puesto.'],
   [8, () => 'Morty tiene los pies como recién lavados. No se los ha lavado.'],
-  [12, () => (jefePresentado() ? 'Ayer el Señor Mililitros le recordó el nombre de su primer Pokémon. Morty no se lo ha dicho nunca a nadie.' : null)],
+  [12, () => (jefePresentado() ? 'Anoche, al teléfono, el Señor Mililitros le recordó el nombre de su peluche de pequeño. Morty no se lo ha dicho nunca a nadie.' : null)],
   [20, () => 'Gengar ha dormido a los pies de la cama. Tiene cara de culpable y la lengua fuera.'],
   [4, () => 'Gengar se relame toda la mañana. Cuando Morty le pregunta, dice: «Mmmmm… queso gruyer».'],
 ];
@@ -1114,7 +1167,8 @@ function pasaCuota() {
   if (primera) frases.push({ texto: 'En la puerta hay un cartel pegado con celo: «Bienvenido». Nada más. Ni firma.' });
   frases.push({ ...MORTY, cara: portraitUrl('morty', 'Dizzy'), texto: `Cuota de autónomos: ${euros(cuota)}.${alquiler ? ` Y el alquiler del local: ${euros(alquiler)}.` : ' El alquiler, este primer mes, lo perdona el casero.'}` });
   if (fiado) {
-    frases.push({ ...JEFE('Happy'), texto: `No llegaba, Morty. Te lo adelanto yo, con un pequeño recargo: ${euros(fiado)}. Esto es una familia.` });
+    frases.push({ texto: 'En el móvil, un WhatsApp de anoche, de las 4:12:' });
+    frases.push({ ...JEFE('Happy'), texto: `No llegabas, Morty. Te lo adelanto yo, con un pequeño recargo: ${euros(fiado)}. Esto es una familia.` });
     frases.push({ ...MORTY, cara: portraitUrl('morty', 'Dizzy'), texto: `Deuda: ${euros(partida.deuda)}.${pagado ? ` Lo de la caja (${euros(pagado)}) se ha ido también.` : ''}` });
   }
   serie([...frases, hablaCalle()], botonesCalle());
@@ -1137,12 +1191,16 @@ function altillo(prueba = false) {
   $('#hora').textContent = '';
   serie([{ texto: 'Con la escalera arreglada, Morty sube al altillo por primera vez desde que abrió la tienda.' },
     { texto: 'Entre cajas de frascos vacíos hay alguien dormido en un sillón. Lleva corbata. Tiene un portátil en la barriga.' },
-    ...(jefePresentado() && !prueba ? [{ ...MORTY, cara: portraitUrl('morty', 'Surprised'), texto: 'Otro perro con corbata. Más pequeño que el Señor Mililitros.' },
-      { ...MORTY, cara: portraitUrl('morty', 'Angry'), texto: 'Oiga. ¿Usted trabaja para el Señor Mililitros? Tenemos que hablar de la nómina que no cobro.' }]
-      : [{ ...MORTY, cara: portraitUrl('morty', 'Surprised'), texto: 'Es él. El Señor Mililitros. Por fin.' },
-        { ...MORTY, cara: portraitUrl('morty', 'Angry'), texto: 'Señor Mililitros. Tenemos que hablar de la nómina que no cobro.' }]),
+    ...(prueba ? [] : partida.asesorVisto?.length ? [{ ...MORTY, cara: portraitUrl('morty', 'Surprised'), texto: 'Anda. El asesor. ¿Usted duerme aquí?' },
+      { ...ASESOR('Sigh'), texto: 'No tengo piso. Y el rincón no tiene sillón.' }]
+      : jefePresentado() ? [{ ...MORTY, cara: portraitUrl('morty', 'Surprised'), texto: 'Otro perro con corbata. Más pequeño que el Señor Mililitros.' },
+        { ...MORTY, cara: portraitUrl('morty', 'Angry'), texto: 'Oiga. ¿Usted trabaja para el Señor Mililitros? Tenemos que hablar de la nómina que no cobro.' }]
+      : jefeVisto() ? [{ ...MORTY, cara: portraitUrl('morty', 'Surprised'), texto: 'Un perro con corbata. Como el de los vídeos de Dirección. Es él. Por fin.' },
+        { ...MORTY, cara: portraitUrl('morty', 'Angry'), texto: 'Señor Mililitros. Tenemos que hablar de la nómina que no cobro.' }]
+      : [{ ...MORTY, cara: portraitUrl('morty', 'Surprised'), texto: 'Un perro con corbata. Durmiendo en mi altillo.' },
+        { ...MORTY, cara: portraitUrl('morty', 'Angry'), texto: 'Oiga. ¿Usted quién es? ¿Le manda el Señor Mililitros?' }]),
     { ...ASESOR('Sigh'), texto: '¿Mmm? ¿Qué? No, no, no. Yo soy el asesor. Duermo aquí. No tengo piso.' },
-    { ...ASESOR('Happy'), texto: '¿El Señor Mililitros? Nunca lo he visto. Me paga en chuches, por correo. Muy profesional.' },
+    { ...ASESOR('Happy'), texto: '¿El Señor Mililitros? Nunca lo he visto. Me pagan en chuches, por correo. Muy profesional.' },
     { ...MORTY, cara: portraitUrl('morty', 'Stunned'), texto: '…' },
     { ...MORTY, texto: 'Bajo. Tengo clientes.' }], prueba ? [{ texto: 'Volver', accion: () => { ir('inicio'); listaPruebas(); } }] : [{ texto: 'Bajar', accion: () => ir('mostrador') }]);
 }
@@ -1238,7 +1296,7 @@ function botonesCierre() {
   const lista = [];
   if (!hoy.pedido) lista.push({ texto: 'Pedido', secundario: true, accion: pedido });
   lista.push({ texto: partida.vacaciones >= 20 ? 'Agosto' : 'Vacaciones', apagado: true, accion: vacaciones });
-  lista.push({ texto: 'Bajar persiana', accion: bajarPersiana });
+  lista.push({ texto: 'Persiana', accion: bajarPersiana });   // (corto: con «Pedido» y «Vacaciones» caben los tres a 360)
   return lista;
 }
 
@@ -1246,7 +1304,7 @@ function resumenCaja() {
   const hoy = partida.hoy;
   return { ...MORTY, cara: portraitUrl('morty', hoy.ingresos ? 'Happy' : 'Stunned'),
     texto: `Hoy: ${euros(hoy.ingresos)}. En caja: ${euros(partida.caja)}.${partida.deuda ? ` Deuda: ${euros(partida.deuda)}. Fin de mes, después de la deuda.`
-      : partida.marcas.includes('epilogo') ? '' : ` Para la cuota, el alquiler y una cerveza hacen falta ${euros(meta())}.`}` };
+      : partida.marcas.includes('epilogo') || partida.dia < 25 ? '' : ` Para la cuota, el alquiler y una cerveza hacen falta ${euros(meta())}.`}` };
 }
 
 function juegaCaja() {
@@ -1316,7 +1374,7 @@ const ASESOR = (cara = 'Normal') => ({ cara: portraitUrl('perro-asesor', cara), 
 function ofertaAsesor(o, sigue) {
   partida.asesorVisto.push(o.id);
   guarda(partida);
-  serie([{ texto: 'Desde la mesa del rincón, el asesor fiscal levanta la vista del portátil. Es un chihuahua con corbata. Cobra en chuches.' },
+  serie([{ texto: partida.asesorVisto.length > 1 ? 'Desde la mesa del rincón, el asesor fiscal vuelve a levantar la vista del portátil.' : 'Desde la mesa del rincón, el asesor fiscal levanta la vista del portátil. Es un chihuahua con corbata. Cobra en chuches.' },
     { ...ASESOR('Determined'), texto: `Psst. Morty. Tengo una optimización. ${o.dice}` },
     { ...ASESOR('Happy'), texto: `Son ${euros(o.gana)} para ti, ahora. Y es legal. Casi.` }],
   [{ texto: 'Aceptar', accion: () => {
@@ -1337,7 +1395,7 @@ function preguntaDeuda(sigue) {
       const paga = pagaDeuda(partida);
       guarda(partida);
       serie([{ ...MORTY, cara: portraitUrl('morty', 'Dizzy'), texto: `Pagado: ${euros(paga)}. ${partida.deuda ? `Quedan ${euros(partida.deuda)}.` : 'Deuda saldada. Por ahora.'}` },
-        ...(partida.deuda ? [] : [{ ...JEFE('Joyous'), texto: 'Lo sabía, Morty. Eres familia. Ya te llegará el recargo de la próxima.' }])],
+        ...(partida.deuda ? [] : [{ texto: 'Esa noche, a las 3:47, le vibra el móvil:' }, { ...JEFE('Joyous'), texto: 'Lo sabía, Morty. Eres familia. Ya te llegará el recargo de la próxima.' }])],
       [{ texto: '▸', secundario: true, accion: sigue }]);
     } }, { texto: 'Ahora no', secundario: true, accion: sigue }]);
 }

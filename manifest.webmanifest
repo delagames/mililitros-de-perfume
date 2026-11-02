@@ -1,7 +1,7 @@
 {
   "name": "Mililitros de Perfume",
   "short_name": "Mililitros",
-  "description": "Una perfumería de Alhaurín de la Torre donde compran Pokémon. Morty deduce la naturaleza de cada cliente y le formula el perfume.",
+  "description": "Una perfumería de Pokealhaurín de la Torre donde compran Pokémon. Morty deduce la naturaleza de cada cliente y le formula el perfume.",
   "start_url": "./index.html",
   "display": "fullscreen",
   "orientation": "portrait",

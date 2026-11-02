@@ -62,7 +62,7 @@ export function reparto(partida, ids) {
   const capricho = !lista.length;
   if (capricho) {
     const posibles = ids.filter(id => disponible(partida, id));
-    lista = Array.from({ length: 3 }, () => [posibles[Math.floor(Math.random() * posibles.length)], 1 + Math.floor(Math.random() * 2)]);
+    lista = Array.from({ length: 2 }, () => [posibles[Math.floor(Math.random() * posibles.length)], 1]);   // (poca cosa: hay que pedir)
   }
   // lo mismo junto (el repartidor a capricho puede traer dos veces lo mismo)
   const junto = {};
@@ -100,7 +100,12 @@ export function visitaPara(dlg, partida, hoy) {
   const nuevas = (dlg?.visitas || []).filter(v => v.n > 0 && !partida.marcas.includes(v.marca) && ok(v)).sort((a, b) => a.n - b.n);
   if (nuevas.length) return nuevas[0];
   // la que se repite: la primera vez cuenta como visita nueva
-  return (dlg?.visitas || []).find(v => v.n === 0 && ok(v)) || null;
+  const repite = (dlg?.visitas || []).find(v => v.n === 0 && ok(v));
+  if (repite) return repite;
+  // si ya ha hecho alguna visita con encargo y hoy no tiene historia nueva, vuelve a por «lo de siempre»
+  // (main.js le pone el saludo y lo que pide según su naturaleza): así nunca faltan clientes
+  const hechas = (dlg?.visitas || []).filter(v => v.n > 0 && v.pide && partida.marcas.includes(v.marca));
+  return hechas.length ? { n: 0, repetida: true, llega: [{ quien: dlg.id, texto: '…' }] } : null;
 }
 
 // Los clientes de hoy: entre 3 y 6 (los que tengan algo que contar), por orden al azar, con los de

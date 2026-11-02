@@ -22,7 +22,7 @@
      "texto": "Dar vueltas lo hace cualquiera. Apunta: fuerza, constancia y cabeza. Apunta."
     }
    ],
-   "pide": "Hazme algo con fuerza, que caliente como un calentamiento. Apunta: fuerza.",
+   "pide": "Hazme algo con fuerza y chispa de guindilla, que caliente como un calentamiento. Apunta: fuerza.",
    "perfecto": [
     {
      "quien": "hitmontop",
@@ -75,10 +75,10 @@
     {
      "quien": "hitmontop",
      "cara": "Determined",
-     "texto": "No paga él. Pago yo. Ponme algo para el primer día."
+     "texto": "No paga él. Pago yo. Ponme algo para mi estreno."
     }
    ],
-   "pide": "Algo con brío, que se note que llego con ganas. Para estrenarme.",
+   "pide": "Algo con brío, con chispa de pimentón, que se note que llego con ganas. Para estrenarme.",
    "perfecto": [
     {
      "quien": "hitmontop",
@@ -129,7 +129,7 @@
      "texto": "Es lo que tengo más a mano. No me compadezcas. Ponme algo que huela a que no me rindo."
     }
    ],
-   "pide": "Que huela a que no me rindo: fuerte, de los que calientan por dentro.",
+   "pide": "Que huela a que no me rindo: fuerte, como una brasa, de los que calientan por dentro.",
    "perfecto": [
     {
      "quien": "hitmontop",
@@ -180,7 +180,7 @@
      "texto": "Toma. Una muestra gratis."
     }
    ],
-   "pide": "Ponme algo con fuerza, de los que dan calor, para firmar papeles sin echarme atrás.",
+   "pide": "Ponme algo con fuerza, de brasa, de los que dan calor, para firmar en Hacienda sin echarme atrás.",
    "perfecto": [
     {
      "quien": "hitmontop",

@@ -21,7 +21,7 @@
     {
      "quien": "morty",
      "cara": "Normal",
-     "texto": "Me lo dijo ayer."
+     "texto": "Me lo dijo el otro día."
     },
     {
      "quien": "hitmonlee",
@@ -29,7 +29,7 @@
      "texto": "Tú lo que tienes que hacer es estirar. Se te ve tenso de hombros. Es la bufanda."
     }
    ],
-   "pide": "Ponme algo de valiente, con carácter, que se note que estiro todos los días.",
+   "pide": "Ponme algo de valiente, con chispa y carácter, que se note que estiro todos los días.",
    "perfecto": [
     {
      "quien": "hitmonlee",

@@ -149,7 +149,7 @@ function fondoMenta(g, d) {
 // Sobre la calle (la capa es transparente): huellas, la nariz de un perro, una cagada de paloma y
 // polvo. Se frota con el dedo; hay 15 segundos y vale con dejarlo limpio al 90 %.
 export function limpiar(alAcabar) {
-  const DURA = 10, META = 0.92;   // diez segundos para dejarlo al 92 % (con el trapo fino)
+  const DURA = 12, META = 0.88;   // doce segundos para dejarlo al 88 %
   let mancha = null, mg = null, total = 1, quedan = 1, medido = 0, ultimo = null;
   const juego = {
     transparente: true,
@@ -183,7 +183,7 @@ export function limpiar(alAcabar) {
       if (tipo === 'mueve' && !ultimo) return;
       const X = x + (actual?.d.ox || 0);
       mg.globalCompositeOperation = 'destination-out';
-      mg.strokeStyle = '#000'; mg.lineWidth = 12; mg.lineCap = 'round';
+      mg.strokeStyle = '#000'; mg.lineWidth = 18; mg.lineCap = 'round';
       mg.beginPath();
       mg.moveTo(...(ultimo || [X, y])); mg.lineTo(X, y); mg.stroke();
       mg.globalCompositeOperation = 'source-over';
@@ -445,7 +445,7 @@ function flechita(g, x, y, dx, dy) {
 // baja para mirar: si te pilla rociando, se ríe y se acaba. Hay que llenar la barra de «olor a limpio».
 export function pulverizar(imgs, alAcabar) {
   const DURA = 20;
-  let lleno = 0, apretado = false, alto = 0, pillado = false, ultimoSpray = -1;
+  let lleno = 0, apretado = false, alto = 0, pillado = false, ultimoSpray = -1, tPrevio = null;
   let baja = 1.8 + Math.random() * 1.5, sube = -1;   // cuándo baja las estampitas y cuándo las vuelve a subir
   const gotas = [];
   const juego = {
@@ -462,7 +462,8 @@ export function pulverizar(imgs, alAcabar) {
       const mira = sube > 0;
       // (un respiro de 0,15 s: si sueltas justo cuando baja las estampitas, no te pilla)
       if (mira && apretado && !pillado && t - baja >= 0.15) pillado = true;
-      if (apretado && !mira && !pillado) lleno = Math.min(1, lleno + 1 / 30 / 3.4);
+      const dt = Math.min(0.1, t - (tPrevio ?? t)); tPrevio = t;
+      if (apretado && !mira && !pillado) lleno = Math.min(1, lleno + dt / 3.4);
       // el suelo y Ñoño, de frente
       rr(g, 40, 176, 190, 14, '#E6F4EF', NEGRO, 6);
       const img = imgs.frente;

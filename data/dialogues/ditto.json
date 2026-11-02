@@ -67,7 +67,7 @@
     {
      "quien": "ditto",
      "cara": "Normal",
-     "texto": "Hola. Lo mismo que el otro día. Lo de los domingos, creo que era."
+     "texto": "Hola. Lo mismo que la otra vez. Lo de los domingos, creo que era."
     },
     {
      "quien": "gengar",
@@ -85,7 +85,7 @@
      "texto": "Sin prisa. Yo nunca tengo prisa. Eso dicen de mí."
     }
    ],
-   "pide": "Lo de los domingos, a pipas con limón y sin prisa. Como siempre. Creo.",
+   "pide": "Lo de los domingos, a pipas con limón, para la grada. Como siempre. Creo.",
    "perfecto": [
     {
      "quien": "ditto",

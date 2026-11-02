@@ -56,7 +56,7 @@
     {
      "quien": "xatu",
      "cara": "Inspired",
-     "texto": "La semana que viene: el repartidor llegará a las 14:59 y el día 1 te faltará dinero en la caja."
+     "texto": "La semana que viene: el repartidor llegará a las 14:59 y a primeros de mes te faltará dinero en la caja."
     },
     {
      "quien": "morty",
@@ -166,7 +166,7 @@
      "texto": "…"
     }
    ],
-   "pide": "Hazme el que tú quieras. Bueno: verde, tranquilo, de té. Pero elige tú.",
+   "pide": "Hazme el que tú quieras. Bueno: verde, de té cargado. Pero elige tú.",
    "perfecto": [
     {
      "quien": "xatu",

@@ -75,7 +75,7 @@
     {
      "quien": "misdreavus",
      "cara": "Normal",
-     "texto": "Había un suelo de madera. Jabón de pastilla en el lavabo. Café de puchero por la mañana."
+     "texto": "Había un suelo de madera. Una tetera siempre puesta. Café de puchero por la mañana."
     },
     {
      "quien": "misdreavus",
@@ -206,7 +206,7 @@
      "texto": "La Encarni usaba una colonia de botella grande. Se la compraba en la droguería del pueblo."
     }
    ],
-   "pide": "Quiero la colonia de ella. Madera, café, jabón. Y su colonia.",
+   "pide": "Quiero la colonia de ella. Madera, café, té. Y su colonia.",
    "perfecto": [
     {
      "quien": "misdreavus",
@@ -248,7 +248,7 @@
     {
      "quien": "sudowoodo",
      "cara": "Happy",
-     "texto": "Hola, me llamo Ñoño. Dice que hoy es un día importante. Jiji."
+     "texto": "Hola, me llamo Ñoño. Dice que hoy es importante. Jiji."
     },
     {
      "quien": "morty",
@@ -256,7 +256,7 @@
      "texto": "Hoy creo que sí la tengo. La colonia de la Encarni."
     }
    ],
-   "pide": "La colonia de la abuela. Con su madera y su café. Tranquila, como ella.",
+   "pide": "La colonia de la abuela. Con su madera y su café, de sobremesa larga, como ella.",
    "perfecto": [
     {
      "quien": "sudowoodo",

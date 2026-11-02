@@ -17,7 +17,7 @@
      "texto": "¿Se puede pagar en negro? Lo pregunto por el bien del pueblo."
     }
    ],
-   "pide": "Algo que huela a despacho: café solo, puro y papeles. Serio, de acto institucional.",
+   "pide": "Algo que huela a despacho: café solo, puro y tinta de sello. Serio, de acto institucional.",
    "perfecto": [
     {
      "quien": "murkrow",
@@ -106,7 +106,7 @@
      "texto": "Yo estoy bien aquí."
     }
    ],
-   "pide": "Eso dicen todos hasta que ven el local. Ponme algo de tinta y café frío. Si no, no firmo.",
+   "pide": "Eso dicen todos hasta que ven el local. Ponme algo de tinta y café de máquina. Si no, no firmo.",
    "perfecto": [
     {
      "quien": "murkrow",
@@ -203,7 +203,7 @@
     {
      "quien": "morty",
      "cara": "Normal",
-     "texto": "Lo he visto. Pone «Inspección»."
+     "texto": "Lo he visto. Sale usted con sombrero."
     },
     {
      "quien": "murkrow",
@@ -260,7 +260,7 @@
      "texto": "El toldo vino así."
     }
    ],
-   "pide": "Y ahora hazme un perfume, que soy cliente. Serio, rencoroso, como un café recalentado.",
+   "pide": "Y ahora hazme un perfume, que soy cliente. Serio, rencoroso, como un café de anteayer.",
    "perfecto": [
     {
      "quien": "murkrow",

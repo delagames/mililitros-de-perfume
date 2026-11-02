@@ -19,7 +19,7 @@
     {
      "quien": "quagsire",
      "cara": "Normal",
-     "texto": "Ah. Pues… césped. Pipas. Tarde de domingo. Sin prisa, ¿eh? Yo tengo toda la tarde."
+     "texto": "Ah. Pues… pipas. Limonada de termo. Tarde de domingo. Sin prisa, ¿eh? Yo tengo toda la tarde."
     },
     {
      "quien": "quagsire",
@@ -27,7 +27,7 @@
      "texto": "Soy abonado desde que tengo memoria. No tengo mucha, pero toda es de La Rosaleda."
     }
    ],
-   "pide": "Algo que huela a domingo: a césped y a un gajo de limón con las pipas.",
+   "pide": "Algo que huela a domingo: a un gajo de limón con las pipas, que se note en la grada.",
    "perfecto": [
     {
      "quien": "quagsire",
@@ -76,10 +76,10 @@
     {
      "quien": "quagsire",
      "cara": "Happy",
-     "texto": "Hoy quiero algo que huela a que esto dura toda la semana. Con calma."
+     "texto": "Hoy quiero algo que huela a que esto dura toda la semana. Sin prisa."
     }
    ],
-   "pide": "Que huela a limón y a grada, a alegría tranquila que dure.",
+   "pide": "Que huela a limón y a grada, a alegría de la que se nota y dura.",
    "perfecto": [
     {
      "quien": "quagsire",
@@ -177,7 +177,7 @@
      "texto": "Eso ya es una receta."
     }
    ],
-   "pide": "Lo de mi padre: verde, que despierte, y una pizca de madera. Mi padre era así.",
+   "pide": "Lo de mi padre, lo que me acuerdo ya: que despierte, como un gajo de naranja agria. Mi padre era así.",
    "perfecto": [
     {
      "quien": "quagsire",
@@ -219,7 +219,7 @@
      "texto": "Hoja, baya y una pizca de serrín. A ver."
     }
    ],
-   "pide": "El de La Rosaleda: hoja de Skiploom, Pabaya y una pizca de serrín. Y lo que haga falta para que sea mío.",
+   "pide": "El de La Rosaleda: hoja, su baya ácida y una pizca de madera. Y lo que haga falta para que sea mío.",
    "perfecto": [
     {
      "quien": "quagsire",

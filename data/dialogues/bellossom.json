@@ -27,7 +27,7 @@
      "texto": "Hazme un perfume. Si me gusta, te los traigo cada semana a buen precio."
     }
    ],
-   "pide": "Algo fresquito, a rocío de por la mañana, como un jardín recién regado.",
+   "pide": "Algo fresquito, de por la mañana, como ropa tendida al sol en la azotea.",
    "perfecto": [
     {
      "quien": "bellossom",
@@ -147,7 +147,7 @@
      "texto": "Por eso vengo aquí, cielo. Hazme un perfume que no cuente nada."
     }
    ],
-   "pide": "Uno discreto, como agua quieta o un patio a la sombra. Que no cuente nada.",
+   "pide": "Uno discreto, como una sábana recién planchada o papel de seda. Que no cuente nada.",
    "perfecto": [
     {
      "quien": "bellossom",

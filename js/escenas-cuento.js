@@ -425,7 +425,7 @@ export const FINAL = ({ titular = null, sobre = false } = {}) => [
       { src: morty('Dizzy'), escala: 2.4, x: 250, y: -400, entra: 'pop', desde: 3, mueve: 'tiembla' }] },
   // 5. Aceptarlo
   { cielo: ['#06241C', '#0E4A3C'], efectos: ['anillos'], camara: [[0, 180, -260, 1], [10, 180, -250, 1.25]],
-    frases: ['Morty se queda un rato callado.', 'Y lo acepta. Lo que pasó, lo que le gusta y lo que es.', 'Cuelga sin enfadarse. Gengar le da una palmadita. El teléfono deja de sonar.'],
+    frases: ['Morty se queda un rato callado.', 'Y lo acepta. Lo que pasó, lo que le gusta y lo que es.', 'No lo coge. No se enfada. Gengar le da una palmadita. El teléfono se calla solo.'],
     decorado: [0, 1, 2].map(i => ({ ...telefono('Morty', 'llamando…', '#E7584A'), x: 180, y: -290, retraso: i * 0.3, mueve: 'orbita', radio: 140, velocidad: 0.8, fase: i * 2.1, opacidad: 0.5, hasta: 2 })),
     pegatinas: [{ src: morty('Stunned'), escala: 4, x: 180, y: -220, entra: 'funde', mueve: 'respira', hasta: 1 },
       { src: JEFE('Normal'), escala: 2, x: 80, y: -440, entra: 'funde', mueve: 'flota', hasta: 1 },

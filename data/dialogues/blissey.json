@@ -57,7 +57,7 @@
     {
      "quien": "blissey",
      "cara": "Happy",
-     "texto": "Buenos días, Morty. Le traigo receta: uno de lavanda cada ocho horas."
+     "texto": "Buenos días, Morty. Le traigo receta: uno de talco cada ocho horas."
     },
     {
      "quien": "morty",
@@ -80,7 +80,7 @@
      "texto": "Señor Ursaring, ¿qué tal esos madrugones? Siéntese, que se me pone usted rojo."
     }
    ],
-   "pide": "A mí póngame algo de bata recién lavada, de las que se secan al aire.",
+   "pide": "A mí póngame algo de bata recién planchada, de las que se secan al sol.",
    "perfecto": [
     {
      "quien": "blissey",
