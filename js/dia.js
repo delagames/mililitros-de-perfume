@@ -115,7 +115,8 @@ export function clientesDeHoy(lista, dialogos, partida, hoy) {
   const mezcla = a => a.map(x => [Math.random(), x]).sort((p, q) => p[0] - q[0]).map(x => x[1]);
   // las de este lunes (dependen del partido) van las primeras: si no, se pierden hasta otra jornada
   const deLunes = x => (x.v.requiere || []).some(m => m.startsWith('jornada-')) || !!x.v.cuando;
-  const nuevos = mezcla(con.filter(x => x.v.n > 0 || !partida.marcas.includes(x.v.marca))).sort((a, b) => deLunes(b) - deLunes(a));
+  // (los que vuelven a por «lo de siempre» no son historia nueva: van detrás, para no quitarle el sitio a nadie)
+  const nuevos = mezcla(con.filter(x => !x.v.repetida && (x.v.n > 0 || !partida.marcas.includes(x.v.marca)))).sort((a, b) => deLunes(b) - deLunes(a));
   const repiten = mezcla(con.filter(x => !nuevos.includes(x)));
   const cuantos = Math.min(con.length, 3 + Math.floor(Math.random() * 4));
   return [...nuevos, ...repiten].slice(0, cuantos).map(x => x.c.id);
