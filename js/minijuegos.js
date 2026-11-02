@@ -69,7 +69,7 @@ function arranca(juego, alAcabar) {
     if (est.fin) return;
     est.fin = true;
     if (!r.dejado) sfx(r.gana ? 'logro' : r.pillado ? 'risa' : 'fallo');
-    setTimeout(() => { cierra(); alAcabar(r); }, r.espera ?? 700);
+    setTimeout(() => { if (actual !== est) return; cierra(); alAcabar(r); }, r.espera ?? 700);
   }
   est.quitar = () => {
     est.fin = true;

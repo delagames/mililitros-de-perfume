@@ -169,11 +169,6 @@ function cuadros(g, P, d, img = {}) {
     const r = Math.hypot(px - 6, py - 5);
     return r <= 5.5 && r > 4 ? P.gota_picante : (py === 5 && r < 4 ? P.gota_picante : null);
   });
-  // al lado, el escudo del Málaga, colgado de un clavo
-  if (img.escudo) {
-    rect(g, 244, 20, 1, 4, P.negro);
-    g.drawImage(img.escudo, 223, 24);
-  }
 }
 
 // Gengar está de pie en el suelo detrás del mostrador, al lado de Morty, y asoma por encima del
@@ -245,8 +240,9 @@ function ojosCerrados(img) {
 }
 // El día de la baja, detrás del mostrador solo está Gengar (lo pone main.js)
 // dineroHoy: lo que se lleva hecho en el día (lo pone main.js), para el visor de la caja registradora
-// ocioso: si lleva un rato sin pasar nada (Morty se pone a sacarle brillo al frasco)
-export const tienda = { sinMorty: false, dineroHoy: () => 0, ocioso: () => false };
+// ocioso: si lleva un rato sin pasar nada (Morty se pone a sacarle brillo al frasco); conEscudo: si se ha
+// comprado el escudo del Málaga, que va de pie en el mostrador
+export const tienda = { sinMorty: false, dineroHoy: () => 0, ocioso: () => false, conEscudo: () => false };
 function morty(g, t, { P, img }, d) {
   if (tienda.sinMorty) return;
   const x = d.ox + MORTY.x, y = d.oy + MORTY.y, w = img.morty.width, h = img.morty.height;
@@ -377,9 +373,14 @@ export const MOSTRADOR = {
       g.translate(d.ox, d.oy);
       mostradorDelante(g, P, d);
     } },
-    // el visor de la caja registradora: lo que se lleva hecho hoy
-    { anima: (g, t, { P }, d) => {
+    // el visor de la caja registradora: lo que se lleva hecho hoy; y, si se ha comprado, el escudo, de pie
+    { anima: (g, t, { P, img }, d) => {
       g.translate(d.ox, d.oy);
+      if (tienda.conEscudo() && img.escudoMini) {
+        const e = img.escudoMini;
+        rect(g, 200, 145, e.width + 4, 2, '#2E3A36');                     // la peana
+        g.drawImage(e, 202, 145 - e.height);
+      }
       const euros = tienda.dineroHoy() || 0;
       cifras(g, euros.toFixed(2).replace('.', ','), 253, 131, { color: P.menta, align: 'right' });
     } },

@@ -56,6 +56,9 @@ img, canvas { image-rendering: pixelated; }
   border-image: url('../assets/ui/ventana.png') 12 fill / 12px stretch;
 }
 
+/* tocar dos veces seguidas no hace zoom: la pantalla se queda fija */
+html, body, button, .pantalla, .dialogo { touch-action: manipulation; }
+
 button {
   font-family: var(--pixel);
   font-weight: 700;

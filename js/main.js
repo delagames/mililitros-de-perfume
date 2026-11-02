@@ -65,9 +65,10 @@ async function preparar() {
   // Gengar, el ayudante; si no se puede cargar (sin conexión), la tienda abre sin él
   const gengarMostrador = await cargaImagen('assets/sprites/gengar/gengar-mostrador.png').catch(() => null);
   // el escudo del Málaga, en pixel (tools/build_escudo.py): en la pared de la tienda y en el fondo de pantalla
-  const escudo = await cargaImagen('assets/ui/escudo-malaga-pixel.png').catch(() => null);
-  ctx = { P, img: { morty, gengarMostrador, escudo } };
+  const [escudo, escudoMini] = await Promise.all(['', '-mini'].map(t => cargaImagen(`assets/ui/escudo-malaga-pixel${t}.png`).catch(() => null)));
+  ctx = { P, img: { morty, gengarMostrador, escudo, escudoMini } };
   tienda.dineroHoy = () => partida?.hoy?.ingresos || 0;
+  tienda.conEscudo = () => !!partida?.mejoras?.includes('escudo');
   tienda.ocioso = () => estado === 'mostrador' && !encargo && partida?.hoy?.fase === 'abierto' && performance.now() - ultimaAccion > 20000;
   // para la habitación de noche: Morty dormido (de su animación de caer) y Gengar a los pies
   cargaAltillo();
@@ -181,6 +182,8 @@ function botonesTaller(conEchar = false) {
 // Lo que pasa en el taller, en el cuadro de diálogo
 function alTaller(que, id) {
   const ing = ingrediente(id), p = taller.perfume;
+  // mientras Gengar enseña, el taller es suyo: solo suena al echar
+  if (encargo?.tutorial || (tocaDemo() || fichaDemoActiva)) { if (que === 'echado') sfx('echar'); return; }
   const quedan = n => (n === 1 ? 'Queda 1' : `Quedan ${n}`);
   if (que === 'selecciona') {
     decir({ cara: portraitUrl('morty', 'Worried'), nombre: ing.nombre, texto: `${ing.dice} ${quedan(partida.almacen[id] ?? 0)}.` }, botonesTaller(true));
@@ -219,7 +222,7 @@ function historiasCerradas() {
 
 function embotellar() {
   const p = taller.perfume;
-  if (!p.pasos.length) return;
+  if (!p.pasos.length || encargo?.tutorial) return;
   sfx('embotellar');
   const perfume = { numero: partida.numero, nombre: nombreDe(p, partida.numero),
     color: partida.hoy?.trimestre ? '#A4ABA8' : colorDe(p, ctx.P),   // en el trimestre todo huele a papel
@@ -259,6 +262,8 @@ function ir(siguiente) {
   if (!encargo) quita();          // el cliente que espera su perfume se queda en el mostrador
   muestras.resaltar = false;
   cierraLibro();
+  if (encargo?.tutorial && !['mostrador', 'taller'].includes(siguiente)) acabaPractica();   // (tutorial dejado a medias)
+  if (siguiente === 'inicio') cierraMinijuego();
   const enJuego = siguiente !== 'inicio';
   $('#inicio-fondos').classList.toggle('hidden', !partida?.marcas?.includes('epilogo') && !modoPruebas);
   $('#inicio').classList.toggle('hidden', enJuego);
@@ -298,6 +303,9 @@ function ponMusica() {
 const modoPruebas = ['localhost', '127.0.0.1'].includes(location.hostname) || location.search.includes('demo');
 let ultimoToque = 0;
 let ultimaAccion = performance.now();   // (para saber si Morty lleva un rato sin hacer nada)
+// ni zoom con dos toques ni pellizcando (Safari no hace caso a user-scalable=no)
+document.addEventListener('dblclick', ev => ev.preventDefault(), { passive: false });
+document.addEventListener('gesturestart', ev => ev.preventDefault(), { passive: false });
 addEventListener('pointerdown', () => { ultimaAccion = performance.now(); }, true);
 function botones(lista) {
   const acciones = $('#acciones');
@@ -427,6 +435,12 @@ function pasaCliente() {
       sale(() => { pasaLaHora(); if (estado === 'mostrador') decir(SITIOS.mostrador.habla(), SITIOS.mostrador.botones()); });
     } }];
     const frases = frasesVisita(c, visita);
+    // Ñoño no pide perfumes (no se ducha): es la ocasión de rociarle desodorante mientras mira las estampitas
+    if (c.id === 'sudowoodo') {
+      serie([...frases, { ...MORTY, cara: portraitUrl('morty', 'Worried'), texto: 'Ñoño se ha puesto a mirar sus estampitas, muy concentrado. Es el momento del desodorante.' }],
+        [{ texto: 'Pulverizar', accion: () => juegaNoño(c, despedir) }, { texto: 'Ahora no', secundario: true, accion: () => serie([{ ...MORTY, texto: 'Otro día.' }], despedir) }]);
+      return;
+    }
     if (!visita.pide) { serie(frases, despedir); return; }
     // pide un perfume: se queda esperando hasta que Morty se lo dé
     // si la visita la atiende otro (Slowking en la del Mákina), los gustos son los suyos
@@ -434,12 +448,6 @@ function pasaCliente() {
     const nat = visita.naturaleza || (naturaleza(dlg.naturaleza) ? dlg.naturaleza : 'quirky');
     const cola = naturaleza(dlg.naturaleza_cola);
     encargo = { c, visita, nat, odiaExtra: cola?.odia ? [cola.odia] : [], preguntas: [], muestras: 0, pistas: [] };
-    // con Ñoño, la ocasión de rociarle desodorante mientras mira las estampitas
-    if (c.id === 'sudowoodo') {
-      serie([...frases, { ...MORTY, cara: portraitUrl('morty', 'Worried'), texto: 'Ñoño se ha puesto a mirar sus estampitas, muy concentrado. Es el momento del desodorante.' }],
-        [{ texto: 'Pulverizar', accion: juegaNoño }, { texto: 'Ahora no', secundario: true, accion: () => decir(SITIOS.mostrador.habla(), botonesEncargo()) }]);
-      return;
-    }
     // (con el primero, Gengar lo enseña haciéndolo: lo de los botones lo cuenta al acabar)
     serie([...frases, ...consejos('escucha', !tocaDemo() && 'botones')], botonesEncargo());
   });
@@ -463,7 +471,7 @@ function frasesVisita(c, v) {
   return frases;
 }
 
-function juegaNoño() {
+function juegaNoño(c, despedir) {
   decir({ ...MORTY, cara: portraitUrl('morty', 'Worried'), texto: 'Mantén el dedo para rociarle. Cuando baje las estampitas para mirarte, suelta.' },
     [{ texto: 'Dejarlo', secundario: true, accion: rinde }]);
   pulverizar(imgsNoño, r => {
@@ -479,7 +487,7 @@ function juegaNoño() {
       dice.push({ quien: 'morty', cara: 'Inspired', texto: 'Del gusto, Ñoño se deja 3,21 € en el mostrador sin darse cuenta. Ya se lo devolveré. Algún día.' });
       guarda(partida);
     }
-    serie(dice.map(f => fraseDe(encargo.c, f)), botonesEncargo());
+    serie(dice.map(f => fraseDe(c, f)), despedir);
   });
 }
 
@@ -512,7 +520,8 @@ function gengarHuele() {
 // En la partida, el primer cliente (Totodile) lo hace Gengar de verdad, y luego ofrece un segundo
 // ejemplo distinto, de práctica (Quagsire). Desde el menú, «Tutorial» enseña los dos otra vez, de
 // práctica, sin tocar la partida (lo que gasta del almacén se devuelve).
-const tocaDemo = () => encargo && !encargo.entregado && !encargo.tutorial && encargo.c.id === 'totodile' && !partida.consejos.includes('demo');
+const tocaDemo = () => encargo && !encargo.entregado && !encargo.tutorial && encargo.c.id === 'totodile' && encargo.visita.n === 1
+  && !partida.marcas.includes('totodile-1') && !partida.consejos.includes('demo');
 const GENGAR = (cara, texto) => ({ cara: portraitUrl('gengar', cara), nombre: 'Gengar', texto });
 const EXPLICA = {
   momento: 'Día o noche es arriba o abajo en el mapa: el día, suave (abajo); la noche, intensa (arriba).',
@@ -537,10 +546,7 @@ const FRASE_MUESTRA = {
 
 // Lo que hace Gengar delante del cliente: lee lo que pide, pregunta, da a oler y resume
 function gengarEnsena(ej = EJEMPLOS[0], alAcabar = null) {
-  if (!encargo.tutorial) {
-    partida.consejos.push(...['demo', 'escucha', 'botones', 'pregunta', 'muestra', 'taller', 'zreza'].filter(id => !partida.consejos.includes(id)));
-    guarda(partida);
-  }
+  if (!encargo.tutorial) encargo.demo = true;   // (se da por vista al entregarlo: si se recarga a medias, vuelve a empezar)
   const n = naturaleza(encargo.nat);
   const frases = [GENGAR('Special0', encargo.tutorial ? 'Mira cómo lo hago yo.' : 'Este lo hago yo, que es el primero. Tú mira, que luego te toca.'),
     GENGAR('Normal', ej.leePide)];
@@ -573,9 +579,11 @@ function gengarFormula(alAcabar = null) {
     const d = Math.hypot(x - n.zona[0], y - n.zona[1]) + plan.length * 0.01;
     if (d < mejor.d) mejor = { d, plan };
   };
-  for (const a of ids) { prueba([a]); for (const b of ids) { prueba([a, b]); for (const c of ids) prueba([a, b, c]); } }
+  const hay = plan => plan.every(id => plan.filter(x => x === id).length <= (partida.almacen[id] || 0));
+  for (const a of ids) { prueba([a]); for (const b of ids) { if (hay([a, b])) prueba([a, b]); for (const c of ids) if (hay([a, b, c])) prueba([a, b, c]); } }
   nuevo();
   const ficha = ++fichaDemo;
+  fichaDemoActiva = true;
   decir(GENGAR('Special0', 'El mapa: izquierda fresco, derecha cálido, arriba intenso, abajo suave. Cada ingrediente mueve la gota hacia un lado (tócalo y te dice hacia dónde), y el color del bote es su sabor. Hay que dejar la gota donde le gusta, sin nada de lo que odia.'), []);
   let k = 0;
   const siguiente = () => {
@@ -588,6 +596,7 @@ function gengarFormula(alAcabar = null) {
       setTimeout(siguiente, 2800);
       return;
     }
+    fichaDemoActiva = false;
     if (encargo.tutorial) {
       const res = puntua(encargo.nat, { pos: taller.perfume.pos, ingredientes: taller.perfume.pasos.map(x => x.id) }, ingrediente, encargo.odiaExtra);
       decir(GENGAR('Joyous', res === 'perfecto' ? `En su zona: ${caracter(taller.perfume).toLowerCase()}. Perfecto, y se cobra ${euros(PRECIO.perfecto)}. Si se queda cerca, «bien» (${euros(PRECIO.bien)}); lejos, no paga.` : 'Así, más o menos. Cuanto más cerca de su zona, mejor se paga.'),
@@ -598,12 +607,14 @@ function gengarFormula(alAcabar = null) {
   };
   setTimeout(siguiente, 4200);
 }
-let fichaDemo = 0;
+let fichaDemo = 0, fichaDemoActiva = false;   // (mientras Gengar echa ingredientes)
 
 // Un ejemplo de práctica: entra el cliente, Gengar lo hace todo y se va. No cobra, no apunta nada en la
 // partida y lo que se gasta del almacén se devuelve.
+let practica = null;   // cómo estaba todo antes del ejemplo de práctica (para devolverlo)
 function ejemploPractica(ej, alAcabar) {
-  const copia = { ...partida.almacen };
+  const hoy = partida.hoy;
+  practica = { almacen: { ...partida.almacen }, frasco: [...(hoy?.frasco || [])], olio: hoy?.gengarOlio };
   for (const id of ['zreza', 'pabaya', 'meloc', 'safre', 'atania', 'wooper']) partida.almacen[id] = Math.max(partida.almacen[id] || 0, 4);
   const c = todos[ej.id];
   ir('mostrador');
@@ -612,22 +623,29 @@ function ejemploPractica(ej, alAcabar) {
   entra(c, () => {
     encargo = { c, visita: { pide: ej.pide, n: 0 }, nat: ej.nat, odiaExtra: [], preguntas: [], muestras: 0, pistas: [], tutorial: true };
     serie([dice(ej.pide)], [{ texto: 'Mirar a Gengar', accion: () => gengarEnsena(ej, () => {
-      for (const k of Object.keys(partida.almacen)) partida.almacen[k] = copia[k] ?? 0;
-      if (partida.hoy) partida.hoy.frasco = [];
-      nuevo();
-      encargo = null;
-      guarda(partida);
       ir('mostrador');
       ponLugar('Tutorial');
       botones([]);
-      sale(alAcabar);
+      // se va andando y, entonces, todo vuelve a como estaba
+      sale(() => { acabaPractica(); alAcabar(); });
     }) }]);
   });
 }
+// Devuelve el almacén, el frasco a medias y el olfato de Gengar a como estaban, y quita el encargo de práctica
+function acabaPractica() {
+  if (!practica) return;
+  for (const k of Object.keys(partida.almacen)) partida.almacen[k] = practica.almacen[k] ?? 0;
+  if (partida.hoy) { partida.hoy.frasco = practica.frasco; partida.hoy.gengarOlio = practica.olio; }
+  taller.perfume = desdePasos(practica.frasco);
+  practica = null;
+  fichaDemo++;
+  if (encargo?.tutorial) { encargo = null; quita(); }
+  guarda(partida);
+}
 // Desde el menú: los dos ejemplos seguidos
 function tutorial() {
-  if (encargo) { decir(GENGAR('Normal', 'Termina antes con el cliente que tienes delante.'), SITIOS.mostrador.botones()); return; }
-  if (!partida.hoy) empiezaDia(false);
+  if (encargo) { ir('mostrador'); decir(GENGAR('Normal', 'Termina antes con el cliente que tienes delante. Luego, en el menú, «Tutorial».'), SITIOS.mostrador.botones()); return; }
+  if (!partida.hoy) empiezaDia();
   ejemploPractica(EJEMPLOS[0], () => ejemploPractica(EJEMPLOS[1], () => {
     decir(GENGAR('Joyous', 'Y ya está. Lee lo que pide, pregunta, huele, y lleva la gota a su sitio sin nada de lo que odia. Si tocas el frasco, lo huelo yo (una vez al día, y a veces miento). Cuando quieras repasarlo, en el menú tienes «Tutorial».'),
       [{ texto: 'Volver', accion: () => ir('inicio') }]);
@@ -709,6 +727,7 @@ function adiosEncargo() {
 const LEJOS = ['No es esto. Huele bien, pero no a mí.', 'Se parece, pero no. No es lo mío.', 'Me lo pensaré. No es lo que buscaba.'];
 function entrega(perfume) {
   const { c, visita, nat, odiaExtra } = encargo;
+  if (encargo.demo) partida.consejos.push(...['demo', 'escucha', 'botones', 'pregunta', 'muestra', 'taller', 'zreza'].filter(id => !partida.consejos.includes(id)));
   // en cuanto se entrega, ya no se puede volver a cobrar (aunque se salga al menú) y sale de la cola
   encargo.entregado = true;
   quitaDeCola(c.id);
@@ -728,7 +747,13 @@ function entrega(perfume) {
   const cobra = visita.gratis ? 0 : PRECIO[res];
   setTimeout(() => sfx({ perfecto: 'perfecto', bien: 'bien' }[res] || 'mal'), 150);
   if (cobra) setTimeout(() => sfx('caja'), 700);
-  partida.caja = Math.round((partida.caja + cobra) * 100) / 100;
+  // con el escudo del Málaga en el mostrador, a veces dejan propina
+  const propinaEscudo = cobra && partida.mejoras.includes('escudo') && !encargo.tutorial && Math.random() < 0.5 ? (res === 'perfecto' ? 3.21 : 1.21) : 0;
+  partida.caja = Math.round((partida.caja + cobra + propinaEscudo) * 100) / 100;
+  if (propinaEscudo) {
+    partida.hoy.ingresos = Math.round((partida.hoy.ingresos + propinaEscudo) * 100) / 100;
+    frases.push(dice(`¿Eso es el escudo del Málaga? ¡Aúpa! Toma, ${euros(propinaEscudo)} para la causa.`, 'Joyous'));
+  }
   frases.push({ ...MORTY, cara: portraitUrl('morty', cobra ? 'Happy' : 'Stunned'),
     texto: visita.gratis ? `${perfume.nombre}: gratis. Es su visita número veinte. No se lo cree.`
       : cobra ? `${perfume.nombre}: ${euros(cobra)}. En caja, ${euros(partida.caja)}.`
@@ -765,13 +790,14 @@ function entrega(perfume) {
     const tras = despues;
     despues = () => serie([fraseDe(c, { quien: c.id, cara: 'Happy', texto: 'Entonces, ¿en negro? Nadie se entera. El pueblo te lo agradecerá.' })],
       [{ texto: 'En negro', secundario: true, accion: () => {
+        encargo.despedir = tras;
         marca('caja-b');
         partida.caja = Math.round((partida.caja - cobra) * 100) / 100;
         partida.hoy.ingresos = Math.round((partida.hoy.ingresos - cobra) * 100) / 100;
         partida.cajaB = Math.round(((partida.cajaB || 0) + cobra) * 100) / 100;
         guarda(partida);
         serie([{ ...MORTY, cara: portraitUrl('morty', 'Worried'), texto: `Los ${euros(cobra)}, a la caja de galletas del altillo. La que no se ve.` }], [{ texto: 'Despedirlo', accion: tras }]);
-      } }, { texto: 'Con factura', accion: () => serie([fraseDe(c, { quien: c.id, cara: 'Sigh', texto: 'Qué poco espíritu de pueblo.' })], [{ texto: 'Despedirlo', accion: tras }]) }]);
+      } }, { texto: 'Con factura', accion: () => (encargo.despedir = tras, serie([fraseDe(c, { quien: c.id, cara: 'Sigh', texto: 'Qué poco espíritu de pueblo.' })], [{ texto: 'Despedirlo', accion: tras }])) }]);
   }
   encargo.despedir = despues;
   // con un perfume perfecto, por el escaparate se ve a los perros de la calle bailar dos segundos
@@ -837,6 +863,7 @@ function juegaEnvolver(c, alAcabar) {
   decir({ ...MORTY, cara: portraitUrl('morty', 'Inspired'), texto: 'Corta el papel entre las dos marcas, dobla las solapas (primero los lados) y haz el lazo en el centro. Tres fallos y se rompe.' },
     [{ texto: 'Dejarlo', secundario: true, accion: rinde }]);
   envolver(r => {
+    if (encargo) encargo.despedir = alAcabar;   // (la propina, una vez: si sale al menú, al volver solo queda despedirlo)
     // sin fallos, más propina
     const propina = r.gana ? (r.fallos ? 3.21 : 5.21) : 0;
     partida.caja = Math.round((partida.caja + propina) * 100) / 100;
@@ -1478,6 +1505,8 @@ function abrePartida() {
   $('#partida-aviso').textContent = '';
   s.classList.remove('hidden');
   s.scrollTop = 0;
+  const cero = $('#partida-cero');   // (el «¿Seguro?» no se queda armado de otra vez)
+  cero.dataset.seguro = ''; cero.textContent = 'Empezar de cero'; cero.classList.add('secundario');
   $('#partida-copiar').onclick = async () => {
     const codigo = exporta(partida);
     $('#partida-codigo').value = codigo;
@@ -1565,7 +1594,7 @@ async function verSuceso(id, despues = 'calle', alAcabar = null) {
   const antes = (s.antes || []).map(fraseSuceso);
   // la primera vez que Morty ve al Señor Mililitros en un vídeo
   const primeraVez = s.categoria === 'jefe' && !jefeVisto();
-  if (primeraVez) marca('jefe-visto');
+  if (primeraVez) { marca('jefe-visto'); guarda(partida); }
   const tras = [...(primeraVez ? [{ ...MORTY, cara: portraitUrl('morty', 'Stunned'), texto: 'Un momento. ¿El de la corbata es el Señor Mililitros?' },
     { ...MORTY, cara: portraitUrl('morty', 'Stunned'), texto: '¿Es un perro?' },
     { ...MORTY, texto: 'Será un filtro. En Dirección ya no saben qué inventar.' }] : []), ...(s.tras || []).map(fraseSuceso)];

@@ -52,5 +52,5 @@ export function importa(codigo) {
 }
 
 export function borra() {
-  try { localStorage.removeItem(CLAVE); } catch { /* nada */ }
+  try { localStorage.removeItem(CLAVE); localStorage.removeItem(COPIAS); } catch { /* nada */ }
 }
