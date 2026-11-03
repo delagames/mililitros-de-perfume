@@ -132,49 +132,56 @@ function baldaMuestras(g, P) {
   caja(g, 8, 140, 104, 5, P.menta_oscura, P.negro, 0);
   rect(g, 9, 141, 102, 1, P.menta);
   GOTAS.forEach((c, i) => frascoMuestra(g, P, 13 + i * 14, 140, P[c], sombraDe(P[c])));
-  // la segunda mesa de muestras: una balda más, encima
-  if (tienda.tiene('mesa')) {
-    rect(g, 10, 127, 60, 2, T.paredOscura);
-    caja(g, 8, 122, 62, 5, P.menta_oscura, P.negro, 0);
-    rect(g, 9, 123, 60, 1, P.menta);
-    GOTAS.slice(0, 4).forEach((c, i) => frascoMuestra(g, P, 13 + i * 14, 122, P[c], sombraDe(P[c])));
-  }
 }
 
 // Las mejoras de la pared, si se han comprado
 function mejorasPared(g, P, d) {
-  // la escalera arreglada, apoyada entre la estantería y el calendario (sube al altillo)
-  if (tienda.tiene('escalera')) {
-    for (const x of [110, 120]) rect(g, x, 4, 2, 132, '#8A5A3C');
-    for (let y = 10; y < 134; y += 12) rect(g, 110, y, 12, 2, '#6B4A30');
-  }
-  // el abono de La Rosaleda, clavado al lado del calendario
-  if (tienda.tiene('abono')) {
-    caja(g, 150, 68, 24, 15, P.blanco, P.negro, 0);
-    rect(g, 151, 69, 22, 4, '#1F5FA8');
-    for (let k = 0; k < 3; k++) rect(g, 153 + k * 6, 76, 4, 1, '#9AA0A0');
-    rect(g, 161, 66, 2, 3, P.gota_picante);
+  // la camiseta firmada del Málaga, enmarcada junto al calendario: rayas blanquiazules y las firmas
+  if (tienda.tiene('camiseta')) {
+    rect(g, 153, 67, 28, 32, T.paredOscura);
+    caja(g, 150, 64, 28, 32, '#3A2A1E', P.negro, 0);
+    rect(g, 152, 66, 24, 28, '#F4F2EC');
+    forma(g, 153, 68, 22, 24, (x, y) => {
+      const cuerpo = x >= 5 && x <= 16 && y >= 3, manga = y >= 2 && y <= 9 && x >= 1 && x <= 20, cuello = y < 3 && x >= 8 && x <= 13;
+      if (cuello || (!cuerpo && !manga)) return null;
+      return x < 5 || x > 16 ? '#1F5FA8' : Math.floor((x - 5) / 2) % 2 ? '#1F5FA8' : P.blanco;
+    }, P.negro);
+    for (const [x, y] of [[159, 80], [163, 84], [167, 78]]) rect(g, x, y, 3, 1, P.negro);   // las firmas
   }
   const techo = -d.oy + d.toldo + 10;
   if (techo > -50) return;   // (lo de arriba, solo si hay pared encima)
-  // la camiseta firmada del Málaga, enmarcada
-  if (tienda.tiene('camiseta')) {
-    caja(g, 128, 14, 34, 40, '#2A1C14', P.negro, 0);
-    rect(g, 131, 17, 28, 34, '#E9EDEA');
-    forma(g, 133, 20, 24, 26, (x, y) => {
-      const cuerpo = x >= 5 && x <= 18 && y >= 4, manga = y >= 3 && y <= 9 && (x < 5 || x > 18), cuello = y < 4 && x > 8 && x < 15;
-      if (cuello || (!cuerpo && !manga)) return null;
-      return Math.floor(x / 3) % 2 ? '#1F5FA8' : P.blanco;
-    }, P.negro);
-    for (let k = 0; k < 4; k++) rect(g, 138 + k * 3, 36 + (k % 2), 2, 1, P.negro);   // las firmas
-  }
-  // el cuadro de La Rosaleda, al óleo, con marco dorado
+  // el póster de «Cenas Encantadas», el programa de Morty
   if (tienda.tiene('cuadro')) {
-    caja(g, 222, 22, 42, 30, '#C9A227', P.negro, 0);
-    degradado(g, 225, 25, 36, 12, '#9FD6F0', '#D6F0FA');
-    rect(g, 225, 37, 36, 12, '#5FA84E');
-    for (let k = 0; k < 6; k++) rect(g, 225 + k * 6, 33, 6, 4, k % 2 ? '#1F5FA8' : P.blanco);
-    rect(g, 242, 41, 2, 2, P.blanco);
+    rect(g, 225, 17, 36, 44, T.paredOscura);
+    caja(g, 222, 14, 36, 44, '#3A2350', P.negro, 0);
+    texto(g, 'CENAS', 240, 25, { font: '8px Silkscreen', color: '#F4D23C', align: 'center' });
+    forma(g, 230, 28, 20, 22, (x, y) => {          // un fantasmita con su servilleta
+      const cabeza = (x - 10) ** 2 + (y - 8) ** 2 <= 64, cuerpo = y >= 8 && y <= 19 && x >= 2 && x <= 18 && !(y >= 17 && x % 4 === 1);
+      if (!cabeza && !cuerpo) return null;
+      if ((x === 7 || x === 13) && y >= 6 && y <= 8) return P.negro;
+      return P.blanco;
+    });
+    rect(g, 226, 52, 28, 3, '#E7584A');
+  }
+}
+
+// La escalera del altillo, ya arreglada: de pie a la izquierda, delante de la estantería, inclinada
+function escalera(g, P) {
+  if (!tienda.tiene('escalera')) return;
+  const pie = 232, alto = 216, inclina = 0.13;
+  const xDe = (x0, y) => x0 + (pie - y) * inclina;
+  for (const x0 of [-12, 12]) {
+    for (let y = pie - alto; y <= pie; y++) {
+      const x = Math.round(xDe(x0, y));
+      rect(g, x - 1, y, 5, 1, '#5A3A22');
+      rect(g, x, y, 3, 1, '#A0703F');
+      rect(g, x, y, 1, 1, '#C8955A');
+    }
+  }
+  for (let y = pie - 14; y > pie - alto; y -= 18) {
+    const a = Math.round(xDe(-12, y)) + 3, b = Math.round(xDe(12, y));
+    rect(g, a, y - 1, b - a, 4, '#5A3A22');
+    rect(g, a, y, b - a, 2, '#A0703F');
   }
 }
 
@@ -330,6 +337,18 @@ function planta(g, P) {
   caja(g, 2, 184, 20, 20, P.negro, P.negro, 2);
   rect(g, 4, 186, 2, 15, '#3A3A3A');
   rect(g, 0, 204, 26, 2, T.sombra);
+  // la planta nueva (si se ha comprado): un ficus en maceta de barro, al lado
+  if (tienda.tiene('cojin')) {
+    rect(g, 52, 160, 2, 30, '#6B4A30');
+    forma(g, 34, 140, 40, 34, (x, y) => {
+      const hojas = [[20, 8, 10, 7], [10, 16, 9, 7], [30, 16, 9, 7], [16, 25, 9, 6], [26, 26, 9, 6], [20, 18, 8, 6]];
+      for (const [cx, cy, rx, ry] of hojas) if (((x - cx) / rx) ** 2 + ((y - cy) / ry) ** 2 <= 1) return (x + y) % 5 === 0 ? T.hojaLuz : '#3D7F2A';
+      return null;
+    }, P.negro);
+    caja(g, 44, 186, 20, 18, '#B5654A', P.negro, 2);
+    rect(g, 44, 186, 20, 3, '#D07E5E');
+    rect(g, 42, 204, 24, 2, T.sombra);
+  }
 }
 
 // El mostrador empieza en IZQ: lo bastante a la izquierda para tapar el cuerpo de Gengar
@@ -366,7 +385,8 @@ function mostradorDelante(g, P, d) {
     return Math.abs(x - 2.5) <= (8 - y) * 0.75 ? P.menta : null;
   });
   // vaso con tiras de papel secante para oler
-  for (const [x, h] of [[208, 10], [210, 12], [212, 9], [214, 11]]) rect(g, x, 146 - h - 2, 1, h, P.blanco);
+  const tiras = tienda.tiene('mesa') ? [[207, 13], [208, 10], [209, 14], [210, 12], [211, 15], [212, 9], [213, 13], [214, 11], [215, 12]] : [[208, 10], [210, 12], [212, 9], [214, 11]];
+  for (const [x, h] of tiras) rect(g, x, 146 - h - 2, 1, h, P.blanco);
   caja(g, 206, 137, 11, 9, P.negro, P.negro, 1);
   rect(g, 207, 138, 1, 6, '#4A4A4A');
   // caja registradora
@@ -403,6 +423,7 @@ export const MOSTRADOR = {
       fondo(g, P, d);
       g.translate(d.ox, d.oy);
       estanteria(g, P, d);
+      escalera(g, P);
       cuadros(g, P, d, img);
       huecoGengar(g, P);
       baldaMuestras(g, P);
@@ -429,26 +450,24 @@ export const MOSTRADOR = {
       if (cal.rojo) rect(g, 125, 70, 20, 17, '#F6C9C3');
       cifras(g, String(cal.dia), 135, 74, { color: cal.rojo ? '#C0392B' : P.negro, align: 'center', escala: 2 });
       if (tienda.conEscudo() && img.escudoMini) {
-        // de pie encima de la caja registradora, en su lado derecho (a la derecha de la caja no cabe en el móvil)
-        const e = img.escudoMini, ex = 245, base = 125;
+        // de pie sobre el mostrador, delante de Gengar
+        const e = img.escudoMini, ex = 162, base = 148;
         rect(g, ex - 1, base - 2, e.width + 2, 2, '#2E3A36');             // la peana
         g.drawImage(e, ex, base - 2 - e.height);
       }
-      // la cafetera para Gengar, en la punta del mostrador, echando vapor
+      // la cafetera italiana para Gengar, en la punta del mostrador, echando vapor
       if (tienda.tiene('cafetera')) {
-        caja(g, 104, 129, 14, 18, '#2B2B2B', P.negro, 2);
-        rect(g, 106, 131, 10, 4, '#C9C9C9');
-        rect(g, 108, 141, 6, 6, '#7A4A1A');
+        forma(g, 104, 126, 16, 21, (x, y) => {
+          const ancho = y < 9 ? 4 + y * 0.4 : y < 11 ? 5 : 4 + (20 - y) * 0.45;   // arriba, la cintura, abajo
+          if (y === 0) return x >= 6 && x <= 9 ? P.negro : null;                 // el pomo de la tapa
+          if (Math.abs(x - 7.5) <= ancho) return (x - 7.5) < -ancho + 2 ? '#E6E9E8' : (x + y) % 7 === 0 ? '#8E9894' : '#B9C2BF';
+          if (y >= 2 && y <= 8 && x >= 14) return P.negro;                       // el asa
+          return null;
+        }, P.negro);
+        rect(g, 102, 130, 3, 2, '#8E9894');                                         // el pitorro
         const v = Math.floor(t * 3) % 3;
-        for (let k = 0; k < 3; k++) rect(g, 109 + ((k + v) % 2) * 2, 124 - k * 3, 1, 2, '#E9EDEA');
+        for (let k = 0; k < 4; k++) rect(g, 102 + ((k + v) % 2) * 2, 126 - k * 3, 1, 2, '#E9EDEA');
       }
-      // el cojín bordado de Gengar, encima del mostrador
-      if (tienda.tiene('cojin')) {
-        caja(g, 150, 140, 24, 8, '#7B5BC2', P.negro, 3);
-        rect(g, 158, 142, 8, 1, '#F4D23C'); rect(g, 158, 145, 8, 1, '#F4D23C');
-      }
-      const euros = tienda.dineroHoy() || 0;
-      cifras(g, euros.toFixed(2).replace('.', ','), 253, 131, { color: P.menta, align: 'right' });
     } },
     // el cliente, en el suelo delante de todo
     { anima: pintaCliente },
