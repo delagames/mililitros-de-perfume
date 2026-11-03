@@ -116,22 +116,25 @@ function estanteria(g, P, d, img = {}) {
       halo(g, 59, y + 12, 52, 10, T.fondoLuz, 1);
     }
   }
-  const tipos = [0, 2, 1, 0, 1, 2, 0, 1];
-  // si se ha comprado el escudo del Málaga, va de pie en la tercera balda (o en la segunda, si no hay más), entre los botes
+  // los frascos, ordenados: en cada balda, de izquierda a derecha, los altos, luego los medianos y los bajos
+  // (si se ha comprado el escudo del Málaga, va de pie en la tercera balda, o en la segunda si no hay más)
   const escudo = tienda.conEscudo() && img.escudoMini;
   const conBotes = baldas.slice(0, -1);
   const baldaEscudo = conBotes[Math.min(2, conBotes.length - 1)];
-  for (const [i, base] of conBotes.entries()) {
-    let x = 13 + i * 3;
-    for (let k = 0; x < (base === 122 ? 80 : 100); k++) {
-      if (escudo && base === baldaEscudo && x >= 30 && x < 46) {           // el hueco del escudo
-        g.drawImage(escudo, x + 2, base - escudo.height);
+  const ANCHO = [8, 10, 6];
+  for (const base of conBotes) {
+    const fin = base === 122 ? 84 : 105;
+    const orden = [2, 2, 2, 0, 0, 0, 1, 1, 1, 1];
+    let x = 13, puesto = false;
+    for (const tipo of orden) {
+      if (escudo && base === baldaEscudo && !puesto && x >= 30) {        // el hueco del escudo
+        g.drawImage(escudo, x, base - escudo.height);
         x += escudo.width + 4;
-        continue;
+        puesto = true;
       }
-      const tipo = tipos[(k + i * 3) % tipos.length];
+      if (x + ANCHO[tipo] > fin) break;
       frascoNegro(g, P, x, base, tipo);
-      x += [12, 10, 14][tipo] + ((k + i) % 2);
+      x += ANCHO[tipo] + 4;
     }
   }
   tarroDeTiras(g, P, 94, 122);
@@ -159,11 +162,12 @@ function tarroDeTiras(g, P, cx, base) {
   rect(g, cx - 8, base - 14, 17, 2, P.negro); rect(g, cx - 7, base - 13, 15, 1, '#DDEEEA');
 }
 
+// (alineada con la estantería por la izquierda, y sin llegar a la cafetera por la derecha)
 function baldaMuestras(g, P) {
-  rect(g, 10, 145, 102, 2, T.paredOscura);                              // sombra
-  caja(g, 8, 140, 104, 5, P.menta_oscura, P.negro, 0);
-  rect(g, 9, 141, 102, 1, P.menta);
-  GOTAS.forEach((c, i) => frascoMuestra(g, P, 13 + i * 14, 140, P[c], sombraDe(P[c])));
+  rect(g, 8, 145, 92, 2, T.paredOscura);                                // sombra
+  caja(g, 6, 140, 94, 5, P.menta_oscura, P.negro, 0);
+  rect(g, 7, 141, 92, 1, P.menta);
+  GOTAS.forEach((c, i) => frascoMuestra(g, P, 10 + i * 13, 140, P[c], sombraDe(P[c])));
 }
 
 
