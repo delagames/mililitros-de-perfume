@@ -257,8 +257,10 @@ function pintaTaller(g, tiempo, { P }, d) {
   // Gengar, asomando por la esquina del frasco mientras le quede olfato: «tócalo y lo huelo»
   if (t.olfato > 0 && p.pasos.length && t.gengar) {
     const sube = Math.floor(tiempo * 2) % 2, m = t.gengar;
-    g.drawImage(m, x + w - m.width + 4, y - m.height + 14 - sube);
-    if (t.olfato > 1) cifras(g, '2', x + w - m.width, y - m.height + 16 - sube, { color: P.verde_tinta });   // (con la cafetera, dos)
+    // sentado encima de la tarjeta del frasco, en su esquina de la derecha: cerca del bote, sin taparlo
+    const gx = x + w - m.width + 8, gy = BANCO - 2 - m.height + 1 - sube;
+    g.drawImage(m, gx, gy);
+    if (t.olfato > 1) cifras(g, '2', gx - 5, gy + 4, { color: P.verde_tinta });   // (con la cafetera, dos)
   } else if (t.olfato > 0 && p.pasos.length) {
     const sube = Math.floor(tiempo * 2) % 2, gx = x + w - 16, gy = y - 10 - sube;
     caja(g, gx, gy, 18, 15, '#7B5BC2', P.negro, 5);

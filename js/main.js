@@ -70,7 +70,7 @@ async function preparar() {
   ctx = { P, img: { morty, gengarMostrador, escudo, escudoMini } };
   // el Gengar que asoma en el frasco del taller: el del mostrador, en pequeño y sin bordes suaves
   if (gengarMostrador) {
-    const w = 30, h = Math.round(gengarMostrador.height * w / gengarMostrador.width);
+    const w = 26, h = Math.round(gengarMostrador.height * w / gengarMostrador.width);
     const c = document.createElement('canvas'); c.width = w; c.height = h;
     const g = c.getContext('2d', { willReadFrequently: true });
     g.imageSmoothingQuality = 'high';
