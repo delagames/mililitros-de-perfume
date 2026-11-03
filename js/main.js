@@ -1509,7 +1509,7 @@ const soloFaltaLancha = () => { const p = porVer(); return !p.historias.length &
 function resumenCaja() {
   const hoy = partida.hoy;
   if (soloFaltaLancha()) return { cara: portraitUrl('gengar', 'Special0'), nombre: 'Gengar',
-    texto: `Hoy: ${euros(hoy.ingresos)}. En caja: ${euros(partida.caja)}. Y ese botón gris de «Vacaciones»… dicen que, si insistes, a la décima pasa algo.` };
+    texto: `Hoy: ${euros(hoy.ingresos)}. En caja: ${euros(partida.caja)}. Y ese botón gris de «Vacaciones»… tú sigue probando, que alguna vez te las darán.` };
   return { ...MORTY, cara: portraitUrl('morty', hoy.ingresos ? 'Happy' : 'Stunned'),
     texto: `Hoy: ${euros(hoy.ingresos)}. En caja: ${euros(partida.caja)}.${partida.deuda ? ` Deuda con ${conQuien()}: ${euros(partida.deuda)}.` : ''}` };
 }
@@ -1709,8 +1709,8 @@ function galgo() {
 }
 
 // El botón de vacaciones: siempre gris. A la décima, llama el Señor Mililitros; a la vigésima, «Agosto».
-const VACACIONES = ['Vacaciones. Ja. Desde el mostrador, Gengar: «Dicen que, si insistes, a la décima pasa algo».', 'El botón está gris. Como el futuro.',
-  'Autónomo y vacaciones. Elige una.', 'Lo pulsas y no pasa nada. Como en Hacienda.', 'Van cinco. Gengar las cuenta con los dedos y sonríe.', '…',
+const VACACIONES = ['Vacaciones. Ja. Desde el mostrador, Gengar: «El que la sigue, la consigue».', 'El botón está gris. Como el futuro.',
+  'Autónomo y vacaciones. Elige una.', 'Lo pulsas y no pasa nada. Como en Hacienda.', 'Desde el mostrador, Gengar levanta el pulgar: «Tú sigue probando».', '…',
   'Morty lo pulsa con más fuerza. Sigue gris.', 'Ocho. Gengar se tapa la boca para no reírse.', 'Nueve. Algo zumba en el bolsillo de Morty.'];
 function vacaciones() {
   const n = ++partida.vacaciones;
