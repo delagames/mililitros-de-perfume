@@ -1,6 +1,6 @@
 {
  "id": "timburr",
- "naturaleza": "adamant",
+ "naturaleza": "serious",
  "visitas": [
   {
    "n": 1,
@@ -27,7 +27,7 @@
      "texto": "Y toma serrín. Madera noble, de la rotonda del alcalde. No se acaba nunca. La rotonda tampoco."
     }
    ],
-   "pide": "Hazme uno con chispa, que caliente a tope, como el chorizo del bocadillo de obra. Que se note que se trabaja.",
+   "pide": "Hazme uno normal. Ni frío ni calor, ni de día ni de noche. Que huela a trabajo, no a fiesta.",
    "perfecto": [
     {
      "quien": "timburr",
@@ -79,7 +79,7 @@
      "texto": "Nada cuadra en esa rotonda. Ni la rotonda, que es un óvalo."
     }
    ],
-   "pide": "Lo de siempre. Con su mala leche y su guindilla, que caliente del todo.",
+   "pide": "Lo de siempre. Normal. En su punto, sin adornos.",
    "perfecto": [
     {
      "quien": "timburr",
@@ -141,7 +141,7 @@
      "texto": "Guárdalo. Eso es una prueba."
     }
    ],
-   "pide": "Algo con carácter, como una brasa al rojo vivo. Hoy vengo calentito.",
+   "pide": "Algo serio. Ni fuerte ni flojo, ni frío ni caliente. Hoy vengo a hablar de facturas.",
    "perfecto": [
     {
      "quien": "timburr",
@@ -199,7 +199,7 @@
      "texto": "Dicen que Hitmontop monta un gimnasio. Ahí hará falta quien cargue cosas. Díselo."
     }
    ],
-   "pide": "Uno para pedir trabajo. Con chispa, mucho calor y algo de fuerza, sin pasarse. Que se note que trabajo.",
+   "pide": "Uno para pedir trabajo. En su punto, que no llame la atención. Que se note que trabajo, no que me perfumo.",
    "perfecto": [
     {
      "quien": "timburr",

@@ -1332,23 +1332,15 @@ function altillo(prueba = false) {
 // La meta (sección 7): el día que la caja da para la cuota del mes que viene, el alquiler y una cerveza
 const CERVEZA = 1.21;
 const meta = () => Math.round((cuotaDe(mesDe(partida.dia + 1)) + ALQUILER + CERVEZA) * 100) / 100;
-// El final (lo pidió Jorge, sin día mínimo): todas las historias vistas, todos los vídeos vistos (menos
-// el de la lancha, que es un secreto del botón de vacaciones) y la deuda saldada, sin cartas por llegar
-const VIDEOS_FINAL = [...DE_MAÑANA, 'repartidor', 'jefe-baile'];
+// El final (lo pidió Jorge, sin día mínimo): todas las historias vistas, todos los vídeos vistos (también
+// el de la lancha, el del botón de vacaciones: Gengar da la pista a la primera) y la deuda saldada, sin
+// cartas por llegar. Lo que falta no se dice en ningún sitio (lo pidió Jorge).
+const VIDEOS_FINAL = [...DE_MAÑANA, 'repartidor', 'jefe-baile', 'jefe-lancha'];
 function porVer() {
   return { historias: historiasPendientes(clientes, dialogos, partida), videos: VIDEOS_FINAL.filter(id => !partida.sucesos.includes(id)) };
 }
 const todoVisto = () => { const p = porVer(); return !p.historias.length && !p.videos.length; };
 const metaCumplida = () => !partida.deuda && !partida.cartas.length && todoVisto() && !partida.marcas.includes('epilogo');
-// lo que falta, en una frase (en el cierre y en el pedido)
-function faltaParaElFinal() {
-  if (partida.marcas.includes('epilogo')) return '';
-  const { historias, videos } = porVer();
-  const trozos = [historias.length && `${historias.length} ${historias.length === 1 ? 'historia' : 'historias'}`,
-    videos.length && `${videos.length} ${videos.length === 1 ? 'vídeo' : 'vídeos'}`].filter(Boolean);
-  if (!trozos.length) return partida.deuda ? 'Para el final, solo queda saldar la deuda.' : '';
-  return `Para el final quedan ${trozos.join(' y ')} por ver${partida.deuda ? ', y saldar la deuda' : ''}.`;
-}
 // si Morty salda la deuda antes de verlo todo, el Señor Mililitros se inventa un cargo nuevo
 const CARGOS = ['la cuota de la familia', 'el mantenimiento del cartel de «Bienvenido»', 'el seguro del toldo, que mide cuatro centímetros de más',
   'la gestión de la deuda que acabas de pagar', 'el café de Gengar, que no es gratis', 'el recargo por pagar antes de tiempo',
@@ -1445,8 +1437,7 @@ function botonesCierre() {
 function resumenCaja() {
   const hoy = partida.hoy;
   return { ...MORTY, cara: portraitUrl('morty', hoy.ingresos ? 'Happy' : 'Stunned'),
-    texto: `Hoy: ${euros(hoy.ingresos)}. En caja: ${euros(partida.caja)}.${partida.deuda ? ` Deuda con ${conQuien()}: ${euros(partida.deuda)}.`
-      : faltaParaElFinal() ? ` ${faltaParaElFinal()}` : ''}` };
+    texto: `Hoy: ${euros(hoy.ingresos)}. En caja: ${euros(partida.caja)}.${partida.deuda ? ` Deuda con ${conQuien()}: ${euros(partida.deuda)}.` : ''}` };
 }
 
 function juegaCaja() {
@@ -1602,10 +1593,12 @@ function galgo() {
 }
 
 // El botón de vacaciones: siempre gris. A la décima, llama el Señor Mililitros; a la vigésima, «Agosto».
-const VACACIONES = ['Vacaciones. Ja.', 'El botón está gris. Como el futuro.', 'Autónomo y vacaciones. Elige una.', 'Lo pulsas y no pasa nada. Como en Hacienda.',
-  'Gengar también lo ha pulsado. Tampoco.', '…', 'Morty lo pulsa con más fuerza. Sigue gris.'];
+const VACACIONES = ['Vacaciones. Ja. Desde el mostrador, Gengar: «Dicen que, si insistes, a la décima pasa algo».', 'El botón está gris. Como el futuro.',
+  'Autónomo y vacaciones. Elige una.', 'Lo pulsas y no pasa nada. Como en Hacienda.', 'Van cinco. Gengar las cuenta con los dedos y sonríe.', '…',
+  'Morty lo pulsa con más fuerza. Sigue gris.', 'Ocho. Gengar se tapa la boca para no reírse.', 'Nueve. Algo zumba en el bolsillo de Morty.'];
 function vacaciones() {
   const n = ++partida.vacaciones;
+  if (n === 10) partida.sucesos.includes('jefe-lancha') || partida.sucesos.push('jefe-lancha');   // (cuenta para el final)
   guarda(partida);
   if (n === 10) { apuntaSuceso('jefe-lancha'); verSuceso('jefe-lancha', 'mostrador', () => { ir('mostrador'); decir(resumenCaja(), botonesCierre()); }); return; }
   if (n >= 20) { decir({ ...MORTY, cara: portraitUrl('morty', 'Stunned'), texto: n === 20 ? 'Donde ponía «Vacaciones» ahora pone «Agosto». Sigue gris.' : 'Agosto. Gris.' }, botonesCierre()); return; }
@@ -1627,9 +1620,7 @@ function aplicaMejoras() {
 const maxMuestras = () => (partida.mejoras.includes('mesa') ? 4 : 3);
 
 function pedido() {
-  // lo que falta para el final, también aquí
-  $('#pedido .pedido-meta').textContent = !partida.marcas.includes('epilogo')
-    ? faltaParaElFinal() : '';
+  $('#pedido .pedido-meta').textContent = '';
   abrePedido({ ingredientes: ings, partida, P: ctx.P, mejoras, alComprar: m => {
     partida.caja = Math.round((partida.caja - m.precio) * 100) / 100;
     partida.mejoras.push(m.id);

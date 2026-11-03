@@ -1,6 +1,6 @@
 {
  "id": "miltank",
- "naturaleza": "relaxed",
+ "naturaleza": "naive",
  "visitas": [
   {
    "n": 1,
@@ -66,7 +66,7 @@
      "texto": "Lo intento todos los días."
     }
    ],
-   "pide": "Y a mí ponme algo que espabile bien, bien fresquito, a limón o a naranja recién exprimida.",
+   "pide": "Y a mí ponme algo dulcecito y suave, de mañana, como un vaso de leche con galletas. Templadito, sin pasarse.",
    "perfecto": [
     {
      "quien": "miltank",
@@ -85,7 +85,7 @@
     {
      "quien": "miltank",
      "cara": "Angry",
-     "texto": "Esto empalaga. No me lo llevo, y no te enfades, que la leche te la traigo igual."
+     "texto": "Esto amarga. No me lo llevo, y no te enfades, que la leche te la traigo igual."
     }
    ],
    "marca": "miltank-2"
@@ -118,7 +118,7 @@
      "texto": "Morty, dos táperes. Uno para ti y otro para él, que ahora come con visita."
     }
    ],
-   "pide": "Y ponme algo a mí que me corte la lloradera, fresco de los que despejan, como el limón en el pescaíto.",
+   "pide": "Y ponme algo a mí que me quite la lloradera: dulce y suavecito, como el flan de mi abuela. Nada amargo, que ya voy servida.",
    "perfecto": [
     {
      "quien": "miltank",
@@ -137,7 +137,7 @@
     {
      "quien": "miltank",
      "cara": "Sigh",
-     "texto": "Esto me ablanda más. Da igual, hoy es día de ablandarse."
+     "texto": "Esto amarga como un lunes. Da igual, hoy es día de llorar."
     }
    ],
    "marca": "miltank-4"
