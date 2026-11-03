@@ -62,60 +62,9 @@
    "marca": "misdreavus-1"
   },
   {
-   "n": 2,
-   "requiere": [
-    "misdreavus-1"
-   ],
-   "llega": [
-    {
-     "quien": "misdreavus",
-     "cara": "Normal",
-     "texto": "He intentado acordarme mejor."
-    },
-    {
-     "quien": "misdreavus",
-     "cara": "Normal",
-     "texto": "Había un suelo de madera. Una tetera siempre puesta. Café de puchero por la mañana. El ABC en la mesilla de noche."
-    },
-    {
-     "quien": "misdreavus",
-     "cara": "Sigh",
-     "texto": "Y una colonia. De las de antes. De las que venían en botella grande."
-    },
-    {
-     "quien": "morty",
-     "cara": "Normal",
-     "texto": "Madera, jabón y café. La colonia la buscamos poco a poco."
-    }
-   ],
-   "pide": "Que tenga eso del café y de la madera. Como una tarde larga que se hace de noche.",
-   "perfecto": [
-    {
-     "quien": "misdreavus",
-     "cara": "Happy",
-     "texto": "Eso es la cocina. Por la mañana. Falta algo, pero eso es la cocina."
-    }
-   ],
-   "bien": [
-    {
-     "quien": "misdreavus",
-     "cara": "Normal",
-     "texto": "Está el suelo. Todavía no está la casa."
-    }
-   ],
-   "mal": [
-    {
-     "quien": "misdreavus",
-     "cara": "Worried",
-     "texto": "Esto no es. Esto es de otra casa."
-    }
-   ],
-   "marca": "misdreavus-2"
-  },
-  {
    "n": 3,
    "requiere": [
-    "misdreavus-2"
+    "misdreavus-1"
    ],
    "llega": [
     {

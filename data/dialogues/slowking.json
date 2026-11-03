@@ -49,57 +49,10 @@
    "marca": "slowking-1"
   },
   {
-   "n": 2,
-   "requiere": [
-    "slowking-1"
-   ],
-   "cuando": "trimestre",
-   "llega": [
-    {
-     "quien": "slowking",
-     "cara": "Normal",
-     "texto": "Vengo… con la carpeta. Voy a… mirar… la caja."
-    },
-    {
-     "quien": "slowking",
-     "cara": "Surprised",
-     "texto": "… La miro… otra vez."
-    },
-    {
-     "quien": "morty",
-     "cara": "Dizzy",
-     "texto": "¿Todo bien?"
-    }
-   ],
-   "pide": "Todavía… no lo sé. Póngame… algo de aire. Que huela… a ventana… bien abierta.",
-   "perfecto": [
-    {
-     "quien": "slowking",
-     "cara": "Happy",
-     "texto": "Esto… cuadra. Ojalá… cuadrara… todo."
-    }
-   ],
-   "bien": [
-    {
-     "quien": "slowking",
-     "cara": "Normal",
-     "texto": "Casi… cuadra. Como… casi todo."
-    }
-   ],
-   "mal": [
-    {
-     "quien": "slowking",
-     "cara": "Sigh",
-     "texto": "No… cuadra. Volveré… a mirar."
-    }
-   ],
-   "marca": "slowking-2"
-  },
-  {
    "n": 3,
    "requiere": [
-    "slowking-2",
-    "murkrow-4"
+    "murkrow-4",
+    "slowking-1"
    ],
    "llega": [
     {

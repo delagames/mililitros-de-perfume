@@ -128,7 +128,7 @@ function empiezaPartida(p) {
   partida.cartas ??= [];          // cartas certificadas pendientes: { dia, oferta }
   partida.tickets ??= 0;          // cuántas veces ha venido el galgo del ticket
   partida.vacaciones ??= 0;       // cuántas veces se ha pulsado «Vacaciones»
-  partida.diaBaja ??= partida.dia <= 8 ? 8 + Math.floor(Math.random() * 7) : partida.dia + 3 + Math.floor(Math.random() * 5);
+  partida.diaBaja ??= partida.dia <= 5 ? 5 + Math.floor(Math.random() * 5) : partida.dia + 2 + Math.floor(Math.random() * 3);   // (entre el 5 y el 9)
   partida.introVista ??= partida.dia > 1;   // a quien ya iba por la mitad, sin intro
   partida.mejoras ??= [];
   partida.cuentaVisitas ??= {};   // cuántas veces ha venido cada cliente
@@ -1104,7 +1104,8 @@ function marca(m) { if (m && !partida.marcas.includes(m)) partida.marcas.push(m)
 
 function empiezaDia(conSuceso = true) {
   const dia = partida.dia;
-  const hoy = { dia, fase: 'mañana', hora: APERTURA, ingresos: 0, trimestre: esTrimestre(dia), factura: esDiaFactura(dia),
+  // (una partida de antes del recorte, que pasó del día 8 sin trimestre, lo tiene el día siguiente: si no, Slowking esperaría al 96)
+  const hoy = { dia, fase: 'mañana', hora: APERTURA, ingresos: 0, trimestre: esTrimestre(dia) || (dia > 8 && !partida.marcas.includes('trimestre-1')), factura: esDiaFactura(dia),
     cuota: diaDelMes(dia) === 1 ? 'pendiente' : null, cristal: false, contada: false, pedido: false, cola: [] };
   partida.hoy = hoy;
   // el Málaga juega cualquier día (liga, copa…; lo pidió Jorge): el lunes, siempre (la jornada del
@@ -1148,10 +1149,10 @@ let SUCESOS = [];   // data/sucesos.json, cargado al empezar
 const pideSuceso = (m, hoy) => (m === 'jornada-gana' ? hoy.jornada === 'gana' : m.startsWith('suceso-') ? partida.sucesos.includes(m.slice(7)) : partida.marcas.includes(m));
 function sucesoDeMañana(hoy) {
   const dia = partida.dia;
-  if (dia < 2 || hoy.baja || hoy.cuota || cartaPendiente() || (!jefePresentado() && dia >= 10)) return null;
+  if (dia < 2 || hoy.baja || hoy.cuota || cartaPendiente() || (!jefePresentado() && dia >= 6)) return null;
   const visto = id => partida.sucesos.includes(id);
-  // antes de que se presente en persona (día 10), Morty tiene que haberlo visto en un vídeo de Dirección
-  if (!jefeVisto() && dia >= 6) { const id = ['jefe-dinero', 'jefe-dominadas', 'jefe-ruso'].find(x => !visto(x)); if (id) return id; }
+  // antes de que se presente en persona (día 6), Morty tiene que haberlo visto en un vídeo de Dirección
+  if (!jefeVisto() && dia >= 3) { const id = ['jefe-dinero', 'jefe-dominadas', 'jefe-ruso'].find(x => !visto(x)); if (id) return id; }
   // los que van atados a un día concreto
   if (hoy.jornada === 'gana' && !visto('discoteca')) return 'discoteca';
   // (el vecino de la fiesta, el día que viene Igglybuff; si se pasó la primera vez, la siguiente que venga)
@@ -1164,7 +1165,7 @@ function sucesoDeMañana(hoy) {
     const s = SUCESOS.find(x => x.id === id);
     return (s?.requiere || []).every(m => pideSuceso(m, hoy));
   });
-  if (!tocan.length || Math.random() > 0.8) return null;
+  if (!tocan.length || Math.random() > 0.9) return null;
   return tocan[Math.floor(Math.random() * tocan.length)];
 }
 // (se apunta cuándo salió el último, para dejar hueco)
@@ -1237,8 +1238,8 @@ const PISTAS = [
   [5, () => 'Anoche, a las cuatro y pico, a Morty le pareció oír una risa. Era la suya.'],
   [6, () => 'El tono del móvil es el grito del vídeo de Ciudad Iris. Morty no recuerda haberlo puesto.'],
   [8, () => 'Morty tiene los pies como recién lavados. No se los ha lavado.'],
-  [12, () => (jefePresentado() ? 'Anoche, al teléfono, el Señor Mililitros le recordó el nombre de su peluche de pequeño. Morty no se lo ha dicho nunca a nadie.' : null)],
-  [20, () => 'Gengar ha dormido a los pies de la cama. Tiene cara de culpable y la lengua fuera.'],
+  [9, () => (jefePresentado() ? 'Anoche, al teléfono, el Señor Mililitros le recordó el nombre de su peluche de pequeño. Morty no se lo ha dicho nunca a nadie.' : null)],
+  [12, () => 'Gengar ha dormido a los pies de la cama. Tiene cara de culpable y la lengua fuera.'],
   [4, () => 'Gengar se relame toda la mañana. Cuando Morty le pregunta, dice: «Mmmmm… queso gruyer».'],
 ];
 const PASEO_NOCHE = 'Anoche, desde la ventana, Morty vio a un perro con corbata pasear por la calle vacía. Se paró delante del escaparate. Luego se fue.';
@@ -1250,7 +1251,7 @@ function pistaDeHoy() {
 }
 
 // El día que el Señor Mililitros se presenta en persona: a partir del día 10, un día sin nada más
-const tocaPresentacion = () => !jefePresentado() && partida.dia >= 10 && partida.marcas.includes('cuota-1')
+const tocaPresentacion = () => !jefePresentado() && partida.dia >= 6 && partida.marcas.includes('cuota-1')
   && !partida.hoy.baja && !partida.hoy.suceso && partida.hoy.fase === 'mañana';
 function presentacion(prueba = false) {
   if (!prueba) { marca('jefe-presentado'); enLaCalle.hoy.jefe = true; guarda(partida); }
@@ -1473,7 +1474,7 @@ function trasLaCaja() {
   const pasos = [];
   const hoy = partida.hoy;
   const oferta = (asesor.ofertas || []).find(o => !partida.asesorVisto.includes(o.id));
-  if (oferta && partida.dia >= 8 && partida.dia % 4 === 0) pasos.push(sigue => ofertaAsesor(oferta, sigue));
+  if (oferta && partida.dia >= 4 && partida.dia % 3 === 0) pasos.push(sigue => ofertaAsesor(oferta, sigue));
   if (partida.deuda > 0 && partida.caja > COLCHON) pasos.push(preguntaDeuda);
   // (si no ha pasado nada después de contar, el resumen ya se ha dicho: solo los botones)
   let hubo = false;
@@ -1516,7 +1517,7 @@ function ofertaAsesor(o, sigue) {
   [{ texto: 'Aceptar', accion: () => {
     partida.optimizaciones.push(o.id);
     partida.caja = Math.round((partida.caja + o.gana) * 100) / 100;
-    partida.cartas.push({ dia: partida.dia + 10, oferta: o.id });
+    partida.cartas.push({ dia: partida.dia + 3, oferta: o.id });
     guarda(partida);
     serie([{ ...ASESOR('Joyous'), texto: 'Hecho. Ni te enteras. Ya me pagas en chuches.' },
       { ...MORTY, cara: portraitUrl('morty', 'Happy'), texto: `En caja, ${euros(partida.caja)}.` }], [{ texto: '▸', secundario: true, accion: sigue }]);
@@ -1545,7 +1546,7 @@ function preguntaDeuda(sigue) {
     } }, { texto: 'Ahora no', secundario: true, accion: sigue }]);
 }
 
-// Las cartas certificadas de las optimizaciones del asesor, a los diez días. Las trae el galgo.
+// Las cartas certificadas de las optimizaciones del asesor, a los tres días (la partida dura unos 15). Las trae el galgo.
 const cartaPendiente = () => partida.cartas.find(c => c.dia <= partida.dia);
 function abreCarta() {
   const c = cartaPendiente();

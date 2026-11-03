@@ -110,67 +110,9 @@
    "marca": "ditto-2"
   },
   {
-   "n": 3,
-   "requiere": [
-    "ditto-2"
-   ],
-   "forma": "morty",
-   "naturaleza": "serious",
-   "llega": [
-    {
-     "quien": "ditto",
-     "cara": "Normal",
-     "texto": "Buenos días. Lo mismo que el otro día."
-    },
-    {
-     "quien": "morty",
-     "cara": "Stunned",
-     "texto": "…"
-    },
-    {
-     "quien": "morty",
-     "cara": "Stunned",
-     "texto": "La bufanda está bien puesta. Eso hay que reconocerlo."
-    },
-    {
-     "quien": "morty",
-     "cara": "Normal",
-     "texto": "¿Lo de siempre?"
-    },
-    {
-     "quien": "ditto",
-     "cara": "Happy",
-     "texto": "Lo de siempre."
-    }
-   ],
-   "pide": "Lo que lleves tú, normalito. Lo que te pondrías un lunes para abrir a las diez.",
-   "perfecto": [
-    {
-     "quien": "ditto",
-     "cara": "Joyous",
-     "texto": "Me queda muy bien. Te queda muy bien. Nos queda muy bien."
-    }
-   ],
-   "bien": [
-    {
-     "quien": "ditto",
-     "cara": "Happy",
-     "texto": "Huele a ti, más o menos. Gracias, Morty. Gracias, yo."
-    }
-   ],
-   "mal": [
-    {
-     "quien": "ditto",
-     "cara": "Happy",
-     "texto": "Esto no te lo pondrías tú. Así no me lo llevo."
-    }
-   ],
-   "marca": "ditto-3"
-  },
-  {
    "n": 4,
    "requiere": [
-    "ditto-3"
+    "ditto-2"
    ],
    "forma": "ditto",
    "naturaleza": "quirky",

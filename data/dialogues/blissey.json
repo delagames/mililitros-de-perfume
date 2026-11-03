@@ -103,52 +103,6 @@
     }
    ],
    "marca": "blissey-2"
-  },
-  {
-   "n": 3,
-   "requiere": [
-    "blissey-2"
-   ],
-   "llega": [
-    {
-     "quien": "blissey",
-     "cara": "Normal",
-     "texto": "Hoy no vengo de parte de la Junta. Vengo por mí."
-    },
-    {
-     "quien": "blissey",
-     "cara": "Sigh",
-     "texto": "Salgo de la consulta y huelo a consulta. En el bus, en la cama, en todo."
-    },
-    {
-     "quien": "morty",
-     "cara": "Normal",
-     "texto": "Eso se arregla."
-    }
-   ],
-   "pide": "Algo de ventana entornada, no abierta del todo, de habitación ventilada. Que no huela a consulta.",
-   "perfecto": [
-    {
-     "quien": "blissey",
-     "cara": "Joyous",
-     "texto": "Huelo a sábado. Tome: le doy el alta. De lo que sea que tuviera."
-    }
-   ],
-   "bien": [
-    {
-     "quien": "blissey",
-     "cara": "Happy",
-     "texto": "Mucho mejor. Medio alta. Vuelva en una semana."
-    }
-   ],
-   "mal": [
-    {
-     "quien": "blissey",
-     "cara": "Worried",
-     "texto": "Huele a jarabe de naranja. Esto sí que es para urgencias."
-    }
-   ],
-   "marca": "blissey-3"
   }
  ]
 }

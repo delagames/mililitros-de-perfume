@@ -47,107 +47,10 @@
    "marca": "xatu-1"
   },
   {
-   "n": 2,
+   "n": 4,
    "requiere": [
     "xatu-1",
     "cuota-1"
-   ],
-   "llega": [
-    {
-     "quien": "xatu",
-     "cara": "Inspired",
-     "texto": "La semana que viene: el repartidor llegará a las 14:59 y a primeros de mes te faltará dinero en la caja."
-    },
-    {
-     "quien": "morty",
-     "cara": "Dizzy",
-     "texto": "Eso pasa todos los meses."
-    },
-    {
-     "quien": "xatu",
-     "cara": "Happy",
-     "texto": "Por eso no fallo nunca."
-    }
-   ],
-   "pide": "Lo de la otra vez. Su hoja, su té frío, pero no helado.",
-   "perfecto": [
-    {
-     "quien": "xatu",
-     "cara": "Happy",
-     "texto": "Exactamente este. Me alegro de que lo hayas encontrado tú solo."
-    }
-   ],
-   "bien": [
-    {
-     "quien": "xatu",
-     "cara": "Normal",
-     "texto": "Bien. Lo vi venir, pero bien."
-    }
-   ],
-   "mal": [
-    {
-     "quien": "xatu",
-     "cara": "Sigh",
-     "texto": "Ya me lo temía. Por eso hoy no he traído dinero."
-    }
-   ],
-   "marca": "xatu-2"
-  },
-  {
-   "n": 3,
-   "requiere": [
-    "xatu-2"
-   ],
-   "llega": [
-    {
-     "quien": "xatu",
-     "cara": "Normal",
-     "texto": "Buenos días."
-    },
-    {
-     "quien": "gengar",
-     "cara": "Normal",
-     "texto": "…"
-    },
-    {
-     "quien": "xatu",
-     "cara": "Normal",
-     "texto": "…"
-    },
-    {
-     "quien": "morty",
-     "cara": "Stunned",
-     "texto": "¿Les dejo solos?"
-    }
-   ],
-   "pide": "No hace falta, ya está todo dicho. Algo verde, de té bien fuerte, de los de cerrar los ojos.",
-   "perfecto": [
-    {
-     "quien": "xatu",
-     "cara": "Happy",
-     "texto": "Perfecto. Él también lo sabía."
-    }
-   ],
-   "bien": [
-    {
-     "quien": "xatu",
-     "cara": "Normal",
-     "texto": "Me vale. A tu amigo también le vale."
-    }
-   ],
-   "mal": [
-    {
-     "quien": "xatu",
-     "cara": "Sigh",
-     "texto": "No pasa nada, Morty. Al final todo sale bien. Casi todo."
-    }
-   ],
-   "marca": "xatu-3"
-  },
-  {
-   "n": 4,
-   "requiere": [
-    "xatu-3"
    ],
    "llega": [
     {

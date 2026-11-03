@@ -62,61 +62,9 @@
    "marca": "porygon2-1"
   },
   {
-   "n": 2,
-   "requiere": [
-    "porygon2-1"
-   ],
-   "cuando": "factura",
-   "llega": [
-    {
-     "quien": "porygon2",
-     "cara": "Surprised",
-     "texto": "¿Su barra va hacia atrás? Ah, sí, es mía, es el plan básico, lo arreglo, un segundo."
-    },
-    {
-     "quien": "porygon2",
-     "cara": "Happy",
-     "texto": "Ya está, actualizado."
-    },
-    {
-     "quien": "morty",
-     "cara": "Dizzy",
-     "texto": "Ahora va hacia atrás más rápido."
-    },
-    {
-     "quien": "porygon2",
-     "cara": "Normal",
-     "texto": "Correcto, más rápido, es la mejora, eso ya es el plan prémium."
-    }
-   ],
-   "pide": "Mientras carga, algo de chuche, de las de la caja del quiosco, y que abrigue bien, que me reinicio.",
-   "perfecto": [
-    {
-     "quien": "porygon2",
-     "cara": "Joyous",
-     "texto": "Dulce, eficiente, sin cola de espera. Así quiero yo un sistema."
-    }
-   ],
-   "bien": [
-    {
-     "quien": "porygon2",
-     "cara": "Normal",
-     "texto": "Correcto, con un aviso. Se lo mando por notificación. Tres veces."
-    }
-   ],
-   "mal": [
-    {
-     "quien": "porygon2",
-     "cara": "Angry",
-     "texto": "Ácido. Error. Me voy. La barra se queda."
-    }
-   ],
-   "marca": "porygon2-2"
-  },
-  {
    "n": 3,
    "requiere": [
-    "porygon2-2"
+    "porygon2-1"
    ],
    "llega": [
     {

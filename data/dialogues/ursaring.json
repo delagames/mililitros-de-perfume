@@ -47,62 +47,11 @@
    "marca": "ursaring-1"
   },
   {
-   "n": 2,
-   "requiere": [
-    "ursaring-1"
-   ],
-   "llega": [
-    {
-     "quien": "ursaring",
-     "cara": "Happy",
-     "texto": "Me ha mirado. La de contabilidad. Un buen rato. Se ha operado."
-    },
-    {
-     "quien": "ursaring",
-     "cara": "Normal",
-     "texto": "Luego vi que detrás de mí estaba el reloj. Pero miraba en mi dirección."
-    },
-    {
-     "quien": "ursaring",
-     "cara": "Inspired",
-     "texto": "Ahora quiero que me mire sin reloj."
-    },
-    {
-     "quien": "morty",
-     "cara": "Stunned",
-     "texto": "¿Más intenso?"
-    }
-   ],
-   "pide": "Lo mismo de la otra vez, que se note bien, como un pomelo en ayunas.",
-   "perfecto": [
-    {
-     "quien": "ursaring",
-     "cara": "Joyous",
-     "texto": "Esto. Esto se huele desde contabilidad."
-    }
-   ],
-   "bien": [
-    {
-     "quien": "ursaring",
-     "cara": "Normal",
-     "texto": "Pasa. Por si acaso, me pondré debajo del reloj."
-    }
-   ],
-   "mal": [
-    {
-     "quien": "ursaring",
-     "cara": "Angry",
-     "texto": "Dulce. Con esto me miran las abejas, no la osa."
-    }
-   ],
-   "marca": "ursaring-2"
-  },
-  {
    "n": 3,
    "requiere": [
-    "ursaring-2",
     "baja",
-    "blissey-1"
+    "blissey-1",
+    "ursaring-1"
    ],
    "llega": [
     {
@@ -151,66 +100,10 @@
    "marca": "ursaring-3"
   },
   {
-   "n": 4,
+   "n": 5,
    "requiere": [
     "ursaring-3",
     "blissey-2"
-   ],
-   "llega": [
-    {
-     "quien": "ursaring",
-     "cara": "Pain",
-     "texto": "Me he echado tres perfumes a la vez. Por si uno no funcionaba."
-    },
-    {
-     "quien": "morty",
-     "cara": "Stunned",
-     "texto": "Se nota."
-    },
-    {
-     "quien": "morty",
-     "cara": "Normal",
-     "texto": "Pregúntale qué le gusta."
-    },
-    {
-     "quien": "ursaring",
-     "cara": "Surprised",
-     "texto": "¿Preguntarle? ¿A ella?"
-    },
-    {
-     "quien": "ursaring",
-     "cara": "Normal",
-     "texto": "Eso no lo había pensado nunca."
-    }
-   ],
-   "pide": "Ponme uno, solo uno, que espabile bien, como un gajo de lima bien frío. Que ya llevo tres encima.",
-   "perfecto": [
-    {
-     "quien": "ursaring",
-     "cara": "Joyous",
-     "texto": "Uno solo. Huele a mí, pero mejor. Voy a preguntar."
-    }
-   ],
-   "bien": [
-    {
-     "quien": "ursaring",
-     "cara": "Normal",
-     "texto": "Mejor que tres. Bastante mejor que tres."
-    }
-   ],
-   "mal": [
-    {
-     "quien": "ursaring",
-     "cara": "Angry",
-     "texto": "Dulce. Este sería el cuarto, y el peor."
-    }
-   ],
-   "marca": "ursaring-4"
-  },
-  {
-   "n": 5,
-   "requiere": [
-    "ursaring-4"
    ],
    "llega": [
     {

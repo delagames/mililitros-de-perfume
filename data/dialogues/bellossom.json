@@ -53,44 +53,11 @@
    "hastaPerfecto": true
   },
   {
-   "n": 2,
-   "requiere": [
-    "bellossom-1",
-    "ursaring-2"
-   ],
-   "llega": [
-    {
-     "quien": "bellossom",
-     "cara": "Happy",
-     "texto": "Tus pétalos y tus bayas, cielo. Frescos de esta mañana."
-    },
-    {
-     "quien": "bellossom",
-     "cara": "Special0",
-     "texto": "¿Sabes lo último? Dicen que Ursaring ha cambiado de osa. Que ahora le gusta una que estuvo con el Chiquero. La del flequillo vasca."
-    },
-    {
-     "quien": "morty",
-     "cara": "Normal",
-     "texto": "No me cuentes cosas de los clientes. Un poco de seriedad que esto es un negocio."
-    },
-    {
-     "quien": "bellossom",
-     "cara": "Happy",
-     "texto": "No te lo cuento. Te lo comento, que es distinto."
-    }
-   ],
-   "pide": "",
-   "perfecto": [],
-   "bien": [],
-   "mal": [],
-   "marca": "bellossom-2"
-  },
-  {
    "n": 3,
    "requiere": [
-    "bellossom-2",
-    "eevee-2"
+    "eevee-2",
+    "bellossom-1",
+    "ursaring-1"
    ],
    "llega": [
     {

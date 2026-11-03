@@ -99,60 +99,9 @@
    "marca": "igglybuff-2"
   },
   {
-   "n": 3,
-   "requiere": [
-    "igglybuff-2"
-   ],
-   "llega": [
-    {
-     "quien": "igglybuff",
-     "cara": "Worried",
-     "texto": "Ha funcionado. Demasiado. Se ha dormido medio bloque. El portero. El butanero."
-    },
-    {
-     "quien": "igglybuff",
-     "cara": "Worried",
-     "texto": "Y el perro de la terraza, con el periódico en la cara. Necesito el antídoto."
-    },
-    {
-     "quien": "morty",
-     "cara": "Normal",
-     "texto": "No hay antídoto. Es un ambientador. Lo pone en la factura."
-    },
-    {
-     "quien": "igglybuff",
-     "cara": "Surprised",
-     "texto": "¿Y entonces?"
-    }
-   ],
-   "pide": "Pues algo que despierte. Que pegue un pellizquito, como medio gajo de pomelo, no más.",
-   "perfecto": [
-    {
-     "quien": "igglybuff",
-     "cara": "Joyous",
-     "texto": "¡Esto despierta a un muerto! Bueno, a un portero. Corro."
-    }
-   ],
-   "bien": [
-    {
-     "quien": "igglybuff",
-     "cara": "Happy",
-     "texto": "Despertará a los de la primera planta. Los de arriba, que esperen."
-    }
-   ],
-   "mal": [
-    {
-     "quien": "igglybuff",
-     "cara": "Pain",
-     "texto": "Con esto se duermen los de la segunda también."
-    }
-   ],
-   "marca": "igglybuff-3"
-  },
-  {
    "n": 4,
    "requiere": [
-    "igglybuff-3"
+    "igglybuff-2"
    ],
    "llega": [
     {

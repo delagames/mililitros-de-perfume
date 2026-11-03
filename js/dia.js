@@ -8,9 +8,9 @@ export const APERTURA = 10 * 60, CIERRE = 15 * 60;   // en minutos: de 10:00 a 1
 // ---------- el calendario ----------
 export const mesDe = dia => Math.floor((dia - 1) / DIAS_MES) + 1;
 export const diaDelMes = dia => ((dia - 1) % DIAS_MES) + 1;
-// el trimestre: los tres últimos días de cada 90 el calendario se pone rojo
-// (los días 20 a 22 de cada trimestre de juego: así se ve antes del final)
-export const esTrimestre = dia => { const r = ((dia - 1) % 90) + 1; return r >= 20 && r <= 22; };
+// el trimestre: tres días de cada 90 el calendario se pone rojo (los días 6 a 8 de cada trimestre de
+// juego: la partida dura unos 15 días y así se ve antes del final)
+export const esTrimestre = dia => { const r = ((dia - 1) % 90) + 1; return r >= 6 && r <= 8; };
 // una vez al mes, un cliente pide factura (el día 15)
 export const esDiaFactura = dia => diaDelMes(dia) === 15;
 const SEMANA = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'];
@@ -143,7 +143,7 @@ export function jornadaEsperada(lista, dialogos, partida) {
   return quiere;
 }
 
-// Los clientes de hoy: entre 3 y 6, con los de historia nueva por delante de los que repiten (el final
+// Los clientes de hoy: entre 4 y 7, con los de historia nueva por delante de los que repiten (el final
 // llega al acabar todas las historias: así no hay días de relleno). Los que vuelven a por «lo de
 // siempre» se turnan: primero el que hace más que no viene, y el que vino ayer, solo si no hay otro.
 export const NUEVOS_AL_DIA = 6;
@@ -158,7 +158,7 @@ export function clientesDeHoy(lista, dialogos, partida, hoy) {
   const ultima = id => partida.vinoEl?.[id] ?? -99;
   const repiten = mezcla(con.filter(x => !nuevos.includes(x)))
     .sort((a, b) => (ultima(a.c.id) === partida.dia - 1) - (ultima(b.c.id) === partida.dia - 1) || ultima(a.c.id) - ultima(b.c.id));
-  const cuantos = Math.min(con.length, 3 + Math.floor(Math.random() * 4));
+  const cuantos = Math.min(con.length, 4 + Math.floor(Math.random() * 4));
   const cola = [...nuevos.slice(0, NUEVOS_AL_DIA), ...repiten].slice(0, cuantos);
   // (si con eso no llegan a tres, pasa alguna historia más, para que la tienda no se quede vacía)
   return [...cola, ...nuevos.slice(NUEVOS_AL_DIA)].slice(0, Math.max(cola.length, Math.min(3, con.length))).map(x => x.c.id);

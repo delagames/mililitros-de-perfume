@@ -85,56 +85,10 @@
    "ofreceB": true
   },
   {
-   "n": 3,
-   "requiere": [
-    "murkrow-2"
-   ],
-   "llega": [
-    {
-     "quien": "murkrow",
-     "cara": "Normal",
-     "texto": "Mi primo el concejal ha ganado la feria. Era a dedo, pero el dedo era suyo."
-    },
-    {
-     "quien": "murkrow",
-     "cara": "Inspired",
-     "texto": "El solar de enfrente, el del traspaso, lo recalificamos. Ahí te cabe un local más grande."
-    },
-    {
-     "quien": "morty",
-     "cara": "Normal",
-     "texto": "Yo estoy bien aquí."
-    }
-   ],
-   "pide": "Eso dicen todos hasta que ven el local. Ponme tinta y café de máquina, cargadísimo. Si no, no firmo.",
-   "perfecto": [
-    {
-     "quien": "murkrow",
-     "cara": "Joyous",
-     "texto": "Huele a escritura de notario. El local es tuyo. Bueno, ya veremos."
-    }
-   ],
-   "bien": [
-    {
-     "quien": "murkrow",
-     "cara": "Normal",
-     "texto": "Me vale. El local también te valdría. Piénsatelo."
-    }
-   ],
-   "mal": [
-    {
-     "quien": "murkrow",
-     "cara": "Angry",
-     "texto": "Así no se recalifica nada. El solar se lo doy a una franquicia."
-    }
-   ],
-   "marca": "murkrow-3"
-  },
-  {
    "n": 4,
    "requiere": [
-    "murkrow-3",
-    "slowking-1"
+    "slowking-1",
+    "murkrow-2"
    ],
    "atiende": "slowking",
    "llega": [

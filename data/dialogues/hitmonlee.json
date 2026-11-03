@@ -54,57 +54,11 @@
    "marca": "hitmonlee-1"
   },
   {
-   "n": 2,
-   "requiere": [
-    "hitmonlee-1",
-    "hitmontop-3"
-   ],
-   "llega": [
-    {
-     "quien": "hitmonlee",
-     "cara": "Normal",
-     "texto": "Mi primo friega el tatami. Le he dicho que lo friegue estirando, que así aprovecha."
-    },
-    {
-     "quien": "morty",
-     "cara": "Normal",
-     "texto": "Muy útil."
-    },
-    {
-     "quien": "hitmonlee",
-     "cara": "Inspired",
-     "texto": "Lo sé. Yo doy consejos gratis. Tú también deberías: estira, Morty. Estira."
-    }
-   ],
-   "pide": "Algo fuerte, que caliente bien y se me note al entrar, como una guindilla en la bolsa del gimnasio.",
-   "perfecto": [
-    {
-     "quien": "hitmonlee",
-     "cara": "Joyous",
-     "texto": "¡Así! Con esto me suben el sueldo seguro. Más todavía."
-    }
-   ],
-   "bien": [
-    {
-     "quien": "hitmonlee",
-     "cara": "Normal",
-     "texto": "Pasa. Para un día normal, pasa."
-    }
-   ],
-   "mal": [
-    {
-     "quien": "hitmonlee",
-     "cara": "Angry",
-     "texto": "Dulce. ¿Tú me ves cara de magdalena?"
-    }
-   ],
-   "marca": "hitmonlee-2"
-  },
-  {
    "n": 3,
    "requiere": [
-    "hitmonlee-2",
-    "hitmontop-5"
+    "hitmontop-5",
+    "hitmonlee-1",
+    "hitmontop-2"
    ],
    "llega": [
     {

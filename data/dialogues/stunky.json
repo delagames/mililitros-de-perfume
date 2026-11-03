@@ -47,56 +47,10 @@
    "marca": "stunky-1"
   },
   {
-   "n": 2,
-   "requiere": [
-    "stunky-1"
-   ],
-   "llega": [
-    {
-     "quien": "stunky",
-     "cara": "Angry",
-     "texto": "Me duró una hora. Una. ¿Le dije que fueron dos días? Fueron tres. Con potaje y batidos de proteina."
-    },
-    {
-     "quien": "morty",
-     "cara": "Normal",
-     "texto": "La otra vez fueron dos."
-    },
-    {
-     "quien": "stunky",
-     "cara": "Determined",
-     "texto": "Pues ahora son tres, que lo he pensado mejor. ¿Me pone algo o me levanta acta?"
-    }
-   ],
-   "pide": "Lo mismo que el otro. Oscuro como la madrugada, de café requemado. Si no raspa, me voy.",
-   "perfecto": [
-    {
-     "quien": "stunky",
-     "cara": "Happy",
-     "texto": "Esto ya es otra cosa. A lo mejor me dura hasta la parada del bus."
-    }
-   ],
-   "bien": [
-    {
-     "quien": "stunky",
-     "cara": "Normal",
-     "texto": "Pasable. Si se me acerca alguien, no se desmaya del todo."
-    }
-   ],
-   "mal": [
-    {
-     "quien": "stunky",
-     "cara": "Angry",
-     "texto": "Dulzón. Ahora huelo a mofeta de feria. Hágame el favor."
-    }
-   ],
-   "marca": "stunky-2"
-  },
-  {
    "n": 3,
    "requiere": [
-    "stunky-2",
-    "timburr-1"
+    "timburr-1",
+    "stunky-1"
    ],
    "llega": [
     {
