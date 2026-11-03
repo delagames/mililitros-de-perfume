@@ -250,6 +250,7 @@ function pintaTaller(g, tiempo, { P }, d) {
     rect(c, 9, 19, 2, 8, '#FFFFFF');
     caja(c, w / 2 - 11, h - 4, 22, 10, P.menta_oscura, null, 4);
     cifras(c, `${p.pasos.length}/${MAX}`, w / 2, h - 1, { color: P.blanco, align: 'center' });
+    if (MAX > 6) { caja(c, 9, 30, 16, 9, P.blanco, null, 2); cifras(c, MAX > 8 ? '100' : '50', 17, 32, { color: P.negro, align: 'center' }); }   // (la medida del frasco)
   }), x, y - 2);
   // el bote que se arrastra, con el dedo
   if (t.arrastre?.movido) {

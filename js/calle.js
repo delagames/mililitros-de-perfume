@@ -5,7 +5,7 @@
 // la pared de dentro, en penumbra. Aquí pasarán los perros, bailarán y leerá el del periódico (fase 6).
 import { pintaPerros } from './perros.js';
 import { rect, forma, caja, texto, degradado, halo } from './pixel.js';
-import { toldo, frascoMuestra, sombraDe, GOTAS } from './mostrador.js';
+import { toldo, frascoMuestra, sombraDe, GOTAS, tienda } from './mostrador.js';
 
 const T = {
   cielo: ['#74D3BA', '#9BE3CF', '#C4F0E3', '#E9FAF5'],
@@ -285,7 +285,7 @@ function marco(g, P, d) {
   if (d.izq < 0) degradado(g, d.izq, arriba, -d.izq, H, T.dentroOscuro, T.dentro);
   if (d.der > 270) degradado(g, 270, arriba, d.der - 270, H, T.dentro, T.dentroOscuro);
   for (const x of [0, 266]) { rect(g, x, arriba, 4, 228 - arriba, P.negro); rect(g, x + 1, arriba, 1, 228 - arriba, '#333'); }
-  toldo(g, P, 4, arriba, 262, P.menta, P.menta_oscura, 10, d.toldo);
+  toldo(g, P, 4, arriba, 262, P.menta, tienda.tiene('toldo') ? P.blanco : P.menta_oscura, 10, d.toldo);   // (el toldo nuevo, menta y blanco)
   // peana del escaparate: tablero claro y base negra con frascos expuestos
   rect(g, d.izq, 228, d.der - d.izq, 6, T.peana);
   rect(g, d.izq, 228, d.der - d.izq, 1, P.negro);

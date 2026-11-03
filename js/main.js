@@ -69,6 +69,7 @@ async function preparar() {
   ctx = { P, img: { morty, gengarMostrador, escudo, escudoMini } };
   tienda.dineroHoy = () => partida?.hoy?.ingresos || 0;
   tienda.conEscudo = () => !!partida?.mejoras?.includes('escudo');
+  tienda.tiene = id => !!partida?.mejoras?.includes(id);
   tienda.calendario = () => ({ dia: diaDelMes(partida?.dia || 1), rojo: !!partida?.hoy?.trimestre });
   tienda.ocioso = () => estado === 'mostrador' && !encargo && partida?.hoy?.fase === 'abierto' && performance.now() - ultimaAccion > 20000;
   // para la habitación de noche: Morty dormido (de su animación de caer) y Gengar a los pies

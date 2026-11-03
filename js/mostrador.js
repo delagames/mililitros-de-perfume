@@ -132,6 +132,50 @@ function baldaMuestras(g, P) {
   caja(g, 8, 140, 104, 5, P.menta_oscura, P.negro, 0);
   rect(g, 9, 141, 102, 1, P.menta);
   GOTAS.forEach((c, i) => frascoMuestra(g, P, 13 + i * 14, 140, P[c], sombraDe(P[c])));
+  // la segunda mesa de muestras: una balda más, encima
+  if (tienda.tiene('mesa')) {
+    rect(g, 10, 127, 60, 2, T.paredOscura);
+    caja(g, 8, 122, 62, 5, P.menta_oscura, P.negro, 0);
+    rect(g, 9, 123, 60, 1, P.menta);
+    GOTAS.slice(0, 4).forEach((c, i) => frascoMuestra(g, P, 13 + i * 14, 122, P[c], sombraDe(P[c])));
+  }
+}
+
+// Las mejoras de la pared, si se han comprado
+function mejorasPared(g, P, d) {
+  // la escalera arreglada, apoyada entre la estantería y el calendario (sube al altillo)
+  if (tienda.tiene('escalera')) {
+    for (const x of [110, 120]) rect(g, x, 4, 2, 132, '#8A5A3C');
+    for (let y = 10; y < 134; y += 12) rect(g, 110, y, 12, 2, '#6B4A30');
+  }
+  // el abono de La Rosaleda, clavado al lado del calendario
+  if (tienda.tiene('abono')) {
+    caja(g, 150, 68, 24, 15, P.blanco, P.negro, 0);
+    rect(g, 151, 69, 22, 4, '#1F5FA8');
+    for (let k = 0; k < 3; k++) rect(g, 153 + k * 6, 76, 4, 1, '#9AA0A0');
+    rect(g, 161, 66, 2, 3, P.gota_picante);
+  }
+  const techo = -d.oy + d.toldo + 10;
+  if (techo > -50) return;   // (lo de arriba, solo si hay pared encima)
+  // la camiseta firmada del Málaga, enmarcada
+  if (tienda.tiene('camiseta')) {
+    caja(g, 128, 14, 34, 40, '#2A1C14', P.negro, 0);
+    rect(g, 131, 17, 28, 34, '#E9EDEA');
+    forma(g, 133, 20, 24, 26, (x, y) => {
+      const cuerpo = x >= 5 && x <= 18 && y >= 4, manga = y >= 3 && y <= 9 && (x < 5 || x > 18), cuello = y < 4 && x > 8 && x < 15;
+      if (cuello || (!cuerpo && !manga)) return null;
+      return Math.floor(x / 3) % 2 ? '#1F5FA8' : P.blanco;
+    }, P.negro);
+    for (let k = 0; k < 4; k++) rect(g, 138 + k * 3, 36 + (k % 2), 2, 1, P.negro);   // las firmas
+  }
+  // el cuadro de La Rosaleda, al óleo, con marco dorado
+  if (tienda.tiene('cuadro')) {
+    caja(g, 222, 22, 42, 30, '#C9A227', P.negro, 0);
+    degradado(g, 225, 25, 36, 12, '#9FD6F0', '#D6F0FA');
+    rect(g, 225, 37, 36, 12, '#5FA84E');
+    for (let k = 0; k < 6; k++) rect(g, 225 + k * 6, 33, 6, 4, k % 2 ? '#1F5FA8' : P.blanco);
+    rect(g, 242, 41, 2, 2, P.blanco);
+  }
 }
 
 // El rótulo de la tienda: si hay pared de sobra, arriba del todo (y más grande en los móviles altos);
@@ -143,8 +187,10 @@ function rotulo(g, P, d) {
   const y = alto ? Math.max(techo + (grande ? 30 : 24), Math.round(techo / 2) + 4) : 39;
   const f1 = grande ? '32px "Caveat Brush"' : '24px "Caveat Brush"', f2 = grande ? '16px "Caveat Brush"' : '12px "Caveat Brush"';
   const baja = grande ? 16 : 12;
-  texto(g, 'Mililitros', 197, y + 1, { font: f1, color: T.paredOscura, align: 'center' });
-  texto(g, 'Mililitros', 196, y, { font: f1, color: P.negro, align: 'center' });
+  const neon = tienda.tiene('cartel');
+  if (neon) halo(g, 196, y - 6, 64, 18, '#B8F5E4', 0.6);
+  texto(g, 'Mililitros', 197, y + 1, { font: f1, color: neon ? '#2FB894' : T.paredOscura, align: 'center' });
+  texto(g, 'Mililitros', 196, y, { font: f1, color: neon ? '#0E4A3C' : P.negro, align: 'center' });
   texto(g, 'de perfume', 197, y + baja + 1, { font: f2, color: T.paredOscura, align: 'center' });
   texto(g, 'de perfume', 196, y + baja, { font: f2, color: P.negro, align: 'center' });
   // calendario de la pared (más adelante marcará el día y la jornada del Málaga)
@@ -242,7 +288,8 @@ function ojosCerrados(img) {
 // dineroHoy: lo que se lleva hecho en el día (lo pone main.js), para el visor de la caja registradora
 // ocioso: si lleva un rato sin pasar nada (Morty se pone a sacarle brillo al frasco); conEscudo: si se ha
 // comprado el escudo del Málaga, que va de pie en el mostrador
-export const tienda = { sinMorty: false, dineroHoy: () => 0, ocioso: () => false, conEscudo: () => false, calendario: () => ({ dia: 1, rojo: false }) };
+// tiene(id): si se ha comprado esa mejora (para dibujarla en la tienda)
+export const tienda = { sinMorty: false, dineroHoy: () => 0, ocioso: () => false, conEscudo: () => false, calendario: () => ({ dia: 1, rojo: false }), tiene: () => false };
 function morty(g, t, { P, img }, d) {
   if (tienda.sinMorty) return;
   const x = d.ox + MORTY.x, y = d.oy + MORTY.y, w = img.morty.width, h = img.morty.height;
@@ -359,10 +406,11 @@ export const MOSTRADOR = {
       cuadros(g, P, d, img);
       huecoGengar(g, P);
       baldaMuestras(g, P);
+      mejorasPared(g, P, d);
       rotulo(g, P, d);
       planta(g, P);
       g.setTransform(1, 0, 0, 1, 0, 0);
-      toldo(g, P, 0, 0, d.W, P.menta, P.menta_oscura, 10, d.toldo);
+      toldo(g, P, 0, 0, d.W, P.menta, tienda.tiene('toldo') ? P.blanco : P.menta_oscura, 10, d.toldo);
       lamparas(g, P, d);
     } },
     { anima: destello },
@@ -381,9 +429,23 @@ export const MOSTRADOR = {
       if (cal.rojo) rect(g, 125, 70, 20, 17, '#F6C9C3');
       cifras(g, String(cal.dia), 135, 74, { color: cal.rojo ? '#C0392B' : P.negro, align: 'center', escala: 2 });
       if (tienda.conEscudo() && img.escudoMini) {
-        const e = img.escudoMini;
-        rect(g, 200, 145, e.width + 4, 2, '#2E3A36');                     // la peana
-        g.drawImage(e, 202, 145 - e.height);
+        // de pie encima de la caja registradora, en su lado derecho (a la derecha de la caja no cabe en el móvil)
+        const e = img.escudoMini, ex = 245, base = 125;
+        rect(g, ex - 1, base - 2, e.width + 2, 2, '#2E3A36');             // la peana
+        g.drawImage(e, ex, base - 2 - e.height);
+      }
+      // la cafetera para Gengar, en la punta del mostrador, echando vapor
+      if (tienda.tiene('cafetera')) {
+        caja(g, 104, 129, 14, 18, '#2B2B2B', P.negro, 2);
+        rect(g, 106, 131, 10, 4, '#C9C9C9');
+        rect(g, 108, 141, 6, 6, '#7A4A1A');
+        const v = Math.floor(t * 3) % 3;
+        for (let k = 0; k < 3; k++) rect(g, 109 + ((k + v) % 2) * 2, 124 - k * 3, 1, 2, '#E9EDEA');
+      }
+      // el cojín bordado de Gengar, encima del mostrador
+      if (tienda.tiene('cojin')) {
+        caja(g, 150, 140, 24, 8, '#7B5BC2', P.negro, 3);
+        rect(g, 158, 142, 8, 1, '#F4D23C'); rect(g, 158, 145, 8, 1, '#F4D23C');
       }
       const euros = tienda.dineroHoy() || 0;
       cifras(g, euros.toFixed(2).replace('.', ','), 253, 131, { color: P.menta, align: 'right' });
