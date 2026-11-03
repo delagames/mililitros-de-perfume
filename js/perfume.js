@@ -8,7 +8,7 @@
 //   fresco y lo cálido al medio.
 // Cada paso guarda lo que salió al azar, para que deshacer y volver a calcular dé lo mismo.
 
-export let MAX = 6;   // ingredientes que caben en el frasco (30 ml; 50 y 100 con las mejoras)
+export let MAX = 6;   // ingredientes que caben en el frasco (30 ml; 50 y 100 con las mejoras)
 export function ponMax(n) { MAX = n; }
 
 let ingredientes = {};

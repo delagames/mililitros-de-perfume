@@ -273,10 +273,31 @@ export async function cuento(escenas, { alAcabar, saltar = true } = {}) {
   const est = { fin: false };
   activo = est;
   const ahora = () => performance.now() / 1000;
+  // lo que no cabe en las tres líneas del cuadro va en tandas (por frases y, si hace falta, por palabras)
+  let tandas = [''], tanda = 0;
+  const cabe = s => { texto.textContent = s; return texto.scrollHeight <= texto.clientHeight + 1; };
+  const enTandas = t => {
+    if (!t || cabe(t)) return [t];
+    const out = [];
+    let cur = '';
+    for (const trozo of t.split(/(?<=[.!?…»])\s+/).flatMap(f => (cabe(f) ? [f] : f.split(' ')))) {
+      const cand = cur ? `${cur} ${trozo}` : trozo;
+      if (!cur || cabe(cand)) cur = cand; else { out.push(cur); cur = trozo; }
+    }
+    if (cur) out.push(cur);
+    return out;
+  };
+  const rotuloSeguir = () => {
+    const e = escenas[escena];
+    seguir.textContent = tanda < tandas.length - 1 || frase < e.frases.length - 1 || escena < escenas.length - 1 ? '▸' : (e.boton || 'Seguir');
+  };
   const ponFrase = () => {
     const e = escenas[escena];
-    escribe = { texto: e.frases[frase] || '', desde: ahora() };
-    seguir.textContent = frase < e.frases.length - 1 || escena < escenas.length - 1 ? '▸' : (e.boton || 'Seguir');
+    tandas = enTandas(e.frases[frase] || '');
+    tanda = 0;
+    texto.textContent = ''; texto.dataset.de = '';
+    escribe = { texto: tandas[0], desde: ahora() };
+    rotuloSeguir();
     const tt = ahora() - t0;
     for (const p of [...(e.decorado || []), ...e.pegatinas]) {
       if ((p.desde || 0) === frase && p.t0 == null) p.t0 = tt + (p.retraso || 0);
@@ -305,6 +326,7 @@ export async function cuento(escenas, { alAcabar, saltar = true } = {}) {
     if (est.fin || iris) return;
     // si el texto aún se está escribiendo, se termina de golpe
     if (escrito() < escribe.texto.length) { escribe.desde = -1e9; return; }
+    if (tanda < tandas.length - 1) { tanda++; escribe = { texto: tandas[tanda], desde: ahora() }; rotuloSeguir(); return; }
     const e = escenas[escena];
     if (frase < e.frases.length - 1) { frase++; ponFrase(); return; }
     if (escena < escenas.length - 1) { iris = { t0: ahora(), a: escena + 1 }; return; }

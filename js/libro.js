@@ -13,7 +13,8 @@ export function apunta(libro, nat, cliente, resultado) {
   if (!naturaleza(nat)) return false;
   const pag = (libro[nat] ??= { gustos: false, zona: false, clientes: [] });
   const antes = JSON.stringify(pag);
-  pag.gustos = true;
+  // (lo que le gusta y lo que odia, solo si ha salido bien o perfecto: fallando no se aprende tanto)
+  if (resultado === 'perfecto' || resultado === 'bien') pag.gustos = true;
   if (resultado === 'perfecto') pag.zona = true;
   if (cliente && !pag.clientes.includes(cliente)) pag.clientes.push(cliente);
   return JSON.stringify(pag) !== antes;

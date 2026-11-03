@@ -19,7 +19,7 @@ export function abrePedido({ ingredientes, partida, P, mejoras = [], alComprar =
       const libre = disponible(partida, i.id);
       fila.className = 'pedido-fila' + (libre ? '' : ' bloqueado');
       fila.innerHTML = `<i style="background:${color(i)}"></i>
-        <span class="pedido-nombre">${i.nombre}<small>${libre ? `${euros(PRECIOS[i.id])} · hay ${partida.almacen[i.id] || 0}` : 'Aún no lo trae nadie'}</small></span>
+        <span class="pedido-nombre">${i.nombre}<small>${libre ? `<span class="cifra">${euros(PRECIOS[i.id])}</span> · hay ${partida.almacen[i.id] || 0}` : 'Aún no lo trae nadie'}</small></span>
         ${libre ? `<button class="secundario" data-menos="${i.id}">−</button><b>${cantidad[i.id]}</b><button class="secundario" data-mas="${i.id}">+</button>` : ''}`;
       return fila;
     }));
@@ -27,7 +27,7 @@ export function abrePedido({ ingredientes, partida, P, mejoras = [], alComprar =
     $('#pedido .mejoras-lista').replaceChildren(...mejoras.filter(m => !partida.mejoras.includes(m.id) && (!m.requiere || partida.mejoras.includes(m.requiere))).map(m => {
       const fila = document.createElement('div');
       fila.className = 'pedido-fila mejora';
-      fila.innerHTML = `<span class="pedido-nombre">${m.nombre}<small>${m.dice} ${euros(m.precio)}</small></span>
+      fila.innerHTML = `<span class="pedido-nombre">${m.nombre}<small>${m.dice} <span class="cifra">${euros(m.precio)}</span></small></span>
         <button class="secundario" data-compra="${m.id}" ${m.precio > partida.caja ? 'disabled' : ''}>Comprar</button>`;
       return fila;
     }));

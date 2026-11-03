@@ -244,11 +244,13 @@ function gengar(g, t, { img }, d) {
   if (visible <= 0) return;
   // respira: un píxel arriba y abajo, despacio
   const f = { img: img.gengarMostrador, sx: 0, sy: 0, w: img.gengarMostrador.width, h: img.gengarMostrador.height };
-  gengarLienzo ??= document.createElement('canvas');
+  const respira0 = Math.sin(t * 1.4) > 0.6 ? 1 : 0;
+  if (visible >= 1) { g.drawImage(f.img, d.ox + GENGAR.x - Math.round(f.w / 2), d.oy + GENGAR.pies - f.h + respira0); return; }
+  if (!gengarLienzo) { gengarLienzo = document.createElement('canvas'); gengarLienzo.width = f.w; gengarLienzo.height = f.h; }
   const cg = gengarLienzo.getContext('2d', { willReadFrequently: true });
-  gengarLienzo.width = f.w; gengarLienzo.height = f.h;
+  cg.clearRect(0, 0, f.w, f.h);
   cg.drawImage(f.img, f.sx, f.sy, f.w, f.h, 0, 0, f.w, f.h);
-  if (visible < 1) {
+  {
     const datos = cg.getImageData(0, 0, f.w, f.h);
     for (let y = 0; y < f.h; y++)
       for (let x = 0; x < f.w; x++) if (umbralBayer(x, y) >= visible) datos.data[(y * f.w + x) * 4 + 3] = 0;

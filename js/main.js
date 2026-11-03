@@ -55,6 +55,7 @@ function cargaImagen(src) {
   });
 }
 
+let listo = false;   // (todo cargado: clientes, diálogos, naturalezas)
 async function preparar() {
   const [P, morty] = await Promise.all([
     fetch('assets/ui/palette.json').then(r => r.json()),
@@ -108,6 +109,7 @@ async function preparar() {
     .map(v => cargaImagen(`assets/sprites/clientes/sudowoodo/${v}.png`).catch(() => null)));
   pintaEmblema($('#emblema'), P);
   cargaSiluetasAsesor();
+  listo = true;
 }
 
 // Qué día vino cada cliente por última vez (para que los repetidos se turnen)
@@ -142,6 +144,7 @@ function empiezaPartida(p) {
   partida.tickets ??= 0;          // cuántas veces ha venido el galgo del ticket
   partida.vacaciones ??= 0;       // cuántas veces se ha pulsado «Vacaciones»
   partida.diaBaja ??= partida.dia <= 5 ? 5 + Math.floor(Math.random() * 5) : partida.dia + 2 + Math.floor(Math.random() * 3);   // (entre el 5 y el 9)
+  if (partida.diaBaja > partida.dia + 4 && !partida.marcas.includes('baja')) partida.diaBaja = partida.dia + 2 + Math.floor(Math.random() * 3);   // (calendario de antes)
   partida.introVista ??= partida.dia > 1;   // a quien ya iba por la mitad, sin intro
   partida.mejoras ??= [];
   partida.cuentaVisitas ??= {};   // cuántas veces ha venido cada cliente
@@ -195,7 +198,7 @@ const MORTY = { cara: 'assets/portraits/morty/Normal.png', nombre: 'Morty Pocion
 // cuántas veces puede oler Gengar todavía hoy (con cliente delante): una, o dos con la cafetera
 function olfatoQueda() {
   if (!encargo || encargo.tutorial || !partida.hoy) return 0;
-  return Math.max(0, (partida.mejoras.includes('cafetera') ? 2 : 1) - (+partida.hoy.gengarOlio || 0));
+  return Math.max(0, (partida.mejoras.includes('cafetera') ? 2 : 1) - (+encargo.olio || 0));
 }
 function botonesTaller(conEchar = false) {
   taller.olfato = olfatoQueda();   // (Gengar asoma en el frasco mientras le quede)
@@ -212,7 +215,11 @@ function botonesTaller(conEchar = false) {
 function alTaller(que, id) {
   const ing = ingrediente(id), p = taller.perfume;
   // mientras Gengar enseña, el taller es suyo: solo suena al echar
-  if (encargo?.tutorial || (tocaDemo() || fichaDemoActiva)) { if (que === 'echado') sfx('echar'); return; }
+  if (encargo?.tutorial || (tocaDemo() || fichaDemoActiva)) {
+    if (que === 'echado') sfx('echar');
+    if (que === 'frasco' && !fichaDemoActiva && trasOlerDemo) gengarHuele([{ texto: 'Seguir', accion: trasOlerDemo }]);
+    return;
+  }
   const quedan = n => (n === 1 ? 'Queda 1' : `Quedan ${n}`);
   if (que === 'selecciona') {
     decir({ cara: portraitUrl('morty', 'Worried'), nombre: ing.nombre, texto: `${ing.dice} ${quedan(partida.almacen[id] ?? 0)}.` }, botonesTaller(true));
@@ -288,6 +295,7 @@ function embotellar() {
 
 function ir(siguiente) {
   estado = siguiente;
+  if (siguiente === 'inicio') for (const s of ['#pedido', '#fondos', '#partida']) $(s).classList.add('hidden');
   fichaFactura++;
   if (sucesoActual) { sucesoActual.cerrar(true); sucesoActual = null; bajaMusica(false); }
   enLaCalle.repartidor = -1;
@@ -365,11 +373,12 @@ function botones(lista) {
 // Quien habla dice su texto y, con la última tanda, salen los botones. Los textos que no caben
 // en tres líneas se parten en tandas (como en El Pino): ▸ o tocar el cuadro pasa a la siguiente.
 let tandas = [], tanda = 0, pendientes = [];
+let visitaDeBaja = false;   // (la visita que solo sale el día de la baja: ahí los clientes saben que Morty está malo)
 function decir(habla, lista = []) {
   pendientes = lista;
   if (partida.hoy?.baja && estado !== 'calle' && estado !== 'inicio') {
     if (habla.nombre === 'Morty Pociones') habla = { ...habla, nombre: 'Gengar', cara: portraitUrl('gengar', 'Happy') };
-    else if (habla.nombre && habla.nombre !== 'Gengar' && habla.texto) habla = { ...habla, texto: habla.texto.replace(/\bMorty\b/g, 'Gengar') };
+    else if (habla.nombre && habla.nombre !== 'Gengar' && habla.texto && !visitaDeBaja) habla = { ...habla, texto: habla.texto.replace(/\bMorty\b/g, 'Gengar') };
   }
   // la cola de Girafarig gime de vez en cuando al hablar (más o menos una de cada tres frases), y siempre que
   // lo dice el texto («Mmmmmh…»), entonces más largo
@@ -399,15 +408,29 @@ $('#dialogo').addEventListener('click', ev => { if (!ev.target.closest('button')
 
 // Parte el texto en tandas que quepan en el sitio que hay encima de la franja de los botones (el cuadro
 // es fijo): por frases y, si una no cabe, palabra a palabra
+// Parte por comas, puntos y coma y dos puntos, pero nunca dentro de un paréntesis o de unas comillas
+function porComas(f) {
+  const out = [];
+  let dentro = 0, cur = '';
+  for (let k = 0; k < f.length; k++) {
+    const ch = f[k];
+    if (ch === '(' || ch === '«') dentro++;
+    if (ch === ')' || ch === '»') dentro = Math.max(0, dentro - 1);
+    cur += ch;
+    if (!dentro && /[,;:]/.test(ch) && f[k + 1] === ' ') { out.push(cur); cur = ''; k++; }
+  }
+  if (cur) out.push(cur);
+  return out;
+}
 function paginar(texto) {
   const p = $('#dialogo-texto');
   const lh = parseFloat(getComputedStyle(p).lineHeight);
   const libre = p.parentElement.getBoundingClientRect().bottom - p.getBoundingClientRect().top;
-  const alto = Math.max(1, Math.floor((libre + 1) / lh)) * lh + 2;
+  const alto = Math.max(1, Math.min(3, Math.floor((libre + 1) / lh))) * lh + 2;   // (tres líneas como mucho, con o sin retrato)
   const cabe = t => { p.style.maxHeight = 'none'; p.textContent = t; const ok = p.scrollHeight <= alto; p.style.maxHeight = ''; return ok; };
   if (cabe(texto)) return [texto];
   // por frases (tras «…» solo si lo que sigue empieza en mayúscula) y, si una no cabe, por comas
-  const frases = texto.split(/(?<=[.!?»])\s+|(?<=…)\s+(?=[A-ZÁÉÍÓÚÑ¿¡«])/).flatMap(f => (cabe(f) ? [f] : f.split(/(?<=[,;:])\s+/)));
+  const frases = texto.split(/(?<=[.!?»])\s+|(?<=…)\s+(?=[A-ZÁÉÍÓÚÑ¿¡«])/).flatMap(f => (cabe(f) ? [f] : porComas(f)));
   const out = [];
   let cur = '';
   for (const frase of frases) {
@@ -460,12 +483,15 @@ function pasaCliente() {
   guarda(partida);
   if (!visita) { decir(SITIOS.mostrador.habla(), SITIOS.mostrador.botones()); return; }
   botones([]);
+  visitaDeBaja = visita.cuando === 'baja';
   // Ditto entra con la forma de otro cliente
   const aspecto = (visita.forma && todos[visita.forma]) || c;
   sfx('puerta');
   entra(aspecto, sprite => {
     if (estado !== 'mostrador') return;
     if (!sprite) {
+      quitaDeCola(c.id);
+      guarda(partida);
       decir({ cara: 'assets/portraits/morty/Normal.png', nombre: 'Morty Pociones', texto: 'Parecía que entraba alguien. Era el viento.' }, SITIOS.mostrador.botones());
       return;
     }
@@ -489,7 +515,7 @@ function pasaCliente() {
     // Ñoño no pide perfumes (no se ducha): es la ocasión de rociarle desodorante mientras mira las estampitas
     if (c.id === 'sudowoodo') {
       serie([...frases, { ...MORTY, cara: portraitUrl('morty', 'Worried'), texto: 'Ñoño se ha puesto a mirar sus estampitas, muy concentrado. Es el momento del desodorante.' }],
-        [{ texto: 'Pulverizar', accion: () => juegaNoño(c, despedir) }, { texto: 'Ahora no', secundario: true, accion: () => serie([{ ...MORTY, texto: 'Otro día.' }], despedir) }]);
+        [{ texto: 'Pulverizar', accion: () => juegaNoño(c, despedir, visita) }, { texto: 'Ahora no', secundario: true, accion: () => serie([{ ...MORTY, texto: 'Otro día.' }], despedir) }]);
       return;
     }
     if (!visita.pide) { serie(frases, despedir); return; }
@@ -532,10 +558,11 @@ function frasesVisita(c, v) {
   return frases;
 }
 
-function juegaNoño(c, despedir) {
-  decir({ ...MORTY, cara: portraitUrl('morty', 'Worried'), texto: 'Mantén el dedo para rociarle. Cuando baje las estampitas para mirarte, suelta.' },
+function juegaNoño(c, despedir, visita = {}) {
+  decir({ ...MORTY, cara: portraitUrl('morty', 'Worried'), texto: 'Mantén el dedo para rociar. Si baja las estampitas, ¡suelta!' },
     [{ texto: 'Dejarlo', secundario: true, accion: rinde }]);
   pulverizar(imgsNoño, r => {
+    if (!r.dejado) { quitaDeCola(c.id); marca(visita.marca); guarda(partida); }   // (si sale al menú, no vuelve a entrar ni a cobrar)
     const dice = r.gana ? [{ quien: 'sudowoodo', cara: 'Happy', texto: '¿Ha llovido? Huele a… a limpio. ¿Eso qué es?' },
       { quien: 'morty', cara: 'Happy', texto: 'Primavera, Ñoño. Ha entrado la primavera.' }]
       : r.pillado ? [{ quien: 'sudowoodo', cara: 'Joyous', texto: '¡Jajajaja! ¡Que me echas espray! ¡Jajaja! ¿Por qué?' },
@@ -552,14 +579,16 @@ function juegaNoño(c, despedir) {
   });
 }
 
-// ---------- Gengar, probador (sección 4): una vez al día huele el frasco y dice hacia dónde se ha
+// ---------- Gengar, probador (sección 4): una vez por cliente (dos con la cafetera) huele el frasco y dice hacia dónde se ha
 // pasado; una de cada cinco veces miente, porque le hace gracia ----------
-function gengarHuele() {
+let trasOlerDemo = null;   // (en el ejemplo de Gengar, lo que sigue después de que huela el frasco)
+function gengarHuele(despues = null) {
+  const sigue = () => despues || botonesTaller();
   const hoy = partida.hoy;
-  if (!encargo) { decir(GENGAR('Happy', 'Huele bien. Pero sin cliente delante, yo qué sé.'), botonesTaller()); return; }
+  if (!encargo) { decir(GENGAR('Happy', 'Huele bien. Pero sin cliente delante, yo qué sé.'), sigue()); return; }
   const puede = partida.mejoras.includes('cafetera') ? 2 : 1;
-  if ((+hoy.gengarOlio || 0) >= puede) { decir(GENGAR('Sigh', `Ya he olido ${puede === 1 ? 'uno' : 'dos'} hoy. Tengo la nariz cansada. Mañana.`), botonesTaller()); return; }
-  hoy.gengarOlio = (+hoy.gengarOlio || 0) + 1;
+  if ((+encargo.olio || 0) >= puede) { decir(GENGAR('Sigh', puede === 1 ? 'Este ya lo he olido. Con un cliente, una vez. Con café, igual dos.' : 'Este ya lo he olido dos veces. La nariz no da para más.'), sigue()); return; }
+  encargo.olio = (+encargo.olio || 0) + 1;
   guarda(partida);
   const n = naturaleza(encargo.nat);
   const p = taller.perfume;
@@ -575,7 +604,7 @@ function gengarHuele() {
     const contrario = { calido: 'fresco', fresco: 'calido', intenso: 'suave', suave: 'intenso' };
     texto = { calido: 'Demasiado cálido. Le sobra calor.', fresco: 'Demasiado fresco. Le falta calor.', intenso: 'Demasiado intenso. Bájale.', suave: 'Muy suave. Le falta fuerza.' }[miente ? contrario[eje] : eje];
   }
-  decir(GENGAR('Normal', `*snif, snif* ${texto}`), botonesTaller());   // (la misma cara, mienta o no)
+  decir(GENGAR(miente && Math.random() < 0.5 ? 'Special0' : 'Normal', `*snif, snif* ${texto}`), sigue());   // (la mitad de las veces que miente, se le nota en la cara)
 }
 
 // ---------- el tutorial: Gengar hace dos perfumes delante (lo pidió Jorge) ----------
@@ -594,7 +623,7 @@ const EJEMPLOS = [
   { id: 'totodile', nat: 'naughty', pide: 'Con chispa, como yo cuando regateo. Para el cumpleaños de mi prima.',
     leePide: '«Con chispa» suena a picante. Nunca te dicen lo que son: lo que piden es la pista.',
     preguntas: ['momento', 'abrigo', 'odia'], muestras: ['picante'],
-    resumen: 'Resumen: le gusta lo picante, quiere calor y le da igual el día que la noche. Su sitio: a la derecha, a media altura. Y nada amargo.' },
+    resumen: 'Resumen: le gusta lo picante, quiere calor y de día, pero solo un pelín. Su sitio: a la derecha, un poquito por debajo del medio. Y nada amargo.' },
   { id: 'quagsire', nat: 'relaxed', pide: 'Algo que huela a domingo: a un gajo de limón con las pipas, que se note en la grada.',
     leePide: '«Un gajo de limón» suena a ácido, a cítrico. Pero esta vez solo hago dos preguntas, como tú.',
     preguntas: ['momento', 'abrigo'], muestras: ['dulce', 'citrico'],
@@ -660,6 +689,7 @@ function gengarFormula(alAcabar = null, avisaOlfato = false) {
     }
     fichaDemoActiva = false;
     const acaba = () => {
+      trasOlerDemo = null;
       if (encargo.tutorial) {
         taller.olfato = 0;
         const res = puntua(encargo.nat, { pos: taller.perfume.pos, ingredientes: taller.perfume.pasos.map(x => x.id) }, ingrediente, encargo.odiaExtra);
@@ -672,7 +702,8 @@ function gengarFormula(alAcabar = null, avisaOlfato = false) {
     // en el primer ejemplo, Gengar avisa de que puede oler el frasco: asoma en la esquina mientras le quede
     if (!avisaOlfato) { acaba(); return; }
     taller.olfato = Math.max(1, olfatoQueda());
-    decir(GENGAR('Special0', '¿Ves mi cara en la esquina del frasco? Mientras salga, tócalo y lo huelo: te digo si te has pasado. Una vez al día, dos con la cafetera. Y a veces miento.'),
+    trasOlerDemo = acaba;
+    decir(GENGAR('Special0', '¿Ves mi cara en la esquina del frasco? Mientras salga, tócalo y lo huelo: te digo si te has pasado. Una vez por cliente, dos con la cafetera. Y a veces miento.'),
       [{ texto: 'Seguir', accion: acaba }]);
   };
   setTimeout(siguiente, 4200);
@@ -717,7 +748,7 @@ function tutorial() {
   if (encargo) { ir('mostrador'); decir(GENGAR('Normal', 'Termina antes con el cliente que tienes delante. Luego, en el menú, «Tutorial».'), SITIOS.mostrador.botones()); return; }
   if (!partida.hoy) empiezaDia();
   ejemploPractica(EJEMPLOS[0], () => ejemploPractica(EJEMPLOS[1], () => {
-    decir(GENGAR('Joyous', 'Y ya está. Lee lo que pide, pregunta, huele, y lleva la gota a su sitio sin nada de lo que odia. Si tocas el frasco, lo huelo yo (una vez al día, y a veces miento). Cuando quieras repasarlo, en el menú tienes «Tutorial».'),
+    decir(GENGAR('Joyous', 'Y ya está. Lee lo que pide, pregunta, huele, y lleva la gota a su sitio sin nada de lo que odia. Si tocas el frasco, lo huelo yo (una vez por cliente, y a veces miento). Cuando quieras repasarlo, en el menú tienes «Tutorial».'),
       [{ texto: 'Volver', accion: () => ir('inicio') }]);
   }));
 }
@@ -725,12 +756,18 @@ function tutorial() {
 // Los que vuelven a por «lo de siempre» (sin historia nueva): cómo saludan y lo que piden, según su gusto
 const SALUDOS = ['Vengo a por lo de siempre.', 'Hola otra vez. Me he acabado el frasco.', 'Ya sabes lo que quiero. ¿O no?', 'Lo mío, que lo tengo gastado.'];
 const PIDE_REPITE = {
-  spicy: ['Lo de siempre: con su chispa de pimentón.', 'Otro como el de antes, con brasa y carácter.'],
-  sour: ['Lo de siempre: a limón, como la otra vez.', 'Otro igual, a pomelo recién cortado.'],
-  sweet: ['Lo de siempre: a caramelo, como la otra vez.', 'Otro igual, a merengue y a chuche.'],
-  bitter: ['Lo de siempre: a café y a madera.', 'Otro igual, a té y a hoja.'],
-  dry: ['Lo de siempre: a ropa tendida al sol.', 'Otro igual, a sábana recién planchada.'],
-  neutra: ['Lo de siempre: normalito, ni fu ni fa.', 'Otro como el de antes. Sin complicaciones.'],
+  spicy: ['Lo de siempre: con su chispa de pimentón.', 'Otro como el de antes, con brasa y carácter.', 'Uno que pique, como el chorizo de la feria.',
+    'El mío: calentito, de los que se notan al entrar.', 'Ponme ese que huele a barbacoa de domingo.'],
+  sour: ['Lo de siempre: a limón, como la otra vez.', 'Otro igual, a pomelo recién cortado.', 'Uno ácido, de los que espabilan.',
+    'El mío: a naranja de la huerta, fresquito.', 'Ponme ese que huele a limonada de verano.'],
+  sweet: ['Lo de siempre: a caramelo, como la otra vez.', 'Otro igual, a merengue y a chuche.', 'Uno dulce, como una torrija de Semana Santa.',
+    'El mío: suavito, a bizcocho de la abuela.', 'Ponme ese que huele a algodón de azúcar.'],
+  bitter: ['Lo de siempre: a café y a madera.', 'Otro igual, a té y a hoja.', 'Uno serio, de café solo sin azúcar.',
+    'El mío: a madera y a libro viejo.', 'Ponme ese que huele a chocolate negro, del amargo.'],
+  dry: ['Lo de siempre: a ropa tendida al sol.', 'Otro igual, a sábana recién planchada.', 'Uno seco, como el aire del terral.',
+    'El mío: a toalla de playa, sin crema.', 'Ponme ese que huele a jabón de lagarto.'],
+  neutra: ['Lo de siempre: normalito, ni fu ni fa.', 'Otro como el de antes. Sin complicaciones.', 'Uno que no llame la atención, por favor.',
+    'El mío: ni mucho ni poco. Lo justo.', 'Ponme ese que no huele a nada en concreto.'],
 };
 
 const quitaDeCola = id => { const i = partida.hoy?.cola.indexOf(id) ?? -1; if (i >= 0) partida.hoy.cola.splice(i, 1); };
@@ -849,7 +886,7 @@ function entrega(perfume) {
     frases.push(dice({ perfecto: '¡Es justo lo que quería!', bien: 'Está bien. Me lo llevo.', odia: '¡Puaj! Esto lleva algo que no soporto.' }[res],
       { perfecto: 'Joyous', bien: 'Normal', odia: 'Angry' }[res]));
   }
-  // con los frascos grandes, el perfume se cobra más (10 € el de 50 ml, 20 € el de 100 ml; la mitad si sale «bien»)
+  // con los frascos grandes, el perfume se cobra más (10 € el de 50 ml, 20 € el de 100 ml; la mitad si sale «bien»)
   const grande = partida.mejoras.includes('frasco100') ? 20 : partida.mejoras.includes('frasco50') ? 10 : 0;
   const cobra = visita.gratis || !PRECIO[res] ? 0 : PRECIO[res] + (res === 'perfecto' ? grande : res === 'bien' ? grande / 2 : 0);
   setTimeout(() => sfx({ perfecto: 'perfecto', bien: 'bien' }[res] || 'mal'), 150);
@@ -865,7 +902,7 @@ function entrega(perfume) {
     frases.push(dice(ganaYAbono ? `¡Te vi ayer en La Rosaleda! ¡Qué partidazo! Toma, ${euros(propinaEscudo)} para la causa.` : `¿Eso es el escudo del Málaga? ¡Aúpa! Toma, ${euros(propinaEscudo)} para la causa.`, 'Joyous'));
   }
   frases.push({ ...MORTY, cara: portraitUrl('morty', cobra ? 'Happy' : 'Stunned'),
-    texto: visita.gratis ? `${perfume.nombre}: gratis. Es su visita número veinte. No se lo cree.`
+    texto: visita.gratis ? `${perfume.nombre}: gratis. Es su visita número diez. No se lo cree.`
       : cobra ? `${perfume.nombre}: ${euros(cobra)}. En caja, ${euros(partida.caja)}.`
       : res === 'odia' ? 'Llevaba justo lo que no soporta. Se va sin pagar.' : 'No le ha convencido. Se va sin pagar.' });
   const n = naturaleza(nat);
@@ -997,7 +1034,7 @@ function datosFacebook(todosConocidos) {
     alcalde,
   };
 }
-const INSTRUCCIONES_FACEBOOK = 'Izquierda, denunciar; derecha, «me gusta». Si entra un WhatsApp, tócalo para quitarlo.';
+const INSTRUCCIONES_FACEBOOK = 'Izquierda, denuncias; derecha, «me gusta». Los WhatsApp, tócalos.';
 // Antes de jugar, el Mákina explica cómo va (lo del WhatsApp, sobre todo, que si no no se entiende)
 function explicaFacebook(habla, alEmpezar) {
   serie([habla('Inspired', 'Mira: a la izquierda, denuncias lo malo. A la derecha, «me gusta» a lo bueno. Con ocho denuncias, el muro limpio.'),
@@ -1043,7 +1080,7 @@ function juegaFacebook(c, alAcabar) {
 }
 
 function juegaEnvolver(c, alAcabar) {
-  decir({ ...MORTY, cara: portraitUrl('morty', 'Inspired'), texto: 'Corta el papel entre las dos marcas, dobla las solapas (primero los lados) y haz el lazo en el centro. Tres fallos y se rompe.' },
+  decir({ ...MORTY, cara: portraitUrl('morty', 'Inspired'), texto: 'Corta entre las marcas, dobla primero los lados y el lazo, al centro.' },
     [{ texto: 'Dejarlo', secundario: true, accion: rinde }]);
   envolver(r => {
     if (encargo) encargo.despedir = alAcabar;   // (la propina, una vez: si sale al menú, al volver solo queda despedirlo)
@@ -1090,7 +1127,7 @@ const CONSEJOS = {
   botones: ['Normal', 'Puedes preguntarle dos cosas y darle a oler tres muestras de la balda. O ir directo al taller a formular.'],
   pregunta: ['Happy', 'Cada respuesta te quita medio mapa. En el taller te lo dejo apuntado en el cartel de arriba.'],
   muestra: ['Normal', 'Lo que le gusta, échaselo. Lo que odia, ni una gota: se iría sin pagar.'],
-  taller: ['Special0', 'Arrastra los botes al frasco. La gota se mueve: izquierda fresco, derecha cálido, arriba intenso, abajo suave. Déjala donde le guste. Si tocas el frasco, lo huelo yo: una vez al día. Y a veces miento, que me aburro.'],
+  taller: ['Special0', 'Arrastra los botes al frasco. La gota se mueve: izquierda fresco, derecha cálido, arriba intenso, abajo suave. Déjala donde le guste. Si tocas el frasco, lo huelo yo: una vez por cliente. Y a veces miento, que me aburro.'],
   zreza: ['Happy', 'Este quiere que pique. La roja, la Baya Zreza, empuja a lo cálido. Luego, «Dárselo».'],
   libro: ['Joyous', 'Lo que aprendes de cada cliente va al Libro de Olores, arriba a la derecha. Para el próximo de su naturaleza.'],
   cierre: ['Normal', 'Al cerrar: contar la caja y pedir para mañana. Si no pides, el de los patines trae lo que le da la gana.'],
@@ -1141,6 +1178,7 @@ function empiezaDia(conSuceso = true) {
     const j = jornada(quiere.length ? quiere[Math.floor(Math.random() * quiere.length)] : null);
     hoy.jornada = j.res; hoy.goles = j.goles;
   }
+  hoy.baja = dia === partida.diaBaja;   // (antes de elegir clientes: ese día solo viene Blissey y los de «lo de siempre»)
   hoy.cola = clientesDeHoy(clientes, dialogos, partida, hoy);
   if (!partida.marcas.includes('totodile-1')) hoy.cola = ['totodile', ...hoy.cola.filter(id => id !== 'totodile')];
   if (partida.mejoras.includes('cartel')) {
@@ -1148,7 +1186,6 @@ function empiezaDia(conSuceso = true) {
     if (extra) hoy.cola.push(extra);
   }
   apuntaVisitas(hoy);
-  hoy.baja = dia === partida.diaBaja;
   // una mala noche (las de Gengar): por la mañana, una pista; y más perros por la calle
   hoy.malaNoche = dia > 2 && Math.random() < 0.35;
   // el escaparate amanece sucio algunos días (los dos primeros, siempre: así se conoce el minijuego)
@@ -1172,7 +1209,7 @@ let SUCESOS = [];   // data/sucesos.json, cargado al empezar
 const pideSuceso = (m, hoy) => (m === 'jornada-gana' ? hoy.jornada === 'gana' : m.startsWith('suceso-') ? partida.sucesos.includes(m.slice(7)) : partida.marcas.includes(m));
 function sucesoDeMañana(hoy) {
   const dia = partida.dia;
-  if (dia < 2 || hoy.baja || hoy.cuota || cartaPendiente() || (!jefePresentado() && dia >= 6)) return null;
+  if (dia < 2 || hoy.baja || hoy.cuota || (!jefePresentado() && dia >= 6)) return null;
   const visto = id => partida.sucesos.includes(id);
   // antes de que se presente en persona (día 6), Morty tiene que haberlo visto en un vídeo de Dirección
   if (!jefeVisto() && dia >= 3) { const id = ['jefe-dinero', 'jefe-dominadas', 'jefe-ruso'].find(x => !visto(x)); if (id) return id; }
@@ -1184,11 +1221,11 @@ function sucesoDeMañana(hoy) {
   const tocan = DE_MAÑANA.filter(id => {
     if (visto(id) || id === 'discoteca' || id === 'vecino-fiesta') return false;
     if (PIDE_JEFE[id] && !PIDE_JEFE[id]()) return false;
-    if (id.startsWith('jefe') && dia - (partida.diaSucesoJefe ?? -9) < 2) return false;
+    if (id.startsWith('jefe') && dia - (partida.diaSucesoJefe ?? -9) < 1) return false;
     const s = SUCESOS.find(x => x.id === id);
     return (s?.requiere || []).every(m => pideSuceso(m, hoy));
   });
-  if (!tocan.length || Math.random() > 0.9) return null;
+  if (!tocan.length) return null;
   return tocan[Math.floor(Math.random() * tocan.length)];
 }
 // (se apunta cuándo salió el último, para dejar hueco)
@@ -1305,9 +1342,9 @@ function pasaCuota() {
   const hoy = partida.hoy;
   const primera = !partida.marcas.includes('cuota-1');
   let { cuota, alquiler, pagado, fiado } = cobraCuota(partida);
-  // la primera vez, el Señor Mililitros redondea su «pequeño recargo» hasta los 500,21 € (lo pidió
-  // Jorge: la deuda se pagaba demasiado rápido)
-  if (primera && fiado && partida.deuda < 500.21) { fiado = Math.round((fiado + 500.21 - partida.deuda) * 100) / 100; partida.deuda = 500.21; }
+  // la primera vez, el Señor Mililitros redondea su «pequeño recargo» hasta los 1.200,21 € (lo pidió
+  // Jorge: la deuda se pagaba demasiado rápido; así se salda hacia el día 10)
+  if (primera && fiado && partida.deuda < 1200.21) { fiado = Math.round((fiado + 1200.21 - partida.deuda) * 100) / 100; partida.deuda = 1200.21; }
   hoy.cuota = 'pagada';
   marca('cuota-1');
   guarda(partida);
@@ -1347,7 +1384,7 @@ function altillo(prueba = false) {
         { ...MORTY, cara: portraitUrl('morty', 'Angry'), texto: 'Señor Mililitros. Tenemos que hablar de la nómina que no cobro.' }]
       : [{ ...MORTY, cara: portraitUrl('morty', 'Surprised'), texto: 'Un perro con corbata. Durmiendo en mi altillo.' },
         { ...MORTY, cara: portraitUrl('morty', 'Angry'), texto: 'Oiga. ¿Usted quién es? ¿Le manda el Señor Mililitros?' }]),
-    { ...ASESOR('Sigh'), texto: '¿Mmm? ¿Qué? No, no, no. Yo soy el asesor. Duermo aquí. No tengo piso.' },
+    ...(!prueba && partida.asesorVisto?.length ? [] : [{ ...ASESOR('Sigh'), texto: '¿Mmm? ¿Qué? No, no, no. Yo soy el asesor. Duermo aquí. No tengo piso.' }]),
     { ...ASESOR('Happy'), texto: '¿El Señor Mililitros? Nunca lo he visto. Me pagan en chuches, por correo. Muy profesional.' },
     { ...MORTY, cara: portraitUrl('morty', 'Stunned'), texto: '…' },
     { ...MORTY, texto: 'Bajo. Tengo clientes.' }], prueba ? [{ texto: 'Volver', accion: () => { ir('inicio'); listaPruebas(); } }] : [{ texto: 'Bajar', accion: () => ir('mostrador') }]);
@@ -1364,6 +1401,8 @@ function porVer() {
   return { historias: historiasPendientes(clientes, dialogos, partida), videos: VIDEOS_FINAL.filter(id => !partida.sucesos.includes(id)) };
 }
 const todoVisto = () => { const p = porVer(); return !p.historias.length && !p.videos.length; };
+// (para los cargos de la deuda: el de la lancha se puede ver el mismo cierre, al pulsar «Vacaciones»)
+const todoVistoSalvoLancha = () => { const p = porVer(); return !p.historias.length && !p.videos.filter(v => v !== 'jefe-lancha').length; };
 const metaCumplida = () => !partida.deuda && !partida.cartas.length && todoVisto() && !partida.marcas.includes('epilogo');
 // si Morty salda la deuda antes de verlo todo, el Señor Mililitros se inventa un cargo nuevo
 const CARGOS = ['la cuota de la familia', 'el mantenimiento del cartel de «Bienvenido»', 'el seguro del toldo, que mide cuatro centímetros de más',
@@ -1371,7 +1410,7 @@ const CARGOS = ['la cuota de la familia', 'el mantenimiento del cartel de «Bien
   'la renovación del vinilo del escaparate', 'mi abono de La Rosaleda, que también es de la familia'];
 
 function juegaCristal() {
-  decir({ ...MORTY, cara: portraitUrl('morty', 'Inspired'), texto: 'Frota el escaparate con el dedo: huellas, una nariz de perro y una paloma con puntería.' },
+  decir({ ...MORTY, cara: portraitUrl('morty', 'Inspired'), texto: 'Frota el escaparate con el dedo hasta dejarlo limpio.' },
     [{ texto: 'Dejarlo', secundario: true, accion: rinde }]);
   limpiar(r => {
     const hoy = partida.hoy;
@@ -1450,7 +1489,12 @@ function repartidor() {
 // El cierre: contar la caja (una vez), el pedido para mañana, pagar la deuda y bajar la persiana
 function botonesCierre() {
   const hoy = partida.hoy;
+  // (se salió al menú contando: descuadre; o después de contar: se sigue donde se quedó)
+  if (hoy.contada === 'empezada') { descuadra(); hoy.contada = true; guarda(partida); }
+  // (se cuenta uno de cada tres días, y los que ha venido Totodile, que paga en monedas de cinco céntimos)
+  if (!hoy.contada && !(partida.dia % 3 === 0 || partida.vinoEl?.totodile === partida.dia)) hoy.contada = true;
   if (!hoy.contada) return [{ texto: 'Contar la caja', accion: juegaCaja }];
+  if (!hoy.trasCaja) return [{ texto: 'Seguir', accion: trasLaCaja }];
   const lista = [];
   if (!hoy.pedido) lista.push({ texto: 'Pedido', secundario: true, accion: pedido });
   lista.push({ texto: partida.vacaciones >= 20 ? 'Agosto' : 'Vacaciones', apagado: true, accion: vacaciones });
@@ -1458,13 +1502,22 @@ function botonesCierre() {
   return lista;
 }
 
+// solo falta el vídeo de la lancha (el del botón de vacaciones): Gengar da la pista al cerrar
+const soloFaltaLancha = () => { const p = porVer(); return !p.historias.length && p.videos.length === 1 && p.videos[0] === 'jefe-lancha'; };
 function resumenCaja() {
   const hoy = partida.hoy;
+  if (soloFaltaLancha()) return { cara: portraitUrl('gengar', 'Special0'), nombre: 'Gengar',
+    texto: `Hoy: ${euros(hoy.ingresos)}. En caja: ${euros(partida.caja)}. Y ese botón gris de «Vacaciones»… dicen que, si insistes, a la décima pasa algo.` };
   return { ...MORTY, cara: portraitUrl('morty', hoy.ingresos ? 'Happy' : 'Stunned'),
     texto: `Hoy: ${euros(hoy.ingresos)}. En caja: ${euros(partida.caja)}.${partida.deuda ? ` Deuda con ${conQuien()}: ${euros(partida.deuda)}.` : ''}` };
 }
 
+const DESCUADRE = 5.21;
+const descuadra = () => { partida.caja = Math.max(0, Math.round((partida.caja - DESCUADRE) * 100) / 100); };
 function juegaCaja() {
+  // (en cuanto se empieza a contar, cuenta: si se sale al menú a medias, al volver es un descuadre)
+  partida.hoy.contada = 'empezada';
+  guarda(partida);
   decir({ ...MORTY, cara: portraitUrl('morty', 'Stunned'), texto: 'A contar. ¿Cuántos euros hay en la bandeja?' }, []);
   const j = contarCaja(r => {
     const hoy = partida.hoy;
@@ -1472,21 +1525,11 @@ function juegaCaja() {
     let texto;
     if (r.gana) texto = `${euros(r.total)}. La caja cuadra.`;
     else {
-      const falta = 2.21;
-      partida.caja = Math.max(0, Math.round((partida.caja - falta) * 100) / 100);
-      texto = `Eran ${euros(r.total)}. Descuadre: ${euros(falta)} que pone Morty de su bolsillo.`;
+      descuadra();
+      texto = `Eran ${euros(r.total)}. Descuadre: ${euros(DESCUADRE)} que pone Morty de su bolsillo.`;
     }
     guarda(partida);
-    const frases = [{ ...MORTY, cara: portraitUrl('morty', r.gana ? 'Happy' : 'Dizzy'), texto }, resumenCaja()];
-    // si el día ha ido bien, WhatsApp de Dirección: objetivos
-    if (hoy.ingresos >= 100 && !partida.sucesos.includes('jefe-baile') && partida.dia - (partida.diaSucesoJefe ?? -9) >= 4) {
-      partida.sucesos.push('jefe-baile');
-      apuntaSuceso('jefe-baile');
-      guarda(partida);
-      serie(frases, [{ texto: '▸', secundario: true, accion: () => verSuceso('jefe-baile', 'mostrador', () => { ir('mostrador'); trasLaCaja(); }) }]);
-      return;
-    }
-    serie(frases, [{ texto: '▸', secundario: true, accion: () => trasLaCaja() }]);
+    serie([{ ...MORTY, cara: portraitUrl('morty', r.gana ? 'Happy' : 'Dizzy'), texto }, resumenCaja()], [{ texto: '▸', secundario: true, accion: () => trasLaCaja() }]);
   });
   botones(j.opciones.map(v => ({ texto: euros(v).replace(/\s€$/, ''), secundario: true, numero: true, accion: () => responde(v) })));
 }
@@ -1496,13 +1539,26 @@ function juegaCaja() {
 function trasLaCaja() {
   const pasos = [];
   const hoy = partida.hoy;
+  // si el día ha ido bien, WhatsApp de Dirección: objetivos (cuando ya se le conoce, y no el mismo día que otro suyo)
+  if (hoy.ingresos >= 100 && partida.dia >= 4 && jefeVisto() && !partida.sucesos.includes('jefe-baile') && partida.dia - (partida.diaSucesoJefe ?? -9) >= 2) {
+    pasos.push(sigue => {
+      partida.sucesos.push('jefe-baile');
+      apuntaSuceso('jefe-baile');
+      guarda(partida);
+      verSuceso('jefe-baile', 'mostrador', () => { ir('mostrador'); sigue(); });
+    });
+  }
   const oferta = (asesor.ofertas || []).find(o => !partida.asesorVisto.includes(o.id));
-  if (oferta && partida.dia >= 4 && partida.dia % 3 === 0) pasos.push(sigue => ofertaAsesor(oferta, sigue));
+  if (oferta && partida.dia >= 4 && partida.dia % 2 === 0) pasos.push(sigue => ofertaAsesor(oferta, sigue));
   if (partida.deuda > 0 && partida.caja > COLCHON) pasos.push(preguntaDeuda);
   // (si no ha pasado nada después de contar, el resumen ya se ha dicho: solo los botones)
   let hubo = false;
-  const siguiente = () => (pasos.length ? (hubo = true, pasos.shift()(siguiente)) : decir(hubo ? resumenCaja() : { ...MORTY, texto: '¿Qué más? El pedido, o la persiana.' }, botonesCierre()));
-  hoy.trasCaja = true;
+  const siguiente = () => {
+    if (pasos.length) { hubo = true; pasos.shift()(siguiente); return; }
+    hoy.trasCaja = true;
+    guarda(partida);
+    decir(hubo ? resumenCaja() : { ...MORTY, texto: '¿Qué más? El pedido, o la persiana.' }, botonesCierre());
+  };
   siguiente();
 }
 
@@ -1559,12 +1615,13 @@ async function cargaSiluetasAsesor() {
   }));
 }
 function ofertaAsesor(o, sigue) {
-  partida.asesorVisto.push(o.id);
-  guarda(partida);
-  serie([{ texto: partida.asesorVisto.length > 1 ? 'Desde la mesa del rincón, el asesor fiscal vuelve a levantar la vista del portátil.' : 'Desde la mesa del rincón, el asesor fiscal levanta la vista del portátil. Es un chihuahua con corbata. Cobra en chuches.' },
+  // (se da por vista al contestar: si se sale al menú antes, vuelve a salir)
+  const vista = () => { if (!partida.asesorVisto.includes(o.id)) partida.asesorVisto.push(o.id); };
+  serie([{ texto: partida.asesorVisto.length > 0 ? 'Desde la mesa del rincón, el asesor fiscal vuelve a levantar la vista del portátil.' : (partida.marcas.includes('altillo') ? 'Desde la mesa del rincón, el asesor fiscal levanta la vista del portátil. Es un chihuahua con corbata. Cobra en chuches.' : 'Desde la mesa del rincón, alguien levanta la vista del portátil. No se le ve bien. Dice que es el asesor fiscal. Cobra en chuches.') },
     { ...ASESOR('Determined'), texto: `Psst. Morty. Tengo una optimización. ${o.dice}` },
     { ...ASESOR('Happy'), texto: `Son ${euros(o.gana)} para ti, ahora. Y es legal. Casi.` }],
   [{ texto: 'Aceptar', accion: () => {
+    vista();
     partida.optimizaciones.push(o.id);
     partida.caja = Math.round((partida.caja + o.gana) * 100) / 100;
     partida.cartas.push({ dia: partida.dia + 3, oferta: o.id });
@@ -1572,6 +1629,8 @@ function ofertaAsesor(o, sigue) {
     serie([{ ...ASESOR('Joyous'), texto: 'Hecho. Ni te enteras. Ya me pagas en chuches.' },
       { ...MORTY, cara: portraitUrl('morty', 'Happy'), texto: `En caja, ${euros(partida.caja)}.` }], [{ texto: '▸', secundario: true, accion: sigue }]);
   } }, { texto: 'Mejor no', secundario: true, accion: () => {
+    vista();
+    guarda(partida);
     serie([{ ...ASESOR('Sigh'), texto: 'Tú sabrás. La honradez no desgrava.' }], [{ texto: '▸', secundario: true, accion: sigue }]);
   } }]);
 }
@@ -1582,9 +1641,13 @@ function preguntaDeuda(sigue) {
       const paga = pagaDeuda(partida);
       // saldada antes de verlo todo: el Señor Mililitros se inventa un cargo
       let cargo = null;
-      if (!partida.deuda && !todoVisto()) {
-        cargo = { que: CARGOS[Math.floor(Math.random() * CARGOS.length)], cuanto: a21(40 + Math.random() * 160) };
+      // (como mucho dos por partida, con tres días entre uno y otro, y sin repetir concepto)
+      if (!partida.deuda && !todoVistoSalvoLancha() && (partida.cargos?.length || 0) < 2 && partida.dia - (partida.diaCargo ?? -9) >= 3) {
+        const quedan = CARGOS.filter(q => !(partida.cargos || []).includes(q) && (!q.includes('toldo') || (partida.marcas.includes('murkrow-5') && !partida.marcas.includes('caja-b'))));
+        cargo = { que: quedan[Math.floor(Math.random() * quedan.length)], cuanto: a21(40 + Math.random() * 160) };
         partida.deuda = cargo.cuanto;
+        (partida.cargos ??= []).push(cargo.que);
+        partida.diaCargo = partida.dia;
       }
       guarda(partida);
       const tras = cargo ? [{ texto: 'Esa noche, a las 3:47, le vibra el móvil:' },
@@ -1619,12 +1682,12 @@ const TICKETS = ['de una gasolinera de Cártama', 'de un notario de Coín', 'de 
   'de un tanatorio de Churriana', 'de La Olla de Barro (un menú del día)', 'firmado por el propio Señor Mililitros'];
 function galgo() {
   botones([]);
+  const ticket = TICKETS[partida.tickets % TICKETS.length];
+  partida.tickets++;
+  marca('galgo-1');
+  guarda(partida);
   entra(GALGO, sprite => {
     if (estado !== 'mostrador') return;
-    const ticket = TICKETS[partida.tickets % TICKETS.length];
-    partida.tickets++;
-    marca('galgo-1');
-    guarda(partida);
     const devuelve = otra => {
       const vuelta = Math.min(partida.caja, 24.21);
       partida.caja = Math.round((partida.caja - vuelta) * 100) / 100;
@@ -1759,7 +1822,7 @@ function abreFondos() {
   s.scrollTop = 0;
 }
 $('#inicio-fondos').addEventListener('click', abreFondos);
-$('#inicio-tutorial').addEventListener('click', () => ctx && tutorial());
+$('#inicio-tutorial').addEventListener('click', () => listo && tutorial());
 $('#fondos-cerrar').addEventListener('click', () => $('#fondos').classList.add('hidden'));
 
 // ---------- la partida: el código para pasarla a otro móvil, volver a ayer o empezar de cero ----------
@@ -1842,6 +1905,7 @@ function maquetar() {
   escena.setBordes(arriba, techo);
   // el suceso ocupa el hueco de la escena, justo encima del cuadro de diálogo
   document.documentElement.style.setProperty('--hueco-abajo', `${innerHeight - arriba + 4}px`);
+  document.documentElement.style.setProperty('--hueco-abajo-mj', `${innerHeight - arriba - 2}px`);   // (el minijuego, pegado al cuadro)
   document.documentElement.style.setProperty('--hueco-arriba', `${Math.round($('.barra').getBoundingClientRect().bottom) + 4}px`);
 }
 
@@ -1900,7 +1964,7 @@ if (!esIOS && document.fullscreenEnabled && tactil && !instalada) {
   document.addEventListener('fullscreenchange', () => b.classList.toggle('hidden', !!document.fullscreenElement));
 }
 
-$('#inicio-abrir').addEventListener('click', () => ctx && seguirDia());
+$('#inicio-abrir').addEventListener('click', () => listo && seguirDia());
 $('#inicio-partida').addEventListener('click', abrePartida);
 // la música y los efectos, cada uno con su interruptor (se guardan aparte de la partida)
 function pintaInterruptores() {
@@ -1912,7 +1976,7 @@ $('#inicio-musica').addEventListener('click', () => { setMusic(!getPrefs().music
 $('#inicio-efectos').addEventListener('click', () => { setSfx(!getPrefs().sfx); pintaInterruptores(); sfx('toque'); });
 pintaInterruptores();
 $('#barra-menu').addEventListener('click', () => ir('inicio'));
-$('#barra-libro').addEventListener('click', () => (libroAbierto() ? cierraLibro()
+$('#barra-libro').addEventListener('click', () => !$('#minijuego').classList.contains('hidden') ? null : (libroAbierto() ? cierraLibro()
   : abreLibro(partida.libro, Object.fromEntries(Object.values(todos).map(c => [c.id, c.nombre])), historiasCerradas())));
 $('#libro-cerrar').addEventListener('click', cierraLibro);
 addEventListener('keydown', ev => {
@@ -2029,8 +2093,8 @@ function prueba(id) {
     const fin = r => decir({ texto: r.gana ? '¡Conseguido!' : r.dejado ? 'Dejado a medias.' : r.pillado ? 'Te ha pillado.' : r.roto ? 'Se ha roto el papel.' : 'Se acabó el tiempo.' }, [otra, volver]);
     const dejar = [{ texto: 'Dejarlo', secundario: true, accion: rinde }];
     if (id === 'mj-limpiar') { decir({ texto: 'Frota el escaparate con el dedo hasta dejarlo limpio.' }, dejar); limpiar(fin); }
-    if (id === 'mj-envolver') { ir('mostrador'); $('#lugar').textContent = rotulo; decir({ texto: 'Corta el papel entre las dos marcas, dobla las solapas (primero los lados) y haz el lazo en el centro. Tres fallos y se rompe.' }, dejar); envolver(fin); }
-    if (id === 'mj-noño') { ir('mostrador'); $('#lugar').textContent = rotulo; decir({ texto: 'Mantén el dedo para rociarle. Cuando baje las estampitas para mirarte, suelta.' }, dejar); pulverizar(imgsNoño, fin); }
+    if (id === 'mj-envolver') { ir('mostrador'); $('#lugar').textContent = rotulo; decir({ texto: 'Corta entre las marcas, dobla primero los lados y el lazo, al centro.' }, dejar); envolver(fin); }
+    if (id === 'mj-noño') { ir('mostrador'); $('#lugar').textContent = rotulo; decir({ texto: 'Mantén el dedo para rociar. Si baja las estampitas, ¡suelta!' }, dejar); pulverizar(imgsNoño, fin); }
     if (id === 'mj-facebook' && facebook) {
       ir('mostrador'); $('#lugar').textContent = rotulo;
       const mak = todos.murkrow;

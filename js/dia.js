@@ -154,12 +154,15 @@ export function clientesDeHoy(lista, dialogos, partida, hoy) {
   const deLunes = x => (x.v.requiere || []).some(m => m.startsWith('jornada-')) || !!x.v.cuando;
   // (los que vuelven a por «lo de siempre» no son historia nueva: van detrás, para no quitarle el sitio a nadie)
   // (una visita que se repite, como la de Totodile, solo es nueva si tiene su marca y aún no se ha visto)
-  const nuevos = mezcla(con.filter(x => !x.v.repetida && (x.v.n > 0 || (x.v.marca && !partida.marcas.includes(x.v.marca))))).sort((a, b) => deLunes(b) - deLunes(a));
+  const conHistoria = con.filter(x => !x.v.repetida && (x.v.n > 0 || (x.v.marca && !partida.marcas.includes(x.v.marca))));
+  // (el día de la baja atiende Gengar: de historias, solo la de la baja; los demás, otro día)
+  const nuevos = mezcla(hoy.baja ? conHistoria.filter(x => x.v.cuando === 'baja') : conHistoria).sort((a, b) => deLunes(b) - deLunes(a));
   const ultima = id => partida.vinoEl?.[id] ?? -99;
-  const repiten = mezcla(con.filter(x => !nuevos.includes(x)))
+  const repiten = mezcla(con.filter(x => !conHistoria.includes(x)))
     .sort((a, b) => (ultima(a.c.id) === partida.dia - 1) - (ultima(b.c.id) === partida.dia - 1) || ultima(a.c.id) - ultima(b.c.id));
   const cuantos = Math.min(con.length, 4 + Math.floor(Math.random() * 4));
-  const cola = [...nuevos.slice(0, NUEVOS_AL_DIA), ...repiten].slice(0, cuantos);
+  const pocos = repiten.slice(0, Math.max(2, 3 - nuevos.length));   // (como mucho dos repetidos al día, si hay historias)
+  const cola = [...nuevos.slice(0, NUEVOS_AL_DIA), ...pocos].slice(0, cuantos);
   // (si con eso no llegan a tres, pasa alguna historia más, para que la tienda no se quede vacía)
   return [...cola, ...nuevos.slice(NUEVOS_AL_DIA)].slice(0, Math.max(cola.length, Math.min(3, con.length))).map(x => x.c.id);
 }

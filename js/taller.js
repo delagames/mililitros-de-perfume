@@ -1,6 +1,6 @@
 // El taller (sección 5 de DISEÑO.md): en la pared, el mapa de olor (de fresco a cálido, de suave a
 // intenso) con la gota del perfume y su rastro; en el banco, los doce botes de ingredientes y el
-// frasco de 30 ml, que se llena del color del perfume. Un ingrediente se echa arrastrándolo al frasco
+// frasco de 30 ml, que se llena del color del perfume. Un ingrediente se echa arrastrándolo al frasco
 // (o al mapa), o tocándolo y pulsando «Echar». Al elegir uno, una línea de puntos dice adónde movería
 // la gota. También el estante, con los perfumes embotellados.
 // Mundo de 270 de ancho, como las demás vistas, con el banco justo encima del cuadro de diálogo.
@@ -21,6 +21,7 @@ function geometria(d) {
 const FRASCO = { x: 214, y: 168, w: 48, h: 58 };
 const PARED = '#F4F2EC';
 const BANCO = 166;
+const GENGAR_ZONA = { x: 232, y: 136, w: 38, h: 30 };   // (donde asoma Gengar, encima del frasco)
 
 // lo que pasa en el taller (main.js escucha para el cuadro de diálogo)
 const t = {
@@ -73,7 +74,7 @@ function toque(tipo, x, y) {
   if (tipo === 'baja') {
     const i = t.orden.findIndex((id, k) => dentro(x, y, casilla(k)));
     // tocar el frasco (con algo dentro): que lo huela Gengar
-    if (i < 0 && dentro(x, y, FRASCO) && t.perfume.pasos.length) { t.oyente('frasco'); return; }
+    if (i < 0 && (dentro(x, y, FRASCO) || (t.olfato > 0 && dentro(x, y, GENGAR_ZONA))) && t.perfume.pasos.length) { t.oyente('frasco'); return; }
     if (i < 0) return false;
     const id = t.orden[i];
     t.seleccion = id;
@@ -139,8 +140,8 @@ function fondo(g, P, d) {
   pastilla('FRESCO', X + 4, Y + lado / 2 + 13, 'left');
   pastilla('CÁLIDO', X + lado - 4, Y + lado / 2 + 13, 'right');
   // la bandeja de ingredientes y el frasco, abajo
-  tarjeta(g, P, d.ox + 3, oy + BANCO - 2, 200, 80, 6);
-  tarjeta(g, P, d.ox + FRASCO.x - 6, oy + BANCO - 2, FRASCO.w + 10, 80, 6);
+  tarjeta(g, P, d.ox + 3, oy + BANCO - 2, 200, 72, 6);
+  tarjeta(g, P, d.ox + FRASCO.x - 6, oy + BANCO - 2, FRASCO.w + 10, 72, 6);
 }
 
 // un ingrediente de la bandeja: una ficha redondeada con su gota de color y cuántos quedan
@@ -240,7 +241,7 @@ function pintaTaller(g, tiempo, { P }, d) {
     const n = t.almacen[id] ?? 0;
     bote2(g, P, b.x, b.y, colorIng(P, id), n, t.seleccion === id, n <= 0);
   });
-  // el frasco de 30 ml (el negro de la marca, con ventana), con lo que lleva y cuánto va
+  // el frasco de 30 ml (el negro de la marca, con ventana), con lo que lleva y cuánto va
   const { x, y, w, h } = FRASCO;
   const lleno = Math.round((h - 28) * p.pasos.length / MAX);
   g.drawImage(cacheado(`f${color}${p.pasos.length}/${MAX}`, w, h + 6, c => {
@@ -258,7 +259,7 @@ function pintaTaller(g, tiempo, { P }, d) {
   if (t.olfato > 0 && p.pasos.length && t.gengar) {
     const sube = Math.floor(tiempo * 2) % 2, m = t.gengar;
     // sentado encima de la tarjeta del frasco, en su esquina de la derecha: cerca del bote, sin taparlo
-    const gx = x + w - m.width + 8, gy = BANCO - 2 - m.height + 1 - sube;
+    const gx = x + w - m.width + 2, gy = BANCO - 2 - m.height + 1 - sube;
     g.drawImage(m, gx, gy);
     if (t.olfato > 1) cifras(g, '2', gx - 5, gy + 4, { color: P.verde_tinta });   // (con la cafetera, dos)
   } else if (t.olfato > 0 && p.pasos.length) {
@@ -302,7 +303,7 @@ function pintaEstante(g, { P }, d) {
   rect(g, -d.ox, 236, W, H, '#E9EDEA');
   for (let x = -d.ox - 8; x < W; x += 30) rect(g, x, 236, 1, H, '#C3CEC9');
   for (let y = 250; y < H - oy; y += 16) rect(g, -d.ox, y, W, 1, '#C3CEC9');
-  const baldas = [228];
+  const baldas = [222];
   while (baldas.length < 5 && baldas.at(-1) - 46 >= -oy + d.toldo + 22) baldas.push(baldas.at(-1) - 46);
   const arriba = baldas.at(-1) - 6;
   // el rótulo, en medio de la pared que queda encima del mueble

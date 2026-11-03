@@ -3,7 +3,7 @@
 // Lo básico se guarda al instalar; el resto (sprites, retratos), según se va usando. Los vídeos de
 // los sucesos no se guardan: pesan mucho, y sin conexión el suceso se cierra y el juego sigue.
 // Subir la versión de CACHE en cada publicación, si no el móvil sigue viendo la vieja.
-const CACHE = 'mililitros-de-perfume-v63';
+const CACHE = 'mililitros-de-perfume-v64';
 const CORE = [
   './', 'index.html', 'manifest.webmanifest', 'css/style.css',
   'js/main.js', 'js/escena.js', 'js/calle.js', 'js/mostrador.js', 'js/taller.js', 'js/perfume.js', 'js/deduccion.js',

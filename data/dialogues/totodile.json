@@ -9,7 +9,7 @@
     {
      "quien": "totodile",
      "cara": "Normal",
-     "texto": "Lo de siempre: el de 30 ml. El de 50 es tirar el dinero."
+     "texto": "Lo de siempre: el de 30 ml. El de 50 es tirar el dinero."
     },
     {
      "quien": "morty",
@@ -80,7 +80,7 @@
     {
      "quien": "totodile",
      "cara": "Determined",
-     "texto": "Llevo gastado aquí lo que vale un Megane. O una play 5."
+     "texto": "Llevo gastado aquí lo que vale un Megane. O una Play 5."
     },
     {
      "quien": "totodile",
@@ -182,7 +182,7 @@
     {
      "quien": "morty",
      "cara": "Inspired",
-     "texto": "Hoy le sale gratis. Es su visita número veinte."
+     "texto": "Hoy le sale gratis. Es su visita número diez."
     },
     {
      "quien": "totodile",
@@ -192,7 +192,7 @@
     {
      "quien": "totodile",
      "cara": "Angry",
-     "texto": "Entonces los otros diecinueve los he pagado de más. Esto no se le hace a nadie."
+     "texto": "Entonces los otros nueve los he pagado de más. Esto no se le hace a nadie."
     },
     {
      "quien": "totodile",
@@ -224,7 +224,7 @@
    ],
    "marca": "totodile-20",
    "gratis": true,
-   "minVisitas": 19
+   "minVisitas": 9
   }
  ]
 }

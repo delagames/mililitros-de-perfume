@@ -112,7 +112,7 @@
     {
      "quien": "misdreavus",
      "cara": "Worried",
-     "texto": "No. Él sí huele a la casa. Esto no."
+     "texto": "No. Esto pica. Él sí huele a la casa. Esto no."
     }
    ],
    "marca": "misdreavus-3"
@@ -155,7 +155,7 @@
      "texto": "La Encarni usaba una colonia de botella grande. Se la compraba en la droguería del pueblo."
     }
    ],
-   "pide": "Quiero la colonia de ella. Madera, café, té frío, poquito. Y su colonia.",
+   "pide": "Quiero la colonia de ella. Madera, café, una tetera puesta, poquito. Y su colonia.",
    "perfecto": [
     {
      "quien": "misdreavus",
@@ -174,7 +174,7 @@
     {
      "quien": "misdreavus",
      "cara": "Worried",
-     "texto": "No. Ella nunca olió así."
+     "texto": "No. Esto pica. Ella nunca olió así."
     }
    ],
    "marca": "misdreavus-4",
@@ -239,7 +239,7 @@
     {
      "quien": "misdreavus",
      "cara": "Worried",
-     "texto": "No es ella. No pasa nada. Volveremos."
+     "texto": "Esto pica. No es ella. No pasa nada. Volveremos."
     },
     {
      "quien": "sudowoodo",

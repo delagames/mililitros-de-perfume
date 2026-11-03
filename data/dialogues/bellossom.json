@@ -14,12 +14,12 @@
     {
      "quien": "bellossom",
      "cara": "Special0",
-     "texto": "Y de paso te cuento cosas que siempre estoy alinquindoi"
+     "texto": "Y de paso te cuento cosas, que siempre estoy alinquindoi."
     },
     {
      "quien": "morty",
      "cara": "Normal",
-     "texto": "¿Cuánto por los pétalos reina?"
+     "texto": "¿Cuánto por los pétalos, reina?"
     },
     {
      "quien": "bellossom",
@@ -46,7 +46,7 @@
     {
      "quien": "bellossom",
      "cara": "Worried",
-     "texto": "Uy. Esto no se lo cuento a nadie. Bueno, a alguien sí. Vuelvo otro día."
+     "texto": "Uy, esto es ácido, cielo. No se lo cuento a nadie. Bueno, a alguien sí. Vuelvo otro día."
     }
    ],
    "marca": "bellossom-1",
@@ -133,7 +133,7 @@
     {
      "quien": "bellossom",
      "cara": "Worried",
-     "texto": "Este lo va cantando por la calle. Así no me lo llevo, cielo."
+     "texto": "Esto es ácido y lo va cantando por la calle. Así no me lo llevo, cielo."
     }
    ],
    "marca": "bellossom-4"

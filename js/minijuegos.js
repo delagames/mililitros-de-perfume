@@ -185,7 +185,7 @@ export function limpiar(alAcabar) {
       if (tipo === 'mueve' && !ultimo) return;
       const X = x + (actual?.d.ox || 0);
       mg.globalCompositeOperation = 'destination-out';
-      mg.strokeStyle = '#000'; mg.lineWidth = 18; mg.lineCap = 'round';
+      mg.strokeStyle = '#000'; mg.lineWidth = 12; mg.lineCap = 'round';
       mg.beginPath();
       mg.moveTo(...(ultimo || [X, y])); mg.lineTo(X, y); mg.stroke();
       mg.globalCompositeOperation = 'source-over';
@@ -240,8 +240,11 @@ export function contarCaja(alAcabar) {
   piezas.push(0.05, 0.05);
   const total = Math.round(piezas.reduce((a, b) => a + b, 0) * 100) / 100;
   const delta = [0.05, 0.1, 0.5, 1, 0.15][Math.floor(azar() * 5)];
-  // dos falsos, de entre −2, −1, +1 y +2 veces el salto: así el bueno puede ser el mayor, el menor o el del medio
-  const saltos = [-2, -1, 1, 2].map(k => [azar(), k]).sort((a, b) => a[0] - b[0]).slice(0, 2).map(x => x[1]);
+  // dos falsos: primero se elige si el bueno es el menor, el del medio o el mayor (un tercio cada uno; si no,
+  // eligiendo siempre el del medio se acertaba dos de cada tres), y los falsos se ponen alrededor
+  const sitio = Math.floor(azar() * 3);
+  const saltos = sitio === 0 ? [1, 2] : sitio === 1 ? [-1, 1] : [-2, -1];
+  if (total - 2 * delta < 0.05 && sitio !== 0) saltos.splice(0, 2, 1, 2);   // (sin importes de menos de cinco céntimos)
   const opciones = [total, ...saltos.map(k => Math.max(0.05, Math.round((total + k * delta) * 100) / 100))]
     .filter((v, i, a) => a.indexOf(v) === i)
     .map(v => [azar(), v]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
@@ -288,7 +291,8 @@ function pieza(g, v, x, y) {
       c.fillStyle = color; c.beginPath(); c.arc(r + 1, r + 1, r - 1, 0, Math.PI * 2); c.fill();
       c.fillStyle = '#FFFFFF66'; c.fillRect(r - 6, 5, 4, 2);
       cifras(c, v >= 1 ? String(v) : String(Math.round(v * 100)), r + 1, r - 6, { color: NEGRO, align: 'center', escala: 2 });
-      texto(c, v >= 1 ? (v === 1 ? 'EURO' : 'EUROS') : 'CTS', r + 1, r + 12, { font: '8px Silkscreen', color: NEGRO, align: 'center' });
+      if (v >= 1) cifras(c, '€', r + 1, r + 7, { color: NEGRO, align: 'center', escala: 2 });   // (la palabra «EUROS» se salía de la moneda)
+      else texto(c, 'CTS', r + 1, r + 12, { font: '8px Silkscreen', color: NEGRO, align: 'center' });
     }), x, y + 2);
   }
 }
@@ -568,7 +572,7 @@ export function alhaurinSeQueja(datos, alAcabar) {
     const { c } = carta;
     if (dir < 0) {
       if (c.critica) { denunciados++; sfx('corte'); }
-      else { penal += 4; grito = t + 1.1; avisa(t, c.grito || '¡QUE ES DE LOS MÍOS!'); sfx('fallo'); }
+      else { penal += 5; grito = t + 1.1; avisa(t, c.grito || '¡QUE ES DE LOS MÍOS!'); sfx('fallo'); }
     } else if (dir > 0) {
       if (c.critica) { viral++; avisa(t, '¡LE HAS DADO ME GUSTA!'); sfx('fallo'); }
       else { gustados.push(c); sfx('echar'); }
@@ -670,18 +674,18 @@ export function alhaurinSeQueja(datos, alAcabar) {
     if (lleno > 0) rect(g, 194, 29, lleno, 3, f < 0.35 ? CORAL : MENTA_OSC);
   }
   function publicacion(g) {
-    rr(g, 60, 52, 150, 50, BLANCO, '#BFD9D1', 3);
+    rr(g, 60, 52, 150, 54, BLANCO, '#BFD9D1', 3);
     avatar(g, datos.alcalde.Normal, 'El Mákina', 63, 55);
     texto(g, 'El Mákina', 87, 62, { font: '8px Silkscreen', color: TINTA });
     texto(g, 'ALCALDE · HACE 2 H', 87, 72, { font: '8px Silkscreen', color: '#7F9993' });
-    parte(datos.post, 142, LETRA).slice(0, 2).forEach((l, k) => texto(g, l, 64, 87 + k * 10, { font: LETRA, color: NEGRO }));
+    parte(datos.post, 142, LETRA).slice(0, 3).forEach((l, k) => texto(g, l, 64, 84 + k * 9, { font: LETRA, color: NEGRO }));
   }
   function comentario(g, c, x, y, vida, sello) {
     x = Math.round(x); y = Math.round(y);
     rr(g, x, y, CARTA.w, CARTA.h, BLANCO, NEGRO, 4);
     avatar(g, c.cara, c.nombre, x + 5, y + 5);
     parte(c.nombre, 110, '8px Silkscreen').slice(0, 2).forEach((l, k) => texto(g, l, x + 30, y + 13 + k * 9, { font: '8px Silkscreen', color: TINTA }));
-    parte(c.texto, 140, LETRA).slice(0, 3).forEach((l, k) => texto(g, l, x + 5, y + 40 + k * 11, { font: LETRA, color: NEGRO }));
+    parte(c.texto, 140, LETRA).slice(0, 4).forEach((l, k) => texto(g, l, x + 5, y + 40 + k * 10, { font: LETRA, color: NEGRO }));
     if (vida > 0) {
       rr(g, x + 5, y + CARTA.h - 9, CARTA.w - 10, 5, '#E6EEEB', null, 2);
       rr(g, x + 5, y + CARTA.h - 9, Math.max(3, Math.round((CARTA.w - 10) * Math.min(1, vida))), 5, vida < 0.3 ? CORAL : MENTA_OSC, null, 2);
@@ -751,7 +755,7 @@ export function alhaurinSeQueja(datos, alAcabar) {
   }
   return arranca(juego, alAcabar);
 }
-const LETRA = '10px "Pixelify Sans"';
+const LETRA = '8px Silkscreen';
 // Parte un texto en líneas que quepan en «ancho» (medido con la fuente de verdad); se guarda
 const medidor = document.createElement('canvas').getContext('2d');
 const partidos = new Map();

@@ -35,7 +35,7 @@ const HABLA = {
   mild: { pista: 'Muy educado: todo «si no es molestia».', tic: t => `${sinPunto(t)}, si no es molestia.` },
   hasty: { pista: 'Habla a toda prisa y lo quiere ya.', tic: t => `¡${sinPunto(t)}! ¡Rápido, rápido!` },
   rash: { pista: 'Se ríe a destiempo y salta de una cosa a otra.', tic: t => `¡Ja! ${t} ¿Qué decíamos?` },
-  naive: { pista: 'Todo le parece increíble: «¡hala!».', tic: t => `¡Hala! ${t} ¿A que sí?` },
+  naive: { pista: 'Todo le pilla de nuevas: «¡anda!».', tic: t => `¡Anda! ${t}` },
   impish: { pista: 'Contesta con una risita de trastada: «jiji».', tic: t => `${t} Jiji.` },
   bashful: { pista: 'No se atreve a decidir: «lo que tú veas».', tic: t => `Eh… ${minus(sinPunto(t))}… o lo que tú veas.` },
   serious: { pista: 'Seco y sin adornos.', tic: t => t },
@@ -47,13 +47,16 @@ const tartamudea = t => `${t.charAt(0)}-${t.charAt(0).toLowerCase()}${t.slice(1)
 const pausas = t => t.split(' ').map((p, i, a) => (i < a.length - 1 && i % 2 ? `${p}…` : p)).join(' ');
 
 let naturalezas = {};
+// las neutras (sin gusto ni odio), un poco fuera del centro pero sin llegar a «un pelín»: con una gota de
+// agua, que lleva al centro, solo sale «bien»
+const NEUTRAS = { bashful: [0.1, -0.1], serious: [0.1, 0.1], quirky: [-0.1, 0.1], docile: [-0.1, -0.1], hardy: [0, 0.1] };
 export async function cargaNaturalezas() {
   const d = await fetch('data/natures.json').then(r => r.json()).catch(() => ({ naturalezas: [] }));
   for (const n of d.naturalezas) {
     const zona = n.gusta
       ? [0, 1].map(k => +(0.8 * RUMBO[n.gusta][k] - 0.5 * RUMBO[n.odia][k]).toFixed(3))
-      : [0, 0];
-    naturalezas[n.id] = { ...n, zona, radio: n.gusta ? RADIO : 0.25, ...HABLA[n.id] };
+      : NEUTRAS[n.id] || [0, 0];
+    naturalezas[n.id] = { ...n, zona, radio: n.gusta ? RADIO : 0.13, ...HABLA[n.id] };
   }
   return naturalezas;
 }

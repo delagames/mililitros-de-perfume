@@ -41,7 +41,7 @@
     {
      "quien": "stunky",
      "cara": "Angry",
-     "texto": "Ahora huelo a cuartillo con lacito. Peor. Mucho peor."
+     "texto": "Dulzón. Ahora huelo a cuartillo con lacito. Peor. Mucho peor."
     }
    ],
    "marca": "stunky-1"
@@ -88,7 +88,7 @@
     {
      "quien": "stunky",
      "cara": "Angry",
-     "texto": "Ahora huelo a cuartillo amueblado. Enhorabuena."
+     "texto": "Dulzón. Ahora huelo a cuartillo amueblado. Enhorabuena."
     }
    ],
    "marca": "stunky-3"
@@ -115,7 +115,7 @@
      "texto": "Me tuvo media hora en el cuartillo. Media hora."
     }
    ],
-   "pide": "Necesito algo fuerte de verdad, de cierre de bar. Lo de la otra vez, con su madera y su café. Ya me conoce.",
+   "pide": "Necesito algo fuerte de verdad, de cierre de bar. Lo de la otra vez, con su madera y su orujo. Ya me conoce.",
    "perfecto": [
     {
      "quien": "stunky",
@@ -134,7 +134,7 @@
     {
      "quien": "stunky",
      "cara": "Angry",
-     "texto": "Esto no aguanta ni un garbanzo. Volveré, qué remedio."
+     "texto": "Dulce. Esto no aguanta ni un garbanzo. Volveré, qué remedio."
     }
    ],
    "marca": "stunky-4"

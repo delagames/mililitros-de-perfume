@@ -43,7 +43,7 @@
     {
      "quien": "cola",
      "cara": "Special0",
-     "texto": "Y por debajo huele a sótano de Ismael. Me encanta. Me encanta mucho."
+     "texto": "Y por debajo huele a sótano de Isaías. Me encanta. Me encanta mucho."
     }
    ],
    "bien": [
@@ -57,7 +57,7 @@
     {
      "quien": "cola",
      "cara": "Angry",
-     "texto": "Esto huele a pijama de franela y a misa de doce. Qué castigo. Y no del que me gusta."
+     "texto": "Amargo. Esto huele a pijama de franela y a misa de doce. Qué castigo. Y no del que me gusta."
     }
    ],
    "marca": "girafarig-1"
@@ -108,7 +108,7 @@
     {
      "quien": "cola",
      "cara": "Angry",
-     "texto": "Con esto no me ata nadie el viernes. Ni con bridas."
+     "texto": "Amargo. Con esto no me ata nadie el viernes. Ni con bridas."
     }
    ],
    "marca": "girafarig-2"
@@ -138,7 +138,7 @@
     {
      "quien": "cola",
      "cara": "Special0",
-     "texto": "¿De serie? ¿Esa cola es de serie? ¿Cómo las shemales? Ay, que me da algo. Gengar, abanícame."
+     "texto": "¿De serie? ¿Esa cola es de serie? ¿Como la mía? Ay, que me da algo. Gengar, abanícame."
     },
     {
      "quien": "girafarig",
@@ -170,7 +170,7 @@
     {
      "quien": "cola",
      "cara": "Angry",
-     "texto": "Esto es para gente que duerme con pijama de dos piezas. Qué tristeza más grande."
+     "texto": "Amargo. Esto es para gente que duerme con pijama de dos piezas. Qué tristeza más grande."
     }
    ],
    "marca": "girafarig-3"
@@ -226,7 +226,7 @@
     {
      "quien": "cola",
      "cara": "Angry",
-     "texto": "Esto huele a quedarse en casa viendo Saber y Ganar. Me disfrazo igual. De rencor."
+     "texto": "Amargo. Esto huele a quedarse en casa viendo Saber y Ganar. Me disfrazo igual. De rencor."
     }
    ],
    "marca": "girafarig-4"
@@ -287,7 +287,7 @@
     {
      "quien": "girafarig",
      "cara": "Sigh",
-     "texto": "No pasa nada. Nos ha costado años; un perfume más da igual."
+     "texto": "Amargo. No pasa nada. Nos ha costado años; un perfume más da igual."
     }
    ],
    "marca": "girafarig-5"

@@ -1,5 +1,5 @@
 [
-  {"id": "totodile", "retratos": "propios", "dibujo": "totodile", "alto": 64, "sprite": "0158", "nombre": "Totodile", "papel": "fijo", "prueba": "Lo de siempre: el de 30 ml. El de 50 es tirar el dinero. ¿Me haces precio?"},
+  {"id": "totodile", "retratos": "propios", "dibujo": "totodile", "alto": 64, "sprite": "0158", "nombre": "Totodile", "papel": "fijo", "prueba": "Lo de siempre: el de 30 ml. El de 50 es tirar el dinero. ¿Me haces precio?"},
   {"id": "hitmontop", "retratos": "propios", "dibujo": "hitmontop", "alto": 84, "sprite": "0237", "nombre": "Hitmontop", "papel": "arco", "prueba": "Tengo una entrevista en un gimnasio. Necesito oler a que doy volteretas con criterio."},
   {"id": "ursaring", "retratos": "propios", "dibujo": "ursaring", "alto": 118, "sprite": "0217", "nombre": "Ursaring", "papel": "arco", "prueba": "Quiero oler a recién despierto, pero que impresione. Hay una osa en contabilidad que no me mira, y yo creo que es por el olor."},
   {"id": "cyndaquil", "retratos": "propios", "dibujo": "cyndaquil", "alto": 58, "sprite": "0155", "nombre": "Cyndaquil", "papel": "arco", "prueba": "¿Tienes algo que no huela a quemado? Lo pregunto por nada."},

@@ -19,7 +19,7 @@
     {
      "quien": "quagsire",
      "cara": "Normal",
-     "texto": "Ah. Pues… pipas. Sobaco de Frente Bokeron. Victoria de termo. Tarde de domingo. Sin prisa, ¿eh? Yo tengo toda la tarde."
+     "texto": "Ah. Pues… pipas. Sobaco de Frente Bokerón. Victoria de termo. Tarde de domingo. Sin prisa, ¿eh? Yo tengo toda la tarde."
     },
     {
      "quien": "quagsire",
@@ -162,7 +162,8 @@
     "skiploom",
     "pabaya",
     "timburr"
-   ]
+   ],
+   "hastaPerfecto": true
   }
  ]
 }
