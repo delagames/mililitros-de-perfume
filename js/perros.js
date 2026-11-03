@@ -38,7 +38,7 @@ export async function cargaPerros() {
 }
 
 // Quita el fondo liso de un retrato: lo que toca el borde y es del color de la esquina
-function sinFondo(i) {
+export function sinFondo(i) {
   const c = document.createElement('canvas');
   c.width = i.width; c.height = i.height;
   const g = c.getContext('2d');

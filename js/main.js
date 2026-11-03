@@ -22,7 +22,7 @@ import { APERTURA, CIERRE, mesDe, cuotaDe, diaDelMes, diaSemana, esTrimestre, es
   disponible, PROVEEDOR_DE, reparto, visitaPara, clientesDeHoy, historiasPendientes, jornadaEsperada, jornada, a21, ALQUILER, COLCHON } from './dia.js';
 import { limpiar, contarCaja, envolver, pulverizar, alhaurinSeQueja, rinde, responde, cierra as cierraMinijuego } from './minijuegos.js';
 import { abrePedido } from './pedido.js';
-import { cargaPerros, calle as enLaCalle, bailan, perrosDeHoy } from './perros.js';
+import { cargaPerros, calle as enLaCalle, bailan, perrosDeHoy, sinFondo } from './perros.js';
 import { portraitUrl as caraDe } from './sprites.js';
 import { cuento } from './cuento.js';
 import { INTRO, FINAL } from './escenas-cuento.js';
@@ -95,6 +95,7 @@ async function preparar() {
   [imgsNoño.espaldas, imgsNoño.frente] = await Promise.all(['espaldas', 'frente']
     .map(v => cargaImagen(`assets/sprites/clientes/sudowoodo/${v}.png`).catch(() => null)));
   pintaEmblema($('#emblema'), P);
+  cargaSiluetasAsesor();
 }
 
 // Qué día vino cada cliente por última vez (para que los repetidos se turnen)
@@ -1507,7 +1508,34 @@ function correo(sigue) {
   [{ texto: '▸', secundario: true, accion: () => { deVuelta(); sigue(); } }]);
 }
 
-const ASESOR = (cara = 'Normal') => ({ cara: portraitUrl('perro-asesor', cara), nombre: 'El asesor' });
+// hasta que Morty sube al altillo y lo ve dormido en el sillón, el asesor es una silueta negra
+const ASESOR = (cara = 'Normal') => ({ cara: partida.marcas.includes('altillo') ? portraitUrl('perro-asesor', cara)
+  : siluetasAsesor[cara] || siluetasAsesor.Normal || portraitUrl('perro-asesor', cara), nombre: 'El asesor' });
+// Las siluetas: la figura en negro sobre el fondo de color del retrato (se hacen una vez, al empezar)
+const siluetasAsesor = {};
+async function cargaSiluetasAsesor() {
+  await Promise.all(['Normal', 'Determined', 'Happy', 'Joyous', 'Sigh'].map(async cara => {
+    const i = await cargaImagen(portraitUrl('perro-asesor', cara)).catch(() => null);
+    if (!i) return;
+    const figura = sinFondo(i);
+    const c = document.createElement('canvas');
+    c.width = i.width; c.height = i.height;
+    const g = c.getContext('2d');
+    // el fondo, del color de la esquina del retrato
+    g.drawImage(i, 0, 0);
+    const [r, v, a] = g.getImageData(0, 0, 1, 1).data;
+    g.fillStyle = `rgb(${r}, ${v}, ${a})`; g.fillRect(0, 0, c.width, c.height);
+    // la figura, entera en negro
+    const n = document.createElement('canvas');
+    n.width = i.width; n.height = i.height;
+    const ng = n.getContext('2d');
+    ng.drawImage(figura, 0, 0);
+    ng.globalCompositeOperation = 'source-in';
+    ng.fillStyle = '#111111'; ng.fillRect(0, 0, n.width, n.height);
+    g.drawImage(n, 0, 0);
+    siluetasAsesor[cara] = c.toDataURL();
+  }));
+}
 function ofertaAsesor(o, sigue) {
   partida.asesorVisto.push(o.id);
   guarda(partida);
