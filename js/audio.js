@@ -29,7 +29,8 @@ function ensure() {
 }
 
 // Cualquier toque despierta el audio; con la pestaña en segundo plano se para todo
-const despertar = () => { if (ensure() && !timer && prefs.music) startMusic(); };
+// (al primer toque se pide también la grabación del gemido, para que el primero ya sea el bueno)
+const despertar = () => { const c = ensure(); if (c) cargaGrabacion(c); if (c && !timer && prefs.music) startMusic(); };
 window.addEventListener('pointerdown', despertar);
 window.addEventListener('keydown', despertar);
 document.addEventListener('visibilitychange', () => {
@@ -192,12 +193,40 @@ export function sfx(nombre) {
   }
 }
 
-// El gemido de la cola de Girafarig, de gusto: empieza con la boca cerrada («mmmh», un zumbido grave y
-// suave), se abre en un «aaah» que sube y cae despacio, con un temblor lento y aire de suspiro por
-// encima. Cada vez un poco distinto; con largo, el suspiro dura más (el de «qué gustito»).
+// El gemido de la cola de Girafarig: la grabación que pasó Jorge (assets/audio/cola-gemido.mp3, cuatro
+// gemidos seguidos, recortada y limpia con ffmpeg). El corto es uno de los cuatro, al azar; el largo
+// (el de «qué gustito»), dos seguidos. Si la grabación no ha cargado (sin conexión), uno hecho por código.
+const TROZOS = [[0, 1.8], [1.8, 2.2], [4.0, 1.4], [5.4, 1.2]];
+const LARGO = [1.8, 3.6];
+let grabacion = null, cargando = null;
+function cargaGrabacion(c) {
+  if (grabacion || cargando) return;
+  cargando = fetch('assets/audio/cola-gemido.mp3')
+    .then(r => r.arrayBuffer())
+    .then(datos => new Promise((ok, mal) => c.decodeAudioData(datos, ok, mal)))
+    .then(buf => { grabacion = buf; })
+    .catch(() => { cargando = null; });
+}
 export function gemido(largo = false) {
   const c = ensure();
   if (!c || !prefs.sfx) return;
+  cargaGrabacion(c);
+  if (!grabacion) { gemidoDeCodigo(c, largo); return; }
+  const [desde, dura] = largo ? LARGO : TROZOS[Math.floor(Math.random() * TROZOS.length)];
+  const t = c.currentTime + 0.02;
+  const fuente = c.createBufferSource();
+  fuente.buffer = grabacion;
+  const vol = c.createGain();
+  vol.gain.setValueAtTime(0.0001, t);
+  vol.gain.exponentialRampToValueAtTime(0.9, t + 0.03);
+  vol.gain.setValueAtTime(0.9, t + dura - 0.15);
+  vol.gain.exponentialRampToValueAtTime(0.0001, t + dura);
+  fuente.connect(vol).connect(sfxBus);
+  fuente.start(t, desde, dura);
+}
+// El de código, por si falta la grabación: empieza con la boca cerrada («mmmh»), se abre en un «aaah»
+// que sube y cae despacio, con un temblor lento y aire de suspiro por encima
+function gemidoDeCodigo(c, largo) {
   const t = c.currentTime + 0.02;
   const dura = (largo ? 1.9 : 1.2) + Math.random() * 0.3;
   const abre = dura * 0.32;                                   // cuándo pasa del «mmm» al «aaah»
