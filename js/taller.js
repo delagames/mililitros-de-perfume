@@ -26,6 +26,7 @@ const BANCO = 166;
 const t = {
   perfume: nuevoPerfume(), orden: [], almacen: {}, seleccion: null, arrastre: null, anim: null, P: null,
   oyente: () => {},
+  olfato: 0,   // cuántas veces puede oler Gengar todavía hoy (lo pone main.js): si le queda, asoma en el frasco
 };
 export const taller = t;
 
@@ -252,6 +253,17 @@ function pintaTaller(g, tiempo, { P }, d) {
     cifras(c, `${p.pasos.length}/${MAX}`, w / 2, h - 1, { color: P.blanco, align: 'center' });
     if (MAX > 6) { caja(c, 9, 30, 16, 9, P.blanco, null, 2); cifras(c, MAX > 8 ? '100' : '50', 17, 32, { color: P.negro, align: 'center' }); }   // (la medida del frasco)
   }), x, y - 2);
+  // Gengar, asomando por la esquina del frasco mientras le quede olfato: «tócalo y lo huelo»
+  if (t.olfato > 0 && p.pasos.length) {
+    const sube = Math.floor(tiempo * 2) % 2, gx = x + w - 16, gy = y - 10 - sube;
+    caja(g, gx, gy, 18, 15, '#7B5BC2', P.negro, 5);
+    rect(g, gx + 2, gy - 2, 2, 3, '#7B5BC2'); rect(g, gx + 14, gy - 2, 2, 3, '#7B5BC2');      // las orejas
+    rect(g, gx + 2, gy - 3, 2, 1, P.negro); rect(g, gx + 14, gy - 3, 2, 1, P.negro);
+    rect(g, gx + 4, gy + 4, 3, 2, '#E7584A'); rect(g, gx + 11, gy + 4, 3, 2, '#E7584A');      // los ojos
+    rect(g, gx + 4, gy + 9, 10, 2, P.blanco);                                                   // la sonrisa
+    rect(g, gx + 6, gy + 9, 1, 2, P.negro); rect(g, gx + 9, gy + 9, 1, 2, P.negro); rect(g, gx + 12, gy + 9, 1, 2, P.negro);
+    if (t.olfato > 1) cifras(g, '2', gx + 20, gy + 1, { color: P.verde_tinta });              // (con la cafetera, dos)
+  }
   // el bote que se arrastra, con el dedo
   if (t.arrastre?.movido) {
     const id = t.arrastre.id;

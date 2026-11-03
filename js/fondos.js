@@ -352,19 +352,19 @@ function plato({ img }, W, H, bajo) {
 
 // Los cuatro momentos: título y cómo se pinta (W, H en píxeles de dibujo)
 export const FONDOS = {
-  tienda: { titulo: 'La tienda, abierta', pinta: (ctx, W, H, bajo) => pintaVista(MOSTRADOR, ctx, W, H, 1.3, bajo, 160) },
-  baile: { titulo: 'Los perros bailan', pinta: (ctx, W, H, bajo) => {
+  tienda: { titulo: 'La tienda, abierta', comprado: 'fondo-tienda', pinta: (ctx, W, H, bajo) => pintaVista(MOSTRADOR, ctx, W, H, 1.3, bajo, 160) },
+  baile: { titulo: 'Los perros bailan', comprado: 'fondo-baile', pinta: (ctx, W, H, bajo) => {
     const t = 1000;
     return conCalle({ baile: t - 0.4, baileLargo: true, hoy: { paseador: true, 'border-collie': true, bulldog: true, jefe: true } },
       () => conLados(pintaVista(CALLE, ctx, W, H, t, bajo, 140), ctx, H, bajo));
   } },
-  cristal: { titulo: 'El Señor Mililitros, en el cristal', pinta: (ctx, W, H, bajo) => {
+  cristal: { titulo: 'El Señor Mililitros, en el cristal', comprado: 'fondo-cristal', pinta: (ctx, W, H, bajo) => {
     const t = 1000;
     return conCalle({ solo: 'jefe-cristal', t0: t - 2, cristal: { x: 163, cara: 'cara-Normal' } }, () => conLados(pintaVista(CALLE, ctx, W, H, t, bajo, 160), ctx, H, bajo));
   } },
-  malaga: { titulo: 'Morty viendo al Málaga', pinta: (ctx, W, H, bajo) => salon(ctx, W, H, bajo) },
-  // (este se compra en la tienda: «Fondo de pantalla de «Cenas Encantadas»»)
-  cenas: { titulo: '«Cenas Encantadas»', comprado: 'cuadro', pinta: (ctx, W, H, bajo) => plato(ctx, W, H, bajo) },
+  malaga: { titulo: 'Morty viendo al Málaga', comprado: 'fondo-malaga', pinta: (ctx, W, H, bajo) => salon(ctx, W, H, bajo) },
+  // (todos se compran en la tienda; tras el final salen los demás gratis, pero este solo comprado)
+  cenas: { titulo: '«Cenas Encantadas»', comprado: 'cuadro', soloComprado: true, pinta: (ctx, W, H, bajo) => plato(ctx, W, H, bajo) },
 };
 
 // El fondo a su tamaño de dibujo (para verlo en pequeño)

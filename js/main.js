@@ -173,7 +173,13 @@ const MORTY = { cara: 'assets/portraits/morty/Normal.png', nombre: 'Morty Pocion
 
 // ---------- el taller ----------
 // Los botones del taller según cómo vaya el perfume (y si hay un ingrediente elegido)
+// cuántas veces puede oler Gengar todavía hoy (con cliente delante): una, o dos con la cafetera
+function olfatoQueda() {
+  if (!encargo || encargo.tutorial || !partida.hoy) return 0;
+  return Math.max(0, (partida.mejoras.includes('cafetera') ? 2 : 1) - (+partida.hoy.gengarOlio || 0));
+}
 function botonesTaller(conEchar = false) {
+  taller.olfato = olfatoQueda();   // (Gengar asoma en el frasco mientras le quede)
   const hay = taller.perfume.pasos.length > 0;
   const lista = [];
   if (conEchar && taller.seleccion) lista.push({ texto: 'Echar', accion: () => echar(taller.seleccion) });
@@ -195,7 +201,10 @@ function alTaller(que, id) {
     sfx('echar');
     if (partida.hoy) partida.hoy.frasco = taller.perfume.pasos;
     guarda(partida);
-    decir({ ...MORTY, cara: portraitUrl('morty', 'Worried'), texto: `${ing.nombre}. Van ${p.pasos.length} de ${MAX}: huele ${caracter(p).toLowerCase()}.` }, botonesTaller(true));
+    // la primera vez con cada cliente, si a Gengar le queda olfato, recuerda que puede oler el frasco
+    const pista = encargo && !encargo.pistaGengar && olfatoQueda() > 0;
+    if (pista) encargo.pistaGengar = true;
+    decir({ ...MORTY, cara: portraitUrl('morty', 'Worried'), texto: `${ing.nombre}. Van ${p.pasos.length} de ${MAX}: huele ${caracter(p).toLowerCase()}.${pista ? ' Si toco el frasco, lo huele Gengar.' : ''}` }, botonesTaller(true));
   } else if (que === 'lleno') {
     decir({ ...MORTY, texto: 'El frasco está lleno. Embotella, o deshaz el último.' }, botonesTaller());
   } else if (que === 'sin') {
@@ -269,7 +278,7 @@ function ir(siguiente) {
   if (encargo?.tutorial && !['mostrador', 'taller'].includes(siguiente)) acabaPractica();   // (tutorial dejado a medias)
   if (siguiente === 'inicio') cierraMinijuego();
   const enJuego = siguiente !== 'inicio';
-  $('#inicio-fondos').classList.toggle('hidden', !partida?.marcas?.includes('epilogo') && !partida?.mejoras?.includes('cuadro') && !modoPruebas);
+  $('#inicio-fondos').classList.toggle('hidden', !partida?.marcas?.includes('epilogo') && !Object.values(FONDOS).some(f => partida?.mejoras?.includes(f.comprado)) && !modoPruebas);
   $('#inicio').classList.toggle('hidden', enJuego);
   $('#juego').classList.toggle('hidden', !enJuego);
   escena.pausar(false);
@@ -590,10 +599,10 @@ function gengarEnsena(ej = EJEMPLOS[0], alAcabar = null) {
     frases.push(GENGAR('Normal', `Una muestra de la balda: la de ${fam.nombre.toLowerCase()}.`), dice(FRASE_REACCION[reac][0], CARA_REACCION[reac]), GENGAR(reac === 'odia' ? 'Surprised' : 'Joyous', FRASE_MUESTRA[reac]));
   }
   frases.push(GENGAR('Special0', ej.resumen), GENGAR('Normal', 'Todo esto queda apuntado en el cartel de arriba del taller.'));
-  serie(frases, [{ texto: 'Al taller', accion: () => { ir('taller'); gengarFormula(alAcabar); } }]);
+  serie(frases, [{ texto: 'Al taller', accion: () => { ir('taller'); gengarFormula(alAcabar, ej === EJEMPLOS[0]); } }]);
 }
 // En el taller: busca la mezcla que cae en su zona con lo que hay (sin lo que odia), y la echa poco a poco
-function gengarFormula(alAcabar = null) {
+function gengarFormula(alAcabar = null, avisaOlfato = false) {
   const n = naturaleza(encargo.nat);
   const odiado = id => [n.odia, ...(encargo.odiaExtra || [])].includes(FAMILIAS.find(f => f.id === ingrediente(id)?.familia)?.sabor);
   const ids = Object.keys(partida.almacen).filter(id => partida.almacen[id] > 0 && ingrediente(id) && !ingrediente(id).inestable && !ingrediente(id).base && !odiado(id));
@@ -621,13 +630,21 @@ function gengarFormula(alAcabar = null) {
       return;
     }
     fichaDemoActiva = false;
-    if (encargo.tutorial) {
-      const res = puntua(encargo.nat, { pos: taller.perfume.pos, ingredientes: taller.perfume.pasos.map(x => x.id) }, ingrediente, encargo.odiaExtra);
-      decir(GENGAR('Joyous', res === 'perfecto' ? `En su zona: ${caracter(taller.perfume).toLowerCase()}. Perfecto, y se cobra ${euros(PRECIO.perfecto)}. Si se queda cerca, «bien» (${euros(PRECIO.bien)}); lejos, no paga.` : 'Así, más o menos. Cuanto más cerca de su zona, mejor se paga.'),
-        [{ texto: 'Seguir', accion: alAcabar }]);
-      return;
-    }
-    decir(GENGAR('Joyous', 'Ya está en su zona. El último paso es tuyo: dale a «Dárselo».'), botonesTaller());
+    const acaba = () => {
+      if (encargo.tutorial) {
+        taller.olfato = 0;
+        const res = puntua(encargo.nat, { pos: taller.perfume.pos, ingredientes: taller.perfume.pasos.map(x => x.id) }, ingrediente, encargo.odiaExtra);
+        decir(GENGAR('Joyous', res === 'perfecto' ? `En su zona: ${caracter(taller.perfume).toLowerCase()}. Perfecto, y se cobra ${euros(PRECIO.perfecto)}. Si se queda cerca, «bien» (${euros(PRECIO.bien)}); lejos, no paga.` : 'Así, más o menos. Cuanto más cerca de su zona, mejor se paga.'),
+          [{ texto: 'Seguir', accion: alAcabar }]);
+        return;
+      }
+      decir(GENGAR('Joyous', 'Ya está en su zona. El último paso es tuyo: dale a «Dárselo».'), botonesTaller());
+    };
+    // en el primer ejemplo, Gengar avisa de que puede oler el frasco: asoma en la esquina mientras le quede
+    if (!avisaOlfato) { acaba(); return; }
+    taller.olfato = Math.max(1, olfatoQueda());
+    decir(GENGAR('Special0', '¿Ves mi cara en la esquina del frasco? Mientras salga, tócalo y lo huelo: te digo si te has pasado. Una vez al día, dos con la cafetera. Y a veces miento.'),
+      [{ texto: 'Seguir', accion: acaba }]);
   };
   setTimeout(siguiente, 4200);
 }
@@ -1245,7 +1262,10 @@ function botonesCalle() {
 function pasaCuota() {
   const hoy = partida.hoy;
   const primera = !partida.marcas.includes('cuota-1');
-  const { cuota, alquiler, pagado, fiado } = cobraCuota(partida);
+  let { cuota, alquiler, pagado, fiado } = cobraCuota(partida);
+  // la primera vez, el Señor Mililitros redondea su «pequeño recargo» hasta los 500,21 € (lo pidió
+  // Jorge: la deuda se pagaba demasiado rápido)
+  if (primera && fiado && partida.deuda < 500.21) { fiado = Math.round((fiado + 500.21 - partida.deuda) * 100) / 100; partida.deuda = 500.21; }
   hoy.cuota = 'pagada';
   marca('cuota-1');
   guarda(partida);
@@ -1571,7 +1591,8 @@ function pedido() {
     aplicaMejoras();
     guarda(partida);
     sfx('logro');
-    if (m.id === 'cuadro') $('#pedido .pedido-meta').textContent = 'El fondo de «Cenas Encantadas» ya se puede descargar en «Fondos de pantalla», en el inicio.';
+    const fondo = Object.values(FONDOS).find(f => f.comprado === m.id);
+    if (fondo) $('#pedido .pedido-meta').textContent = `El fondo «${fondo.titulo}» ya se puede descargar en «Fondos de pantalla», en el inicio.`;
   }, alAcabar: p => {
     const hoy = partida.hoy;
     if (p) {
@@ -1627,7 +1648,8 @@ function abreFondos() {
   const s = $('#fondos');
   const datos = { estante: partida.estante };
   const final = partida.marcas.includes('epilogo') || modoPruebas;
-  const hay = Object.entries(FONDOS).filter(([, f]) => (f.comprado ? partida.mejoras.includes(f.comprado) || modoPruebas : final));
+  // cada uno, si se ha comprado en la tienda; tras el final, todos menos el de «Cenas Encantadas», que se compra
+  const hay = Object.entries(FONDOS).filter(([, f]) => partida.mejoras.includes(f.comprado) || modoPruebas || (final && !f.soloComprado));
   $('#fondos .fondos-lista').replaceChildren(...hay.map(([id, f]) => {
     const tarjeta = document.createElement('div');
     tarjeta.className = 'fondo-tarjeta';

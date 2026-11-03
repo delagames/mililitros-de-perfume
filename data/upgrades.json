@@ -8,5 +8,9 @@
   {"id": "cafetera", "nombre": "Cafetera para Gengar", "dice": "Con café, Gengar huele dos frascos al día en vez de uno.", "precio": 220.21},
   {"id": "abono", "nombre": "Abono de La Rosaleda", "dice": "Morty va al fútbol. Los lunes que gana el Málaga, todos los clientes dejan propina (y se suma a la del escudo).", "precio": 120.21},
   {"id": "frasco100", "nombre": "Frascos de 100 ml", "dice": "Caben diez ingredientes, y el perfecto se cobra a 59,21 €.", "precio": 260.21, "requiere": "frasco50"},
-  {"id": "cuadro", "nombre": "Fondo de pantalla de «Cenas Encantadas»", "dice": "El plató del programa de Morty, para el móvil o el ordenador. Se descarga en «Fondos de pantalla», en el inicio.", "precio": 150.21}
+  {"id": "cuadro", "nombre": "Fondo de pantalla de «Cenas Encantadas»", "dice": "El plató del programa de Morty, para el móvil o el ordenador. Se descarga en «Fondos de pantalla», en el inicio.", "precio": 150.21},
+  {"id": "fondo-tienda", "nombre": "Fondo de pantalla de la tienda", "dice": "Morty y Gengar en el mostrador, para el móvil o el ordenador. Se descarga en «Fondos de pantalla», en el inicio.", "precio": 60.21},
+  {"id": "fondo-malaga", "nombre": "Fondo de pantalla de Morty viendo al Málaga", "dice": "El salón, el sofá y ¡gol!, para el móvil o el ordenador. Se descarga en «Fondos de pantalla», en el inicio.", "precio": 90.21},
+  {"id": "fondo-baile", "nombre": "Fondo de pantalla de los perros bailando", "dice": "La calle de fiesta, para el móvil o el ordenador. Se descarga en «Fondos de pantalla», en el inicio.", "precio": 110.21},
+  {"id": "fondo-cristal", "nombre": "Fondo de pantalla del Señor Mililitros en el cristal", "dice": "Su cara pegada al escaparate, para el móvil o el ordenador. Se descarga en «Fondos de pantalla», en el inicio.", "precio": 130.21}
 ]
