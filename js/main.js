@@ -145,6 +145,9 @@ function empiezaPartida(p) {
   partida.vacaciones ??= 0;       // cuántas veces se ha pulsado «Vacaciones»
   partida.diaBaja ??= partida.dia <= 5 ? 5 + Math.floor(Math.random() * 5) : partida.dia + 2 + Math.floor(Math.random() * 3);   // (entre el 5 y el 9)
   if (partida.diaBaja > partida.dia + 4 && !partida.marcas.includes('baja')) partida.diaBaja = partida.dia + 2 + Math.floor(Math.random() * 3);   // (calendario de antes)
+  // (si la baja ya pasó y Blissey no vino, por el fallo de antes de elegir clientes sin saber que era la baja:
+  // una recaída uno o dos días después, para que venga ella)
+  if (partida.diaBaja < partida.dia && !partida.marcas.includes('blissey-1')) partida.diaBaja = partida.dia + 1 + Math.floor(Math.random() * 2);
   partida.introVista ??= partida.dia > 1;   // a quien ya iba por la mitad, sin intro
   partida.mejoras ??= [];
   partida.cuentaVisitas ??= {};   // cuántas veces ha venido cada cliente
