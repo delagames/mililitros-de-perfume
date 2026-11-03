@@ -44,7 +44,7 @@ let ings = [];                  // los ingredientes
 let imgsNoño = {};              // Ñoño de espaldas y de frente, para pulverizarle
 let correos = [], asesor = {};  // los correos del Señor Mililitros y las ofertas del asesor
 let mejoras = [];               // las mejoras de la tienda (data/upgrades.json)
-let facebook = null;            // el muro del Mákina, para «Alhaurín se queja» (data/facebook.json)
+let facebook = null;            // el muro del Mákina, para «Pokealhaurín se queja» (data/facebook.json)
 
 function cargaImagen(src) {
   return new Promise((ok, mal) => {
@@ -933,7 +933,7 @@ function facturaAlReves(c, alAcabar) {
   } }]);
 }
 
-// «Alhaurín se queja»: el Mákina le deja el móvil a Morty para que le denuncie las críticas del muro
+// «Pokealhaurín se queja»: el Mákina le deja el móvil a Morty para que le denuncie las críticas del muro
 function datosFacebook(todosConocidos) {
   // los clientes salen con su cara solo si Morty ya los conoce; si no, ese comentario no sale
   const conoce = id => todosConocidos || (partida.cuentaVisitas?.[id] || 0) > 0 || partida.marcas.some(m => m.startsWith(`${id}-`));
@@ -949,15 +949,23 @@ function datosFacebook(todosConocidos) {
     alcalde,
   };
 }
-const INSTRUCCIONES_FACEBOOK = 'Izquierda, denunciar; derecha, «me gusta». Ojo con los que parecen buenos.';
-const botonesFacebook = () => [{ texto: 'Denunciar', accion: () => responde('denunciar') }, { texto: 'Me gusta', secundario: true, accion: () => responde('gusta') },
-  { texto: 'Dejarlo', secundario: true, accion: rinde }];
+const INSTRUCCIONES_FACEBOOK = 'Izquierda, denunciar; derecha, «me gusta». Si entra un WhatsApp, tócalo para quitarlo.';
+// Antes de jugar, el Mákina explica cómo va (lo del WhatsApp, sobre todo, que si no no se entiende)
+function explicaFacebook(habla, alEmpezar) {
+  serie([habla('Inspired', 'Mira: a la izquierda, denuncias lo malo. A la derecha, «me gusta» a lo bueno. Con ocho denuncias, el muro limpio.'),
+    habla('Normal', 'Ojo, que hay críticas disfrazadas de piropo. Y a los míos, mi primo, mi madre o yo con otro nombre, ni tocarlos.'),
+    habla('Surprised', 'Y si me entra un WhatsApp, te tapa la pantalla: tócalo para quitarlo, que mientras está no puedes seguir.'),
+    habla('Angry', 'Si se quedan tres críticas, se hace viral. Y la batería va justa. ¡Al lío!')],
+  [{ texto: 'Empezar', accion: alEmpezar }]);
+}
+// (sin botones de denunciar ni de «me gusta»: se desliza con el dedo; solo «Dejarlo», para salir)
+const botonesFacebook = () => [{ texto: 'Dejarlo', secundario: true, accion: rinde }];
 function ofreceFacebook(c, alAcabar) {
   if (encargo) encargo.despedir = alAcabar;   // (una vez: si sale al menú, al volver solo queda despedirlo)
   const habla = (cara, texto) => fraseDe(c, { quien: c.id, cara, texto });
   serie([habla('Happy', 'Oye, Morty, échame una mano, que no doy abasto. Te dejo el móvil.'),
-    habla('Inspired', 'En el grupo «Alhaurín se queja» me están poniendo a caer de un burro. Tú denuncia lo malo y dale «me gusta» a lo bueno.')],
-  [{ texto: 'Coger el móvil', accion: () => juegaFacebook(c, alAcabar) },
+    habla('Inspired', 'En el grupo «Pokealhaurín se queja» me están poniendo a caer de un burro. Tú denuncia lo malo y dale «me gusta» a lo bueno.')],
+  [{ texto: 'Coger el móvil', accion: () => explicaFacebook(habla, () => juegaFacebook(c, alAcabar)) },
     { texto: 'Ahora no', secundario: true, accion: () => serie([habla('Normal', 'Pues nada. Ya lo hago yo, que tengo un dedo libre.')], [{ texto: 'Despedirlo', accion: alAcabar }]) }]);
 }
 function juegaFacebook(c, alAcabar) {
@@ -1844,7 +1852,7 @@ const PRUEBAS = [
   ['mj-envolver', 'Minijuego: envolver el regalo', ''],
   ['mj-caja', 'Minijuego: contar la caja', ''],
   ['mj-noño', 'Minijuego: pulverizar a Ñoño', ''],
-  ['mj-facebook', 'Minijuego: Alhaurín se queja', ''],
+  ['mj-facebook', 'Minijuego: Pokealhaurín se queja', ''],
 ];
 function listaPruebas() {
   $('#lista-sucesos .lista-titulo').textContent = 'Pruebas';
@@ -1914,8 +1922,11 @@ function prueba(id) {
     if (id === 'mj-noño') { ir('mostrador'); $('#lugar').textContent = rotulo; decir({ texto: 'Mantén el dedo para rociarle. Cuando baje las estampitas para mirarte, suelta.' }, dejar); pulverizar(imgsNoño, fin); }
     if (id === 'mj-facebook' && facebook) {
       ir('mostrador'); $('#lugar').textContent = rotulo;
-      decir({ texto: INSTRUCCIONES_FACEBOOK }, botonesFacebook());
-      alhaurinSeQueja(datosFacebook(true), r => decir({ texto: r.gana ? '¡Muro limpio!' : r.dejado ? 'Dejado a medias.' : r.viral ? 'Se ha hecho viral.' : 'Sin batería.' }, [otra, volver]));
+      const mak = todos.murkrow;
+      explicaFacebook((cara, texto) => fraseDe(mak, { quien: 'murkrow', cara, texto }), () => {
+        decir({ texto: INSTRUCCIONES_FACEBOOK }, botonesFacebook());
+        alhaurinSeQueja(datosFacebook(true), r => decir({ texto: r.gana ? '¡Muro limpio!' : r.dejado ? 'Dejado a medias.' : r.viral ? 'Se ha hecho viral.' : 'Sin batería.' }, [otra, volver]));
+      });
     }
     if (id === 'mj-caja') {
       ir('mostrador'); $('#lugar').textContent = rotulo;

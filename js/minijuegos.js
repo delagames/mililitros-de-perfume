@@ -5,7 +5,7 @@
 // - caja: contar lo que hay en la bandeja y elegir el total bueno;
 // - envolver: cortar el papel a la medida, doblar las solapas (lados primero) y poner el lazo;
 // - noño: rociar a Ñoño con desodorante mientras se tapa la cara con sus estampitas, sin que te pille;
-// - alhaurín se queja: con el móvil del Mákina, denunciar las críticas de su muro de Facebook.
+// - pokealhaurín se queja: con el móvil del Mákina, denunciar las críticas de su muro de Facebook.
 // Cada uno acaba llamando a alAcabar({ gana, ... }).
 import { rect, caja, texto, cifras } from './pixel.js';
 import { sfx } from './audio.js';
@@ -527,8 +527,8 @@ function estampitas(g, cx, cy) {
   rr(g, cx + 22, cy + 8, 8, 10, '#9A6A3A', NEGRO, 3);
 }
 
-// ---------- Alhaurín se queja ----------
-// El Mákina le deja el móvil a Morty, con el grupo de Facebook «Alhaurín se queja» abierto. Los
+// ---------- Pokealhaurín se queja ----------
+// El Mákina le deja el móvil a Morty, con el grupo de Facebook «Pokealhaurín se queja» abierto. Los
 // comentarios salen de uno en uno: deslizando a la izquierda se denuncian (las críticas, también las
 // que parecen buenas y no lo son) y a la derecha se les da «me gusta» (los pelotas: su primo, su
 // madre, él mismo con otro nombre). Cada comentario tiene su barrita: si una crítica se queda (se
@@ -541,7 +541,7 @@ function estampitas(g, cx, cy) {
 export function alhaurinSeQueja(datos, alAcabar) {
   const META = 8, DURA = 36, BATERIA = 18, MAXVIRAL = 3, ALTO = 248;
   const CARTA = { x: 60, y: 108, w: 150, h: 100 };
-  const BANNER = { x: 60, y: 28, w: 150, h: 56 };
+  const BANNER = { x: 60, y: 28, w: 150, h: 68 };
   const mezcla = a => a.map(x => [Math.random(), x]).sort((p, q) => p[0] - q[0]).map(x => x[1]);
   const criticas = mezcla(datos.comentarios.filter(c => c.critica));
   const pelotas = mezcla(datos.comentarios.filter(c => !c.critica));
@@ -605,7 +605,7 @@ export function alhaurinSeQueja(datos, alAcabar) {
       if (fase === 'apagado') return apagado(g, t);
       barraEstado(g, t);
       rect(g, 56, 36, 158, 13, TINTA);
-      texto(g, 'ALHAURÍN SE QUEJA', 135, 46, { font: '8px Silkscreen', color: BLANCO, align: 'center' });
+      texto(g, 'POKEALHAURÍN SE QUEJA', 135, 46, { font: '8px Silkscreen', color: BLANCO, align: 'center' });
       publicacion(g);
       if (fase === 'viral') return meme(g, t);
       if (fase === 'limpio') return pantallazo(g, t);
@@ -696,13 +696,20 @@ export function alhaurinSeQueja(datos, alAcabar) {
     }
   }
   function banner(g, t) {
-    const y = BANNER.y - Math.max(0, Math.round(60 - (t - wasap.t) * 300));
+    // el resto del móvil, en penumbra: lo que importa ahora es el WhatsApp
+    g.globalAlpha = 0.45; rr(g, 56, 24, 158, 214, NEGRO, null, 6); g.globalAlpha = 1;
+    const y = BANNER.y - Math.max(0, Math.round(72 - (t - wasap.t) * 300));
     rr(g, BANNER.x + 2, y + 2, BANNER.w, BANNER.h, '#00000033', null, 4);
     rr(g, BANNER.x, y, BANNER.w, BANNER.h, '#E3F7EC', NEGRO, 4);
     rr(g, BANNER.x + 5, y + 5, 10, 10, '#2FB894', NEGRO, 3);
     rect(g, BANNER.x + 8, y + 8, 4, 3, BLANCO);
     texto(g, wasap.nombre, BANNER.x + 19, y + 13, { font: '8px Silkscreen', color: TINTA });
     parte(wasap.texto, 140, LETRA).slice(0, 3).forEach((l, k) => texto(g, l, BANNER.x + 5, y + 27 + k * 10, { font: LETRA, color: NEGRO }));
+    // la X para cerrarlo y, abajo, parpadeando, qué hay que hacer
+    rr(g, BANNER.x + BANNER.w - 15, y + 4, 11, 11, CORAL, NEGRO, 3);
+    rect(g, BANNER.x + BANNER.w - 12, y + 7, 1, 1, BLANCO); rect(g, BANNER.x + BANNER.w - 11, y + 8, 3, 3, BLANCO); rect(g, BANNER.x + BANNER.w - 8, y + 7, 1, 1, BLANCO);
+    rect(g, BANNER.x + BANNER.w - 12, y + 11, 1, 1, BLANCO); rect(g, BANNER.x + BANNER.w - 8, y + 11, 1, 1, BLANCO);
+    if (Math.floor(t * 3) % 2 === 0) texto(g, '¡TÓCALO PARA QUITARLO!', BANNER.x + BANNER.w / 2, y + BANNER.h - 4, { font: '8px Silkscreen', color: CORAL, align: 'center' });
   }
   // ocho denuncias: el pantallazo del muro, solo con los pelotas
   function pantallazo(g, t) {
