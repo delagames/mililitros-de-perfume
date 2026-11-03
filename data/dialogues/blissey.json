@@ -9,7 +9,7 @@
     {
      "quien": "blissey",
      "cara": "Happy",
-     "texto": "Vengo de parte de la Junta. ¿Morty Pociones está de baja? Usted no es Morty."
+     "texto": "Vengo de parte de la Junta de Andalucía. ¿Morty Pociones está de baja? Usted no es Morty."
     },
     {
      "quien": "gengar",
@@ -22,7 +22,7 @@
      "texto": "Correcto. La llamo luego. Le firmo un justificante. A usted. Por si acaso."
     }
    ],
-   "pide": "Ya que estoy, uno para mí, cielo: una pizca de sábana limpia y cama recién hecha. Poquito, ¿eh?",
+   "pide": "Ya que estoy, uno para mí, máquina: una pizca de sábana limpia y cama recién hecha. Poquito, ¿eh?",
    "perfecto": [
     {
      "quien": "blissey",
@@ -57,17 +57,17 @@
     {
      "quien": "blissey",
      "cara": "Happy",
-     "texto": "Buenos días, Morty. Le traigo receta: uno de talco cada ocho horas."
+     "texto": "Buenos días, Morty. Le traigo receta: pinrelina para el olor de pies."
     },
     {
      "quien": "morty",
      "cara": "Normal",
-     "texto": "No estoy malo."
+     "texto": "No me huelen los pies."
     },
     {
      "quien": "blissey",
      "cara": "Normal",
-     "texto": "Por eso. Es preventivo."
+     "texto": "Bueno. Es preventivo."
     },
     {
      "quien": "ursaring",
@@ -77,7 +77,7 @@
     {
      "quien": "blissey",
      "cara": "Happy",
-     "texto": "Señor Ursaring, ¿qué tal esos madrugones? Siéntese, que se me pone usted rojo."
+     "texto": "Señor Ursaring, ¿qué tal esos madrugones? Siéntese, que se me pone usted rojo como el Francisco Javié el día de piernas."
     }
    ],
    "pide": "A mí póngame algo de bata recién planchada, de las que se secan al sol. Fresquito, pero poco.",

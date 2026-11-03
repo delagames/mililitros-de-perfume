@@ -456,7 +456,7 @@ export const FINAL = ({ titular = null, sobre = false } = {}) => [
   { cielo: CIELO_DIA, suelo: ACERA, efectos: ['confeti', 'rayos'], boton: 'Seguir', camara: [[0, 180, -330, 1.2], [3, 180, -330, 1]],
     frases: ['Mililitros de Perfume. Un juego de Jorge para Morty Pociones y su tienda de Alhaurín de la Torre.',
       'Gengar, los perros y los clientes, de las hojas de Jorge. Sprites: PMD SpriteCollab (CC BY-NC 4.0). Letras: Pixelify Sans, Silkscreen y Caveat Brush (OFL).',
-      'Pokémon es de Nintendo, Creatures y GAME FREAK. Juego personal, sin ánimo de lucro.', 'Aúpa Málaga.'],
+      'Pokémon es de Nintendo, Creatures y GAME FREAK. Juego personal, sin ánimo de lucro.', 'Gora el Málaga.'],
     decorado: [...calle(), { ...tienda(), x: 255, y: -180 }],
     pegatinas: [{ src: 'assets/logo/logo-principal.png', escala: 0.11, x: 180, y: -430, entra: 'cae', mueve: 'flota', dura: 1, efecto: 'chispas' },
       { ...MORTY, x: -40, y: -150, entra: 'funde', mueve: 'bote', ruta: [[0, -40, -150], [2, 60, -150]] },
