@@ -20,7 +20,7 @@ import { cargaIngredientes, ingrediente, nombreDe, colorDe, caracter, MAX, ponMa
 import { carga, guarda, guardaCopia, copias, exporta, importa, borra } from './save.js';
 import { APERTURA, CIERRE, mesDe, cuotaDe, diaDelMes, diaSemana, esTrimestre, esDiaFactura, hora, cobraCuota, pagaDeuda,
   disponible, PROVEEDOR_DE, reparto, visitaPara, clientesDeHoy, jornada, a21, ALQUILER, COLCHON } from './dia.js';
-import { limpiar, contarCaja, envolver, pulverizar, rinde, responde, cierra as cierraMinijuego } from './minijuegos.js';
+import { limpiar, contarCaja, envolver, pulverizar, alhaurinSeQueja, rinde, responde, cierra as cierraMinijuego } from './minijuegos.js';
 import { abrePedido } from './pedido.js';
 import { cargaPerros, calle as enLaCalle, bailan, perrosDeHoy } from './perros.js';
 import { portraitUrl as caraDe } from './sprites.js';
@@ -44,6 +44,7 @@ let ings = [];                  // los ingredientes
 let imgsNoño = {};              // Ñoño de espaldas y de frente, para pulverizarle
 let correos = [], asesor = {};  // los correos del Señor Mililitros y las ofertas del asesor
 let mejoras = [];               // las mejoras de la tienda (data/upgrades.json)
+let facebook = null;            // el muro del Mákina, para «Alhaurín se queja» (data/facebook.json)
 
 function cargaImagen(src) {
   return new Promise((ok, mal) => {
@@ -89,6 +90,7 @@ async function preparar() {
   correos = await fetch('data/emails.json').then(r => r.json()).catch(() => []);
   mejoras = await fetch('data/upgrades.json').then(r => r.json()).catch(() => []);
   asesor = await fetch('data/advisor.json').then(r => r.json()).catch(() => ({ ofertas: [] }));
+  facebook = await fetch('data/facebook.json').then(r => r.json()).catch(() => null);
   await cargaPerros();
   [imgsNoño.espaldas, imgsNoño.frente] = await Promise.all(['espaldas', 'frente']
     .map(v => cargaImagen(`assets/sprites/clientes/sudowoodo/${v}.png`).catch(() => null)));
@@ -844,6 +846,14 @@ function entrega(perfume) {
     despues = () => serie([fraseDe(c, { quien: c.id, cara: 'Happy', texto: 'Ah, ¿me lo envuelves? Es para regalo.' })],
       [{ texto: 'Envolver', accion: () => juegaEnvolver(c, adios) }, { texto: 'No hay papel', secundario: true, accion: adios }]);
   }
+  // el Mákina, a veces, le deja el móvil para que le limpie el muro de Facebook (en la segunda visita,
+  // siempre: así se conoce; luego, de vez en cuando). En la de Slowking no: ahí sale corriendo.
+  if (c.id === 'murkrow' && !visita.atiende && facebook && !partida.hoy.facebook
+    && (visita.marca === 'murkrow-2' || Math.random() < 0.4)) {
+    partida.hoy.facebook = true;
+    const tras = despues;
+    despues = () => ofreceFacebook(c, tras);
+  }
   // el Mákina pregunta si se puede pagar en negro: si Morty acepta, el dinero va a la caja B (la de
   // galletas del altillo, que no se ve), y eso cambia su última visita y el final
   if (visita.ofreceB && cobra) {
@@ -921,6 +931,59 @@ function facturaAlReves(c, alAcabar) {
     };
     paso();
   } }]);
+}
+
+// «Alhaurín se queja»: el Mákina le deja el móvil a Morty para que le denuncie las críticas del muro
+function datosFacebook(todosConocidos) {
+  // los clientes salen con su cara solo si Morty ya los conoce; si no, ese comentario no sale
+  const conoce = id => todosConocidos || (partida.cuentaVisitas?.[id] || 0) > 0 || partida.marcas.some(m => m.startsWith(`${id}-`));
+  const alcalde = { Normal: portraitUrl(todos.murkrow?.sprite || '0198', 'Normal'), Shouting: portraitUrl(todos.murkrow?.sprite || '0198', 'Shouting') };
+  const de = (c, critica) => ({ nombre: c.quien ? todos[c.quien]?.nombre || c.nombre : c.nombre, texto: c.texto, grito: c.grito, critica,
+    cara: c.alcalde ? alcalde.Normal : c.quien ? portraitUrl(todos[c.quien]?.sprite, 'Normal') : null });
+  const vale = c => !c.quien || (todos[c.quien] && conoce(c.quien));
+  return {
+    post: facebook.posts[Math.floor(Math.random() * facebook.posts.length)],
+    comentarios: [...facebook.criticas.filter(vale).map(c => de(c, true)), ...facebook.ironicas.filter(vale).map(c => de(c, true)),
+      ...facebook.pelotas.map(c => de(c, false))],
+    whatsapp: facebook.whatsapp,
+    alcalde,
+  };
+}
+const INSTRUCCIONES_FACEBOOK = 'Izquierda, denunciar; derecha, «me gusta». Ojo con los que parecen buenos.';
+const botonesFacebook = () => [{ texto: 'Denunciar', accion: () => responde('denunciar') }, { texto: 'Me gusta', secundario: true, accion: () => responde('gusta') },
+  { texto: 'Dejarlo', secundario: true, accion: rinde }];
+function ofreceFacebook(c, alAcabar) {
+  if (encargo) encargo.despedir = alAcabar;   // (una vez: si sale al menú, al volver solo queda despedirlo)
+  const habla = (cara, texto) => fraseDe(c, { quien: c.id, cara, texto });
+  serie([habla('Happy', 'Oye, Morty, échame una mano, que no doy abasto. Te dejo el móvil.'),
+    habla('Inspired', 'En el grupo «Alhaurín se queja» me están poniendo a caer de un burro. Tú denuncia lo malo y dale «me gusta» a lo bueno.')],
+  [{ texto: 'Coger el móvil', accion: () => juegaFacebook(c, alAcabar) },
+    { texto: 'Ahora no', secundario: true, accion: () => serie([habla('Normal', 'Pues nada. Ya lo hago yo, que tengo un dedo libre.')], [{ texto: 'Despedirlo', accion: alAcabar }]) }]);
+}
+function juegaFacebook(c, alAcabar) {
+  decir({ ...MORTY, cara: portraitUrl('morty', 'Worried'), texto: INSTRUCCIONES_FACEBOOK }, botonesFacebook());
+  alhaurinSeQueja(datosFacebook(false), r => {
+    const habla = (cara, texto) => fraseDe(c, { quien: c.id, cara, texto });
+    const dice = r.gana ? [habla('Joyous', '¡El muro, limpio como una patena! Esto es participación ciudadana.')]
+      : r.viral ? [habla('Shouting', '¡Que se ha hecho viral! ¡Me han hecho un meme con el sombrero!'), { ...MORTY, cara: portraitUrl('morty', 'Stunned'), texto: 'Le queda bien.' },
+        habla('Angry', 'Esto lo arreglo yo con una recalificación.')]
+        : r.apagado ? [habla('Surprised', '¿Se ha apagado? Si lo cargué el martes.'), { ...MORTY, cara: portraitUrl('morty', 'Normal'), texto: 'Ya.' }]
+          : [habla('Normal', 'Trae, trae. Ya lo hago yo con el dedo gordo.')];
+    if (r.gana) {
+      // la propina «institucional»: a la caja B si Morty ya tiene una; si no, a la de verdad
+      const propina = 5.21;
+      if (partida.marcas.includes('caja-b')) {
+        partida.cajaB = Math.round(((partida.cajaB || 0) + propina) * 100) / 100;
+        dice.push(habla('Inspired', `Toma, ${euros(propina)} por el servicio. A la caja de galletas, que esto no ha pasado.`));
+      } else {
+        partida.caja = Math.round((partida.caja + propina) * 100) / 100;
+        partida.hoy.ingresos = Math.round((partida.hoy.ingresos + propina) * 100) / 100;
+        dice.push(habla('Normal', `Te lo daría en negro, pero como tú eres tan legal… Toma, ${euros(propina)}. Con recibo, qué asco.`));
+      }
+      guarda(partida);
+    }
+    serie(dice, [{ texto: 'Despedirlo', accion: alAcabar }]);
+  });
 }
 
 function juegaEnvolver(c, alAcabar) {
@@ -1781,6 +1844,7 @@ const PRUEBAS = [
   ['mj-envolver', 'Minijuego: envolver el regalo', ''],
   ['mj-caja', 'Minijuego: contar la caja', ''],
   ['mj-noño', 'Minijuego: pulverizar a Ñoño', ''],
+  ['mj-facebook', 'Minijuego: Alhaurín se queja', ''],
 ];
 function listaPruebas() {
   $('#lista-sucesos .lista-titulo').textContent = 'Pruebas';
@@ -1848,6 +1912,11 @@ function prueba(id) {
     if (id === 'mj-limpiar') { decir({ texto: 'Frota el escaparate con el dedo hasta dejarlo limpio.' }, dejar); limpiar(fin); }
     if (id === 'mj-envolver') { ir('mostrador'); $('#lugar').textContent = rotulo; decir({ texto: 'Corta el papel entre las dos marcas, dobla las solapas (primero los lados) y haz el lazo en el centro. Tres fallos y se rompe.' }, dejar); envolver(fin); }
     if (id === 'mj-noño') { ir('mostrador'); $('#lugar').textContent = rotulo; decir({ texto: 'Mantén el dedo para rociarle. Cuando baje las estampitas para mirarte, suelta.' }, dejar); pulverizar(imgsNoño, fin); }
+    if (id === 'mj-facebook' && facebook) {
+      ir('mostrador'); $('#lugar').textContent = rotulo;
+      decir({ texto: INSTRUCCIONES_FACEBOOK }, botonesFacebook());
+      alhaurinSeQueja(datosFacebook(true), r => decir({ texto: r.gana ? '¡Muro limpio!' : r.dejado ? 'Dejado a medias.' : r.viral ? 'Se ha hecho viral.' : 'Sin batería.' }, [otra, volver]));
+    }
     if (id === 'mj-caja') {
       ir('mostrador'); $('#lugar').textContent = rotulo;
       decir({ texto: '¿Cuántos euros hay en la bandeja? Elige el total bueno.' }, []);

@@ -12,8 +12,8 @@ const RADIO = 0.2;   // la zona buena es pequeña: dos bayas del sabor favorito 
 // Las siete familias de las gotas y su sabor de baya (la tabla de la sección 4)
 export const FAMILIAS = [
   { id: 'picante', nombre: 'Picante', sabor: 'spicy', color: 'gota_picante' },
-  { id: 'citrico', nombre: 'Cítrico', sabor: 'sour', color: 'gota_citrico' },
-  { id: 'dulce', nombre: 'Dulce', sabor: 'sweet', color: 'gota_dulce' },
+  { id: 'citrico', nombre: 'Cítrico', sabor: 'sour', color: 'gota_dulce' },
+  { id: 'dulce', nombre: 'Dulce', sabor: 'sweet', color: 'gota_citrico' },
   { id: 'verde', nombre: 'Verde', sabor: 'bitter', color: 'gota_verde' },
   { id: 'fresco', nombre: 'Fresco', sabor: 'dry', color: 'gota_fresco' },
   { id: 'amargo', nombre: 'Amargo', sabor: 'bitter', color: 'gota_amargo' },

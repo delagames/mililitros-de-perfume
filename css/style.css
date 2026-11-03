@@ -58,6 +58,10 @@ img, canvas { image-rendering: pixelated; }
 
 /* tocar dos veces seguidas no hace zoom: la pantalla se queda fija */
 html, body, button, .pantalla, .dialogo { touch-action: manipulation; }
+/* dejar el dedo apretado (rociar a Ñoño, frotar el cristal) no selecciona texto ni saca el menú
+   del móvil; solo se puede seleccionar donde se escribe (el código de partida) */
+html, body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; }
+input, textarea { -webkit-user-select: text; user-select: text; -webkit-touch-callout: default; }
 
 button {
   font-family: var(--pixel);

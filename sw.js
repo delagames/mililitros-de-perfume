@@ -3,14 +3,14 @@
 // Lo básico se guarda al instalar; el resto (sprites, retratos), según se va usando. Los vídeos de
 // los sucesos no se guardan: pesan mucho, y sin conexión el suceso se cierra y el juego sigue.
 // Subir la versión de CACHE en cada publicación, si no el móvil sigue viendo la vieja.
-const CACHE = 'mililitros-de-perfume-v50';
+const CACHE = 'mililitros-de-perfume-v52';
 const CORE = [
   './', 'index.html', 'manifest.webmanifest', 'css/style.css',
   'js/main.js', 'js/escena.js', 'js/calle.js', 'js/mostrador.js', 'js/taller.js', 'js/perfume.js', 'js/deduccion.js',
   'js/libro.js', 'js/dia.js', 'js/minijuegos.js', 'js/pedido.js', 'js/perros.js', 'js/client.js', 'js/sprites.js',
   'js/sucesos.js', 'js/fondos.js', 'js/habitacion.js', 'js/altillo.js', 'js/audio.js', 'js/save.js', 'js/pixel.js', 'js/emblema.js', 'js/cuento.js', 'js/escenas-cuento.js',
   'data/clients.json', 'data/ingredients.json', 'data/natures.json', 'data/sucesos.json', 'data/emails.json',
-  'data/advisor.json', 'data/upgrades.json',
+  'data/advisor.json', 'data/upgrades.json', 'data/facebook.json',
   'assets/ui/palette.json', 'assets/ui/escudo-malaga-pixel.png', 'assets/ui/escudo-malaga-pixel-mini.png', 'assets/ui/escudo-malaga.png', 'assets/ui/ventana.png', 'assets/ui/boton.png', 'assets/ui/boton-secundario.png',
   'assets/logo/icono.svg', 'assets/logo/icono-192.png', 'assets/logo/icono-512.png',
 ];

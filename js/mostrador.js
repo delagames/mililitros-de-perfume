@@ -7,7 +7,7 @@ import { rect, forma, caja, texto, degradado, halo, umbralBayer, cifras } from '
 import { pintaCliente } from './client.js';
 
 // Las siete gotas, en el orden del escaparate
-export const GOTAS = ['gota_picante', 'gota_citrico', 'gota_dulce', 'gota_verde', 'gota_fresco', 'gota_amargo', 'gota_floral'];
+export const GOTAS = ['gota_picante', 'gota_dulce', 'gota_citrico', 'gota_verde', 'gota_fresco', 'gota_amargo', 'gota_floral'];
 
 // Tonos de sombra y luz derivados de la paleta (solo para dar volumen)
 const T = {
@@ -440,6 +440,9 @@ export const MOSTRADOR = {
         const v = Math.floor(t * 4) % 4;
         for (let k = 0; k < 5; k++) rect(g, cx - 11 + Math.round(Math.sin((k + v) * 1.4)), abajo - 25 - k * 3, 1, 2, k > 2 ? '#F4F2EC' : '#E2E7E5');
       }
+      // el visor de la caja registradora: lo que se lleva hecho hoy
+      const euros = tienda.dineroHoy() || 0;
+      cifras(g, euros.toFixed(2).replace('.', ','), 253, 131, { color: P.menta, align: 'right' });
     } },
     // el cliente, en el suelo delante de todo
     { anima: pintaCliente },

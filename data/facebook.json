@@ -1,0 +1,47 @@
+{
+  "_nota": "El minijuego «Alhaurín se queja» (js/minijuegos.js, alhaurinSeQueja): el muro de Facebook del Mákina. «quien» es un cliente del juego (sale con su cara, solo si Morty ya lo conoce; si no, ese comentario no sale); si no hay «quien», sale «nombre» con un avatar de inicial. Las «ironicas» parecen buenas pero son críticas: también se denuncian. Los «pelotas» llevan el «grito» del Mákina si se denuncian sin querer.",
+  "posts": [
+    "¡Inaugurada media rotonda! Seguimos trabajando.",
+    "Hoy, día histórico: la feria ya tiene empresa.",
+    "Mañana, más rotonda. Seguimos por Alhaurín."
+  ],
+  "criticas": [
+    { "quien": "timburr", "texto": "Llevo cuatro años en esa rotonda. Mi hijo ya habla y la rotonda no." },
+    { "quien": "timburr", "texto": "Esto lo ha hecho un primo del alcalde. Lo sé porque me paga el primo." },
+    { "quien": "miltank", "texto": "Los baches de mi calle ya tienen nombre. Al más gordo le llamamos Mákina." },
+    { "quien": "quagsire", "texto": "¿Media rotonda? ¿Y por dónde se sale?" },
+    { "quien": "ursaring", "texto": "La feria otra vez a la misma empresa. Qué casualidad más grande." },
+    { "quien": "blissey", "texto": "Yo solo pregunto por qué el primo concejal tiene tres coches." },
+    { "quien": "slowking", "texto": "¿Podría… publicar… el contrato… de la rotonda?" },
+    { "quien": "totodile", "texto": "En mi calle no hay farolas. Ni calle, casi." },
+    { "nombre": "Paqui R.", "texto": "Los contenedores llevan sin recogerse desde la feria. Desde la de 2019." },
+    { "nombre": "Antonio el del bar", "texto": "Seis meses para pintar un paso de cebra. Y torcido." },
+    { "nombre": "Vecina indignada", "texto": "¿Y el parque que prometió? Sigue siendo un solar con un perro." },
+    { "nombre": "Rafa M.", "texto": "El autobús a Málaga pasa cuando quiere. Como el alcalde por el ayuntamiento." }
+  ],
+  "ironicas": [
+    { "nombre": "Mari Carmen G.", "texto": "Enhorabuena, alcalde. Media rotonda en cuatro años: en 2040, la entera." },
+    { "quien": "ursaring", "texto": "Gran gestión. La feria, a dedo, pero con un dedo precioso." },
+    { "nombre": "Loli de la Alquería", "texto": "Gracias por la rotonda. Ahora me pierdo con mucha más elegancia." },
+    { "quien": "quagsire", "texto": "Qué bonito todo. Sobre todo el sobre." },
+    { "nombre": "Pepe el taxista", "texto": "Bravo. Ya doy tres vueltas a la rotonda sin salir. El mareo, gratis." },
+    { "nombre": "Juani P.", "texto": "Qué alcalde más trabajador. Inaugura lo mismo todos los años." }
+  ],
+  "pelotas": [
+    { "nombre": "Primo Concejal", "texto": "Qué gran alcalde tenemos. Y lo digo sin cobrar.", "grito": "¡QUE ES MI PRIMO!" },
+    { "nombre": "Primo Concejal", "texto": "La oposición, envidia. Media rotonda es más que cero rotondas.", "grito": "¡QUE ES MI PRIMO!" },
+    { "nombre": "Mamá del Mákina", "texto": "Qué guapo sales, hijo. Ponte la bufanda, que refresca.", "grito": "¡QUE ES MI MADRE!" },
+    { "nombre": "Mamá del Mákina", "texto": "¿Has comido? Que te veo flaco en la foto.", "grito": "¡QUE ES MI MADRE!" },
+    { "nombre": "Un vecino cualquiera", "alcalde": true, "texto": "Este alcalde es lo mejor que le ha pasado al pueblo. Firmado: un vecino.", "grito": "¡QUE SOY YO!" },
+    { "nombre": "Ciudadano ejemplar", "alcalde": true, "texto": "Por fin un alcalde que inaugura. Y que vuelve a inaugurar.", "grito": "¡QUE SOY YO!" },
+    { "nombre": "Cuñado del Mákina", "texto": "La mejor rotonda de la Costa del Sol. Y eso que es media.", "grito": "¡QUE ES MI CUÑADO!" },
+    { "nombre": "Amigos del Alcalde", "texto": "Todo nuestro apoyo. Somos tres, pero muy unidos.", "grito": "¡QUE SON MIS AMIGOS!" },
+    { "nombre": "Construcciones Primo e Hijos", "texto": "Orgullosos de trabajar con este ayuntamiento. Y con ningún otro.", "grito": "¡QUE ES LA DEL PRIMO!" }
+  ],
+  "whatsapp": [
+    { "nombre": "Primo Concejal", "texto": "¿Ya está lo de Facebook? Que lo estoy viendo." },
+    { "nombre": "Mamá", "texto": "Hijo, ¿quién es ese Morty que te borra los comentarios?" },
+    { "nombre": "Primo Concejal", "texto": "Ojo, que el del bar ha hecho captura." },
+    { "nombre": "Construcciones Primo", "texto": "La otra media rotonda, ¿la facturamos ya?" }
+  ]
+}

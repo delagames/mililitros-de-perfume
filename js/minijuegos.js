@@ -4,7 +4,8 @@
 // - limpiar: frotar el escaparate (sobre la propia calle) antes de abrir;
 // - caja: contar lo que hay en la bandeja y elegir el total bueno;
 // - envolver: cortar el papel a la medida, doblar las solapas (lados primero) y poner el lazo;
-// - noño: rociar a Ñoño con desodorante mientras se tapa la cara con sus estampitas, sin que te pille.
+// - noño: rociar a Ñoño con desodorante mientras se tapa la cara con sus estampitas, sin que te pille;
+// - alhaurín se queja: con el móvil del Mákina, denunciar las críticas de su muro de Facebook.
 // Cada uno acaba llamando a alAcabar({ gana, ... }).
 import { rect, caja, texto, cifras } from './pixel.js';
 import { sfx } from './audio.js';
@@ -61,7 +62,8 @@ function arranca(juego, alAcabar) {
     const r = juego.toque?.(tipo, ...aMundo(ev), (performance.now() - est.t0) / 1000);
     if (r) termina(r);
   };
-  const oyentes = [['pointerdown', oye('baja')], ['pointermove', oye('mueve')], ['pointerup', oye('sube')], ['pointercancel', oye('sube')]];
+  const oyentes = [['pointerdown', oye('baja')], ['pointermove', oye('mueve')], ['pointerup', oye('sube')], ['pointercancel', oye('sube')],
+    ['contextmenu', ev => ev.preventDefault()]];   // (dejar el dedo apretado no saca el menú del móvil)
   for (const [e, f] of oyentes) lienzo.addEventListener(e, f);
   const alCambiar = () => medir();
   addEventListener('resize', alCambiar);
@@ -523,4 +525,275 @@ function estampitas(g, cx, cy) {
   // los dedos
   rr(g, cx - 27, cy + 8, 8, 10, '#9A6A3A', NEGRO, 3);
   rr(g, cx + 22, cy + 8, 8, 10, '#9A6A3A', NEGRO, 3);
+}
+
+// ---------- Alhaurín se queja ----------
+// El Mákina le deja el móvil a Morty, con el grupo de Facebook «Alhaurín se queja» abierto. Los
+// comentarios salen de uno en uno: deslizando a la izquierda se denuncian (las críticas, también las
+// que parecen buenas y no lo son) y a la derecha se les da «me gusta» (los pelotas: su primo, su
+// madre, él mismo con otro nombre). Cada comentario tiene su barrita: si una crítica se queda (se
+// acaba la barrita o le das «me gusta»), la publicación se va haciendo viral, y a la tercera se acabó.
+// Si denuncias a un pelota, el Mákina grita, te quita el móvil un segundo y se gasta batería. El tiempo es la batería; y de
+// vez en cuando entra un WhatsApp que hay que cerrar tocándolo. Ocho denuncias y el muro queda limpio:
+// sale el pantallazo con lo que queda (solo los pelotas).
+// datos: { post, comentarios: [{ nombre, texto, cara, critica, grito }], whatsapp: [{ nombre, texto }],
+//          alcalde: { Normal, Shouting } (las urls de sus caras) }
+export function alhaurinSeQueja(datos, alAcabar) {
+  const META = 8, DURA = 36, BATERIA = 18, MAXVIRAL = 3, ALTO = 248;
+  const CARTA = { x: 60, y: 108, w: 150, h: 100 };
+  const BANNER = { x: 60, y: 28, w: 150, h: 56 };
+  const mezcla = a => a.map(x => [Math.random(), x]).sort((p, q) => p[0] - q[0]).map(x => x[1]);
+  const criticas = mezcla(datos.comentarios.filter(c => c.critica));
+  const pelotas = mezcla(datos.comentarios.filter(c => !c.critica));
+  [...datos.comentarios.map(c => c.cara), ...Object.values(datos.alcalde)].forEach(cargaCara);   // (se cargan desde el principio)
+  let ic = 0, ip = 0, nCartas = 0;
+  const saca = t => {
+    const critica = !pelotas.length || (criticas.length && Math.random() < 0.62);
+    const c = critica ? criticas[ic++ % criticas.length] : pelotas[ip++ % pelotas.length];
+    // la barrita de cada comentario, cada vez más corta
+    return { c, t0: t, dura: Math.max(3.2, 5.4 - nCartas++ * 0.14), dx: 0 };
+  };
+  let carta = null, proxima = 0.5, saliendo = [], arrastre = null, alto = 0, arriba = 0;
+  let denunciados = 0, viral = 0, penal = 0, aviso = '', avisoHasta = 0, grito = 0;
+  const wasaps = mezcla(datos.whatsapp);
+  let wasap = null, proximoWasap = 7 + Math.random() * 3;
+  let fase = 'juego', tFase = 0, tPrevio = null;
+  const gustados = [];
+  const bateria = t => BATERIA * (1 - t / DURA) - penal;
+  const ahora = () => (performance.now() - actual.t0) / 1000;
+  const avisa = (t, txt) => { aviso = txt; avisoHasta = t + 1.3; };
+  // izquierda (-1): denunciar; derecha (1): me gusta; 0: se le acabó la barrita
+  const decide = (dir, t) => {
+    if (fase !== 'juego' || !carta || wasap || t < grito) return;   // (mientras grita, el móvil lo tiene él)
+    const { c } = carta;
+    if (dir < 0) {
+      if (c.critica) { denunciados++; sfx('corte'); }
+      else { penal += 4; grito = t + 1.1; avisa(t, c.grito || '¡QUE ES DE LOS MÍOS!'); sfx('fallo'); }
+    } else if (dir > 0) {
+      if (c.critica) { viral++; avisa(t, '¡LE HAS DADO ME GUSTA!'); sfx('fallo'); }
+      else { gustados.push(c); sfx('echar'); }
+    } else if (c.critica) { viral++; avisa(t, '¡SE HA QUEDADO!'); sfx('fallo'); }
+    else gustados.push(c);
+    saliendo.push({ ...carta, dir, ts: t });
+    carta = null; arrastre = null;
+    proxima = t + 0.3;
+  };
+  const juego = {
+    medida(d) { alto = d.H; },
+    paso(g, t, d) {
+      fondoMenta(g, d);
+      arriba = Math.max(0, Math.round((alto - ALTO) / 2));
+      g.translate(d.ox, arriba);
+      const dt = Math.min(0.1, t - (tPrevio ?? t)); tPrevio = t;
+      if (fase === 'juego') {
+        if (!wasap && wasaps.length && t >= proximoWasap) { wasap = { ...wasaps.shift(), t }; sfx('telefono'); proximoWasap = t + 9 + Math.random() * 4; }
+        if ((wasap || t < grito) && carta) carta.t0 += dt;   // (mientras está el WhatsApp o grita el Mákina, el comentario espera)
+        if (!carta && t >= proxima) carta = saca(t);
+        if (carta && !arrastre && t - carta.t0 >= carta.dura) decide(0, t);
+        if (denunciados >= META) { fase = 'limpio'; tFase = t; wasap = null; }
+        else if (viral >= MAXVIRAL) { fase = 'viral'; tFase = t; wasap = null; }
+        else if (bateria(t) <= 0) { fase = 'apagado'; tFase = t; wasap = null; }
+      }
+      // arriba, cuántas van (o el aviso, o cómo ha acabado)
+      const [titulo, color] = fase === 'limpio' ? ['¡MURO LIMPIO!', MENTA_OSC] : fase === 'viral' ? ['¡SE HA HECHO VIRAL!', CORAL]
+        : fase === 'apagado' ? ['SIN BATERÍA', CORAL] : t < avisoHasta ? [aviso, CORAL] : wasap ? ['TOCA EL WHATSAPP', CORAL] : [`DENUNCIADOS ${denunciados} DE ${META}`, TINTA];
+      pastilla(g, titulo, ANCHO / 2, 0, color);
+      // el móvil
+      rr(g, 52, 18, 170, 230, MENTA_OSC, null, 12);
+      rr(g, 50, 16, 170, 230, '#1C1C1C', NEGRO, 12);
+      rr(g, 56, 24, 158, 214, '#EEF3F1', null, 6);
+      if (fase === 'apagado') return apagado(g, t);
+      barraEstado(g, t);
+      rect(g, 56, 36, 158, 13, TINTA);
+      texto(g, 'ALHAURÍN SE QUEJA', 135, 46, { font: '8px Silkscreen', color: BLANCO, align: 'center' });
+      publicacion(g);
+      if (fase === 'viral') return meme(g, t);
+      if (fase === 'limpio') return pantallazo(g, t);
+      // el comentario que toca, con el siguiente asomando detrás; y los que se van
+      rr(g, CARTA.x + 4, CARTA.y + 5, CARTA.w, CARTA.h, '#D3DFDB', '#9FB5AE', 4);
+      for (const s of saliendo) {
+        const p = (t - s.ts) / 0.3;
+        if (p >= 1) continue;
+        g.globalAlpha = 1 - p;
+        comentario(g, s.c, CARTA.x + s.dx + s.dir * p * 200, CARTA.y - (s.dir ? 0 : p * 24), 0, s.dir);
+        g.globalAlpha = 1;
+      }
+      saliendo = saliendo.filter(s => t - s.ts < 0.3);
+      if (carta) comentario(g, carta.c, CARTA.x + carta.dx, CARTA.y, 1 - (t - carta.t0) / carta.dura, carta.dx < -12 ? -1 : carta.dx > 12 ? 1 : 0);
+      // las dos direcciones, abajo
+      const tira = carta?.dx || 0;
+      texto(g, '< DENUNCIAR', 61, 228, { font: '8px Silkscreen', color: tira < -12 ? CORAL : '#B4574E' });
+      texto(g, 'ME GUSTA >', 209, 228, { font: '8px Silkscreen', color: tira > 12 ? MENTA_OSC : '#3E8F7A', align: 'right' });
+      if (wasap) banner(g, t);
+      // el Mákina, cuando denuncias a uno de los suyos
+      if (t < grito) {
+        const cara = caraEscalada(datos.alcalde.Shouting, 40);
+        const sx = Math.round(Math.sin(t * 50) * 2);
+        rr(g, 221 + sx, 129, 44, 44, BLANCO, NEGRO, 4);
+        if (cara) g.drawImage(cara, 223 + sx, 131);
+      }
+      return null;
+    },
+    toque(tipo, x, y) {
+      if (fase !== 'juego') return;
+      const yy = y - arriba;
+      if (wasap) {
+        if (tipo === 'baja' && x >= BANNER.x && x <= BANNER.x + BANNER.w && yy >= BANNER.y && yy <= BANNER.y + BANNER.h) { wasap = null; sfx('toque'); }
+        return;
+      }
+      if (!carta) return;
+      if (tipo === 'baja') {
+        if (x >= CARTA.x - 10 && x <= CARTA.x + CARTA.w + 10 && yy >= CARTA.y - 10 && yy <= CARTA.y + CARTA.h + 20) arrastre = { x0: x - carta.dx };
+      } else if (tipo === 'mueve' && arrastre) {
+        carta.dx = Math.max(-90, Math.min(90, x - arrastre.x0));
+      } else if (tipo === 'sube' && arrastre) {
+        arrastre = null;
+        if (carta.dx < -28) decide(-1, ahora());
+        else if (carta.dx > 28) decide(1, ahora());
+        else carta.dx = 0;
+      }
+    },
+    // los botones del cuadro, para quien prefiera tocar a deslizar
+    responde(valor) { if (!wasap) decide(valor === 'denunciar' ? -1 : 1, ahora()); },
+  };
+
+  function barraEstado(g, t) {
+    // a la izquierda, lo viral que se está poniendo; a la derecha, la batería
+    texto(g, 'VIRAL', 60, 33, { font: '8px Silkscreen', color: viral ? CORAL : TINTA });
+    for (let k = 0; k < MAXVIRAL; k++) rr(g, 92 + k * 8, 27, 6, 6, k < viral ? CORAL : '#C9D6D2', NEGRO, 1);
+    const b = Math.max(0, bateria(t)), f = b / BATERIA;
+    const rojo = f < 0.35 && Math.floor(t * 3) % 2 === 0;
+    cifras(g, `${Math.ceil(b)}%`, 189, 28, { color: rojo ? CORAL : TINTA, align: 'right' });
+    rr(g, 192, 27, 16, 7, BLANCO, NEGRO, 1);
+    rect(g, 208, 29, 1, 3, NEGRO);
+    const lleno = Math.round(12 * f);
+    if (lleno > 0) rect(g, 194, 29, lleno, 3, f < 0.35 ? CORAL : MENTA_OSC);
+  }
+  function publicacion(g) {
+    rr(g, 60, 52, 150, 50, BLANCO, '#BFD9D1', 3);
+    avatar(g, datos.alcalde.Normal, 'El Mákina', 63, 55);
+    texto(g, 'El Mákina', 87, 62, { font: '8px Silkscreen', color: TINTA });
+    texto(g, 'ALCALDE · HACE 2 H', 87, 72, { font: '8px Silkscreen', color: '#7F9993' });
+    parte(datos.post, 142, LETRA).slice(0, 2).forEach((l, k) => texto(g, l, 64, 87 + k * 10, { font: LETRA, color: NEGRO }));
+  }
+  function comentario(g, c, x, y, vida, sello) {
+    x = Math.round(x); y = Math.round(y);
+    rr(g, x, y, CARTA.w, CARTA.h, BLANCO, NEGRO, 4);
+    avatar(g, c.cara, c.nombre, x + 5, y + 5);
+    parte(c.nombre, 110, '8px Silkscreen').slice(0, 2).forEach((l, k) => texto(g, l, x + 30, y + 13 + k * 9, { font: '8px Silkscreen', color: TINTA }));
+    parte(c.texto, 140, LETRA).slice(0, 3).forEach((l, k) => texto(g, l, x + 5, y + 40 + k * 11, { font: LETRA, color: NEGRO }));
+    if (vida > 0) {
+      rr(g, x + 5, y + CARTA.h - 9, CARTA.w - 10, 5, '#E6EEEB', null, 2);
+      rr(g, x + 5, y + CARTA.h - 9, Math.max(3, Math.round((CARTA.w - 10) * Math.min(1, vida))), 5, vida < 0.3 ? CORAL : MENTA_OSC, null, 2);
+    }
+    // el sello de lo que se le va a hacer (o se le ha hecho)
+    if (sello) {
+      const [txt, col] = sello < 0 ? ['DENUNCIADO', CORAL] : ['ME GUSTA', MENTA_OSC];
+      const w = txt.length * 6 + 10, sx = sello < 0 ? x + CARTA.w - w - 6 : x + 6;
+      rr(g, sx, y + 75, w, 13, col, null, 2);
+      rr(g, sx + 1, y + 76, w - 2, 11, BLANCO, null, 2);
+      texto(g, txt, sx + w / 2, y + 85, { font: '8px Silkscreen', color: col, align: 'center' });
+    }
+  }
+  function banner(g, t) {
+    const y = BANNER.y - Math.max(0, Math.round(60 - (t - wasap.t) * 300));
+    rr(g, BANNER.x + 2, y + 2, BANNER.w, BANNER.h, '#00000033', null, 4);
+    rr(g, BANNER.x, y, BANNER.w, BANNER.h, '#E3F7EC', NEGRO, 4);
+    rr(g, BANNER.x + 5, y + 5, 10, 10, '#2FB894', NEGRO, 3);
+    rect(g, BANNER.x + 8, y + 8, 4, 3, BLANCO);
+    texto(g, wasap.nombre, BANNER.x + 19, y + 13, { font: '8px Silkscreen', color: TINTA });
+    parte(wasap.texto, 140, LETRA).slice(0, 3).forEach((l, k) => texto(g, l, BANNER.x + 5, y + 27 + k * 10, { font: LETRA, color: NEGRO }));
+  }
+  // ocho denuncias: el pantallazo del muro, solo con los pelotas
+  function pantallazo(g, t) {
+    const lista = gustados.slice(-4);
+    if (!lista.length) texto(g, 'Ni un comentario. Como debe ser.', 135, 124, { font: LETRA, color: TINTA, align: 'center' });
+    lista.forEach((c, k) => {
+      const y = 106 + k * 24;
+      rr(g, 60, y, 150, 22, BLANCO, '#BFD9D1', 3);
+      avatar(g, c.cara, c.nombre, 61, y + 1);
+      texto(g, parte(c.nombre, 92, '8px Silkscreen')[0], 85, y + 10, { font: '8px Silkscreen', color: TINTA });
+      texto(g, 'ME GUSTA', 205, y + 19, { font: '8px Silkscreen', color: MENTA_OSC, align: 'right' });
+    });
+    rr(g, 64, 206, 142, 26, MENTA_OSC, null, 3);
+    rr(g, 66, 208, 138, 22, BLANCO, null, 2);
+    texto(g, 'MURO LIMPIO', 135, 225, { font: '16px Silkscreen', color: MENTA_OSC, align: 'center' });
+    if (t - tFase < 0.18) rect(g, 56, 24, 158, 214, BLANCO);         // (el flash de la captura)
+    return t - tFase > 3 ? { gana: true, denunciados, espera: 200 } : null;
+  }
+  // tres críticas que se quedan: el meme del alcalde corre por el pueblo
+  function meme(g, t) {
+    rect(g, 56, 104, 158, 134, CORAL);
+    texto(g, 'MEDIA ROTONDA', 135, 122, { font: '16px Silkscreen', color: BLANCO, align: 'center' });
+    const cara = caraEscalada(datos.alcalde.Shouting, 40);
+    rr(g, 113, 126, 44, 44, BLANCO, null, 2);
+    if (cara) g.drawImage(cara, 115, 128);
+    texto(g, 'MEDIO ALCALDE', 135, 190, { font: '16px Silkscreen', color: BLANCO, align: 'center' });
+    const veces = Math.min(4321, Math.round((t - tFase) * 2600));
+    texto(g, `COMPARTIDO ${veces.toLocaleString('es-ES')} VECES`, 135, 222, { font: '8px Silkscreen', color: BLANCO, align: 'center' });
+    return t - tFase > 2.4 ? { gana: false, viral: true, denunciados, espera: 200 } : null;
+  }
+  function apagado(g, t) {
+    rr(g, 56, 24, 158, 214, '#0B0B0B', null, 6);
+    if (Math.floor((t - tFase) * 3) % 2 === 0) {
+      rr(g, 120, 120, 26, 12, '#0B0B0B', CORAL, 2);
+      rect(g, 146, 124, 2, 4, CORAL);
+      rect(g, 123, 123, 3, 6, CORAL);
+    }
+    return t - tFase > 1.8 ? { gana: false, apagado: true, denunciados, espera: 200 } : null;
+  }
+  return arranca(juego, alAcabar);
+}
+const LETRA = '10px "Pixelify Sans"';
+// Parte un texto en líneas que quepan en «ancho» (medido con la fuente de verdad); se guarda
+const medidor = document.createElement('canvas').getContext('2d');
+const partidos = new Map();
+function parte(txt, ancho, font) {
+  const clave = `${font}|${ancho}|${txt}`;
+  let lineas = partidos.get(clave);
+  if (lineas) return lineas;
+  medidor.font = font;
+  lineas = [];
+  let linea = '';
+  for (const p of String(txt).split(' ')) {
+    const prueba = linea ? `${linea} ${p}` : p;
+    if (linea && medidor.measureText(prueba).width > ancho) { lineas.push(linea); linea = p; } else linea = prueba;
+  }
+  if (linea) lineas.push(linea);
+  partidos.set(clave, lineas);
+  return lineas;
+}
+// Las caras de los clientes, a la mitad (20 px) y suavizadas para que se lean pequeñas
+const caras = new Map();
+function cargaCara(url) {
+  if (!url || caras.has(url)) return;
+  const i = new Image();
+  i.src = url;
+  caras.set(url, i);
+}
+const escaladas = new Map();
+function caraEscalada(url, lado) {
+  const i = caras.get(url);
+  if (!i || !i.complete || !i.naturalWidth) return null;
+  const clave = `${url}|${lado}`;
+  let c = escaladas.get(clave);
+  if (!c) {
+    c = document.createElement('canvas'); c.width = lado; c.height = lado;
+    const cg = c.getContext('2d');
+    cg.imageSmoothingEnabled = lado < i.naturalWidth;
+    cg.imageSmoothingQuality = 'high';
+    cg.drawImage(i, 0, 0, lado, lado);
+    escaladas.set(clave, c);
+  }
+  return c;
+}
+// La foto de perfil: la cara, si la tiene; si no, un cuadrado de color con la inicial
+const COLORES_PERFIL = ['#E4679B', '#3E8FD6', '#F29B2E', '#7B5BC2', '#6CBF4A', '#C0392B', '#2FB894'];
+function avatar(g, url, nombre, x, y) {
+  const cara = caraEscalada(url, 20);
+  rr(g, x - 1, y - 1, 22, 22, NEGRO, null, 3);
+  if (cara) { rr(g, x, y, 20, 20, '#DCEFE9', null, 2); g.drawImage(cara, x, y); return; }
+  const n = [...nombre].reduce((a, ch) => a + ch.charCodeAt(0), 0);
+  rr(g, x, y, 20, 20, COLORES_PERFIL[n % COLORES_PERFIL.length], null, 2);
+  texto(g, nombre.charAt(0).toUpperCase(), x + 10, y + 14, { font: '8px Silkscreen', color: BLANCO, align: 'center' });
 }
