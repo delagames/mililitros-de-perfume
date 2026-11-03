@@ -124,7 +124,7 @@ function estanteria(g, P, d, img = {}) {
   for (const [i, base] of conBotes.entries()) {
     let x = 13 + i * 3;
     for (let k = 0; x < (base === 122 ? 80 : 100); k++) {
-      if (escudo && base === baldaEscudo && x >= 44 && x < 60) {           // el hueco del escudo
+      if (escudo && base === baldaEscudo && x >= 30 && x < 46) {           // el hueco del escudo
         g.drawImage(escudo, x + 2, base - escudo.height);
         x += escudo.width + 4;
         continue;
