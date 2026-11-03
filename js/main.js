@@ -267,7 +267,7 @@ function ir(siguiente) {
   if (encargo?.tutorial && !['mostrador', 'taller'].includes(siguiente)) acabaPractica();   // (tutorial dejado a medias)
   if (siguiente === 'inicio') cierraMinijuego();
   const enJuego = siguiente !== 'inicio';
-  $('#inicio-fondos').classList.toggle('hidden', !partida?.marcas?.includes('epilogo') && !modoPruebas);
+  $('#inicio-fondos').classList.toggle('hidden', !partida?.marcas?.includes('epilogo') && !partida?.mejoras?.includes('cuadro') && !modoPruebas);
   $('#inicio').classList.toggle('hidden', enJuego);
   $('#juego').classList.toggle('hidden', !enJuego);
   escena.pausar(false);
@@ -1494,6 +1494,7 @@ function pedido() {
     aplicaMejoras();
     guarda(partida);
     sfx('logro');
+    if (m.id === 'cuadro') $('#pedido .pedido-meta').textContent = 'El fondo de «Cenas Encantadas» ya se puede descargar en «Fondos de pantalla», en el inicio.';
   }, alAcabar: p => {
     const hoy = partida.hoy;
     if (p) {
@@ -1548,7 +1549,9 @@ function epilogo(prueba = false) {
 function abreFondos() {
   const s = $('#fondos');
   const datos = { estante: partida.estante };
-  $('#fondos .fondos-lista').replaceChildren(...Object.entries(FONDOS).map(([id, f]) => {
+  const final = partida.marcas.includes('epilogo') || modoPruebas;
+  const hay = Object.entries(FONDOS).filter(([, f]) => (f.comprado ? partida.mejoras.includes(f.comprado) || modoPruebas : final));
+  $('#fondos .fondos-lista').replaceChildren(...hay.map(([id, f]) => {
     const tarjeta = document.createElement('div');
     tarjeta.className = 'fondo-tarjeta';
     const h = document.createElement('h3');

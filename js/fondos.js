@@ -98,6 +98,51 @@ function salon({ img }, W, H, bajo) {
   return c;
 }
 
+// El plató de «Cenas Encantadas», el programa de Morty en Johto: la mesa del bar encantado con su sopa y
+// su vela, farolillos, Morty detrás y Gengar asomando por debajo del mantel; el título y «en directo»
+function plato({ img }, W, H, bajo) {
+  const c = document.createElement('canvas');
+  c.width = W; c.height = H;
+  const g = c.getContext('2d', { willReadFrequently: true });
+  const cx = Math.round(W / 2), suelo = H - bajo - 20;
+  degradado(g, 0, 0, W, suelo, '#140C22', '#3A2350');
+  rect(g, 0, suelo, W, H - suelo, '#2A1E2E');
+  for (let y = suelo + 6; y < H; y += 7) rect(g, 0, y, W, 1, '#221826');
+  // los farolillos, colgando
+  for (let k = 0; k < 9; k++) {
+    const x = Math.round(W * (k + 0.5) / 9), y = 22 + (k % 2) * 10;
+    rect(g, x, 0, 1, y, '#0A0A0A');
+    halo(g, x, y + 8, 14, 12, '#5A3A6A', 0.6);
+    caja(g, x - 5, y, 11, 14, k % 2 ? '#F29B2E' : '#E7584A', '#0A0A0A', 3);
+    rect(g, x - 3, y + 3, 1, 7, '#FFFFFF');
+  }
+  // el título del programa, con su sombra, y «en directo»
+  const ty = Math.max(70, suelo - 230);
+  texto(g, 'CENAS', cx + 2, ty + 2, { font: '24px Silkscreen', color: '#0A0A0A', align: 'center' });
+  texto(g, 'CENAS', cx, ty, { font: '24px Silkscreen', color: '#F4D23C', align: 'center' });
+  texto(g, 'ENCANTADAS', cx + 2, ty + 22, { font: '16px Silkscreen', color: '#0A0A0A', align: 'center' });
+  texto(g, 'ENCANTADAS', cx, ty + 20, { font: '16px Silkscreen', color: '#E8D7FF', align: 'center' });
+  caja(g, cx - 34, ty + 30, 68, 12, '#E7584A', '#0A0A0A', 3);
+  rect(g, cx - 29, ty + 34, 4, 4, '#FFFFFF');
+  texto(g, 'EN DIRECTO', cx + 5, ty + 40, { font: '8px Silkscreen', color: '#FFFFFF', align: 'center' });
+  // Morty, detrás de la mesa
+  if (img.morty) g.drawImage(img.morty, cx - 60, suelo - 40 - img.morty.height + 50);
+  // la mesa con su mantel, la sopa y la vela
+  const mw = Math.min(W - 20, 200), mx = cx - mw / 2, my = suelo - 44;
+  caja(g, mx, my, mw, 50, '#5B3A6E', '#0A0A0A', 2);
+  rect(g, mx + 1, my + 1, mw - 2, 6, '#7B5B92');
+  for (let x = mx + 6; x < mx + mw - 6; x += 14) rect(g, x, my + 44, 7, 6, '#4A2C5C');
+  forma(g, cx - 20, my - 8, 26, 10, (x, y) => (((x - 13) / 13) ** 2 + ((y - 5) / 5) ** 2 <= 1 ? (y < 4 ? '#C0392B' : '#E6E6E6') : null), '#0A0A0A');
+  rect(g, cx + 30, my - 16, 5, 16, '#F2EFE6'); rect(g, cx + 31, my - 21, 3, 5, '#FFD45A');
+  halo(g, cx + 32, my - 20, 18, 16, '#6E5838', 0.5);
+  // Gengar, asomando por debajo del mantel
+  if (img.gengarMostrador) {
+    const gm = img.gengarMostrador;
+    g.drawImage(gm, 0, 0, gm.width, Math.round(gm.height * 0.6), cx + mw / 2 - gm.width + 6, my + 50 - Math.round(gm.height * 0.6) + 4, gm.width, Math.round(gm.height * 0.6));
+  }
+  return c;
+}
+
 // Los cuatro momentos: título y cómo se pinta (W, H en píxeles de dibujo)
 export const FONDOS = {
   tienda: { titulo: 'La tienda, abierta', pinta: (ctx, W, H, bajo) => pintaVista(MOSTRADOR, ctx, W, H, 1.3, bajo, 160) },
@@ -111,6 +156,8 @@ export const FONDOS = {
     return conCalle({ solo: 'jefe-cristal', t0: t - 2, cristal: { x: 163, cara: 'cara-Normal' } }, () => pintaVista(CALLE, ctx, W, H, t, bajo, 160));
   } },
   malaga: { titulo: 'Morty viendo al Málaga', pinta: (ctx, W, H, bajo) => salon(ctx, W, H, bajo) },
+  // (este se compra en la tienda: «Fondo de pantalla de «Cenas Encantadas»»)
+  cenas: { titulo: '«Cenas Encantadas»', comprado: 'cuadro', pinta: (ctx, W, H, bajo) => plato(ctx, W, H, bajo) },
 };
 
 // El fondo a su tamaño de dibujo (para verlo en pequeño)

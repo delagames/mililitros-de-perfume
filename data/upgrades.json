@@ -8,7 +8,5 @@
   {"id": "cafetera", "nombre": "Cafetera para Gengar", "dice": "Con café, Gengar huele dos frascos al día en vez de uno.", "precio": 220.21},
   {"id": "abono", "nombre": "Abono de La Rosaleda", "dice": "Morty va al fútbol. Los lunes que gana el Málaga, todos los clientes dejan propina (y se suma a la del escudo).", "precio": 120.21},
   {"id": "frasco100", "nombre": "Frascos de 100 ml", "dice": "Caben diez ingredientes, y el perfecto se cobra a 59,21 €.", "precio": 260.21, "requiere": "frasco50"},
-  {"id": "cuadro", "nombre": "Póster de «Cenas Encantadas»", "dice": "El programa de Morty, enmarcado. Para no olvidar de dónde viene.", "precio": 350.21},
-  {"id": "cojin", "nombre": "Un ficus para la tienda", "dice": "En maceta de barro, junto a la costilla de Adán. Da vida.", "precio": 180.21},
-  {"id": "camiseta", "nombre": "Camiseta firmada del Málaga", "dice": "Firmada por toda la plantilla. Enmarcada. Para mirarla y suspirar.", "precio": 600.21}
+  {"id": "cuadro", "nombre": "Fondo de pantalla de «Cenas Encantadas»", "dice": "El plató del programa de Morty, para el móvil o el ordenador. Se descarga en «Fondos de pantalla», en el inicio.", "precio": 150.21}
 ]
