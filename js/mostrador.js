@@ -100,7 +100,7 @@ function lamparas(g, P, d) {
 
 // ---------- el mundo (coordenadas de la vista) ----------
 // La estantería sube hasta casi el techo: tantas baldas como quepan por encima
-function estanteria(g, P, d) {
+function estanteria(g, P, d, img = {}) {
   const baldas = [122];
   while (baldas[baldas.length - 1] - 33 >= -d.oy + d.toldo + 14) baldas.push(baldas[baldas.length - 1] - 33);
   const arriba = baldas[baldas.length - 1];
@@ -117,14 +117,41 @@ function estanteria(g, P, d) {
     }
   }
   const tipos = [0, 2, 1, 0, 1, 2, 0, 1];
+  // si se ha comprado el escudo del Málaga, va de pie en la segunda balda, a la derecha (sin frascos ahí)
+  const escudo = tienda.conEscudo() && img.escudoMini;
   for (const [i, base] of baldas.slice(0, -1).entries()) {
     let x = 13 + i * 3;
-    for (let k = 0; x < 100; k++) {
+    for (let k = 0; x < (escudo && base === 89 ? 82 : base === 122 ? 80 : 100); k++) {
       const tipo = tipos[(k + i * 3) % tipos.length];
       frascoNegro(g, P, x, base, tipo);
       x += [12, 10, 14][tipo] + ((k + i) % 2);
     }
   }
+  if (escudo) g.drawImage(img.escudoMini, 88, 89 - img.escudoMini.height);
+  tarroDeTiras(g, P, 94, 122);
+}
+
+// El tarro de cristal con las tiras de papel secante para dar a oler: abiertas en abanico, con la punta
+// teñida de perfume; con la mejora «Más tiras de papel secante», más
+function tarroDeTiras(g, P, cx, base) {
+  const muchas = tienda.tiene('mesa');
+  const tiras = muchas ? [-7, -5, -3, -1, 1, 3, 5, 7] : [-5, -2, 1, 4];
+  const colores = [P.gota_picante, P.gota_citrico, P.gota_dulce, P.gota_verde, P.gota_fresco, P.gota_amargo, P.gota_floral, P.gota_picante];
+  tiras.forEach((dx, k) => {
+    const alto = 24 + (k % 3) * 2;   // (sin llegar a la balda de arriba)
+    for (let y = 0; y < alto; y++) {
+      const x = Math.round(cx + dx * (y / alto) * 0.9);
+      rect(g, x, base - 4 - y, 2, 1, y > alto - 5 ? colores[k % colores.length] : '#FBF8F0');
+    }
+    rect(g, Math.round(cx + dx * 0.9) - 1, base - 4 - alto, 3, 1, P.negro);   // (el canto de arriba)
+  });
+  // el tarro, de cristal: contorno, brillo y el fondo
+  caja(g, cx - 7, base - 13, 15, 13, '#BFE3DC', P.negro, 2);
+  rect(g, cx - 6, base - 12, 13, 3, '#DDF2EE');                              // el cristal, con su reflejo
+  for (const dx of tiras) rect(g, Math.round(cx + dx * 0.15), base - 9, 1, 8, '#EEF7F5');   // las tiras, vistas a través
+  rect(g, cx - 5, base - 11, 1, 8, '#FFFFFF');
+  rect(g, cx + 5, base - 11, 1, 9, '#9CC9C0');
+  rect(g, cx - 8, base - 14, 17, 2, P.negro); rect(g, cx - 7, base - 13, 15, 1, '#DDEEEA');
 }
 
 function baldaMuestras(g, P) {
@@ -324,11 +351,6 @@ function mostradorDelante(g, P, d) {
     if (y === 3) return P.negro;
     return Math.abs(x - 2.5) <= (8 - y) * 0.75 ? P.menta : null;
   });
-  // vaso con tiras de papel secante para oler
-  const tiras = tienda.tiene('mesa') ? [[207, 13], [208, 10], [209, 14], [210, 12], [211, 15], [212, 9], [213, 13], [214, 11], [215, 12]] : [[208, 10], [210, 12], [212, 9], [214, 11]];
-  for (const [x, h] of tiras) rect(g, x, 146 - h - 2, 1, h, P.blanco);
-  caja(g, 206, 137, 11, 9, P.negro, P.negro, 1);
-  rect(g, 207, 138, 1, 6, '#4A4A4A');
   // caja registradora
   caja(g, 224, 125, 34, 22, P.negro, P.negro, 2);
   rect(g, 226, 126, 30, 1, '#3A3A3A');
@@ -362,7 +384,7 @@ export const MOSTRADOR = {
     { fija: (g, { P, img }, d) => {
       fondo(g, P, d);
       g.translate(d.ox, d.oy);
-      estanteria(g, P, d);
+      estanteria(g, P, d, img);
       cuadros(g, P, d, img);
       huecoGengar(g, P);
       baldaMuestras(g, P);
@@ -387,12 +409,6 @@ export const MOSTRADOR = {
       const cal = tienda.calendario();
       if (cal.rojo) rect(g, 125, 70, 20, 17, '#F6C9C3');
       cifras(g, String(cal.dia), 135, 74, { color: cal.rojo ? '#C0392B' : P.negro, align: 'center', escala: 2 });
-      if (tienda.conEscudo() && img.escudoMini) {
-        // de pie sobre el mostrador, delante de Gengar
-        const e = img.escudoMini, ex = 160, base = 148;
-        rect(g, ex - 1, base - 2, e.width + 2, 2, '#2E3A36');             // la peana
-        g.drawImage(e, ex, base - 2 - e.height);
-      }
       // la cafetera italiana para Gengar, en la punta del mostrador, echando vapor
       if (tienda.tiene('cafetera')) {
         const cx = 112, abajo = 147;
