@@ -69,7 +69,7 @@ function conLados(c, { P }, H, bajo) {
 // luego se deja como estaba
 function conCalle(cambios, pinta) {
   const antes = { ...calle, hoy: { ...calle.hoy } };
-  Object.assign(calle, { repartidor: -1, baile: -1, solo: null, cristal: null }, cambios);
+  Object.assign(calle, { repartidor: -1, baile: -1, solo: null, cristal: null, cristalPrimero: false }, cambios);
   if (cambios.cristal) calle.cristal = { ...cambios.cristal };
   try { return pinta(); } finally { Object.assign(calle, antes); }
 }

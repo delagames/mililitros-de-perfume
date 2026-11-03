@@ -1247,8 +1247,12 @@ function seguirDia() {
   const hoy = partida.hoy;
   hoy.sucio ??= true;
   // en la calle, unos pocos perros cada día; y el que pide la historia (sus vídeos, el día de la cuota)
+  // la primera vez que pasa tras presentarse, con la cara pegada al cristal (si no, era fácil no verlo nunca)
+  const cristal = jefePresentado() && !partida.marcas.includes('jefe-cristal');
+  enLaCalle.cristalPrimero = cristal;
+  enLaCalle.alVerCristal = () => { marca('jefe-cristal'); guarda(partida); };
   enLaCalle.hoy = perrosDeHoy(partida.dia, {
-    jefe: !!hoy.cuota || !!hoy.suceso?.startsWith('jefe'),
+    jefe: cristal || !!hoy.cuota || !!hoy.suceso?.startsWith('jefe'),
     paseador: ['peluqueria', 'ascensor', 'piscina'].includes(hoy.suceso),
   }, { sinJefe: !jefePresentado(), malaNoche: !!hoy.malaNoche });
   aplicaMejoras();

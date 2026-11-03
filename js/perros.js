@@ -76,7 +76,10 @@ function inclina(i, s) {
 }
 
 // Quién sale hoy y desde cuándo bailan (solo: en las pruebas, un perro suelto que cruza una y otra vez)
-export const calle = { hoy: { paseador: true, 'border-collie': true, bulldog: true, jefe: false }, baile: -1, solo: null, t0: 0, repartidor: -1 };
+export const calle = { hoy: { paseador: true, 'border-collie': true, bulldog: true, jefe: false }, baile: -1, solo: null, t0: 0, repartidor: -1,
+  // la primera vez tras presentarse, el Señor Mililitros pega la cara al cristal nada más llegar (main.js lo
+  // pide hasta que se ha visto, y apunta que se ha visto con alVerCristal)
+  cristalPrimero: false, alVerCristal: null };
 
 // Quién sale hoy: al azar (el mismo día, siempre los mismos), más los que pide la historia; nunca nadie, no.
 // Tras una mala noche de Morty (las de Gengar) salen más; el Señor Mililitros, solo cuando ya se ha presentado.
@@ -156,8 +159,10 @@ export function pintaPerros(g, t, ctx, d) {
   }
   // el Señor Mililitros, a dos patas y sin prisa; o, de repente, con la cara pegada al cristal
   if (hoy.jefe) {
+    if (calle.cristalPrimero && !turnos.jefe?.forzado) turnos.jefe = { empieza: t + 2 + Math.random() * 3, que: 0.95, forzado: true };
     const p = pase('jefe', t, { dura: tu => (tu.que > 0.7 ? 4.6 : 330 / 13 + (tu.que > 0.3 ? 4.4 : 0)), min: 60, max: 150, primero: 30 });
     if (p) p.tu.que > 0.7 ? caraEnElCristal(g, p.tt, p.tu) : jefePasa(g, t, p.tt, p.tu.que > 0.3 ? 4.4 : 0);
+    if (p?.tu.forzado && calle.cristalPrimero && p.tt > 1) { calle.cristalPrimero = false; calle.alVerCristal?.(); }
   }
 }
 
