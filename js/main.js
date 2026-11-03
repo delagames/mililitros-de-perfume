@@ -303,8 +303,10 @@ function ponMusica() {
   else setMood({ calle: 'calle', taller: 'taller', estante: 'taller' }[estado] || 'tienda');
 }
 
-// en local o con ?demo: los botones de pruebas (y los fondos, sin tener que acabar el juego)
-const modoPruebas = ['localhost', '127.0.0.1'].includes(location.hostname) || location.search.includes('demo');
+// solo en local (este ordenador, o el móvil por la wifi de casa con servir.bat): los botones de pruebas
+// (y los fondos, sin tener que acabar el juego). En la web publicada no hay forma de sacarlos.
+const modoPruebas = ['localhost', '127.0.0.1'].includes(location.hostname)
+  || /^(192\.168\.|10\.|172\.(1[6-9]|2\d|3[01])\.)/.test(location.hostname);
 let ultimoToque = 0;
 let ultimaAccion = performance.now();   // (para saber si Morty lleva un rato sin hacer nada)
 // ni zoom con dos toques ni pellizcando (Safari no hace caso a user-scalable=no)
@@ -1966,7 +1968,8 @@ if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
 }
 
 preparar().then(() => {
-  // ?calle o ?mostrador abre directamente esa vista (para revisar con capturas); ?suceso=<id>, un suceso
+  // en local, ?calle o ?mostrador abre directamente esa vista (para revisar con capturas); ?suceso=<id>, un suceso
+  if (!modoPruebas) { ir('inicio'); return; }
   const q = location.search.slice(1);
   const suceso = new URLSearchParams(location.search).get('suceso');
   if (suceso) { verSuceso(suceso); return; }
