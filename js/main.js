@@ -68,6 +68,18 @@ async function preparar() {
   // el escudo del Málaga, en pixel (tools/build_escudo.py): en la pared de la tienda y en el fondo de pantalla
   const [escudo, escudoMini] = await Promise.all(['', '-mini'].map(t => cargaImagen(`assets/ui/escudo-malaga-pixel${t}.png`).catch(() => null)));
   ctx = { P, img: { morty, gengarMostrador, escudo, escudoMini } };
+  // el Gengar que asoma en el frasco del taller: el del mostrador, en pequeño y sin bordes suaves
+  if (gengarMostrador) {
+    const w = 30, h = Math.round(gengarMostrador.height * w / gengarMostrador.width);
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const g = c.getContext('2d', { willReadFrequently: true });
+    g.imageSmoothingQuality = 'high';
+    g.drawImage(gengarMostrador, 0, 0, w, h);
+    const d = g.getImageData(0, 0, w, h);
+    for (let k = 3; k < d.data.length; k += 4) d.data[k] = d.data[k] >= 110 ? 255 : 0;
+    g.putImageData(d, 0, 0);
+    taller.gengar = c;
+  }
   tienda.dineroHoy = () => partida?.hoy?.ingresos || 0;
   tienda.conEscudo = () => !!partida?.mejoras?.includes('escudo');
   tienda.tiene = id => !!partida?.mejoras?.includes(id);
