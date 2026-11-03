@@ -1509,7 +1509,7 @@ const soloFaltaLancha = () => { const p = porVer(); return !p.historias.length &
 function resumenCaja() {
   const hoy = partida.hoy;
   if (soloFaltaLancha()) return { cara: portraitUrl('gengar', 'Special0'), nombre: 'Gengar',
-    texto: `Hoy: ${euros(hoy.ingresos)}. En caja: ${euros(partida.caja)}. Y ese botón gris de «Vacaciones»… tú sigue probando, que alguna vez te las darán.` };
+    texto: `Hoy: ${euros(hoy.ingresos)}. En caja: ${euros(partida.caja)}. Y mira: dale a «Vacaciones». Tú dale, y no pares.` };
   return { ...MORTY, cara: portraitUrl('morty', hoy.ingresos ? 'Happy' : 'Stunned'),
     texto: `Hoy: ${euros(hoy.ingresos)}. En caja: ${euros(partida.caja)}.${partida.deuda ? ` Deuda con ${conQuien()}: ${euros(partida.deuda)}.` : ''}` };
 }
