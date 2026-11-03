@@ -133,7 +133,11 @@ button.icono { padding: 0 2px; font-size: 1.2rem; line-height: 1; min-height: 44
   pointer-events: none;
 }
 .barra > * { pointer-events: auto; }
-.lugar { font-size: 1.3rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; font-weight: 700; color: var(--blanco); text-shadow: var(--px) var(--px) 0 var(--sombra-texto); }
+/* el título, con contorno oscuro de píxel para que se distinga del toldo */
+.lugar { font-size: 1.3rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; font-weight: 700; color: var(--blanco); padding: 2px 5px 5px 2px;
+  text-shadow: -2px 0 0 var(--sombra-texto), 2px 0 0 var(--sombra-texto), 0 -2px 0 var(--sombra-texto), 0 2px 0 var(--sombra-texto),
+    -2px -2px 0 var(--sombra-texto), 2px -2px 0 var(--sombra-texto), -2px 2px 0 var(--sombra-texto), 2px 2px 0 var(--sombra-texto),
+    var(--px) calc(var(--px) + 2px) 0 var(--sombra-texto); }
 .hora { flex: none; overflow: visible; margin-left: -4px; }
 .hora:empty { display: none; }
 
