@@ -339,8 +339,12 @@ function decir(habla, lista = []) {
     if (habla.nombre === 'Morty Pociones') habla = { ...habla, nombre: 'Gengar', cara: portraitUrl('gengar', 'Happy') };
     else if (habla.nombre && habla.nombre !== 'Gengar' && habla.texto) habla = { ...habla, texto: habla.texto.replace(/\bMorty\b/g, 'Gengar') };
   }
-  // la cola de Girafarig gime de vez en cuando al hablar (más o menos una de cada tres frases)
-  if (habla.nombre === 'La cola' && Math.random() < 0.35) gemido();
+  // la cola de Girafarig gime de vez en cuando al hablar (más o menos una de cada tres frases), y siempre que
+  // lo dice el texto («Mmmmmh…»), entonces más largo
+  if (habla.nombre === 'La cola') {
+    const suspira = /m{4,}h/i.test(habla.texto || '');
+    if (suspira || Math.random() < 0.35) gemido(suspira);
+  }
   if (habla.temblor) sfx('telefono');
   dialogo({ ...habla, texto: '' });
   tandas = paginar(habla.texto);

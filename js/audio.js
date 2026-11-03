@@ -192,39 +192,61 @@ export function sfx(nombre) {
   }
 }
 
-// El gemido de la cola de Girafarig: una voz de dibujos animados ("aaah…") que sube y baja de tono,
-// con vibrato, pasada por dos filtros que le dan la vocal. Cada vez un poco distinto.
-export function gemido() {
+// El gemido de la cola de Girafarig, de gusto: empieza con la boca cerrada («mmmh», un zumbido grave y
+// suave), se abre en un «aaah» que sube y cae despacio, con un temblor lento y aire de suspiro por
+// encima. Cada vez un poco distinto; con largo, el suspiro dura más (el de «qué gustito»).
+export function gemido(largo = false) {
   const c = ensure();
   if (!c || !prefs.sfx) return;
   const t = c.currentTime + 0.02;
-  const dura = 0.75 + Math.random() * 0.35;
-  const base = 150 + Math.random() * 40;
+  const dura = (largo ? 1.9 : 1.2) + Math.random() * 0.3;
+  const abre = dura * 0.32;                                   // cuándo pasa del «mmm» al «aaah»
+  const base = 185 + Math.random() * 35;
   const voz = c.createOscillator();
   voz.type = 'sawtooth';
-  voz.frequency.setValueAtTime(base, t);
-  voz.frequency.linearRampToValueAtTime(base * 1.45, t + dura * 0.35);
-  voz.frequency.linearRampToValueAtTime(base * 0.85, t + dura);
-  const lfo = c.createOscillator();
-  const prof = c.createGain();
-  lfo.frequency.value = 5.5 + Math.random() * 1.5;
-  prof.gain.value = base * 0.04;
+  voz.frequency.setValueAtTime(base * 0.92, t);
+  voz.frequency.linearRampToValueAtTime(base, t + abre);
+  voz.frequency.exponentialRampToValueAtTime(base * 1.6, t + abre + dura * 0.18);   // el «aah» sube
+  voz.frequency.exponentialRampToValueAtTime(base * 0.78, t + dura);                 // y cae, a gusto
+  // el temblor de la voz, lento y cada vez más hondo
+  const lfo = c.createOscillator(), prof = c.createGain();
+  lfo.frequency.value = 4.2 + Math.random();
+  prof.gain.setValueAtTime(base * 0.01, t);
+  prof.gain.linearRampToValueAtTime(base * 0.05, t + dura);
   lfo.connect(prof).connect(voz.frequency);
+  // la boca: de cerrada (todo grave) a abierta (las dos vocales de la «a»)
+  const boca = c.createBiquadFilter();
+  boca.type = 'lowpass'; boca.Q.value = 1;
+  boca.frequency.setValueAtTime(420, t);
+  boca.frequency.linearRampToValueAtTime(500, t + abre);
+  boca.frequency.linearRampToValueAtTime(2400, t + abre + 0.12);
+  boca.frequency.linearRampToValueAtTime(1300, t + dura);
   const f1 = c.createBiquadFilter(), f2 = c.createBiquadFilter();
-  f1.type = f2.type = 'bandpass';
-  f1.Q.value = 6; f2.Q.value = 8;
-  f1.frequency.setValueAtTime(800, t); f1.frequency.linearRampToValueAtTime(520, t + dura);
-  f2.frequency.setValueAtTime(1250, t); f2.frequency.linearRampToValueAtTime(900, t + dura);
+  f1.type = f2.type = 'peaking';
+  f1.gain.value = 10; f2.gain.value = 7; f1.Q.value = 3; f2.Q.value = 4;
+  f1.frequency.setValueAtTime(780, t); f1.frequency.linearRampToValueAtTime(650, t + dura);
+  f2.frequency.setValueAtTime(1200, t); f2.frequency.linearRampToValueAtTime(1050, t + dura);
   const vol = c.createGain();
   vol.gain.setValueAtTime(0.0001, t);
-  vol.gain.exponentialRampToValueAtTime(0.35, t + 0.09);
-  vol.gain.setValueAtTime(0.35, t + dura * 0.6);
+  vol.gain.exponentialRampToValueAtTime(0.12, t + 0.15);              // el «mmm», bajito
+  vol.gain.linearRampToValueAtTime(0.13, t + abre);
+  vol.gain.linearRampToValueAtTime(0.3, t + abre + 0.1);               // se abre
+  vol.gain.setValueAtTime(0.3, t + dura * 0.6);
   vol.gain.exponentialRampToValueAtTime(0.0001, t + dura);
-  voz.connect(f1); voz.connect(f2);
-  f1.connect(vol); f2.connect(vol);
-  vol.connect(sfxBus);
-  voz.start(t); lfo.start(t);
-  voz.stop(t + dura + 0.05); lfo.stop(t + dura + 0.05);
+  voz.connect(boca).connect(f1).connect(f2).connect(vol).connect(sfxBus);
+  // el aire del suspiro: ruido suave filtrado, sobre todo al final
+  const n = Math.floor(c.sampleRate * dura), buf = c.createBuffer(1, n, c.sampleRate), d = buf.getChannelData(0);
+  for (let k = 0; k < n; k++) d[k] = Math.random() * 2 - 1;
+  const aire = c.createBufferSource(); aire.buffer = buf;
+  const fa = c.createBiquadFilter(); fa.type = 'bandpass'; fa.frequency.value = 1500; fa.Q.value = 0.8;
+  const va = c.createGain();
+  va.gain.setValueAtTime(0.0001, t);
+  va.gain.linearRampToValueAtTime(0.02, t + abre);
+  va.gain.linearRampToValueAtTime(0.07, t + dura * 0.85);
+  va.gain.exponentialRampToValueAtTime(0.0001, t + dura);
+  aire.connect(fa).connect(va).connect(sfxBus);
+  voz.start(t); lfo.start(t); aire.start(t);
+  voz.stop(t + dura + 0.05); lfo.stop(t + dura + 0.05); aire.stop(t + dura + 0.05);
 }
 
 // Mientras suena un vídeo (los sucesos), la música se baja
