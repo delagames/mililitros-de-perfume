@@ -97,6 +97,12 @@ async function preparar() {
   pintaEmblema($('#emblema'), P);
 }
 
+// Qué día vino cada cliente por última vez (para que los repetidos se turnen)
+function apuntaVisitas(hoy) {
+  partida.vinoEl ??= {};
+  for (const id of hoy.cola) partida.vinoEl[id] = hoy.dia;
+}
+
 // Rellena lo que le falte a una partida (nueva o de una versión anterior)
 function empiezaPartida(p) {
   partida = p;
@@ -1108,6 +1114,7 @@ function empiezaDia(conSuceso = true) {
     const extra = clientesDeHoy(clientes, dialogos, partida, hoy).find(id => !hoy.cola.includes(id));
     if (extra) hoy.cola.push(extra);
   }
+  apuntaVisitas(hoy);
   hoy.baja = dia === partida.diaBaja;
   // una mala noche (las de Gengar): por la mañana, una pista; y más perros por la calle
   hoy.malaNoche = dia > 2 && Math.random() < 0.35;
@@ -1329,7 +1336,7 @@ function juegaCristal() {
     if (r.gana) {
       const ya = new Set([...hoy.cola]);
       extra = clientesDeHoy(clientes, dialogos, partida, hoy).find(id => !ya.has(id));
-      if (extra) { hoy.cola.push(extra); hoy.paso = Math.floor((CIERRE - 1 - APERTURA) / (hoy.cola.length + 1)); }
+      if (extra) { hoy.cola.push(extra); apuntaVisitas(hoy); hoy.paso = Math.floor((CIERRE - 1 - APERTURA) / (hoy.cola.length + 1)); }
     }
     guarda(partida);
     decir({ ...MORTY, cara: portraitUrl('morty', r.gana ? 'Happy' : 'Normal'),

@@ -108,16 +108,24 @@ export function visitaPara(dlg, partida, hoy) {
   return hechas.length ? { n: 0, repetida: true, llega: [{ quien: dlg.id, texto: '…' }] } : null;
 }
 
-// Los clientes de hoy: entre 3 y 6 (los que tengan algo que contar), por orden al azar, con los de
-// historia nueva por delante de los que repiten
+// Los clientes de hoy: entre 3 y 6, con los de historia nueva por delante de los que repiten. Como
+// mucho tres historias nuevas al día (lo pidió Jorge: con más, el día 16 ya estaba casi todo visto y
+// luego solo venían repetidos), así duran hasta el final, sobre el día 30. Los que vuelven a por «lo
+// de siempre» se turnan: primero el que hace más que no viene, y el que vino ayer, solo si no hay otro.
+export const NUEVOS_AL_DIA = 3;
 export function clientesDeHoy(lista, dialogos, partida, hoy) {
   const con = lista.map(c => ({ c, v: visitaPara(dialogos[c.id], partida, hoy) })).filter(x => x.v);
   const mezcla = a => a.map(x => [Math.random(), x]).sort((p, q) => p[0] - q[0]).map(x => x[1]);
   // las de este lunes (dependen del partido) van las primeras: si no, se pierden hasta otra jornada
   const deLunes = x => (x.v.requiere || []).some(m => m.startsWith('jornada-')) || !!x.v.cuando;
   // (los que vuelven a por «lo de siempre» no son historia nueva: van detrás, para no quitarle el sitio a nadie)
-  const nuevos = mezcla(con.filter(x => !x.v.repetida && (x.v.n > 0 || !partida.marcas.includes(x.v.marca)))).sort((a, b) => deLunes(b) - deLunes(a));
-  const repiten = mezcla(con.filter(x => !nuevos.includes(x)));
+  // (una visita que se repite, como la de Totodile, solo es nueva si tiene su marca y aún no se ha visto)
+  const nuevos = mezcla(con.filter(x => !x.v.repetida && (x.v.n > 0 || (x.v.marca && !partida.marcas.includes(x.v.marca))))).sort((a, b) => deLunes(b) - deLunes(a));
+  const ultima = id => partida.vinoEl?.[id] ?? -99;
+  const repiten = mezcla(con.filter(x => !nuevos.includes(x)))
+    .sort((a, b) => (ultima(a.c.id) === partida.dia - 1) - (ultima(b.c.id) === partida.dia - 1) || ultima(a.c.id) - ultima(b.c.id));
   const cuantos = Math.min(con.length, 3 + Math.floor(Math.random() * 4));
-  return [...nuevos, ...repiten].slice(0, cuantos).map(x => x.c.id);
+  const cola = [...nuevos.slice(0, NUEVOS_AL_DIA), ...repiten].slice(0, cuantos);
+  // (si con eso no llegan a tres, pasa alguna historia más, para que la tienda no se quede vacía)
+  return [...cola, ...nuevos.slice(NUEVOS_AL_DIA)].slice(0, Math.max(cola.length, Math.min(3, con.length))).map(x => x.c.id);
 }
