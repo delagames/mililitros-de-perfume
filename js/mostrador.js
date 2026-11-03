@@ -117,31 +117,36 @@ function estanteria(g, P, d, img = {}) {
     }
   }
   const tipos = [0, 2, 1, 0, 1, 2, 0, 1];
-  // si se ha comprado el escudo del Málaga, va de pie en la segunda balda, a la derecha (sin frascos ahí)
+  // si se ha comprado el escudo del Málaga, va de pie en la tercera balda (o en la segunda, si no hay más), entre los botes
   const escudo = tienda.conEscudo() && img.escudoMini;
-  for (const [i, base] of baldas.slice(0, -1).entries()) {
+  const conBotes = baldas.slice(0, -1);
+  const baldaEscudo = conBotes[Math.min(2, conBotes.length - 1)];
+  for (const [i, base] of conBotes.entries()) {
     let x = 13 + i * 3;
-    for (let k = 0; x < (escudo && base === 89 ? 82 : base === 122 ? 80 : 100); k++) {
+    for (let k = 0; x < (base === 122 ? 80 : 100); k++) {
+      if (escudo && base === baldaEscudo && x >= 44 && x < 60) {           // el hueco del escudo
+        g.drawImage(escudo, x + 2, base - escudo.height);
+        x += escudo.width + 4;
+        continue;
+      }
       const tipo = tipos[(k + i * 3) % tipos.length];
       frascoNegro(g, P, x, base, tipo);
       x += [12, 10, 14][tipo] + ((k + i) % 2);
     }
   }
-  if (escudo) g.drawImage(img.escudoMini, 88, 89 - img.escudoMini.height);
   tarroDeTiras(g, P, 94, 122);
 }
 
-// El tarro de cristal con las tiras de papel secante para dar a oler: abiertas en abanico, con la punta
-// teñida de perfume; con la mejora «Más tiras de papel secante», más
+// El tarro de cristal con las tiras de papel secante para dar a oler: abiertas en abanico,
+// blancas; con la mejora «Más tiras de papel secante», más
 function tarroDeTiras(g, P, cx, base) {
   const muchas = tienda.tiene('mesa');
   const tiras = muchas ? [-7, -5, -3, -1, 1, 3, 5, 7] : [-5, -2, 1, 4];
-  const colores = [P.gota_picante, P.gota_citrico, P.gota_dulce, P.gota_verde, P.gota_fresco, P.gota_amargo, P.gota_floral, P.gota_picante];
   tiras.forEach((dx, k) => {
-    const alto = 24 + (k % 3) * 2;   // (sin llegar a la balda de arriba)
+    const alto = 16 + (k % 3) * 2;   // (caben de sobra bajo la balda de arriba)
     for (let y = 0; y < alto; y++) {
       const x = Math.round(cx + dx * (y / alto) * 0.9);
-      rect(g, x, base - 4 - y, 2, 1, y > alto - 5 ? colores[k % colores.length] : '#FBF8F0');
+      rect(g, x, base - 4 - y, 2, 1, '#FBF8F0');
     }
     rect(g, Math.round(cx + dx * 0.9) - 1, base - 4 - alto, 3, 1, P.negro);   // (el canto de arriba)
   });
