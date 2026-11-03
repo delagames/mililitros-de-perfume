@@ -19,7 +19,7 @@ import { FONDOS, dibujoFondo, descargaFondo } from './fondos.js';
 import { cargaIngredientes, ingrediente, nombreDe, colorDe, caracter, MAX, ponMax, desdePasos } from './perfume.js';
 import { carga, guarda, guardaCopia, copias, exporta, importa, borra } from './save.js';
 import { APERTURA, CIERRE, mesDe, cuotaDe, diaDelMes, diaSemana, esTrimestre, esDiaFactura, hora, cobraCuota, pagaDeuda,
-  disponible, PROVEEDOR_DE, reparto, visitaPara, clientesDeHoy, jornada, a21, ALQUILER, COLCHON } from './dia.js';
+  disponible, PROVEEDOR_DE, reparto, visitaPara, clientesDeHoy, historiasPendientes, jornadaEsperada, jornada, a21, ALQUILER, COLCHON } from './dia.js';
 import { limpiar, contarCaja, envolver, pulverizar, alhaurinSeQueja, rinde, responde, cierra as cierraMinijuego } from './minijuegos.js';
 import { abrePedido } from './pedido.js';
 import { cargaPerros, calle as enLaCalle, bailan, perrosDeHoy } from './perros.js';
@@ -831,7 +831,7 @@ function entrega(perfume) {
   const cobra = visita.gratis || !PRECIO[res] ? 0 : PRECIO[res] + (res === 'perfecto' ? grande : res === 'bien' ? grande / 2 : 0);
   setTimeout(() => sfx({ perfecto: 'perfecto', bien: 'bien' }[res] || 'mal'), 150);
   if (cobra) setTimeout(() => sfx('caja'), 700);
-  // con el escudo del Málaga en el mostrador, a veces dejan propina; y con el abono, siempre, los lunes que gana
+  // con el escudo del Málaga en el mostrador, a veces dejan propina; y con el abono, siempre, el día después de que gane
   const ganaYAbono = partida.hoy?.jornada === 'gana' && partida.mejoras.includes('abono');
   const porEscudo = partida.mejoras.includes('escudo') && Math.random() < 0.5;
   const base = res === 'perfecto' ? 3.21 : 1.21;
@@ -1107,7 +1107,16 @@ function empiezaDia(conSuceso = true) {
   const hoy = { dia, fase: 'mañana', hora: APERTURA, ingresos: 0, trimestre: esTrimestre(dia), factura: esDiaFactura(dia),
     cuota: diaDelMes(dia) === 1 ? 'pendiente' : null, cristal: false, contada: false, pedido: false, cola: [] };
   partida.hoy = hoy;
-  if (dia > 1 && diaSemana(dia) === 'lunes') { const j = jornada(); hoy.jornada = j.res; hoy.goles = j.goles; }
+  // el Málaga juega cualquier día (liga, copa…; lo pidió Jorge): el lunes, siempre (la jornada del
+  // domingo); los demás días, a veces, y más a menudo si una historia espera un resultado. Nunca dos
+  // días seguidos. Si algo espera un resultado (o falta el vídeo de la discoteca, que es tras ganar), suele salir ese
+  const quiere = [...jornadaEsperada(clientes, dialogos, partida), ...(partida.sucesos.includes('discoteca') ? [] : ['gana'])];
+  const ayerJugo = partida.diaPartido === dia - 1;
+  if (dia > 1 && !ayerJugo && (diaSemana(dia) === 'lunes' || Math.random() < (quiere.length ? 0.45 : 0.2))) {
+    partida.diaPartido = dia;
+    const j = jornada(quiere.length ? quiere[Math.floor(Math.random() * quiere.length)] : null);
+    hoy.jornada = j.res; hoy.goles = j.goles;
+  }
   hoy.cola = clientesDeHoy(clientes, dialogos, partida, hoy);
   if (!partida.marcas.includes('totodile-1')) hoy.cola = ['totodile', ...hoy.cola.filter(id => id !== 'totodile')];
   if (partida.mejoras.includes('cartel')) {
@@ -1128,9 +1137,10 @@ function empiezaDia(conSuceso = true) {
   guarda(partida);
 }
 // Los vídeos de la mañana, con reglas para que no salgan siempre igual ni todos seguidos:
-// - como mucho uno al día y con dos días de hueco; los del Señor Mililitros, con cuatro entre ellos;
+// - como mucho uno al día, casi cada día (lo pidió Jorge: antes, uno cada tres); los del Señor
+//   Mililitros, con dos días entre ellos;
 // - ninguno el día de la baja, de la cuota, de una carta o de la presentación;
-// - la discoteca, el lunes que ha ganado el Málaga; el vecino de la fiesta, el día que viene Igglybuff
+// - la discoteca, el día después de que gane el Málaga; el vecino de la fiesta, el día que viene Igglybuff
 //   por primera vez (es su vecino); los demás, al azar entre los que ya tocan (sus «requiere»).
 const DE_MAÑANA = ['peluqueria', 'ascensor', 'piscina', 'plaza-cantante', 'discoteca', 'vecino-fiesta', 'jefe-dinero', 'jefe-cena', 'jefe-garaje', 'jefe-furgoneta', 'jefe-dominadas', 'jefe-ruso'];
 const PIDE_JEFE = { 'jefe-cena': () => jefePresentado(), 'jefe-garaje': () => jefePresentado(), 'jefe-furgoneta': () => jefeVisto() };
@@ -1144,16 +1154,17 @@ function sucesoDeMañana(hoy) {
   if (!jefeVisto() && dia >= 6) { const id = ['jefe-dinero', 'jefe-dominadas', 'jefe-ruso'].find(x => !visto(x)); if (id) return id; }
   // los que van atados a un día concreto
   if (hoy.jornada === 'gana' && !visto('discoteca')) return 'discoteca';
-  if (!visto('vecino-fiesta') && hoy.cola.includes('igglybuff') && !partida.marcas.includes('igglybuff-1')) return 'vecino-fiesta';
-  if (dia - (partida.diaSuceso ?? -9) < 3) return null;
+  // (el vecino de la fiesta, el día que viene Igglybuff; si se pasó la primera vez, la siguiente que venga)
+  if (!visto('vecino-fiesta') && hoy.cola.includes('igglybuff')) return 'vecino-fiesta';
+  if (dia - (partida.diaSuceso ?? -9) < 1) return null;
   const tocan = DE_MAÑANA.filter(id => {
     if (visto(id) || id === 'discoteca' || id === 'vecino-fiesta') return false;
     if (PIDE_JEFE[id] && !PIDE_JEFE[id]()) return false;
-    if (id.startsWith('jefe') && dia - (partida.diaSucesoJefe ?? -9) < 4) return false;
+    if (id.startsWith('jefe') && dia - (partida.diaSucesoJefe ?? -9) < 2) return false;
     const s = SUCESOS.find(x => x.id === id);
     return (s?.requiere || []).every(m => pideSuceso(m, hoy));
   });
-  if (!tocan.length || Math.random() > 0.55) return null;
+  if (!tocan.length || Math.random() > 0.8) return null;
   return tocan[Math.floor(Math.random() * tocan.length)];
 }
 // (se apunta cuándo salió el último, para dejar hueco)
@@ -1321,9 +1332,27 @@ function altillo(prueba = false) {
 // La meta (sección 7): el día que la caja da para la cuota del mes que viene, el alquiler y una cerveza
 const CERVEZA = 1.21;
 const meta = () => Math.round((cuotaDe(mesDe(partida.dia + 1)) + ALQUILER + CERVEZA) * 100) / 100;
-// (a partir del día 30, para que dé tiempo a ver la baja, el trimestre y las historias sin días de relleno;
-// y sin cartas del asesor por llegar)
-const metaCumplida = () => partida.dia >= 30 && !partida.deuda && !partida.cartas.length && partida.caja >= meta() && !partida.marcas.includes('epilogo');
+// El final (lo pidió Jorge, sin día mínimo): todas las historias vistas, todos los vídeos vistos (menos
+// el de la lancha, que es un secreto del botón de vacaciones) y la deuda saldada, sin cartas por llegar
+const VIDEOS_FINAL = [...DE_MAÑANA, 'repartidor', 'jefe-baile'];
+function porVer() {
+  return { historias: historiasPendientes(clientes, dialogos, partida), videos: VIDEOS_FINAL.filter(id => !partida.sucesos.includes(id)) };
+}
+const todoVisto = () => { const p = porVer(); return !p.historias.length && !p.videos.length; };
+const metaCumplida = () => !partida.deuda && !partida.cartas.length && todoVisto() && !partida.marcas.includes('epilogo');
+// lo que falta, en una frase (en el cierre y en el pedido)
+function faltaParaElFinal() {
+  if (partida.marcas.includes('epilogo')) return '';
+  const { historias, videos } = porVer();
+  const trozos = [historias.length && `${historias.length} ${historias.length === 1 ? 'historia' : 'historias'}`,
+    videos.length && `${videos.length} ${videos.length === 1 ? 'vídeo' : 'vídeos'}`].filter(Boolean);
+  if (!trozos.length) return partida.deuda ? 'Para el final, solo queda saldar la deuda.' : '';
+  return `Para el final quedan ${trozos.join(' y ')} por ver${partida.deuda ? ', y saldar la deuda' : ''}.`;
+}
+// si Morty salda la deuda antes de verlo todo, el Señor Mililitros se inventa un cargo nuevo
+const CARGOS = ['la cuota de la familia', 'el mantenimiento del cartel de «Bienvenido»', 'el seguro del toldo, que mide cuatro centímetros de más',
+  'la gestión de la deuda que acabas de pagar', 'el café de Gengar, que no es gratis', 'el recargo por pagar antes de tiempo',
+  'la renovación del vinilo del escaparate', 'mi abono de La Rosaleda, que también es de la familia'];
 
 function juegaCristal() {
   decir({ ...MORTY, cara: portraitUrl('morty', 'Inspired'), texto: 'Frota el escaparate con el dedo: huellas, una nariz de perro y una paloma con puntería.' },
@@ -1417,7 +1446,7 @@ function resumenCaja() {
   const hoy = partida.hoy;
   return { ...MORTY, cara: portraitUrl('morty', hoy.ingresos ? 'Happy' : 'Stunned'),
     texto: `Hoy: ${euros(hoy.ingresos)}. En caja: ${euros(partida.caja)}.${partida.deuda ? ` Deuda con ${conQuien()}: ${euros(partida.deuda)}.`
-      : partida.marcas.includes('epilogo') || partida.dia < 20 ? '' : ` Para el final (cuota, alquiler y una cerveza, desde el día 30) hacen falta ${euros(meta())}.`}` };
+      : faltaParaElFinal() ? ` ${faltaParaElFinal()}` : ''}` };
 }
 
 function juegaCaja() {
@@ -1509,9 +1538,18 @@ function preguntaDeuda(sigue) {
   decir({ ...MORTY, cara: portraitUrl('morty', 'Dizzy'), texto: `Deuda con ${conQuien()}: ${euros(partida.deuda)}. En caja hay ${euros(partida.caja)}. ¿Le pago algo?` },
     [{ texto: 'Pagar', accion: () => {
       const paga = pagaDeuda(partida);
+      // saldada antes de verlo todo: el Señor Mililitros se inventa un cargo
+      let cargo = null;
+      if (!partida.deuda && !todoVisto()) {
+        cargo = { que: CARGOS[Math.floor(Math.random() * CARGOS.length)], cuanto: a21(40 + Math.random() * 160) };
+        partida.deuda = cargo.cuanto;
+      }
       guarda(partida);
-      serie([{ ...MORTY, cara: portraitUrl('morty', 'Dizzy'), texto: `Pagado: ${euros(paga)}. ${partida.deuda ? `Quedan ${euros(partida.deuda)}.` : 'Deuda saldada. Por ahora.'}` },
-        ...(partida.deuda ? [] : [{ texto: 'Esa noche, a las 3:47, le vibra el móvil:' }, { ...JEFE('Joyous'), texto: 'Lo sabía, Morty. Eres familia. Ya te llegará el recargo de la próxima.' }])],
+      const tras = cargo ? [{ texto: 'Esa noche, a las 3:47, le vibra el móvil:' },
+        { ...JEFE('Joyous'), texto: `Lo sabía, Morty. Eres familia. Por cierto, falta ${cargo.que}: ${euros(cargo.cuanto)}. Te lo apunto.` },
+        { ...MORTY, cara: portraitUrl('morty', 'Dizzy'), texto: `Deuda: ${euros(partida.deuda)}. Otra vez.` }]
+        : partida.deuda ? [] : [{ texto: 'Esa noche, a las 3:47, le vibra el móvil:' }, { ...JEFE('Joyous'), texto: 'Lo sabía, Morty. Eres familia. Ya te llegará el recargo de la próxima.' }];
+      serie([{ ...MORTY, cara: portraitUrl('morty', 'Dizzy'), texto: `Pagado: ${euros(paga)}. ${partida.deuda && !cargo ? `Quedan ${euros(partida.deuda)}.` : 'Deuda saldada. Por ahora.'}` }, ...tras],
       [{ texto: '▸', secundario: true, accion: sigue }]);
     } }, { texto: 'Ahora no', secundario: true, accion: sigue }]);
 }
@@ -1589,9 +1627,9 @@ function aplicaMejoras() {
 const maxMuestras = () => (partida.mejoras.includes('mesa') ? 4 : 3);
 
 function pedido() {
-  // la meta, también aquí, para no gastarse lo del final en mejoras (desde el día 20)
-  $('#pedido .pedido-meta').textContent = partida.dia >= 20 && !partida.marcas.includes('epilogo')
-    ? `Para el final (desde el día 30) hacen falta ${euros(meta())} en caja y ninguna deuda.` : '';
+  // lo que falta para el final, también aquí
+  $('#pedido .pedido-meta').textContent = !partida.marcas.includes('epilogo')
+    ? faltaParaElFinal() : '';
   abrePedido({ ingredientes: ings, partida, P: ctx.P, mejoras, alComprar: m => {
     partida.caja = Math.round((partida.caja - m.precio) * 100) / 100;
     partida.mejoras.push(m.id);

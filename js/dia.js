@@ -73,11 +73,13 @@ export function reparto(partida, ids) {
   return { lista, capricho };
 }
 
-// ---------- el Málaga (sección 2): jornada cada siete días; el lunes se sabe cómo quedó ----------
+// ---------- el Málaga (sección 2): juega cualquier día (main.js decide cuándo); al día siguiente se sabe cómo quedó ----------
 // gana 40 %, empata 30 %, pierde 30 %, con un resultado creíble
-export function jornada() {
+// (si algo espera un resultado, «prefiere», sale ese el 70 % de las veces: si no, una historia que
+// pide que pierda el Málaga podía tardar semanas)
+export function jornada(prefiere = null) {
   const r = Math.random();
-  const res = r < 0.4 ? 'gana' : r < 0.7 ? 'empata' : 'pierde';
+  const res = prefiere && Math.random() < 0.7 ? prefiere : r < 0.4 ? 'gana' : r < 0.7 ? 'empata' : 'pierde';
   const a = 1 + Math.floor(Math.random() * 3), b = Math.floor(Math.random() * a);
   const goles = res === 'gana' ? `${a}-${b}` : res === 'pierde' ? `${b}-${a}` : `${b}-${b}`;
   return { res, goles };
@@ -87,7 +89,7 @@ export function jornada() {
 // Una visita sale si tiene todas sus banderas («requiere»), ninguna de «sin», toca el día que pide
 // («cuando»: factura, trimestre) y no se ha hecho ya (salvo la n 0, la que se repite). Las de
 // «solo_si_perfecto» salen si la anterior salió perfecta; las de «jornada-gana» o «jornada-pierde»,
-// solo el lunes siguiente a ese resultado del Málaga; las de «minVisitas», cuando ese cliente ya ha
+// solo el día siguiente a ese resultado del Málaga; las de «minVisitas», cuando ese cliente ya ha
 // venido esas veces (la vigésima de Totodile).
 const tieneBandera = (m, partida, hoy) => (m.startsWith('jornada-') ? hoy.jornada === m.slice(8) : partida.marcas.includes(m));
 export function visitaPara(dlg, partida, hoy) {
@@ -108,11 +110,43 @@ export function visitaPara(dlg, partida, hoy) {
   return hechas.length ? { n: 0, repetida: true, llega: [{ quien: dlg.id, texto: '…' }] } : null;
 }
 
-// Los clientes de hoy: entre 3 y 6, con los de historia nueva por delante de los que repiten. Como
-// mucho tres historias nuevas al día (lo pidió Jorge: con más, el día 16 ya estaba casi todo visto y
-// luego solo venían repetidos), así duran hasta el final, sobre el día 30. Los que vuelven a por «lo
-// de siempre» se turnan: primero el que hace más que no viene, y el que vino ayer, solo si no hay otro.
-export const NUEVOS_AL_DIA = 3;
+// Las historias que quedan por ver (sus marcas) y que todavía pueden salir: las que ya no pueden (la
+// de la baja, si la baja ya pasó; la otra rama de una que se ha elegido) no cuentan. La vigésima de
+// Totodile (la de «minVisitas») es un regalo, no historia: tampoco cuenta.
+const BANDERAS_DE_SUCESO = ['cuota-1', 'trimestre-1', 'rosaleda', 'galgo-1', 'caja-b'];
+export function historiasPendientes(lista, dialogos, partida) {
+  const hechas = new Set(partida.marcas);
+  const visitas = lista.flatMap(c => (dialogos[c.id]?.visitas || []).filter(v => v.marca && !v.minVisitas && (v.llega || []).length));
+  const bajaPasada = partida.diaBaja != null && partida.dia > partida.diaBaja;
+  const alcanzan = new Set();
+  const puede = m => hechas.has(m) || alcanzan.has(m) || m.startsWith('jornada-') || BANDERAS_DE_SUCESO.includes(m) || (m === 'baja' && !bajaPasada);
+  for (let cambio = true; cambio;) {
+    cambio = false;
+    for (const v of visitas) {
+      if (hechas.has(v.marca) || alcanzan.has(v.marca)) continue;
+      if ((v.sin || []).some(m => hechas.has(m))) continue;
+      if (v.cuando === 'baja' && bajaPasada) continue;
+      if ((v.requiere || []).every(puede)) { alcanzan.add(v.marca); cambio = true; }
+    }
+  }
+  return [...alcanzan];
+}
+
+// Qué resultado del Málaga espera alguna historia que ya podría salir (solo le falta el partido)
+export function jornadaEsperada(lista, dialogos, partida) {
+  const quiere = [];
+  for (const c of lista) for (const v of dialogos[c.id]?.visitas || []) {
+    if (!v.marca || partida.marcas.includes(v.marca) || (v.sin || []).some(m => partida.marcas.includes(m))) continue;
+    const pide = (v.requiere || []).filter(m => m.startsWith('jornada-'));
+    if (pide.length && (v.requiere || []).every(m => m.startsWith('jornada-') || partida.marcas.includes(m))) quiere.push(...pide.map(m => m.slice(8)));
+  }
+  return quiere;
+}
+
+// Los clientes de hoy: entre 3 y 6, con los de historia nueva por delante de los que repiten (el final
+// llega al acabar todas las historias: así no hay días de relleno). Los que vuelven a por «lo de
+// siempre» se turnan: primero el que hace más que no viene, y el que vino ayer, solo si no hay otro.
+export const NUEVOS_AL_DIA = 6;
 export function clientesDeHoy(lista, dialogos, partida, hoy) {
   const con = lista.map(c => ({ c, v: visitaPara(dialogos[c.id], partida, hoy) })).filter(x => x.v);
   const mezcla = a => a.map(x => [Math.random(), x]).sort((p, q) => p[0] - q[0]).map(x => x[1]);
