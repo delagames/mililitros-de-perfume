@@ -1771,6 +1771,7 @@ const PRUEBAS = [
   ['presentacion', 'El Señor Mililitros se presenta', ''],
   ['noche', 'Un WhatsApp de madrugada', ''],
   ['mejoras', 'Las mejoras de la tienda', ''],
+  ['gemido', 'El gemido de la cola de Girafarig', ''],
   ['baile', 'El baile', 'Con un perfume perfecto: los perros de la calle bailan dos segundos.'],
   ['caras', 'Las caras del Señor Mililitros', ''],
   ['altillo', 'El altillo (la escalera arreglada)', ''],
@@ -1816,6 +1817,18 @@ function prueba(id) {
         [{ texto: 'Siguiente', accion: () => ver((k + 1) % mejoras.length) }, { texto: 'Volver', secundario: true, accion: salir }]);
     };
     ver(0);
+    return;
+  }
+  // el gemido de la cola: el largo (el de la frase de Eevee) y el corto (el de vez en cuando)
+  if (id === 'gemido') {
+    enLaCalle.solo = null;
+    ir('mostrador');
+    $('#lugar').textContent = rotulo;
+    const cola = cara => ({ cara: portraitUrl('0203-cola', cara), nombre: 'La cola' });
+    const otro = [{ texto: 'El largo', accion: () => largo() }, { texto: 'El corto', accion: () => corto() }, volver];
+    const largo = () => decir({ ...cola('Joyous'), texto: '¿De ti misma? Mmmmmh… aaaaah… ay, sí… uffff, qué gustito.' }, otro);
+    const corto = () => { gemido(); decir({ ...cola('Special0'), nombre: 'La cola (el corto)', texto: 'El que suena de vez en cuando, en cualquier frase de la cola.' }, otro); };
+    largo();
     return;
   }
   if (id === 'noche') {
