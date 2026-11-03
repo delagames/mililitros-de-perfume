@@ -927,7 +927,9 @@ function entrega(perfume) {
   if (cobra && partida.hoy.factura && !partida.hoy.facturado) {
     partida.hoy.facturado = true;
     despues = () => facturaAlReves(c, adios);
-  } else if (cobra && Math.random() < 0.2) {
+  } else if (cobra && partida.dia - (partida.diaEnvuelto ?? -9) >= 3 && Math.random() < 0.3) {
+    // (lo de envolver para regalo, como mucho una vez cada tres días: salía casi a diario)
+    partida.diaEnvuelto = partida.dia;
     despues = () => serie([fraseDe(c, { quien: c.id, cara: 'Happy', texto: 'Ah, ¿me lo envuelves? Es para regalo.' })],
       [{ texto: 'Envolver', accion: () => juegaEnvolver(c, adios) }, { texto: 'No hay papel', secundario: true, accion: adios }]);
   }
