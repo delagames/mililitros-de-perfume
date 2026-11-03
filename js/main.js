@@ -493,17 +493,27 @@ function pasaCliente() {
 }
 
 // Lo que dice al llegar. La visita que se repite (la n 0) tiene muchas frases sueltas: una o dos.
-// En el trimestre, todos hablan de facturas.
+// En el trimestre, uno de cada tres habla de facturas: después de llegar (para no pisar cómo empieza su
+// historia) y sin repetir frase en el mismo día.
 const DE_GENGAR = ['Bienvenido, {c}. Morty está malo. Yo sé lo que hiciste el jueves.', 'Hola, {c}. Pase. Su madre le manda recuerdos. La de verdad.',
   '{c}. Le esperaba. Le esperaba desde hace mucho.', 'Morty no está. Morty está en todas partes. Pase, {c}.',
   'Qué buen día, {c}. Para algunos.', 'Hola, {c}. No mire detrás de usted. Ahora sí.'];
-const DE_FACTURAS = ['Antes de nada: ¿esto me lo puedes facturar? Es el trimestre.', '¿Tú ya has presentado el trimestre? Yo estoy de facturas hasta las orejas.',
+const DE_FACTURAS = ['Por cierto: ¿esto me lo puedes facturar? Es el trimestre.', '¿Tú ya has presentado el trimestre? Yo estoy de facturas hasta las orejas.',
   'Perdona la cara. Llevo tres días con el trimestre.', 'Si me haces factura, mejor. Si no, también. Es el trimestre, ya sabes.'];
 function frasesVisita(c, v) {
   let llega = v.llega;
   if (v.n === 0 && llega.length > 3) llega = llega.map(f => [Math.random(), f]).sort((a, b) => a[0] - b[0]).slice(0, 1 + Math.floor(Math.random() * 2)).map(x => x[1]);
   const frases = llega.map(f => fraseDe(c, f));
-  if (partida.hoy?.trimestre) frases.unshift(fraseDe(c, { quien: c.id, cara: 'Normal', texto: DE_FACTURAS[Math.floor(Math.random() * DE_FACTURAS.length)] }));
+  const hoy = partida.hoy;
+  if (hoy?.trimestre && Math.random() < 1 / 3) {
+    hoy.facturasDichas ??= [];
+    const quedan = DE_FACTURAS.filter(f => !hoy.facturasDichas.includes(f));
+    if (quedan.length) {
+      const f = quedan[Math.floor(Math.random() * quedan.length)];
+      hoy.facturasDichas.push(f);
+      frases.push(fraseDe(c, { quien: c.id, cara: 'Normal', texto: f }));
+    }
+  }
   // el día de la baja atiende Gengar, con su sonrisa, y dice cosas que no debería saber
   if (partida.hoy?.baja) frases.unshift({ cara: portraitUrl('gengar', 'Special0'), nombre: 'Gengar', texto: DE_GENGAR[Math.floor(Math.random() * DE_GENGAR.length)].replace('{c}', c.nombre) });
   if (v.pide) frases.push(fraseDe(c, { quien: v.atiende || c.id, cara: 'Normal', texto: v.pide }));
