@@ -161,7 +161,9 @@ export function clientesDeHoy(lista, dialogos, partida, hoy) {
   const repiten = mezcla(con.filter(x => !conHistoria.includes(x)))
     .sort((a, b) => (ultima(a.c.id) === partida.dia - 1) - (ultima(b.c.id) === partida.dia - 1) || ultima(a.c.id) - ultima(b.c.id));
   const cuantos = Math.min(con.length, 4 + Math.floor(Math.random() * 4));
-  const pocos = repiten.slice(0, Math.max(2, 3 - nuevos.length));   // (como mucho dos repetidos al día, si hay historias)
+  // (como mucho dos repetidos al día mientras haya historias; sin historias ya, los que toquen: si no, con tres
+  // clientes al día no se paga la cuota y la deuda no bajaba nunca)
+  const pocos = nuevos.length ? repiten.slice(0, Math.max(2, 3 - nuevos.length)) : repiten;
   const cola = [...nuevos.slice(0, NUEVOS_AL_DIA), ...pocos].slice(0, cuantos);
   // (si con eso no llegan a tres, pasa alguna historia más, para que la tienda no se quede vacía)
   return [...cola, ...nuevos.slice(NUEVOS_AL_DIA)].slice(0, Math.max(cola.length, Math.min(3, con.length))).map(x => x.c.id);

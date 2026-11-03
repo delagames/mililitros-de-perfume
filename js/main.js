@@ -1190,6 +1190,9 @@ function empiezaDia(conSuceso = true) {
     const extra = clientesDeHoy(clientes, dialogos, partida, hoy).find(id => !hoy.cola.includes(id));
     if (extra) hoy.cola.push(extra);
   }
+  // (si falta el vídeo del vecino de la fiesta, que sale el día que viene Igglybuff, viene más a menudo)
+  if (!partida.sucesos.includes('vecino-fiesta') && !hoy.cola.includes('igglybuff') && dia >= 3 && Math.random() < 0.5
+    && todos.igglybuff && visitaPara(dialogos.igglybuff, partida, hoy)) hoy.cola.push('igglybuff');
   apuntaVisitas(hoy);
   // una mala noche (las de Gengar): por la mañana, una pista; y más perros por la calle
   hoy.malaNoche = dia > 2 && Math.random() < 0.35;
@@ -1549,7 +1552,7 @@ function trasLaCaja() {
   const pasos = [];
   const hoy = partida.hoy;
   // si el día ha ido bien, WhatsApp de Dirección: objetivos (cuando ya se le conoce, y no el mismo día que otro suyo)
-  if (hoy.ingresos >= 100 && partida.dia >= 4 && jefeVisto() && !partida.sucesos.includes('jefe-baile') && partida.dia - (partida.diaSucesoJefe ?? -9) >= 2) {
+  if ((hoy.ingresos >= 100 || partida.dia >= 10) && partida.dia >= 4 && jefeVisto() && !partida.sucesos.includes('jefe-baile') && partida.dia - (partida.diaSucesoJefe ?? -9) >= 2) {
     pasos.push(sigue => {
       partida.sucesos.push('jefe-baile');
       apuntaSuceso('jefe-baile');
@@ -2149,7 +2152,8 @@ if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
   navigator.serviceWorker.register('sw.js').catch(() => {});
 }
 
-preparar().then(() => {
+// (aunque falle algo al cargar, sin conexión, «Abrir la tienda» acaba funcionando: nunca bloquearse)
+preparar().finally(() => { listo = true; }).then(() => {
   // en local, ?calle o ?mostrador abre directamente esa vista (para revisar con capturas); ?suceso=<id>, un suceso
   if (!modoPruebas) { ir('inicio'); return; }
   const q = location.search.slice(1);
